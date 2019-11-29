@@ -1,0 +1,560 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: HSF::Section类参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>组合类型列表</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li><a href="functions.html"><span>组合类型成员</span></a></li>
+    </ul>
+  </div>
+  <div class="navpath"><a class="el" href="namespaceHSF.html">HSF</a>::<a class="el" href="classHSF_1_1Section.html">Section</a>
+  </div>
+</div>
+<div class="contents">
+<h1>HSF::Section类参考</h1><!-- doxytag: class="HSF::Section" -->
+<p>Elements with same type are stored in one section.  
+<a href="#_details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="build_2Include_2section_8hpp_source.html">section.hpp</a>&gt;</code></p>
+
+<p><a href="classHSF_1_1Section-members.html">所有成员的列表。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>静态公有成员</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a2b8ea34f5ad6bb13a9aba3bb4be70900">nodesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of nodes for each element type  <a href="#a2b8ea34f5ad6bb13a9aba3bb4be70900"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#ae863db6a0bd22e6904903c0d1a1ea612">facesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of faces for each element type  <a href="#ae863db6a0bd22e6904903c0d1a1ea612"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a1590d983dafb5374bbbbb3727804b080">faceNodesForEle</a> (<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *<a class="el" href="classHSF_1_1Section.html#a21e40283b7ab3f9a90264724747b18b1">conn</a>, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> idx)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">the connectivity of faces and nodes for each element type  <a href="#a1590d983dafb5374bbbbb3727804b080"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#ab980393a237c4f886589726f45b34803">compareEleType</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> secType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> meshType_)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">whether the section belongs to the entity through the elements type  <a href="#ab980393a237c4f886589726f45b34803"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a253bd8ce6b49a2c7c46d3b2588a787a9">nodesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of nodes for each element type  <a href="#a253bd8ce6b49a2c7c46d3b2588a787a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a44cf6f64b817e7126b03d4fda4b94b1a">facesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of faces for each element type  <a href="#a44cf6f64b817e7126b03d4fda4b94b1a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a6e45839e208a8e70af86e9d51a06d1cf">faceNodesForEle</a> (<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *<a class="el" href="classHSF_1_1Section.html#a21e40283b7ab3f9a90264724747b18b1">conn</a>, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> idx)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">the connectivity of faces and nodes for each element type  <a href="#a6e45839e208a8e70af86e9d51a06d1cf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#af17737c4ca44540770552c8790f40897">compareEleType</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> secType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> meshType_)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">whether the section belongs to the entity through the elements type  <a href="#af17737c4ca44540770552c8790f40897"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a253bd8ce6b49a2c7c46d3b2588a787a9">nodesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of nodes for each element type  <a href="#a253bd8ce6b49a2c7c46d3b2588a787a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a44cf6f64b817e7126b03d4fda4b94b1a">facesNumForEle</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">counts of faces for each element type  <a href="#a44cf6f64b817e7126b03d4fda4b94b1a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a6e45839e208a8e70af86e9d51a06d1cf">faceNodesForEle</a> (<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *<a class="el" href="classHSF_1_1Section.html#a21e40283b7ab3f9a90264724747b18b1">conn</a>, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> eleType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> idx)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">the connectivity of faces and nodes for each element type  <a href="#a6e45839e208a8e70af86e9d51a06d1cf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#af17737c4ca44540770552c8790f40897">compareEleType</a> (const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> secType, const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> meshType_)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">whether the section belongs to the entity through the elements type  <a href="#af17737c4ca44540770552c8790f40897"></a><br/></td></tr>
+<tr><td colspan="2"><h2>公有属性</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a697a4c5a9aa63a9988a0e15d28ad29bd">name</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">ElementType_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a7f1a7eba24b2553f6e0e3919dbf05179">type</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a66f4b950c76813c20b8dc8c0cc6626a2">iStart</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">global start index of the section  <a href="#a66f4b950c76813c20b8dc8c0cc6626a2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#aa55c4d1b564b144f7d35057210282c44">iEnd</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">global end index of the section  <a href="#aa55c4d1b564b144f7d35057210282c44"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#abbaa8c9618797848a5bae1e9e41287c9">num</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">count of elements of the section  <a href="#abbaa8c9618797848a5bae1e9e41287c9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#aec6498be47ad3f899d20ad3a814f1a2c">nBnd</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Section.html#a21e40283b7ab3f9a90264724747b18b1">conn</a></td></tr>
+</table>
+<hr/><a name="_details"></a><h2>详细描述</h2>
+<p>Elements with same type are stored in one section. </p>
+<hr/><h2>成员函数文档</h2>
+<a class="anchor" id="af17737c4ca44540770552c8790f40897"></a><!-- doxytag: member="HSF::Section::compareEleType" ref="af17737c4ca44540770552c8790f40897" args="(const Label secType, const Label meshType_)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool HSF::Section::compareEleType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>secType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>meshType_</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>whether the section belongs to the entity through the elements type </p>
+
+</div>
+</div>
+<a class="anchor" id="af17737c4ca44540770552c8790f40897"></a><!-- doxytag: member="HSF::Section::compareEleType" ref="af17737c4ca44540770552c8790f40897" args="(const Label secType, const Label meshType_)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool HSF::Section::compareEleType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>secType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>meshType_</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>whether the section belongs to the entity through the elements type </p>
+
+</div>
+</div>
+<a class="anchor" id="ab980393a237c4f886589726f45b34803"></a><!-- doxytag: member="HSF::Section::compareEleType" ref="ab980393a237c4f886589726f45b34803" args="(const Label secType, const Label meshType_)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool HSF::Section::compareEleType </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>secType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>meshType_</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>whether the section belongs to the entity through the elements type </p>
+<p>counts of nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a6e45839e208a8e70af86e9d51a06d1cf"></a><!-- doxytag: member="HSF::Section::faceNodesForEle" ref="a6e45839e208a8e70af86e9d51a06d1cf" args="(Label *conn, const Label eleType, const Label idx)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Array&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt; HSF::Section::faceNodesForEle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td>
+          <td class="paramname"> <em>conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>idx</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>the connectivity of faces and nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a6e45839e208a8e70af86e9d51a06d1cf"></a><!-- doxytag: member="HSF::Section::faceNodesForEle" ref="a6e45839e208a8e70af86e9d51a06d1cf" args="(Label *conn, const Label eleType, const Label idx)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Array&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt; HSF::Section::faceNodesForEle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td>
+          <td class="paramname"> <em>conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>idx</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>the connectivity of faces and nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a1590d983dafb5374bbbbb3727804b080"></a><!-- doxytag: member="HSF::Section::faceNodesForEle" ref="a1590d983dafb5374bbbbb3727804b080" args="(Label *conn, const Label eleType, const Label idx)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; HSF::Section::faceNodesForEle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td>
+          <td class="paramname"> <em>conn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>idx</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>the connectivity of faces and nodes for each element type </p>
+<p>whether the section belongs to the entity through the elements type </p>
+
+<p><p>the first face</p>
+<p>the second face</p>
+<p>the third face</p>
+<p>the fourth face</p>
+<p>the first face</p>
+<p>the second face</p>
+<p>the third face</p>
+<p>the fourth face</p>
+<p>the fourth face</p>
+<p>the fourth face</p>
+<p>the first face</p>
+<p>the second face</p>
+<p>the third face</p>
+<p>the fourth face</p>
+<p>the first face</p>
+<p>the second face</p>
+<p>the third face</p>
+<p>the fourth face</p>
+<p>the fourth face</p>
+<p>the fourth face </p>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a44cf6f64b817e7126b03d4fda4b94b1a"></a><!-- doxytag: member="HSF::Section::facesNumForEle" ref="a44cf6f64b817e7126b03d4fda4b94b1a" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::facesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of faces for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a44cf6f64b817e7126b03d4fda4b94b1a"></a><!-- doxytag: member="HSF::Section::facesNumForEle" ref="a44cf6f64b817e7126b03d4fda4b94b1a" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::facesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of faces for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="ae863db6a0bd22e6904903c0d1a1ea612"></a><!-- doxytag: member="HSF::Section::facesNumForEle" ref="ae863db6a0bd22e6904903c0d1a1ea612" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::facesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of faces for each element type </p>
+<p>the connectivity of faces and nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a253bd8ce6b49a2c7c46d3b2588a787a9"></a><!-- doxytag: member="HSF::Section::nodesNumForEle" ref="a253bd8ce6b49a2c7c46d3b2588a787a9" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::nodesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a253bd8ce6b49a2c7c46d3b2588a787a9"></a><!-- doxytag: member="HSF::Section::nodesNumForEle" ref="a253bd8ce6b49a2c7c46d3b2588a787a9" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::nodesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of nodes for each element type </p>
+
+</div>
+</div>
+<a class="anchor" id="a2b8ea34f5ad6bb13a9aba3bb4be70900"></a><!-- doxytag: member="HSF::Section::nodesNumForEle" ref="a2b8ea34f5ad6bb13a9aba3bb4be70900" args="(const Label eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> HSF::Section::nodesNumForEle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>counts of nodes for each element type </p>
+<p>counts of faces for each element type </p>
+
+</div>
+</div>
+<hr/><h2>成员数据文档</h2>
+<a class="anchor" id="a21e40283b7ab3f9a90264724747b18b1"></a><!-- doxytag: member="HSF::Section::conn" ref="a21e40283b7ab3f9a90264724747b18b1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> * <a class="el" href="classHSF_1_1Section.html#a21e40283b7ab3f9a90264724747b18b1">HSF::Section::conn</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa55c4d1b564b144f7d35057210282c44"></a><!-- doxytag: member="HSF::Section::iEnd" ref="aa55c4d1b564b144f7d35057210282c44" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="el" href="classHSF_1_1Section.html#aa55c4d1b564b144f7d35057210282c44">HSF::Section::iEnd</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>global end index of the section </p>
+
+</div>
+</div>
+<a class="anchor" id="a66f4b950c76813c20b8dc8c0cc6626a2"></a><!-- doxytag: member="HSF::Section::iStart" ref="a66f4b950c76813c20b8dc8c0cc6626a2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="el" href="classHSF_1_1Section.html#a66f4b950c76813c20b8dc8c0cc6626a2">HSF::Section::iStart</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>global start index of the section </p>
+
+</div>
+</div>
+<a class="anchor" id="a697a4c5a9aa63a9988a0e15d28ad29bd"></a><!-- doxytag: member="HSF::Section::name" ref="a697a4c5a9aa63a9988a0e15d28ad29bd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * <a class="el" href="classHSF_1_1Section.html#a697a4c5a9aa63a9988a0e15d28ad29bd">HSF::Section::name</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aec6498be47ad3f899d20ad3a814f1a2c"></a><!-- doxytag: member="HSF::Section::nBnd" ref="aec6498be47ad3f899d20ad3a814f1a2c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="el" href="classHSF_1_1Section.html#aec6498be47ad3f899d20ad3a814f1a2c">HSF::Section::nBnd</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abbaa8c9618797848a5bae1e9e41287c9"></a><!-- doxytag: member="HSF::Section::num" ref="abbaa8c9618797848a5bae1e9e41287c9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="el" href="classHSF_1_1Section.html#abbaa8c9618797848a5bae1e9e41287c9">HSF::Section::num</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>count of elements of the section </p>
+
+</div>
+</div>
+<a class="anchor" id="a7f1a7eba24b2553f6e0e3919dbf05179"></a><!-- doxytag: member="HSF::Section::type" ref="a7f1a7eba24b2553f6e0e3919dbf05179" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ElementType_t <a class="el" href="classHSF_1_1Section.html#a7f1a7eba24b2553f6e0e3919dbf05179">HSF::Section::type</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成：<ul>
+<li>build/Include/<a class="el" href="build_2Include_2section_8hpp_source.html">section.hpp</a></li>
+<li>build/mpicxxOptInt64/src/mesh/<a class="el" href="build_2mpicxxOptInt64_2src_2mesh_2section_8hpp_source.html">section.hpp</a></li>
+<li>src/mesh/<a class="el" href="src_2mesh_2section_8hpp_source.html">section.hpp</a></li>
+<li>build/mpicxxOptInt64/src/mesh/<a class="el" href="build_2mpicxxOptInt64_2src_2mesh_2section_8cpp.html">section.cpp</a></li>
+<li>src/mesh/<a class="el" href="src_2mesh_2section_8cpp.html">section.cpp</a></li>
+</ul>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

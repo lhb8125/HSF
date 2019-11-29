@@ -1,0 +1,117 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/Include/iterator.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/Include/iterator.hpp</h1><a href="build_2Include_2iterator_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00012"></a><a class="code" href="classIterator.html">00012</a> <span class="keyword">class </span><a class="code" href="classIterator.html" title="Iterator.">Iterator</a>
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014 <span class="keyword">private</span>:
+<a name="l00016"></a>00016         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> meshInfoNum_;
+<a name="l00018"></a>00018         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> fieldNum_;
+<a name="l00020"></a>00020         Array&lt;Scalar&gt; meshInfo_;
+<a name="l00022"></a>00022         Array&lt;Scalar&gt; field_;
+<a name="l00024"></a>00024         ArrayArray&lt;Label&gt; topologyArray_;
+<a name="l00028"></a>00028         <span class="keywordtype">void</span> getTopologyArray(coupledOperator&amp; cOpt);
+<a name="l00032"></a>00032         <span class="keywordtype">void</span> getOperator(coupledOperator&amp; cOpt);
+<a name="l00033"></a>00033 <span class="keyword">public</span>:
+<a name="l00037"></a><a class="code" href="classIterator.html#a30f4489aebb0ea1a56da6925d03eecfb">00037</a>         <a class="code" href="classIterator.html#a30f4489aebb0ea1a56da6925d03eecfb">Iterator</a>()
+<a name="l00038"></a>00038         {
+<a name="l00039"></a>00039                 meshInfoNum_ = 0;
+<a name="l00040"></a>00040                 fieldNum_    = 0;
+<a name="l00041"></a>00041         };
+<a name="l00046"></a><a class="code" href="classIterator.html#aef11e42fab332c1ef29187d4c7ab2b6c">00046</a>         <a class="code" href="classIterator.html#a30f4489aebb0ea1a56da6925d03eecfb">Iterator</a>(coupledOperator* cOpt)
+<a name="l00047"></a>00047         {
+<a name="l00048"></a>00048                 meshInfoNum_ = 0;
+<a name="l00049"></a>00049                 <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; meshInfoNum_; ++i)
+<a name="l00050"></a>00050                 {
+<a name="l00051"></a>00051                         meshInfo_.push_back(cOpt.meshInfo[i]);
+<a name="l00052"></a>00052                         meshInfoNum_++;
+<a name="l00053"></a>00053                 }
+<a name="l00054"></a>00054 
+<a name="l00055"></a>00055                 fieldNum_ = 0;
+<a name="l00056"></a>00056                 <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; fieldNum_; ++i)
+<a name="l00057"></a>00057                 {
+<a name="l00058"></a>00058                         field_[i].push_back(cOpt.field[i]);
+<a name="l00059"></a>00059                         fieldNum_++;
+<a name="l00060"></a>00060                 }
+<a name="l00061"></a>00061 
+<a name="l00062"></a>00062                 getTopologyArray(cOpt);
+<a name="l00063"></a>00063                 getOperator(cOpt);
+<a name="l00064"></a>00064         };
+<a name="l00068"></a>00068         <a class="code" href="classIterator.html#aab6716f5bdecb49e9cdd754359408ab6">~Iterator</a>();
+<a name="l00073"></a><a class="code" href="classIterator.html#a51e761bd6eb92e306b30e1c1baadb394">00073</a>         <span class="keywordtype">void</span> getTopologyArray(cOpt)
+<a name="l00074"></a>00074         {
+<a name="l00075"></a>00075                 <span class="keywordflow">if</span>(cOpt.discInfo==cell2face)
+<a name="l00076"></a>00076                 {
+<a name="l00077"></a>00077                         topologyArray_ = cOpt.mesh.getTopology().getCell2Face();
+<a name="l00078"></a>00078                 }
+<a name="l00079"></a>00079                 <span class="comment">/*</span>
+<a name="l00080"></a>00080 <span class="comment">                ...</span>
+<a name="l00081"></a>00081 <span class="comment">                */</span>
+<a name="l00082"></a>00082         };
+<a name="l00087"></a><a class="code" href="classIterator.html#a6f5264776582089c8507dc3fc03a6113">00087</a>         <span class="keywordtype">void</span> <a class="code" href="classIterator.html#a6f5264776582089c8507dc3fc03a6113" title="Iteration.">Iteration</a>(coupledOperator&amp; cOpt)
+<a name="l00088"></a>00088         {
+<a name="l00089"></a>00089                 ops(meshInfo_, field_, topologyArray_);
+<a name="l00090"></a>00090         };
+<a name="l00091"></a>00091         
+<a name="l00092"></a>00092 };
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

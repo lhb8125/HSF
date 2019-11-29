@@ -1,0 +1,600 @@
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp}{
+\section{src/utilities/mpiWrapper/Communicator/Communicator.hpp文件参考}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp}\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+}
+{\ttfamily \#include \char`\"{}mpi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}usingCpp.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}basicFunction.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}OStream.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}MultiOStream.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}DummyOStream.hpp\char`\"{}}\par
+\subsection*{组合类型}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classHSF_1_1Communicator}{HSF::Communicator}
+\end{DoxyCompactItemize}
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespaceHSF}{HSF}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}{COMM\_\-MAX\_\-MSG\_\-NUM}~999
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}{CommOp}~MPI\_\-Op
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}{COMM\_\-SUM}~MPI\_\-SUM
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}{COMM\_\-MIN}~MPI\_\-MIN
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}{COMM\_\-MAX}~MPI\_\-MAX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}{COMM\_\-PROD}~MPI\_\-PROD
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}{COMM\_\-LAND}~MPI\_\-LAND
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}{COMM\_\-LOR}~MPI\_\-LOR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}{COMM\_\-BAND}~MPI\_\-BAND
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}{COMM\_\-BOR}~MPI\_\-BOR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}{COMM\_\-MAXLOC}~MPI\_\-MAXLOC
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}{COMM\_\-MINLOC}~MPI\_\-MINLOC
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}{COMM\_\-LXOR}~MPI\_\-LXOR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}{COMM\_\-BXOR}~MPI\_\-BXOR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}{COMM\_\-REPLACE}~MPI\_\-REPLACE
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}{CommData}~MPI\_\-Datatype
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}{COMM\_\-CHAR}~MPI\_\-CHAR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}{COMM\_\-UNSIGNED\_\-CHAR}~MPI\_\-UNSIGNED\_\-CHAR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}{COMM\_\-SHORT}~MPI\_\-SHORT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}{COMM\_\-UNSIGNED\_\-SHORT}~MPI\_\-UNSIGNED\_\-SHORT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}{COMM\_\-INT}~MPI\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}{COMM\_\-UNSIGNED}~MPI\_\-UNSIGNED
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}{COMM\_\-LONG}~MPI\_\-LONG
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}{COMM\_\-UNSIGNED\_\-LONG}~MPI\_\-UNSIGNED\_\-LONG
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}{COMM\_\-LONG\_\-LONG\_\-INT}~MPI\_\-LONG\_\-LONG\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}{COMM\_\-LONG\_\-LONG}~MPI\_\-LONG\_\-LONG
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}{COMM\_\-FLOAT}~MPI\_\-FLOAT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}{COMM\_\-DOUBLE}~MPI\_\-DOUBLE
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}{COMM\_\-LONG\_\-DOUBLE}~MPI\_\-LONG\_\-DOUBLE
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}{COMM\_\-BYTE}~MPI\_\-BYTE
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}{COMM\_\-WCHAR}~MPI\_\-WCHAR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}{COMM\_\-PACKED}~MPI\_\-PACKED
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}{COMM\_\-LB}~MPI\_\-LB
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}{COMM\_\-UB}~MPI\_\-UB
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}{COMM\_\-C\_\-COMPLEX}~MPI\_\-C\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}{COMM\_\-C\_\-FLOAT\_\-COMPLEX}~MPI\_\-C\_\-FLOAT\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}~MPI\_\-C\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}~MPI\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}{COMM\_\-2INT}~MPI\_\-2INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}{COMM\_\-C\_\-BOOL}~MPI\_\-C\_\-BOOL
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}{COMM\_\-SIGNED\_\-CHAR}~MPI\_\-SIGNED\_\-CHAR
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}~MPI\_\-UNSIGNED\_\-LONG\_\-LONG
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}{COMM\_\-CHARACTER}~MPI\_\-CHARACTER
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}{COMM\_\-INTEGER}~MPI\_\-INTEGER
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}{COMM\_\-REAL}~MPI\_\-REAL
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}{COMM\_\-LOGICAL}~MPI\_\-LOGICAL
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}{COMM\_\-COMPLEX}~MPI\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}{COMM\_\-DOUBLE\_\-PRECISION}~MPI\_\-DOUBLE\_\-PRECISION
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}{COMM\_\-2INTEGER}~MPI\_\-2INTEGER
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}{COMM\_\-2REAL}~MPI\_\-2REAL
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}{COMM\_\-DOUBLE\_\-COMPLEX}~MPI\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}{COMM\_\-2DOUBLE\_\-PRECISION}~MPI\_\-2DOUBLE\_\-PRECISION
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}{COMM\_\-2COMPLEX}~MPI\_\-2COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}{COMM\_\-2DOUBLE\_\-COMPLEX}~MPI\_\-2DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}{COMM\_\-REAL2}~MPI\_\-REAL2
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}{COMM\_\-REAL4}~MPI\_\-REAL4
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}{COMM\_\-COMPLEX8}~MPI\_\-COMPLEX8
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}{COMM\_\-REAL8}~MPI\_\-REAL8
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}{COMM\_\-COMPLEX16}~MPI\_\-COMPLEX16
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}{COMM\_\-REAL16}~MPI\_\-REAL16
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}{COMM\_\-COMPLEX32}~MPI\_\-COMPLEX32
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}{COMM\_\-INTEGER1}~MPI\_\-INTEGER1
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}{COMM\_\-COMPLEX4}~MPI\_\-COMPLEX4
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}{COMM\_\-INTEGER2}~MPI\_\-INTEGER2
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}{COMM\_\-INTEGER4}~MPI\_\-INTEGER4
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}{COMM\_\-INTEGER8}~MPI\_\-INTEGER8
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}{COMM\_\-INTEGER16}~MPI\_\-INTEGER16
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}{COMM\_\-INT8\_\-T}~MPI\_\-INT8\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}{COMM\_\-INT16\_\-T}~MPI\_\-INT16\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}{COMM\_\-INT32\_\-T}~MPI\_\-INT32\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}{COMM\_\-INT64\_\-T}~MPI\_\-INT64\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}{COMM\_\-UINT8\_\-T}~MPI\_\-UINT8\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}{COMM\_\-UINT16\_\-T}~MPI\_\-UINT16\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}{COMM\_\-UINT32\_\-T}~MPI\_\-UINT32\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}{COMM\_\-UINT64\_\-T}~MPI\_\-UINT64\_\-T
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}{COMM\_\-AINT}~MPI\_\-AINT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}{COMM\_\-OFFSET}~MPI\_\-OFFSET
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}{COMM\_\-FLOAT\_\-INT}~MPI\_\-FLOAT\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}{COMM\_\-DOUBLE\_\-INT}~MPI\_\-DOUBLE\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}{COMM\_\-LONG\_\-INT}~MPI\_\-LONG\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}{COMM\_\-SHORT\_\-INT}~MPI\_\-SHORT\_\-INT
+\item 
+\#define \hyperlink{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}{COMM\_\-LONG\_\-DOUBLE\_\-INT}~MPI\_\-LONG\_\-DOUBLE\_\-INT
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2COMPLEX@{COMM\_\-2COMPLEX}}
+\index{COMM\_\-2COMPLEX@{COMM\_\-2COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2COMPLEX~MPI\_\-2COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2DOUBLE\_\-COMPLEX@{COMM\_\-2DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-2DOUBLE\_\-COMPLEX@{COMM\_\-2DOUBLE\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2DOUBLE\_\-COMPLEX~MPI\_\-2DOUBLE\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2DOUBLE\_\-PRECISION@{COMM\_\-2DOUBLE\_\-PRECISION}}
+\index{COMM\_\-2DOUBLE\_\-PRECISION@{COMM\_\-2DOUBLE\_\-PRECISION}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2DOUBLE\_\-PRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2DOUBLE\_\-PRECISION~MPI\_\-2DOUBLE\_\-PRECISION}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2INT@{COMM\_\-2INT}}
+\index{COMM\_\-2INT@{COMM\_\-2INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2INT~MPI\_\-2INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2INTEGER@{COMM\_\-2INTEGER}}
+\index{COMM\_\-2INTEGER@{COMM\_\-2INTEGER}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2INTEGER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2INTEGER~MPI\_\-2INTEGER}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2REAL@{COMM\_\-2REAL}}
+\index{COMM\_\-2REAL@{COMM\_\-2REAL}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2REAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2REAL~MPI\_\-2REAL}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-AINT@{COMM\_\-AINT}}
+\index{COMM\_\-AINT@{COMM\_\-AINT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-AINT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-AINT~MPI\_\-AINT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BAND@{COMM\_\-BAND}}
+\index{COMM\_\-BAND@{COMM\_\-BAND}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BAND}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BAND~MPI\_\-BAND}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BOR@{COMM\_\-BOR}}
+\index{COMM\_\-BOR@{COMM\_\-BOR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BOR~MPI\_\-BOR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BXOR@{COMM\_\-BXOR}}
+\index{COMM\_\-BXOR@{COMM\_\-BXOR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BXOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BXOR~MPI\_\-BXOR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BYTE@{COMM\_\-BYTE}}
+\index{COMM\_\-BYTE@{COMM\_\-BYTE}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BYTE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BYTE~MPI\_\-BYTE}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-BOOL@{COMM\_\-C\_\-BOOL}}
+\index{COMM\_\-C\_\-BOOL@{COMM\_\-C\_\-BOOL}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-BOOL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-BOOL~MPI\_\-C\_\-BOOL}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-COMPLEX@{COMM\_\-C\_\-COMPLEX}}
+\index{COMM\_\-C\_\-COMPLEX@{COMM\_\-C\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-COMPLEX~MPI\_\-C\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-C\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-DOUBLE\_\-COMPLEX~MPI\_\-C\_\-DOUBLE\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-FLOAT\_\-COMPLEX@{COMM\_\-C\_\-FLOAT\_\-COMPLEX}}
+\index{COMM\_\-C\_\-FLOAT\_\-COMPLEX@{COMM\_\-C\_\-FLOAT\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-FLOAT\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-FLOAT\_\-COMPLEX~MPI\_\-C\_\-FLOAT\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX~MPI\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-CHAR@{COMM\_\-CHAR}}
+\index{COMM\_\-CHAR@{COMM\_\-CHAR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-CHAR~MPI\_\-CHAR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-CHARACTER@{COMM\_\-CHARACTER}}
+\index{COMM\_\-CHARACTER@{COMM\_\-CHARACTER}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-CHARACTER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-CHARACTER~MPI\_\-CHARACTER}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX@{COMM\_\-COMPLEX}}
+\index{COMM\_\-COMPLEX@{COMM\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX~MPI\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX16@{COMM\_\-COMPLEX16}}
+\index{COMM\_\-COMPLEX16@{COMM\_\-COMPLEX16}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX16~MPI\_\-COMPLEX16}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX32@{COMM\_\-COMPLEX32}}
+\index{COMM\_\-COMPLEX32@{COMM\_\-COMPLEX32}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX32}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX32~MPI\_\-COMPLEX32}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX4@{COMM\_\-COMPLEX4}}
+\index{COMM\_\-COMPLEX4@{COMM\_\-COMPLEX4}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX4~MPI\_\-COMPLEX4}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX8@{COMM\_\-COMPLEX8}}
+\index{COMM\_\-COMPLEX8@{COMM\_\-COMPLEX8}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX8~MPI\_\-COMPLEX8}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE@{COMM\_\-DOUBLE}}
+\index{COMM\_\-DOUBLE@{COMM\_\-DOUBLE}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE~MPI\_\-DOUBLE}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-COMPLEX@{COMM\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-DOUBLE\_\-COMPLEX@{COMM\_\-DOUBLE\_\-COMPLEX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-COMPLEX~MPI\_\-DOUBLE\_\-COMPLEX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-INT@{COMM\_\-DOUBLE\_\-INT}}
+\index{COMM\_\-DOUBLE\_\-INT@{COMM\_\-DOUBLE\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-INT~MPI\_\-DOUBLE\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-PRECISION@{COMM\_\-DOUBLE\_\-PRECISION}}
+\index{COMM\_\-DOUBLE\_\-PRECISION@{COMM\_\-DOUBLE\_\-PRECISION}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-PRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-PRECISION~MPI\_\-DOUBLE\_\-PRECISION}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-FLOAT@{COMM\_\-FLOAT}}
+\index{COMM\_\-FLOAT@{COMM\_\-FLOAT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-FLOAT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-FLOAT~MPI\_\-FLOAT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-FLOAT\_\-INT@{COMM\_\-FLOAT\_\-INT}}
+\index{COMM\_\-FLOAT\_\-INT@{COMM\_\-FLOAT\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-FLOAT\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-FLOAT\_\-INT~MPI\_\-FLOAT\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT@{COMM\_\-INT}}
+\index{COMM\_\-INT@{COMM\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT~MPI\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT16\_\-T@{COMM\_\-INT16\_\-T}}
+\index{COMM\_\-INT16\_\-T@{COMM\_\-INT16\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT16\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT16\_\-T~MPI\_\-INT16\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT32\_\-T@{COMM\_\-INT32\_\-T}}
+\index{COMM\_\-INT32\_\-T@{COMM\_\-INT32\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT32\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT32\_\-T~MPI\_\-INT32\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT64\_\-T@{COMM\_\-INT64\_\-T}}
+\index{COMM\_\-INT64\_\-T@{COMM\_\-INT64\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT64\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT64\_\-T~MPI\_\-INT64\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT8\_\-T@{COMM\_\-INT8\_\-T}}
+\index{COMM\_\-INT8\_\-T@{COMM\_\-INT8\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT8\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT8\_\-T~MPI\_\-INT8\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER@{COMM\_\-INTEGER}}
+\index{COMM\_\-INTEGER@{COMM\_\-INTEGER}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER~MPI\_\-INTEGER}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER1@{COMM\_\-INTEGER1}}
+\index{COMM\_\-INTEGER1@{COMM\_\-INTEGER1}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER1}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER1~MPI\_\-INTEGER1}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER16@{COMM\_\-INTEGER16}}
+\index{COMM\_\-INTEGER16@{COMM\_\-INTEGER16}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER16~MPI\_\-INTEGER16}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER2@{COMM\_\-INTEGER2}}
+\index{COMM\_\-INTEGER2@{COMM\_\-INTEGER2}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER2}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER2~MPI\_\-INTEGER2}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER4@{COMM\_\-INTEGER4}}
+\index{COMM\_\-INTEGER4@{COMM\_\-INTEGER4}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER4~MPI\_\-INTEGER4}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER8@{COMM\_\-INTEGER8}}
+\index{COMM\_\-INTEGER8@{COMM\_\-INTEGER8}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER8~MPI\_\-INTEGER8}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LAND@{COMM\_\-LAND}}
+\index{COMM\_\-LAND@{COMM\_\-LAND}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LAND}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LAND~MPI\_\-LAND}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LB@{COMM\_\-LB}}
+\index{COMM\_\-LB@{COMM\_\-LB}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LB}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LB~MPI\_\-LB}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LOGICAL@{COMM\_\-LOGICAL}}
+\index{COMM\_\-LOGICAL@{COMM\_\-LOGICAL}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LOGICAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LOGICAL~MPI\_\-LOGICAL}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG@{COMM\_\-LONG}}
+\index{COMM\_\-LONG@{COMM\_\-LONG}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG~MPI\_\-LONG}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-DOUBLE@{COMM\_\-LONG\_\-DOUBLE}}
+\index{COMM\_\-LONG\_\-DOUBLE@{COMM\_\-LONG\_\-DOUBLE}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-DOUBLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-DOUBLE~MPI\_\-LONG\_\-DOUBLE}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-DOUBLE\_\-INT@{COMM\_\-LONG\_\-DOUBLE\_\-INT}}
+\index{COMM\_\-LONG\_\-DOUBLE\_\-INT@{COMM\_\-LONG\_\-DOUBLE\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-DOUBLE\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-DOUBLE\_\-INT~MPI\_\-LONG\_\-DOUBLE\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-INT@{COMM\_\-LONG\_\-INT}}
+\index{COMM\_\-LONG\_\-INT@{COMM\_\-LONG\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-INT~MPI\_\-LONG\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-LONG@{COMM\_\-LONG\_\-LONG}}
+\index{COMM\_\-LONG\_\-LONG@{COMM\_\-LONG\_\-LONG}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-LONG~MPI\_\-LONG\_\-LONG}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-LONG\_\-INT@{COMM\_\-LONG\_\-LONG\_\-INT}}
+\index{COMM\_\-LONG\_\-LONG\_\-INT@{COMM\_\-LONG\_\-LONG\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-LONG\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-LONG\_\-INT~MPI\_\-LONG\_\-LONG\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LOR@{COMM\_\-LOR}}
+\index{COMM\_\-LOR@{COMM\_\-LOR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LOR~MPI\_\-LOR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LXOR@{COMM\_\-LXOR}}
+\index{COMM\_\-LXOR@{COMM\_\-LXOR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LXOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LXOR~MPI\_\-LXOR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAX@{COMM\_\-MAX}}
+\index{COMM\_\-MAX@{COMM\_\-MAX}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAX~MPI\_\-MAX}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAX\_\-MSG\_\-NUM@{COMM\_\-MAX\_\-MSG\_\-NUM}}
+\index{COMM\_\-MAX\_\-MSG\_\-NUM@{COMM\_\-MAX\_\-MSG\_\-NUM}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAX\_\-MSG\_\-NUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAX\_\-MSG\_\-NUM~999}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAXLOC@{COMM\_\-MAXLOC}}
+\index{COMM\_\-MAXLOC@{COMM\_\-MAXLOC}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAXLOC}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAXLOC~MPI\_\-MAXLOC}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MIN@{COMM\_\-MIN}}
+\index{COMM\_\-MIN@{COMM\_\-MIN}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MIN~MPI\_\-MIN}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MINLOC@{COMM\_\-MINLOC}}
+\index{COMM\_\-MINLOC@{COMM\_\-MINLOC}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MINLOC}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MINLOC~MPI\_\-MINLOC}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-OFFSET@{COMM\_\-OFFSET}}
+\index{COMM\_\-OFFSET@{COMM\_\-OFFSET}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-OFFSET}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-OFFSET~MPI\_\-OFFSET}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-PACKED@{COMM\_\-PACKED}}
+\index{COMM\_\-PACKED@{COMM\_\-PACKED}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-PACKED}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-PACKED~MPI\_\-PACKED}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-PROD@{COMM\_\-PROD}}
+\index{COMM\_\-PROD@{COMM\_\-PROD}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-PROD}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-PROD~MPI\_\-PROD}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL@{COMM\_\-REAL}}
+\index{COMM\_\-REAL@{COMM\_\-REAL}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL~MPI\_\-REAL}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL16@{COMM\_\-REAL16}}
+\index{COMM\_\-REAL16@{COMM\_\-REAL16}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL16~MPI\_\-REAL16}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL2@{COMM\_\-REAL2}}
+\index{COMM\_\-REAL2@{COMM\_\-REAL2}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL2}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL2~MPI\_\-REAL2}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL4@{COMM\_\-REAL4}}
+\index{COMM\_\-REAL4@{COMM\_\-REAL4}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL4~MPI\_\-REAL4}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL8@{COMM\_\-REAL8}}
+\index{COMM\_\-REAL8@{COMM\_\-REAL8}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL8~MPI\_\-REAL8}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REPLACE@{COMM\_\-REPLACE}}
+\index{COMM\_\-REPLACE@{COMM\_\-REPLACE}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REPLACE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REPLACE~MPI\_\-REPLACE}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SHORT@{COMM\_\-SHORT}}
+\index{COMM\_\-SHORT@{COMM\_\-SHORT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SHORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SHORT~MPI\_\-SHORT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SHORT\_\-INT@{COMM\_\-SHORT\_\-INT}}
+\index{COMM\_\-SHORT\_\-INT@{COMM\_\-SHORT\_\-INT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SHORT\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SHORT\_\-INT~MPI\_\-SHORT\_\-INT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SIGNED\_\-CHAR@{COMM\_\-SIGNED\_\-CHAR}}
+\index{COMM\_\-SIGNED\_\-CHAR@{COMM\_\-SIGNED\_\-CHAR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SIGNED\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SIGNED\_\-CHAR~MPI\_\-SIGNED\_\-CHAR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SUM@{COMM\_\-SUM}}
+\index{COMM\_\-SUM@{COMM\_\-SUM}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SUM~MPI\_\-SUM}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UB@{COMM\_\-UB}}
+\index{COMM\_\-UB@{COMM\_\-UB}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UB}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UB~MPI\_\-UB}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT16\_\-T@{COMM\_\-UINT16\_\-T}}
+\index{COMM\_\-UINT16\_\-T@{COMM\_\-UINT16\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT16\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT16\_\-T~MPI\_\-UINT16\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT32\_\-T@{COMM\_\-UINT32\_\-T}}
+\index{COMM\_\-UINT32\_\-T@{COMM\_\-UINT32\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT32\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT32\_\-T~MPI\_\-UINT32\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT64\_\-T@{COMM\_\-UINT64\_\-T}}
+\index{COMM\_\-UINT64\_\-T@{COMM\_\-UINT64\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT64\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT64\_\-T~MPI\_\-UINT64\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT8\_\-T@{COMM\_\-UINT8\_\-T}}
+\index{COMM\_\-UINT8\_\-T@{COMM\_\-UINT8\_\-T}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT8\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT8\_\-T~MPI\_\-UINT8\_\-T}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED@{COMM\_\-UNSIGNED}}
+\index{COMM\_\-UNSIGNED@{COMM\_\-UNSIGNED}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED~MPI\_\-UNSIGNED}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-CHAR@{COMM\_\-UNSIGNED\_\-CHAR}}
+\index{COMM\_\-UNSIGNED\_\-CHAR@{COMM\_\-UNSIGNED\_\-CHAR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-CHAR~MPI\_\-UNSIGNED\_\-CHAR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG}}
+\index{COMM\_\-UNSIGNED\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-LONG~MPI\_\-UNSIGNED\_\-LONG}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-LONG\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}}
+\index{COMM\_\-UNSIGNED\_\-LONG\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-LONG\_\-LONG~MPI\_\-UNSIGNED\_\-LONG\_\-LONG}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-SHORT@{COMM\_\-UNSIGNED\_\-SHORT}}
+\index{COMM\_\-UNSIGNED\_\-SHORT@{COMM\_\-UNSIGNED\_\-SHORT}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-SHORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-SHORT~MPI\_\-UNSIGNED\_\-SHORT}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-WCHAR@{COMM\_\-WCHAR}}
+\index{COMM\_\-WCHAR@{COMM\_\-WCHAR}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-WCHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-WCHAR~MPI\_\-WCHAR}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!CommData@{CommData}}
+\index{CommData@{CommData}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{CommData}]{\setlength{\rightskip}{0pt plus 5cm}\#define CommData~MPI\_\-Datatype}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}
+\hypertarget{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}{
+\index{src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}!CommOp@{CommOp}}
+\index{CommOp@{CommOp}!src/utilities/mpiWrapper/Communicator/Communicator.hpp@{src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{CommOp}]{\setlength{\rightskip}{0pt plus 5cm}\#define CommOp~MPI\_\-Op}}
+\label{src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}

@@ -1,0 +1,76 @@
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90}{
+\section{build/mpicxxOptInt64/test/ftest.f90文件参考}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90}\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+}
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespacevar__kind__def}{var\_\-kind\_\-def}
+\item 
+namespace \hyperlink{namespacevar__global}{var\_\-global}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+program \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}{main}
+\item 
+subroutine \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_ab0feb0b96896d0783a452ceb0884de54}{calc\_\-eles\_\-vol} (n\_\-ele, e2n, e2n\_\-pos, coord, ele\_\-type, vol)
+\item 
+subroutine \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_a65b36ff25ffa106dab5c6b52332982e1}{calc\_\-faces\_\-area} (n\_\-face, f2n, f2n\_\-pos, coord, area)
+\item 
+subroutine \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_aedcabc3101935ffa79dac989cdf8cf09}{calc\_\-HEXA\_\-vol} (coord, vol)
+\item 
+subroutine \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_a638fb93022b93255d8000bacff09a674}{calc\_\-QUAD\_\-area} (coord, area)
+\item 
+subroutine \hyperlink{build_2mpicxxOptInt64_2test_2ftest_8f90_a5595358e7ada913cd10a206235165422}{calc\_\-spmv} (n\_\-face, f2c, A, x, b)
+\end{DoxyCompactItemize}
+\subsection*{变量}
+\begin{DoxyCompactItemize}
+\item 
+integer(kind=4), parameter \hyperlink{namespacevar__kind__def_aa3b5571c2174e959545aafa1bd3fdaa8}{var\_\-kind\_\-def::dpL} = kind(.true.)
+\item 
+integer(kind=4), parameter \hyperlink{namespacevar__kind__def_adb3c90c729c1d40f3dfd28e762aa2b02}{var\_\-kind\_\-def::dpI} = 8
+\item 
+integer(kind=4), parameter \hyperlink{namespacevar__kind__def_a6f4f33a8b11a152a821a0ee8b1d6fa69}{var\_\-kind\_\-def::dpR} = 8
+\item 
+integer, parameter \hyperlink{namespacevar__global_afc73e7807a439bf3bc26589423ae3c91}{var\_\-global::strlen} = 100
+\item 
+integer, parameter \hyperlink{namespacevar__global_a6f0b7961ebb0eb949c22bc56c0b4065b}{var\_\-global::dim} = 3
+\item 
+integer, parameter \hyperlink{namespacevar__global_aaf3293fc78e326c60e3239dd8b665cb7}{var\_\-global::max\_\-n\_\-node} = 50
+\item 
+integer(dpI) \hyperlink{namespacevar__global_a5991406705b67a341f8f8b4619c270b4}{var\_\-global::err\_\-mem} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{函数文档}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_ab0feb0b96896d0783a452ceb0884de54}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!calc\_\-eles\_\-vol@{calc\_\-eles\_\-vol}}
+\index{calc\_\-eles\_\-vol@{calc\_\-eles\_\-vol}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{calc\_\-eles\_\-vol}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-eles\_\-vol (integer(dpI),intent(in) {\em n\_\-ele}, \/  integer(dpI),dimension($\ast$),intent(in) {\em e2n}, \/  integer(dpI),dimension($\ast$),intent(in) {\em e2n\_\-pos}, \/  real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  integer(dpI),dimension($\ast$),intent(in) {\em ele\_\-type}, \/  real(dpR),dimension($\ast$),intent(inout) {\em vol})}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_ab0feb0b96896d0783a452ceb0884de54}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_a65b36ff25ffa106dab5c6b52332982e1}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!calc\_\-faces\_\-area@{calc\_\-faces\_\-area}}
+\index{calc\_\-faces\_\-area@{calc\_\-faces\_\-area}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{calc\_\-faces\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-faces\_\-area (integer(dpI),intent(in) {\em n\_\-face}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2n}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2n\_\-pos}, \/  real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),dimension($\ast$),intent(inout) {\em area})}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_a65b36ff25ffa106dab5c6b52332982e1}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_aedcabc3101935ffa79dac989cdf8cf09}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!calc\_\-HEXA\_\-vol@{calc\_\-HEXA\_\-vol}}
+\index{calc\_\-HEXA\_\-vol@{calc\_\-HEXA\_\-vol}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{calc\_\-HEXA\_\-vol}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-HEXA\_\-vol (real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),intent(out) {\em vol})}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_aedcabc3101935ffa79dac989cdf8cf09}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_a638fb93022b93255d8000bacff09a674}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!calc\_\-QUAD\_\-area@{calc\_\-QUAD\_\-area}}
+\index{calc\_\-QUAD\_\-area@{calc\_\-QUAD\_\-area}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{calc\_\-QUAD\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-QUAD\_\-area (real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),intent(out) {\em area})}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_a638fb93022b93255d8000bacff09a674}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_a5595358e7ada913cd10a206235165422}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!calc\_\-spmv@{calc\_\-spmv}}
+\index{calc\_\-spmv@{calc\_\-spmv}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{calc\_\-spmv}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-spmv (integer(dpI),intent(in) {\em n\_\-face}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2c}, \/  real(dpR),dimension($\ast$),intent(in) {\em A}, \/  real(dpR),dimension($\ast$),intent(in) {\em x}, \/  real(dpR),dimension($\ast$),intent(inout) {\em b})}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_a5595358e7ada913cd10a206235165422}
+\hypertarget{build_2mpicxxOptInt64_2test_2ftest_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}{
+\index{build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}!main@{main}}
+\index{main@{main}!build/mpicxxOptInt64/test/ftest.f90@{build/mpicxxOptInt64/test/ftest.f90}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}program main ()}}
+\label{build_2mpicxxOptInt64_2test_2ftest_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}

@@ -1,0 +1,1688 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: HSF::COMM类参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>组合类型列表</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li><a href="functions.html"><span>组合类型成员</span></a></li>
+    </ul>
+  </div>
+  <div class="navpath"><a class="el" href="namespaceHSF.html">HSF</a>::<a class="el" href="classHSF_1_1COMM.html">COMM</a>
+  </div>
+</div>
+<div class="contents">
+<h1>HSF::COMM类参考</h1><!-- doxytag: class="HSF::COMM" -->
+<p><a class="el" href="classHSF_1_1COMM.html" title="COMM Communication entrance, enable flexibility by generating different global communication...">COMM</a> Communication entrance, enable flexibility by generating different global communication manager object.  
+<a href="#_details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="build_2Include_2mpiWrapper_8hpp_source.html">mpiWrapper.hpp</a>&gt;</code></p>
+
+<p><a href="classHSF_1_1COMM-members.html">所有成员的列表。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>静态公有成员</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a7132936c593ca869e3cf2ab967ea187e">init</a> (int *argc, char ***argv, char *type=&quot;MPI&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a90b5eb0d97e94e3eb00e534d7817f67e">stop</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a093162ff2492f8f27d86cb998ff52f10">duplicate</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">duplicate Copy constructor.  <a href="#a093162ff2492f8f27d86cb998ff52f10"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a1e80b3cf7e5fdf42c7e4461adfa116bc">split</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> newComm, const int color, const int nPart, const int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split split the referenced communicator to non-overlaping sub-communicators.  <a href="#a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a098fb0d3618c3ff9cd18f25eed6c8c25">extract</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const bool color, int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split extract a communicator to from the reference communicator.  <a href="#a098fb0d3618c3ff9cd18f25eed6c8c25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aaaf021a10daa5fbfa85102953a0d8f1c">reBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;oldComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int weight, const float thresholdRatio)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">reBalance calculate rebalance solution of the input communicators ( from different processes)  <a href="#aaaf021a10daa5fbfa85102953a0d8f1c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#afcbab02e03ac7f6bce379be298c427de">createCart</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ae7d2271832dcd8690685d8ccbee84615">createGraph</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad97b577f23c1a1f9f72d8d84b497e2c2">isParallel</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a73b9e5bcef8100fa37a940c2dd744c7b">getCommManager</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#adae610b00b4c4cd966a0d19cdf5fc0e8">getGlobalComm</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4c2a5c578e26fb2e53f8fad13f9e79ba">getGlobalId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a454b84b21cd889f986a94fe0d51d43ee">getGlobalSize</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aab59c2848eee97f010d9b50c3d3881b4">calculateBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, const int weight)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">calculateBalance calculate the balance ratio of the input communicators ( from different processes)  <a href="#aab59c2848eee97f010d9b50c3d3881b4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a34972039314a2f48f084316f6c2a02bb">pOut</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pOut return an IO object that is pre-connected with a log file of the current process.  <a href="#a34972039314a2f48f084316f6c2a02bb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad3b168a9b2f1a465334f5c161d8fb67b">pErr</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pErr return a multi-file IO object that is pre-connected with screen output and process log file  <a href="#ad3b168a9b2f1a465334f5c161d8fb67b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4e1c8c801a57bb3f57e78e89ecbe98a4">init</a> (int *argc, char ***argv, char *type=&quot;MPI&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4e6c81ad1d5471ea0b9cf1ff00afb041">stop</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a093162ff2492f8f27d86cb998ff52f10">duplicate</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">duplicate Copy constructor.  <a href="#a093162ff2492f8f27d86cb998ff52f10"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a1e80b3cf7e5fdf42c7e4461adfa116bc">split</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> newComm, const int color, const int nPart, const int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split split the referenced communicator to non-overlaping sub-communicators.  <a href="#a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a098fb0d3618c3ff9cd18f25eed6c8c25">extract</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const bool color, int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split extract a communicator to from the reference communicator.  <a href="#a098fb0d3618c3ff9cd18f25eed6c8c25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aaaf021a10daa5fbfa85102953a0d8f1c">reBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;oldComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int weight, const float thresholdRatio)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">reBalance calculate rebalance solution of the input communicators ( from different processes)  <a href="#aaaf021a10daa5fbfa85102953a0d8f1c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#afcbab02e03ac7f6bce379be298c427de">createCart</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ae7d2271832dcd8690685d8ccbee84615">createGraph</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad97b577f23c1a1f9f72d8d84b497e2c2">isParallel</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a73b9e5bcef8100fa37a940c2dd744c7b">getCommManager</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#adae610b00b4c4cd966a0d19cdf5fc0e8">getGlobalComm</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4c2a5c578e26fb2e53f8fad13f9e79ba">getGlobalId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a454b84b21cd889f986a94fe0d51d43ee">getGlobalSize</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aab59c2848eee97f010d9b50c3d3881b4">calculateBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, const int weight)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">calculateBalance calculate the balance ratio of the input communicators ( from different processes)  <a href="#aab59c2848eee97f010d9b50c3d3881b4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a34972039314a2f48f084316f6c2a02bb">pOut</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pOut return an IO object that is pre-connected with a log file of the current process.  <a href="#a34972039314a2f48f084316f6c2a02bb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad3b168a9b2f1a465334f5c161d8fb67b">pErr</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pErr return a multi-file IO object that is pre-connected with screen output and process log file  <a href="#ad3b168a9b2f1a465334f5c161d8fb67b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4e1c8c801a57bb3f57e78e89ecbe98a4">init</a> (int *argc, char ***argv, char *type=&quot;MPI&quot;)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4e6c81ad1d5471ea0b9cf1ff00afb041">stop</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a093162ff2492f8f27d86cb998ff52f10">duplicate</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">duplicate Copy constructor.  <a href="#a093162ff2492f8f27d86cb998ff52f10"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a1e80b3cf7e5fdf42c7e4461adfa116bc">split</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> newComm, const int color, const int nPart, const int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split split the referenced communicator to non-overlaping sub-communicators.  <a href="#a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a098fb0d3618c3ff9cd18f25eed6c8c25">extract</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const bool color, int priority=1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">split extract a communicator to from the reference communicator.  <a href="#a098fb0d3618c3ff9cd18f25eed6c8c25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aaaf021a10daa5fbfa85102953a0d8f1c">reBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;oldComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int weight, const float thresholdRatio)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">reBalance calculate rebalance solution of the input communicators ( from different processes)  <a href="#aaaf021a10daa5fbfa85102953a0d8f1c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#afcbab02e03ac7f6bce379be298c427de">createCart</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ae7d2271832dcd8690685d8ccbee84615">createGraph</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad97b577f23c1a1f9f72d8d84b497e2c2">isParallel</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a73b9e5bcef8100fa37a940c2dd744c7b">getCommManager</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#adae610b00b4c4cd966a0d19cdf5fc0e8">getGlobalComm</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a4c2a5c578e26fb2e53f8fad13f9e79ba">getGlobalId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a454b84b21cd889f986a94fe0d51d43ee">getGlobalSize</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static float&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#aab59c2848eee97f010d9b50c3d3881b4">calculateBalance</a> (const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;refComm, const int weight)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">calculateBalance calculate the balance ratio of the input communicators ( from different processes)  <a href="#aab59c2848eee97f010d9b50c3d3881b4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#a34972039314a2f48f084316f6c2a02bb">pOut</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pOut return an IO object that is pre-connected with a log file of the current process.  <a href="#a34972039314a2f48f084316f6c2a02bb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classHSF_1_1OStream.html">OStream</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html#ad3b168a9b2f1a465334f5c161d8fb67b">pErr</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">pErr return a multi-file IO object that is pre-connected with screen output and process log file  <a href="#ad3b168a9b2f1a465334f5c161d8fb67b"></a><br/></td></tr>
+</table>
+<hr/><a name="_details"></a><h2>详细描述</h2>
+<p><a class="el" href="classHSF_1_1COMM.html" title="COMM Communication entrance, enable flexibility by generating different global communication...">COMM</a> Communication entrance, enable flexibility by generating different global communication manager object. </p>
+<hr/><h2>成员函数文档</h2>
+<a class="anchor" id="aab59c2848eee97f010d9b50c3d3881b4"></a><!-- doxytag: member="HSF::COMM::calculateBalance" ref="aab59c2848eee97f010d9b50c3d3881b4" args="(const Communicator &amp;refComm, const int weight)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float HSF::COMM::calculateBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>calculateBalance calculate the balance ratio of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd>current ratio to ideal load balance (100%), non-negative </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aab59c2848eee97f010d9b50c3d3881b4"></a><!-- doxytag: member="HSF::COMM::calculateBalance" ref="aab59c2848eee97f010d9b50c3d3881b4" args="(const Communicator &amp;refComm, const int weight)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float HSF::COMM::calculateBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>calculateBalance calculate the balance ratio of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd>current ratio to ideal load balance (100%), non-negative </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aab59c2848eee97f010d9b50c3d3881b4"></a><!-- doxytag: member="HSF::COMM::calculateBalance" ref="aab59c2848eee97f010d9b50c3d3881b4" args="(const Communicator &amp;refComm, const int weight)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float HSF::COMM::calculateBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>calculateBalance calculate the balance ratio of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd>current ratio to ideal load balance (100%), non-negative </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afcbab02e03ac7f6bce379be298c427de"></a><!-- doxytag: member="HSF::COMM::createCart" ref="afcbab02e03ac7f6bce379be298c427de" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createCart </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>ndims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>periods</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afcbab02e03ac7f6bce379be298c427de"></a><!-- doxytag: member="HSF::COMM::createCart" ref="afcbab02e03ac7f6bce379be298c427de" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createCart </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>ndims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>periods</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afcbab02e03ac7f6bce379be298c427de"></a><!-- doxytag: member="HSF::COMM::createCart" ref="afcbab02e03ac7f6bce379be298c427de" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int ndims, const int *dims, int *periods, int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createCart </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>ndims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dims</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>periods</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae7d2271832dcd8690685d8ccbee84615"></a><!-- doxytag: member="HSF::COMM::createGraph" ref="ae7d2271832dcd8690685d8ccbee84615" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>degree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dests</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>weights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae7d2271832dcd8690685d8ccbee84615"></a><!-- doxytag: member="HSF::COMM::createGraph" ref="ae7d2271832dcd8690685d8ccbee84615" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>degree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dests</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>weights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae7d2271832dcd8690685d8ccbee84615"></a><!-- doxytag: member="HSF::COMM::createGraph" ref="ae7d2271832dcd8690685d8ccbee84615" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const int degree, const int *dests, const int *weights, const int reorder=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::createGraph </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>degree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>dests</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>weights</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>reorder</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a093162ff2492f8f27d86cb998ff52f10"></a><!-- doxytag: member="HSF::COMM::duplicate" ref="a093162ff2492f8f27d86cb998ff52f10" args="(const Communicator &amp;refComm, Communicator &amp;newComm)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::duplicate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>duplicate Copy constructor. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,reference</em>&nbsp;</td><td>communicator </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,a</em>&nbsp;</td><td>copy of the reference communicator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a093162ff2492f8f27d86cb998ff52f10"></a><!-- doxytag: member="HSF::COMM::duplicate" ref="a093162ff2492f8f27d86cb998ff52f10" args="(const Communicator &amp;refComm, Communicator &amp;newComm)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::duplicate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>duplicate Copy constructor. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,reference</em>&nbsp;</td><td>communicator </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,a</em>&nbsp;</td><td>copy of the reference communicator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a093162ff2492f8f27d86cb998ff52f10"></a><!-- doxytag: member="HSF::COMM::duplicate" ref="a093162ff2492f8f27d86cb998ff52f10" args="(const Communicator &amp;refComm, Communicator &amp;newComm)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::duplicate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>duplicate Copy constructor. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,reference</em>&nbsp;</td><td>communicator </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,a</em>&nbsp;</td><td>copy of the reference communicator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a098fb0d3618c3ff9cd18f25eed6c8c25"></a><!-- doxytag: member="HSF::COMM::extract" ref="a098fb0d3618c3ff9cd18f25eed6c8c25" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const bool color, int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::extract </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split extract a communicator to from the reference communicator. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do extraction </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by extraction </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify whether local process will participate in the new communicator or not. checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a098fb0d3618c3ff9cd18f25eed6c8c25"></a><!-- doxytag: member="HSF::COMM::extract" ref="a098fb0d3618c3ff9cd18f25eed6c8c25" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const bool color, int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::extract </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split extract a communicator to from the reference communicator. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do extraction </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by extraction </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify whether local process will participate in the new communicator or not. checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a098fb0d3618c3ff9cd18f25eed6c8c25"></a><!-- doxytag: member="HSF::COMM::extract" ref="a098fb0d3618c3ff9cd18f25eed6c8c25" args="(const Communicator &amp;refComm, Communicator &amp;newComm, const bool color, int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::extract </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bool&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split extract a communicator to from the reference communicator. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do extraction </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by extraction </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify whether local process will participate in the new communicator or not. checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a73b9e5bcef8100fa37a940c2dd744c7b"></a><!-- doxytag: member="HSF::COMM::getCommManager" ref="a73b9e5bcef8100fa37a940c2dd744c7b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a>&amp; HSF::COMM::getCommManager </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73b9e5bcef8100fa37a940c2dd744c7b"></a><!-- doxytag: member="HSF::COMM::getCommManager" ref="a73b9e5bcef8100fa37a940c2dd744c7b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a>&amp; HSF::COMM::getCommManager </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73b9e5bcef8100fa37a940c2dd744c7b"></a><!-- doxytag: member="HSF::COMM::getCommManager" ref="a73b9e5bcef8100fa37a940c2dd744c7b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1CommunicationManager.html">CommunicationManager</a>&amp; HSF::COMM::getCommManager </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adae610b00b4c4cd966a0d19cdf5fc0e8"></a><!-- doxytag: member="HSF::COMM::getGlobalComm" ref="adae610b00b4c4cd966a0d19cdf5fc0e8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&amp; HSF::COMM::getGlobalComm </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adae610b00b4c4cd966a0d19cdf5fc0e8"></a><!-- doxytag: member="HSF::COMM::getGlobalComm" ref="adae610b00b4c4cd966a0d19cdf5fc0e8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&amp; HSF::COMM::getGlobalComm </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adae610b00b4c4cd966a0d19cdf5fc0e8"></a><!-- doxytag: member="HSF::COMM::getGlobalComm" ref="adae610b00b4c4cd966a0d19cdf5fc0e8" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&amp; HSF::COMM::getGlobalComm </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4c2a5c578e26fb2e53f8fad13f9e79ba"></a><!-- doxytag: member="HSF::COMM::getGlobalId" ref="a4c2a5c578e26fb2e53f8fad13f9e79ba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4c2a5c578e26fb2e53f8fad13f9e79ba"></a><!-- doxytag: member="HSF::COMM::getGlobalId" ref="a4c2a5c578e26fb2e53f8fad13f9e79ba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4c2a5c578e26fb2e53f8fad13f9e79ba"></a><!-- doxytag: member="HSF::COMM::getGlobalId" ref="a4c2a5c578e26fb2e53f8fad13f9e79ba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a454b84b21cd889f986a94fe0d51d43ee"></a><!-- doxytag: member="HSF::COMM::getGlobalSize" ref="a454b84b21cd889f986a94fe0d51d43ee" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalSize </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a454b84b21cd889f986a94fe0d51d43ee"></a><!-- doxytag: member="HSF::COMM::getGlobalSize" ref="a454b84b21cd889f986a94fe0d51d43ee" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalSize </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a454b84b21cd889f986a94fe0d51d43ee"></a><!-- doxytag: member="HSF::COMM::getGlobalSize" ref="a454b84b21cd889f986a94fe0d51d43ee" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::getGlobalSize </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4e1c8c801a57bb3f57e78e89ecbe98a4"></a><!-- doxytag: member="HSF::COMM::init" ref="a4e1c8c801a57bb3f57e78e89ecbe98a4" args="(int *argc, char ***argv, char *type=&quot;MPI&quot;)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void HSF::COMM::init </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char ***&nbsp;</td>
+          <td class="paramname"> <em>argv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>type</em> = <code>&quot;MPI&quot;</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4e1c8c801a57bb3f57e78e89ecbe98a4"></a><!-- doxytag: member="HSF::COMM::init" ref="a4e1c8c801a57bb3f57e78e89ecbe98a4" args="(int *argc, char ***argv, char *type=&quot;MPI&quot;)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void HSF::COMM::init </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char ***&nbsp;</td>
+          <td class="paramname"> <em>argv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>type</em> = <code>&quot;MPI&quot;</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7132936c593ca869e3cf2ab967ea187e"></a><!-- doxytag: member="HSF::COMM::init" ref="a7132936c593ca869e3cf2ab967ea187e" args="(int *argc, char ***argv, char *type=&quot;MPI&quot;)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::COMM::init </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char ***&nbsp;</td>
+          <td class="paramname"> <em>argv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>type</em> = <code>&quot;MPI&quot;</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad97b577f23c1a1f9f72d8d84b497e2c2"></a><!-- doxytag: member="HSF::COMM::isParallel" ref="ad97b577f23c1a1f9f72d8d84b497e2c2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool HSF::COMM::isParallel </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad97b577f23c1a1f9f72d8d84b497e2c2"></a><!-- doxytag: member="HSF::COMM::isParallel" ref="ad97b577f23c1a1f9f72d8d84b497e2c2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool HSF::COMM::isParallel </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad97b577f23c1a1f9f72d8d84b497e2c2"></a><!-- doxytag: member="HSF::COMM::isParallel" ref="ad97b577f23c1a1f9f72d8d84b497e2c2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool HSF::COMM::isParallel </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad3b168a9b2f1a465334f5c161d8fb67b"></a><!-- doxytag: member="HSF::COMM::pErr" ref="ad3b168a9b2f1a465334f5c161d8fb67b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pErr </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pErr return a multi-file IO object that is pre-connected with screen output and process log file </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad3b168a9b2f1a465334f5c161d8fb67b"></a><!-- doxytag: member="HSF::COMM::pErr" ref="ad3b168a9b2f1a465334f5c161d8fb67b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pErr </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pErr return a multi-file IO object that is pre-connected with screen output and process log file </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad3b168a9b2f1a465334f5c161d8fb67b"></a><!-- doxytag: member="HSF::COMM::pErr" ref="ad3b168a9b2f1a465334f5c161d8fb67b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pErr </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pErr return a multi-file IO object that is pre-connected with screen output and process log file </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a34972039314a2f48f084316f6c2a02bb"></a><!-- doxytag: member="HSF::COMM::pOut" ref="a34972039314a2f48f084316f6c2a02bb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pOut </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pOut return an IO object that is pre-connected with a log file of the current process. </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a34972039314a2f48f084316f6c2a02bb"></a><!-- doxytag: member="HSF::COMM::pOut" ref="a34972039314a2f48f084316f6c2a02bb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pOut </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pOut return an IO object that is pre-connected with a log file of the current process. </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a34972039314a2f48f084316f6c2a02bb"></a><!-- doxytag: member="HSF::COMM::pOut" ref="a34972039314a2f48f084316f6c2a02bb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classHSF_1_1OStream.html">OStream</a>&amp; HSF::COMM::pOut </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>pOut return an IO object that is pre-connected with a log file of the current process. </p>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaaf021a10daa5fbfa85102953a0d8f1c"></a><!-- doxytag: member="HSF::COMM::reBalance" ref="aaaf021a10daa5fbfa85102953a0d8f1c" args="(const Communicator &amp;oldComm, Communicator &amp;newComm, const int weight, const float thresholdRatio)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::reBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>oldComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>thresholdRatio</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>reBalance calculate rebalance solution of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>oldComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. [out], The new local communicator generated with better load balance. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>thresholdRatio,ratio</em>&nbsp;</td><td>to ideal load balance (100%), non-negative </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaaf021a10daa5fbfa85102953a0d8f1c"></a><!-- doxytag: member="HSF::COMM::reBalance" ref="aaaf021a10daa5fbfa85102953a0d8f1c" args="(const Communicator &amp;oldComm, Communicator &amp;newComm, const int weight, const float thresholdRatio)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::reBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>oldComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>thresholdRatio</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>reBalance calculate rebalance solution of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>oldComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. [out], The new local communicator generated with better load balance. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>thresholdRatio,ratio</em>&nbsp;</td><td>to ideal load balance (100%), non-negative </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaaf021a10daa5fbfa85102953a0d8f1c"></a><!-- doxytag: member="HSF::COMM::reBalance" ref="aaaf021a10daa5fbfa85102953a0d8f1c" args="(const Communicator &amp;oldComm, Communicator &amp;newComm, const int weight, const float thresholdRatio)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::reBalance </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>oldComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>weight</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float&nbsp;</td>
+          <td class="paramname"> <em>thresholdRatio</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>reBalance calculate rebalance solution of the input communicators ( from different processes) </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>oldComm,The</em>&nbsp;</td><td>local communicator to be rebalanced with other remote communicators. All the input communicators must have NO intersections with each other. [out], The new local communicator generated with better load balance. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>weight,non-negetive</em>&nbsp;</td><td>integer representing the weight of local process </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>thresholdRatio,ratio</em>&nbsp;</td><td>to ideal load balance (100%), non-negative </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><!-- doxytag: member="HSF::COMM::split" ref="a1e80b3cf7e5fdf42c7e4461adfa116bc" args="(const Communicator refComm, Communicator newComm, const int color, const int nPart, const int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::split </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>nPart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split split the referenced communicator to non-overlaping sub-communicators. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do splitting </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by splitting </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify the grouping rule. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>nPart,the</em>&nbsp;</td><td>number of new communicators, used only for result checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><!-- doxytag: member="HSF::COMM::split" ref="a1e80b3cf7e5fdf42c7e4461adfa116bc" args="(const Communicator refComm, Communicator newComm, const int color, const int nPart, const int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::split </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>nPart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split split the referenced communicator to non-overlaping sub-communicators. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do splitting </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by splitting </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify the grouping rule. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>nPart,the</em>&nbsp;</td><td>number of new communicators, used only for result checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1e80b3cf7e5fdf42c7e4461adfa116bc"></a><!-- doxytag: member="HSF::COMM::split" ref="a1e80b3cf7e5fdf42c7e4461adfa116bc" args="(const Communicator refComm, Communicator newComm, const int color, const int nPart, const int priority=1)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int HSF::COMM::split </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>refComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Communicator.html">Communicator</a>&nbsp;</td>
+          <td class="paramname"> <em>newComm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>nPart</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&nbsp;</td>
+          <td class="paramname"> <em>priority</em> = <code>1</code></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [inline, static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>split split the referenced communicator to non-overlaping sub-communicators. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>refComm,the</em>&nbsp;</td><td>reference communicator on which to do splitting </td></tr>
+    <tr><td valign="top"><tt>[out]</tt>&nbsp;</td><td valign="top"><em>newComm,the</em>&nbsp;</td><td>new communicator generated by splitting </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>color,tag</em>&nbsp;</td><td>to identify the grouping rule. </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>nPart,the</em>&nbsp;</td><td>number of new communicators, used only for result checking </td></tr>
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>priority,priority</em>&nbsp;</td><td>to determine the process id, defult is 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>返回:</b></dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4e6c81ad1d5471ea0b9cf1ff00afb041"></a><!-- doxytag: member="HSF::COMM::stop" ref="a4e6c81ad1d5471ea0b9cf1ff00afb041" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void HSF::COMM::stop </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4e6c81ad1d5471ea0b9cf1ff00afb041"></a><!-- doxytag: member="HSF::COMM::stop" ref="a4e6c81ad1d5471ea0b9cf1ff00afb041" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void HSF::COMM::stop </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a90b5eb0d97e94e3eb00e534d7817f67e"></a><!-- doxytag: member="HSF::COMM::stop" ref="a90b5eb0d97e94e3eb00e534d7817f67e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::COMM::stop </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成：<ul>
+<li>build/Include/<a class="el" href="build_2Include_2mpiWrapper_8hpp_source.html">mpiWrapper.hpp</a></li>
+<li>build/mpicxxOptInt64/src/utilities/mpiWrapper/<a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2mpiWrapper_8hpp_source.html">mpiWrapper.hpp</a></li>
+<li>src/utilities/mpiWrapper/<a class="el" href="src_2utilities_2mpiWrapper_2mpiWrapper_8hpp_source.html">mpiWrapper.hpp</a></li>
+<li>build/mpicxxOptInt64/src/utilities/mpiWrapper/<a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2mpiWrapper_8cpp.html">mpiWrapper.cpp</a></li>
+<li>src/utilities/mpiWrapper/<a class="el" href="src_2utilities_2mpiWrapper_2mpiWrapper_8cpp.html">mpiWrapper.cpp</a></li>
+</ul>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

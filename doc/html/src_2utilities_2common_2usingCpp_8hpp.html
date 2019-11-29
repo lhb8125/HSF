@@ -1,0 +1,201 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: src/utilities/common/usingCpp.hpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>src/utilities/common/usingCpp.hpp文件参考</h1><code>#include &quot;stdlib.h&quot;</code><br/>
+<code>#include &lt;iostream&gt;</code><br/>
+<code>#include &lt;fstream&gt;</code><br/>
+<code>#include &lt;sstream&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;set&gt;</code><br/>
+<code>#include &lt;map&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+
+<p><a href="src_2utilities_2common_2usingCpp_8hpp_source.html">浏览该文件的源代码。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>名字空间</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHSF.html">HSF</a></td></tr>
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#a8313614630de12c33c1f29163e72d367">stof</a>(str)&nbsp;&nbsp;&nbsp;atof((str).c_str() )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#a90ab25689ff4430e3786f63808d79ad7">stod</a>(str)&nbsp;&nbsp;&nbsp;strtod((str).c_str(), NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#a4439c411193efe1e549125379a9b4932">stold</a>(str)&nbsp;&nbsp;&nbsp;strtold((str).c_str(), NULL)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#a500fffa9b9d9ca5eaa3d1d8794954086">stoi</a>(str)&nbsp;&nbsp;&nbsp;atoi((str).c_str() )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#af7232c5ba51842af9ffd6cd48fcf5d99">stol</a>(str)&nbsp;&nbsp;&nbsp;atol((str).c_str() )</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2common_2usingCpp_8hpp.html#ae5df29f7fea0fe7d29bc32753d475f36">stoll</a>(str)&nbsp;&nbsp;&nbsp;atoll((str).c_str() )</td></tr>
+<tr><td colspan="2"><h2>函数</h2></td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">string&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#ac32a245cfeb03fd2cc3976cef2171da1">HSF::to_string</a> (const U data)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;&gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">string&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#abc82617f6255755f345594061a46c88b">HSF::to_string&lt; float &gt;</a> (const float data)</td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="a90ab25689ff4430e3786f63808d79ad7"></a><!-- doxytag: member="usingCpp.hpp::stod" ref="a90ab25689ff4430e3786f63808d79ad7" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stod</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;strtod((str).c_str(), NULL)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8313614630de12c33c1f29163e72d367"></a><!-- doxytag: member="usingCpp.hpp::stof" ref="a8313614630de12c33c1f29163e72d367" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stof</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;atof((str).c_str() )</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a500fffa9b9d9ca5eaa3d1d8794954086"></a><!-- doxytag: member="usingCpp.hpp::stoi" ref="a500fffa9b9d9ca5eaa3d1d8794954086" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stoi</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;atoi((str).c_str() )</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af7232c5ba51842af9ffd6cd48fcf5d99"></a><!-- doxytag: member="usingCpp.hpp::stol" ref="af7232c5ba51842af9ffd6cd48fcf5d99" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stol</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;atol((str).c_str() )</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4439c411193efe1e549125379a9b4932"></a><!-- doxytag: member="usingCpp.hpp::stold" ref="a4439c411193efe1e549125379a9b4932" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stold</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;strtold((str).c_str(), NULL)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae5df29f7fea0fe7d29bc32753d475f36"></a><!-- doxytag: member="usingCpp.hpp::stoll" ref="ae5df29f7fea0fe7d29bc32753d475f36" args="(str)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define stoll</td>
+          <td>(</td>
+          <td class="paramtype">str&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;atoll((str).c_str() )</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

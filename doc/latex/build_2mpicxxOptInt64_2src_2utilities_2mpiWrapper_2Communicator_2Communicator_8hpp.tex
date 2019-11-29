@@ -1,0 +1,600 @@
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp}{
+\section{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp文件参考}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp}\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+}
+{\ttfamily \#include \char`\"{}mpi.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}usingCpp.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}basicFunction.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}OStream.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}MultiOStream.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}DummyOStream.hpp\char`\"{}}\par
+\subsection*{组合类型}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classHSF_1_1Communicator}{HSF::Communicator}
+\end{DoxyCompactItemize}
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespaceHSF}{HSF}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}{COMM\_\-MAX\_\-MSG\_\-NUM}~999
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}{CommOp}~MPI\_\-Op
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}{COMM\_\-SUM}~MPI\_\-SUM
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}{COMM\_\-MIN}~MPI\_\-MIN
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}{COMM\_\-MAX}~MPI\_\-MAX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}{COMM\_\-PROD}~MPI\_\-PROD
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}{COMM\_\-LAND}~MPI\_\-LAND
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}{COMM\_\-LOR}~MPI\_\-LOR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}{COMM\_\-BAND}~MPI\_\-BAND
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}{COMM\_\-BOR}~MPI\_\-BOR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}{COMM\_\-MAXLOC}~MPI\_\-MAXLOC
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}{COMM\_\-MINLOC}~MPI\_\-MINLOC
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}{COMM\_\-LXOR}~MPI\_\-LXOR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}{COMM\_\-BXOR}~MPI\_\-BXOR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}{COMM\_\-REPLACE}~MPI\_\-REPLACE
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}{CommData}~MPI\_\-Datatype
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}{COMM\_\-CHAR}~MPI\_\-CHAR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}{COMM\_\-UNSIGNED\_\-CHAR}~MPI\_\-UNSIGNED\_\-CHAR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}{COMM\_\-SHORT}~MPI\_\-SHORT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}{COMM\_\-UNSIGNED\_\-SHORT}~MPI\_\-UNSIGNED\_\-SHORT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}{COMM\_\-INT}~MPI\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}{COMM\_\-UNSIGNED}~MPI\_\-UNSIGNED
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}{COMM\_\-LONG}~MPI\_\-LONG
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}{COMM\_\-UNSIGNED\_\-LONG}~MPI\_\-UNSIGNED\_\-LONG
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}{COMM\_\-LONG\_\-LONG\_\-INT}~MPI\_\-LONG\_\-LONG\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}{COMM\_\-LONG\_\-LONG}~MPI\_\-LONG\_\-LONG
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}{COMM\_\-FLOAT}~MPI\_\-FLOAT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}{COMM\_\-DOUBLE}~MPI\_\-DOUBLE
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}{COMM\_\-LONG\_\-DOUBLE}~MPI\_\-LONG\_\-DOUBLE
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}{COMM\_\-BYTE}~MPI\_\-BYTE
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}{COMM\_\-WCHAR}~MPI\_\-WCHAR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}{COMM\_\-PACKED}~MPI\_\-PACKED
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}{COMM\_\-LB}~MPI\_\-LB
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}{COMM\_\-UB}~MPI\_\-UB
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}{COMM\_\-C\_\-COMPLEX}~MPI\_\-C\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}{COMM\_\-C\_\-FLOAT\_\-COMPLEX}~MPI\_\-C\_\-FLOAT\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}~MPI\_\-C\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}~MPI\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}{COMM\_\-2INT}~MPI\_\-2INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}{COMM\_\-C\_\-BOOL}~MPI\_\-C\_\-BOOL
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}{COMM\_\-SIGNED\_\-CHAR}~MPI\_\-SIGNED\_\-CHAR
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}~MPI\_\-UNSIGNED\_\-LONG\_\-LONG
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}{COMM\_\-CHARACTER}~MPI\_\-CHARACTER
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}{COMM\_\-INTEGER}~MPI\_\-INTEGER
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}{COMM\_\-REAL}~MPI\_\-REAL
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}{COMM\_\-LOGICAL}~MPI\_\-LOGICAL
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}{COMM\_\-COMPLEX}~MPI\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}{COMM\_\-DOUBLE\_\-PRECISION}~MPI\_\-DOUBLE\_\-PRECISION
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}{COMM\_\-2INTEGER}~MPI\_\-2INTEGER
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}{COMM\_\-2REAL}~MPI\_\-2REAL
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}{COMM\_\-DOUBLE\_\-COMPLEX}~MPI\_\-DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}{COMM\_\-2DOUBLE\_\-PRECISION}~MPI\_\-2DOUBLE\_\-PRECISION
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}{COMM\_\-2COMPLEX}~MPI\_\-2COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}{COMM\_\-2DOUBLE\_\-COMPLEX}~MPI\_\-2DOUBLE\_\-COMPLEX
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}{COMM\_\-REAL2}~MPI\_\-REAL2
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}{COMM\_\-REAL4}~MPI\_\-REAL4
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}{COMM\_\-COMPLEX8}~MPI\_\-COMPLEX8
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}{COMM\_\-REAL8}~MPI\_\-REAL8
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}{COMM\_\-COMPLEX16}~MPI\_\-COMPLEX16
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}{COMM\_\-REAL16}~MPI\_\-REAL16
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}{COMM\_\-COMPLEX32}~MPI\_\-COMPLEX32
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}{COMM\_\-INTEGER1}~MPI\_\-INTEGER1
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}{COMM\_\-COMPLEX4}~MPI\_\-COMPLEX4
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}{COMM\_\-INTEGER2}~MPI\_\-INTEGER2
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}{COMM\_\-INTEGER4}~MPI\_\-INTEGER4
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}{COMM\_\-INTEGER8}~MPI\_\-INTEGER8
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}{COMM\_\-INTEGER16}~MPI\_\-INTEGER16
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}{COMM\_\-INT8\_\-T}~MPI\_\-INT8\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}{COMM\_\-INT16\_\-T}~MPI\_\-INT16\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}{COMM\_\-INT32\_\-T}~MPI\_\-INT32\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}{COMM\_\-INT64\_\-T}~MPI\_\-INT64\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}{COMM\_\-UINT8\_\-T}~MPI\_\-UINT8\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}{COMM\_\-UINT16\_\-T}~MPI\_\-UINT16\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}{COMM\_\-UINT32\_\-T}~MPI\_\-UINT32\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}{COMM\_\-UINT64\_\-T}~MPI\_\-UINT64\_\-T
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}{COMM\_\-AINT}~MPI\_\-AINT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}{COMM\_\-OFFSET}~MPI\_\-OFFSET
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}{COMM\_\-FLOAT\_\-INT}~MPI\_\-FLOAT\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}{COMM\_\-DOUBLE\_\-INT}~MPI\_\-DOUBLE\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}{COMM\_\-LONG\_\-INT}~MPI\_\-LONG\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}{COMM\_\-SHORT\_\-INT}~MPI\_\-SHORT\_\-INT
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}{COMM\_\-LONG\_\-DOUBLE\_\-INT}~MPI\_\-LONG\_\-DOUBLE\_\-INT
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2COMPLEX@{COMM\_\-2COMPLEX}}
+\index{COMM\_\-2COMPLEX@{COMM\_\-2COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2COMPLEX~MPI\_\-2COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac67c4c2a91cfd28be23a4dd19e0f520f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2DOUBLE\_\-COMPLEX@{COMM\_\-2DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-2DOUBLE\_\-COMPLEX@{COMM\_\-2DOUBLE\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2DOUBLE\_\-COMPLEX~MPI\_\-2DOUBLE\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af426da5936b78ef2ec4460c170760618}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2DOUBLE\_\-PRECISION@{COMM\_\-2DOUBLE\_\-PRECISION}}
+\index{COMM\_\-2DOUBLE\_\-PRECISION@{COMM\_\-2DOUBLE\_\-PRECISION}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2DOUBLE\_\-PRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2DOUBLE\_\-PRECISION~MPI\_\-2DOUBLE\_\-PRECISION}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6a9e334b348ffee8b49ae8e7d44606f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2INT@{COMM\_\-2INT}}
+\index{COMM\_\-2INT@{COMM\_\-2INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2INT~MPI\_\-2INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a42a88122f609f4d6c17e8e5e644169d5}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2INTEGER@{COMM\_\-2INTEGER}}
+\index{COMM\_\-2INTEGER@{COMM\_\-2INTEGER}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2INTEGER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2INTEGER~MPI\_\-2INTEGER}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a65ff04d26040a803d1f1083f5a6305de}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-2REAL@{COMM\_\-2REAL}}
+\index{COMM\_\-2REAL@{COMM\_\-2REAL}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-2REAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-2REAL~MPI\_\-2REAL}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a11daef438aacb7bc5ae4276443ec4b82}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-AINT@{COMM\_\-AINT}}
+\index{COMM\_\-AINT@{COMM\_\-AINT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-AINT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-AINT~MPI\_\-AINT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a288ae6cfd64fc724e646309299eec661}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BAND@{COMM\_\-BAND}}
+\index{COMM\_\-BAND@{COMM\_\-BAND}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BAND}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BAND~MPI\_\-BAND}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a4fe9f11b5cc9be0f78bc49a918f38e0a}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BOR@{COMM\_\-BOR}}
+\index{COMM\_\-BOR@{COMM\_\-BOR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BOR~MPI\_\-BOR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8f368e11dcd83572ad04e9a59b7659a7}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BXOR@{COMM\_\-BXOR}}
+\index{COMM\_\-BXOR@{COMM\_\-BXOR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BXOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BXOR~MPI\_\-BXOR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a352a8d7faa1e2755b7710086562d18c8}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-BYTE@{COMM\_\-BYTE}}
+\index{COMM\_\-BYTE@{COMM\_\-BYTE}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-BYTE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-BYTE~MPI\_\-BYTE}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae4edf6bac7e5ad0f3a148ce7c5785775}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-BOOL@{COMM\_\-C\_\-BOOL}}
+\index{COMM\_\-C\_\-BOOL@{COMM\_\-C\_\-BOOL}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-BOOL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-BOOL~MPI\_\-C\_\-BOOL}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aaa89c020168ae0258409bd475869ae36}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-COMPLEX@{COMM\_\-C\_\-COMPLEX}}
+\index{COMM\_\-C\_\-COMPLEX@{COMM\_\-C\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-COMPLEX~MPI\_\-C\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6aa39d2925738a52ccbd05a31c1eeb2f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-C\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-DOUBLE\_\-COMPLEX~MPI\_\-C\_\-DOUBLE\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_abed5ac8e91e707d7803c48238f452c73}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-FLOAT\_\-COMPLEX@{COMM\_\-C\_\-FLOAT\_\-COMPLEX}}
+\index{COMM\_\-C\_\-FLOAT\_\-COMPLEX@{COMM\_\-C\_\-FLOAT\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-FLOAT\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-FLOAT\_\-COMPLEX~MPI\_\-C\_\-FLOAT\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad64af20015751b0573e657002f7a6386}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX@{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX~MPI\_\-C\_\-LONG\_\-DOUBLE\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31ecaa9058a83d9b615e20f7ed3eb3df}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-CHAR@{COMM\_\-CHAR}}
+\index{COMM\_\-CHAR@{COMM\_\-CHAR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-CHAR~MPI\_\-CHAR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6af775586c5ff1b0ffea3adb325e5dd}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-CHARACTER@{COMM\_\-CHARACTER}}
+\index{COMM\_\-CHARACTER@{COMM\_\-CHARACTER}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-CHARACTER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-CHARACTER~MPI\_\-CHARACTER}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa385d2b5fc3a2b6264b163f481297a57}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX@{COMM\_\-COMPLEX}}
+\index{COMM\_\-COMPLEX@{COMM\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX~MPI\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a84cf9934941c9c6436f35d86f91e04fa}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX16@{COMM\_\-COMPLEX16}}
+\index{COMM\_\-COMPLEX16@{COMM\_\-COMPLEX16}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX16~MPI\_\-COMPLEX16}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae6fd6570884e1befa9f9c5ff962895ed}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX32@{COMM\_\-COMPLEX32}}
+\index{COMM\_\-COMPLEX32@{COMM\_\-COMPLEX32}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX32}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX32~MPI\_\-COMPLEX32}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afbf02c8e5a1998fcb99bc0cd3044505d}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX4@{COMM\_\-COMPLEX4}}
+\index{COMM\_\-COMPLEX4@{COMM\_\-COMPLEX4}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX4~MPI\_\-COMPLEX4}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ad49b0e21ea0d57db91aa6396a2808bd3}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-COMPLEX8@{COMM\_\-COMPLEX8}}
+\index{COMM\_\-COMPLEX8@{COMM\_\-COMPLEX8}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-COMPLEX8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-COMPLEX8~MPI\_\-COMPLEX8}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1816d25350dd134fcc011bc9fc1404e3}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE@{COMM\_\-DOUBLE}}
+\index{COMM\_\-DOUBLE@{COMM\_\-DOUBLE}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE~MPI\_\-DOUBLE}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7ddf21e6cfdc940c5bbad4d7a31a2d50}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-COMPLEX@{COMM\_\-DOUBLE\_\-COMPLEX}}
+\index{COMM\_\-DOUBLE\_\-COMPLEX@{COMM\_\-DOUBLE\_\-COMPLEX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-COMPLEX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-COMPLEX~MPI\_\-DOUBLE\_\-COMPLEX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a07266070134ef4a4f18cff52cd992ab6}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-INT@{COMM\_\-DOUBLE\_\-INT}}
+\index{COMM\_\-DOUBLE\_\-INT@{COMM\_\-DOUBLE\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-INT~MPI\_\-DOUBLE\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86410ce34b3e2dd410f782f7452cd344}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-DOUBLE\_\-PRECISION@{COMM\_\-DOUBLE\_\-PRECISION}}
+\index{COMM\_\-DOUBLE\_\-PRECISION@{COMM\_\-DOUBLE\_\-PRECISION}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-DOUBLE\_\-PRECISION}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-DOUBLE\_\-PRECISION~MPI\_\-DOUBLE\_\-PRECISION}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a86d184ab7b8cef14fe4103627e250b10}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-FLOAT@{COMM\_\-FLOAT}}
+\index{COMM\_\-FLOAT@{COMM\_\-FLOAT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-FLOAT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-FLOAT~MPI\_\-FLOAT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8c59f69894712621ec76f153b209e514}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-FLOAT\_\-INT@{COMM\_\-FLOAT\_\-INT}}
+\index{COMM\_\-FLOAT\_\-INT@{COMM\_\-FLOAT\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-FLOAT\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-FLOAT\_\-INT~MPI\_\-FLOAT\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9f29bbcde48535f497b31eda2fae9607}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT@{COMM\_\-INT}}
+\index{COMM\_\-INT@{COMM\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT~MPI\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0fb7675b924e0ae5bce5972616ab784}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT16\_\-T@{COMM\_\-INT16\_\-T}}
+\index{COMM\_\-INT16\_\-T@{COMM\_\-INT16\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT16\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT16\_\-T~MPI\_\-INT16\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a5b70ea042f83fb3cc9afc1f52743a99c}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT32\_\-T@{COMM\_\-INT32\_\-T}}
+\index{COMM\_\-INT32\_\-T@{COMM\_\-INT32\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT32\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT32\_\-T~MPI\_\-INT32\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a652547087730b059ad3e1367f0ea973a}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT64\_\-T@{COMM\_\-INT64\_\-T}}
+\index{COMM\_\-INT64\_\-T@{COMM\_\-INT64\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT64\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT64\_\-T~MPI\_\-INT64\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab583889f119a9b617cb8c1e0b28ca3ae}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INT8\_\-T@{COMM\_\-INT8\_\-T}}
+\index{COMM\_\-INT8\_\-T@{COMM\_\-INT8\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INT8\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INT8\_\-T~MPI\_\-INT8\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a481e2f4d1ff5d12276087149026c6c3d}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER@{COMM\_\-INTEGER}}
+\index{COMM\_\-INTEGER@{COMM\_\-INTEGER}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER~MPI\_\-INTEGER}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a239b8b58fd2d07166442633c35354dfa}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER1@{COMM\_\-INTEGER1}}
+\index{COMM\_\-INTEGER1@{COMM\_\-INTEGER1}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER1}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER1~MPI\_\-INTEGER1}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab5ca118366ca8c58e13409adb49cec60}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER16@{COMM\_\-INTEGER16}}
+\index{COMM\_\-INTEGER16@{COMM\_\-INTEGER16}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER16~MPI\_\-INTEGER16}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a46f69c759a2f7c352c655d61821f6779}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER2@{COMM\_\-INTEGER2}}
+\index{COMM\_\-INTEGER2@{COMM\_\-INTEGER2}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER2}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER2~MPI\_\-INTEGER2}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3ce37ad10b6e3e9741192366e86ce2c9}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER4@{COMM\_\-INTEGER4}}
+\index{COMM\_\-INTEGER4@{COMM\_\-INTEGER4}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER4~MPI\_\-INTEGER4}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeeff480572af7a9f58059cf9276260db}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-INTEGER8@{COMM\_\-INTEGER8}}
+\index{COMM\_\-INTEGER8@{COMM\_\-INTEGER8}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-INTEGER8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-INTEGER8~MPI\_\-INTEGER8}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1c18a8fd38a5c3492ea52133a86bfb25}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LAND@{COMM\_\-LAND}}
+\index{COMM\_\-LAND@{COMM\_\-LAND}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LAND}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LAND~MPI\_\-LAND}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2cd26e5edd0bbf5a5b850017ac267216}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LB@{COMM\_\-LB}}
+\index{COMM\_\-LB@{COMM\_\-LB}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LB}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LB~MPI\_\-LB}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a89ef9eedf9c5cb1abd3dc8c31cc7ef52}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LOGICAL@{COMM\_\-LOGICAL}}
+\index{COMM\_\-LOGICAL@{COMM\_\-LOGICAL}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LOGICAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LOGICAL~MPI\_\-LOGICAL}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a51e1155adf8ef4096d1152f1390b8780}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG@{COMM\_\-LONG}}
+\index{COMM\_\-LONG@{COMM\_\-LONG}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG~MPI\_\-LONG}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_add7aeed4bb7446728a1baa10b4410417}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-DOUBLE@{COMM\_\-LONG\_\-DOUBLE}}
+\index{COMM\_\-LONG\_\-DOUBLE@{COMM\_\-LONG\_\-DOUBLE}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-DOUBLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-DOUBLE~MPI\_\-LONG\_\-DOUBLE}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af782a755372aa623080f16bbfea54ba8}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-DOUBLE\_\-INT@{COMM\_\-LONG\_\-DOUBLE\_\-INT}}
+\index{COMM\_\-LONG\_\-DOUBLE\_\-INT@{COMM\_\-LONG\_\-DOUBLE\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-DOUBLE\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-DOUBLE\_\-INT~MPI\_\-LONG\_\-DOUBLE\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae83683b2eec8b422c94694abd4563066}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-INT@{COMM\_\-LONG\_\-INT}}
+\index{COMM\_\-LONG\_\-INT@{COMM\_\-LONG\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-INT~MPI\_\-LONG\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aa0a2671cbd59b3e7f96f16dccffed425}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-LONG@{COMM\_\-LONG\_\-LONG}}
+\index{COMM\_\-LONG\_\-LONG@{COMM\_\-LONG\_\-LONG}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-LONG~MPI\_\-LONG\_\-LONG}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeae3d5a5753b43571c33e2fbfb492dc8}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LONG\_\-LONG\_\-INT@{COMM\_\-LONG\_\-LONG\_\-INT}}
+\index{COMM\_\-LONG\_\-LONG\_\-INT@{COMM\_\-LONG\_\-LONG\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LONG\_\-LONG\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LONG\_\-LONG\_\-INT~MPI\_\-LONG\_\-LONG\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a603680c85fb5bfc77ec532d51e5f04b9}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LOR@{COMM\_\-LOR}}
+\index{COMM\_\-LOR@{COMM\_\-LOR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LOR~MPI\_\-LOR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a6182cee0682f08f5c18732a85a5250b8}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-LXOR@{COMM\_\-LXOR}}
+\index{COMM\_\-LXOR@{COMM\_\-LXOR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-LXOR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-LXOR~MPI\_\-LXOR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ab2c292d3d4df4409401e234cc43e1cc6}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAX@{COMM\_\-MAX}}
+\index{COMM\_\-MAX@{COMM\_\-MAX}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAX}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAX~MPI\_\-MAX}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ae3e040f90f251305eb2b84fc2f954938}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAX\_\-MSG\_\-NUM@{COMM\_\-MAX\_\-MSG\_\-NUM}}
+\index{COMM\_\-MAX\_\-MSG\_\-NUM@{COMM\_\-MAX\_\-MSG\_\-NUM}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAX\_\-MSG\_\-NUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAX\_\-MSG\_\-NUM~999}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8b8762ba579fb020fcf7d7791b7a1c37}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MAXLOC@{COMM\_\-MAXLOC}}
+\index{COMM\_\-MAXLOC@{COMM\_\-MAXLOC}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MAXLOC}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MAXLOC~MPI\_\-MAXLOC}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a641c783a589d38dafc57176dfd6d0e0b}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MIN@{COMM\_\-MIN}}
+\index{COMM\_\-MIN@{COMM\_\-MIN}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MIN~MPI\_\-MIN}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a31cd81f1544a19b09ccdd280f3d0eb62}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-MINLOC@{COMM\_\-MINLOC}}
+\index{COMM\_\-MINLOC@{COMM\_\-MINLOC}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-MINLOC}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-MINLOC~MPI\_\-MINLOC}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3d1105a2ff52f7f5559aa9e026078bba}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-OFFSET@{COMM\_\-OFFSET}}
+\index{COMM\_\-OFFSET@{COMM\_\-OFFSET}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-OFFSET}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-OFFSET~MPI\_\-OFFSET}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a829378a17b9230f38c4aef079d0b4712}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-PACKED@{COMM\_\-PACKED}}
+\index{COMM\_\-PACKED@{COMM\_\-PACKED}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-PACKED}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-PACKED~MPI\_\-PACKED}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aabfcbdd9ea322adf4b0b93358c52998e}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-PROD@{COMM\_\-PROD}}
+\index{COMM\_\-PROD@{COMM\_\-PROD}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-PROD}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-PROD~MPI\_\-PROD}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_ac4d16bfa34dcc397a19e3ef73326fa75}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL@{COMM\_\-REAL}}
+\index{COMM\_\-REAL@{COMM\_\-REAL}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL~MPI\_\-REAL}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a7806a662034ecb96f5813798f623e833}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL16@{COMM\_\-REAL16}}
+\index{COMM\_\-REAL16@{COMM\_\-REAL16}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL16}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL16~MPI\_\-REAL16}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_afe66293e0b2f5041f965109fbdbeb06e}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL2@{COMM\_\-REAL2}}
+\index{COMM\_\-REAL2@{COMM\_\-REAL2}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL2}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL2~MPI\_\-REAL2}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a25e4eecf8d43aa71fa3f37a60875b24c}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL4@{COMM\_\-REAL4}}
+\index{COMM\_\-REAL4@{COMM\_\-REAL4}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL4}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL4~MPI\_\-REAL4}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a2c5a2efa7543e32703804d89315d3d65}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REAL8@{COMM\_\-REAL8}}
+\index{COMM\_\-REAL8@{COMM\_\-REAL8}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REAL8}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REAL8~MPI\_\-REAL8}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3c5035620388b11ca4891c372166dd96}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-REPLACE@{COMM\_\-REPLACE}}
+\index{COMM\_\-REPLACE@{COMM\_\-REPLACE}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-REPLACE}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-REPLACE~MPI\_\-REPLACE}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a549d5e38836910b5dfcad1cb5bff033b}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SHORT@{COMM\_\-SHORT}}
+\index{COMM\_\-SHORT@{COMM\_\-SHORT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SHORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SHORT~MPI\_\-SHORT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a8524fe53a3f1e1423d571ee443f9f3ae}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SHORT\_\-INT@{COMM\_\-SHORT\_\-INT}}
+\index{COMM\_\-SHORT\_\-INT@{COMM\_\-SHORT\_\-INT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SHORT\_\-INT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SHORT\_\-INT~MPI\_\-SHORT\_\-INT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aca39923f48bb0bff58b4461f1d5cde05}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SIGNED\_\-CHAR@{COMM\_\-SIGNED\_\-CHAR}}
+\index{COMM\_\-SIGNED\_\-CHAR@{COMM\_\-SIGNED\_\-CHAR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SIGNED\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SIGNED\_\-CHAR~MPI\_\-SIGNED\_\-CHAR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9947b6c92cee993059351b8f24c6f616}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-SUM@{COMM\_\-SUM}}
+\index{COMM\_\-SUM@{COMM\_\-SUM}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-SUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-SUM~MPI\_\-SUM}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a907b5d73e215085029817275a8dbf7fc}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UB@{COMM\_\-UB}}
+\index{COMM\_\-UB@{COMM\_\-UB}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UB}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UB~MPI\_\-UB}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a23745e204a19616dc08e6e4835f50b40}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT16\_\-T@{COMM\_\-UINT16\_\-T}}
+\index{COMM\_\-UINT16\_\-T@{COMM\_\-UINT16\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT16\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT16\_\-T~MPI\_\-UINT16\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a298800b49321915f5adf690ece1e85f1}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT32\_\-T@{COMM\_\-UINT32\_\-T}}
+\index{COMM\_\-UINT32\_\-T@{COMM\_\-UINT32\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT32\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT32\_\-T~MPI\_\-UINT32\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aeb8bf35fbe1ae766aa5bb8131636ed69}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT64\_\-T@{COMM\_\-UINT64\_\-T}}
+\index{COMM\_\-UINT64\_\-T@{COMM\_\-UINT64\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT64\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT64\_\-T~MPI\_\-UINT64\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1b9d00b0ac6ee8eca818d3f9cd2fca67}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UINT8\_\-T@{COMM\_\-UINT8\_\-T}}
+\index{COMM\_\-UINT8\_\-T@{COMM\_\-UINT8\_\-T}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UINT8\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UINT8\_\-T~MPI\_\-UINT8\_\-T}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_af4f9f209cee8050774db308602b7d153}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED@{COMM\_\-UNSIGNED}}
+\index{COMM\_\-UNSIGNED@{COMM\_\-UNSIGNED}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED~MPI\_\-UNSIGNED}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a9ef8defa4961e004d5d929cdef77fa52}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-CHAR@{COMM\_\-UNSIGNED\_\-CHAR}}
+\index{COMM\_\-UNSIGNED\_\-CHAR@{COMM\_\-UNSIGNED\_\-CHAR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-CHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-CHAR~MPI\_\-UNSIGNED\_\-CHAR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a36bff133ae1016a58c675c6f99aa218f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG}}
+\index{COMM\_\-UNSIGNED\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-LONG~MPI\_\-UNSIGNED\_\-LONG}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a1e459fae71e27e0a5a4598571c70d346}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-LONG\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}}
+\index{COMM\_\-UNSIGNED\_\-LONG\_\-LONG@{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-LONG\_\-LONG}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-LONG\_\-LONG~MPI\_\-UNSIGNED\_\-LONG\_\-LONG}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_acda789e119f25ad9f61395d97d94f79f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-UNSIGNED\_\-SHORT@{COMM\_\-UNSIGNED\_\-SHORT}}
+\index{COMM\_\-UNSIGNED\_\-SHORT@{COMM\_\-UNSIGNED\_\-SHORT}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-UNSIGNED\_\-SHORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-UNSIGNED\_\-SHORT~MPI\_\-UNSIGNED\_\-SHORT}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a3b4fb4fedd73f5e92b76b4008df396f0}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!COMM\_\-WCHAR@{COMM\_\-WCHAR}}
+\index{COMM\_\-WCHAR@{COMM\_\-WCHAR}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{COMM\_\-WCHAR}]{\setlength{\rightskip}{0pt plus 5cm}\#define COMM\_\-WCHAR~MPI\_\-WCHAR}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aef9fda706f745499701051297d11e0b5}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!CommData@{CommData}}
+\index{CommData@{CommData}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{CommData}]{\setlength{\rightskip}{0pt plus 5cm}\#define CommData~MPI\_\-Datatype}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_aea427efb7da7bc04e37d01f59c4dfc37}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}{
+\index{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}!CommOp@{CommOp}}
+\index{CommOp@{CommOp}!build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp@{build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp}}
+\subsubsection[{CommOp}]{\setlength{\rightskip}{0pt plus 5cm}\#define CommOp~MPI\_\-Op}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_a81c2b5634312e06e8788bd7910bb2e55}

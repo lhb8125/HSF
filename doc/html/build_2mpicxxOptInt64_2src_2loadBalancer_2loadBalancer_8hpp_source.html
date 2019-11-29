@@ -1,0 +1,124 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/mpicxxOptInt64/src/loadBalancer/loadBalancer.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/mpicxxOptInt64/src/loadBalancer/loadBalancer.hpp</h1><a href="build_2mpicxxOptInt64_2src_2loadBalancer_2loadBalancer_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00009"></a>00009 <span class="preprocessor">#ifndef LOADBALANCER_HPP</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#define LOADBALANCER_HPP</span>
+<a name="l00011"></a>00011 <span class="preprocessor"></span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;math.h&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;assert.h&gt;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;limits.h&gt;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2utilities_8hpp.html">utilities.hpp</a>&quot;</span>
+<a name="l00016"></a>00016 <span class="preprocessor">#include &quot;<a class="code" href="src_2region_2region_8hpp.html" title=":">region.hpp</a>&quot;</span>
+<a name="l00017"></a>00017 
+<a name="l00018"></a>00018 <span class="keyword">namespace </span>HSF
+<a name="l00019"></a>00019 {
+<a name="l00020"></a>00020 
+<a name="l00024"></a>00024 <span class="keyword">class </span>LoadBalancer
+<a name="l00025"></a>00025 {
+<a name="l00026"></a>00026 <span class="keyword">private</span>:
+<a name="l00028"></a>00028         Array&lt;Scalar&gt; s_;
+<a name="l00030"></a>00030         ArrayArray&lt;Label&gt; nei_;
+<a name="l00032"></a>00032         ArrayArray&lt;Label&gt; procId_;
+<a name="l00034"></a>00034         ArrayArray&lt;Scalar&gt; procLoad_;
+<a name="l00036"></a>00036         <a class="code" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* procLoadSum_;
+<a name="l00038"></a>00038         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> procNum_;
+<a name="l00040"></a>00040         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* cellStartId_;
+<a name="l00045"></a>00045         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> findMinProc();
+<a name="l00046"></a>00046         <span class="comment">/*</span>
+<a name="l00047"></a>00047 <span class="comment">        * @brief find the region with the maximum measurement load</span>
+<a name="l00048"></a>00048 <span class="comment">        * @param s the measurement load of all regions</span>
+<a name="l00049"></a>00049 <span class="comment">        */</span>
+<a name="l00050"></a>00050         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> findMaxRegion(<span class="keyword">const</span> Array&lt;Scalar&gt; s);
+<a name="l00051"></a>00051         <span class="comment">/*</span>
+<a name="l00052"></a>00052 <span class="comment">        * @brief distribute the cells to other processors according to </span>
+<a name="l00053"></a>00053 <span class="comment">                 the result of PARMETIS</span>
+<a name="l00054"></a>00054 <span class="comment">        */</span>
+<a name="l00055"></a>00055         ArrayArray&lt;Label&gt; distributeCellsToProcs(ArrayArray&lt;Label&gt;&amp; cell2Node,
+<a name="l00056"></a>00056                 <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* parts);
+<a name="l00057"></a>00057         <span class="comment">/*</span>
+<a name="l00058"></a>00058 <span class="comment">        * @brief distribute the cell infomation (type) to other processors</span>
+<a name="l00059"></a>00059 <span class="comment">        */</span>
+<a name="l00060"></a>00060         Array&lt;Label&gt; distributeCellInfoToProcs(Array&lt;Label&gt;&amp; cellInfo, <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* parts);
+<a name="l00061"></a>00061 <span class="keyword">public</span>:
+<a name="l00065"></a>00065         <a class="code" href="classHSF_1_1LoadBalancer.html#af9fd71150f3cd1b8c4f87023b916dedc" title="default constructor">LoadBalancer</a>();
+<a name="l00069"></a>00069         <a class="code" href="classHSF_1_1LoadBalancer.html#aa03846f31ea99f255b23adf0777cf373" title="deconstructor">~LoadBalancer</a>();
+<a name="l00076"></a>00076         <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1LoadBalancer.html#a06147f535aa0c290b332c9578d80d3fa" title="Second Level load balance.">LoadBalancer_2</a>(<span class="keyword">const</span> Array&lt;Scalar&gt; s, <span class="keyword">const</span> ArrayArray&lt;Label&gt; nei,
+<a name="l00077"></a>00077                 <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> procNum);
+<a name="l00081"></a>00081         <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1LoadBalancer.html#aff34a6877828f65b92b9e146eaaced3b" title="communicate the region based on the results of loadBalancer_2">exchangeRegion</a>(Region&amp; <a class="code" href="build_2Include_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>);
+<a name="l00086"></a>00086         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* <a class="code" href="classHSF_1_1LoadBalancer.html#a51cafaff8985b257cff113299e48697f" title="Third Level load balance with parmetis.">LoadBalancer_3</a>(Array&lt;Region&gt;&amp; reg);
+<a name="l00087"></a>00087         <span class="comment">/*</span>
+<a name="l00088"></a>00088 <span class="comment">        * @brief collect the neighbor cell index through mpi</span>
+<a name="l00089"></a>00089 <span class="comment">        */</span>
+<a name="l00090"></a>00090         <span class="keyword">static</span> Array&lt;Label&gt; <a class="code" href="classHSF_1_1LoadBalancer.html#af816897dbfedc38b2d56b756f9f31a09">collectNeighborCell</a>(ArrayArray&lt;Label&gt;&amp; bndFaceList,
+<a name="l00091"></a>00091                 <a class="code" href="build_2Include_2Container_8hpp.html#aaaa51ebc6ea4da1a055fc44bbeff0fca">Array</a>&lt;Array&lt;Label&gt; &gt;&amp; bndFaceArr, Array&lt;Label&gt;&amp; face2CellArr);
+<a name="l00092"></a>00092 
+<a name="l00093"></a><a class="code" href="classHSF_1_1LoadBalancer.html#a934f19588ae53f8f2133ddb0af955e15">00093</a>         <a class="code" href="classHSF_1_1ArrayArray.html">ArrayArray&lt;Label&gt;</a>&amp; <a class="code" href="classHSF_1_1LoadBalancer.html#a934f19588ae53f8f2133ddb0af955e15">getProcId</a>() {<span class="keywordflow">return</span> this-&gt;procId_;}
+<a name="l00094"></a><a class="code" href="classHSF_1_1LoadBalancer.html#a969ba490fb82cdb116643d670b8c66b2">00094</a>         <a class="code" href="classHSF_1_1ArrayArray.html">ArrayArray&lt;Scalar&gt;</a>&amp; <a class="code" href="classHSF_1_1LoadBalancer.html#a969ba490fb82cdb116643d670b8c66b2">getProcLoad</a>() {<span class="keywordflow">return</span> this-&gt;procLoad_;}
+<a name="l00095"></a><a class="code" href="classHSF_1_1LoadBalancer.html#ad25ef85b3641df45c4f62a5dccf15454">00095</a>         <a class="code" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* <a class="code" href="classHSF_1_1LoadBalancer.html#ad25ef85b3641df45c4f62a5dccf15454">getProcLoadSum</a>() {<span class="keywordflow">return</span> this-&gt;procLoadSum_;}
+<a name="l00096"></a>00096 };
+<a name="l00097"></a>00097 
+<a name="l00098"></a>00098 } <span class="comment">// end namespace HSF</span>
+<a name="l00099"></a>00099 
+<a name="l00100"></a>00100 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

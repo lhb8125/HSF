@@ -1,0 +1,103 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/mpicxxOptInt64/src/mesh/nodes.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/mpicxxOptInt64/src/mesh/nodes.hpp</h1><a href="build_2mpicxxOptInt64_2src_2mesh_2nodes_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00009"></a>00009 <span class="preprocessor">#ifndef NODES_HPP</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span><span class="preprocessor">#define NODES_HPP</span>
+<a name="l00011"></a>00011 <span class="preprocessor"></span><span class="preprocessor">#include &quot;<a class="code" href="src_2topology_2topology_8hpp.html">topology.hpp</a>&quot;</span>
+<a name="l00012"></a>00012 
+<a name="l00013"></a>00013 <span class="keyword">namespace </span>HSF
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015 
+<a name="l00019"></a>00019 <span class="keyword">class </span>Nodes
+<a name="l00020"></a>00020 {
+<a name="l00021"></a>00021 <span class="keyword">private</span>:
+<a name="l00023"></a>00023         ArrayArray&lt;Scalar&gt; xyz_;
+<a name="l00025"></a>00025         Array&lt;Scalar&gt; x_;
+<a name="l00027"></a>00027         Array&lt;Scalar&gt; y_;
+<a name="l00029"></a>00029         Array&lt;Scalar&gt; z_;
+<a name="l00031"></a>00031         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> start_;
+<a name="l00033"></a>00033         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> end_;
+<a name="l00034"></a>00034 <span class="keyword">public</span>:
+<a name="l00038"></a>00038         <a class="code" href="classHSF_1_1Nodes.html#a4cf0a36ef0cbd1d2183e6f426289b3ef" title="default constructor">Nodes</a>();
+<a name="l00042"></a>00042         <a class="code" href="classHSF_1_1Nodes.html#a4cf0a36ef0cbd1d2183e6f426289b3ef" title="default constructor">Nodes</a>(ArrayArray&lt;Scalar&gt;&amp; xyz);
+<a name="l00048"></a>00048         <a class="code" href="classHSF_1_1Nodes.html#a4cf0a36ef0cbd1d2183e6f426289b3ef" title="default constructor">Nodes</a>(Array&lt;Scalar&gt;&amp; x, Array&lt;Label&gt;&amp; y, Array&lt;Label&gt;&amp; z);
+<a name="l00054"></a>00054         <a class="code" href="classHSF_1_1Nodes.html#a4cf0a36ef0cbd1d2183e6f426289b3ef" title="default constructor">Nodes</a>(<a class="code" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* x, <a class="code" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* y, <a class="code" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* z, <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> num);
+<a name="l00058"></a>00058         <a class="code" href="classHSF_1_1Nodes.html#aad6cecbfe88532697dedfca221638d89" title="deconstructor">~Nodes</a>();
+<a name="l00062"></a>00062         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="code" href="classHSF_1_1Nodes.html#a8e3420be01fedbc5682e037631c28465" title="get the count of nodes">size</a>();
+<a name="l00066"></a>00066         <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1Nodes.html#a77f909942d5128a6cf8bb7fe6348a26d" title="copy constructor">copy</a>(<a class="code" href="classHSF_1_1Nodes.html#a4cf0a36ef0cbd1d2183e6f426289b3ef" title="default constructor">Nodes</a>* nodes);
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068         Array&lt;Scalar&gt;&amp; <a class="code" href="classHSF_1_1Nodes.html#a4182f41b3eac0fe1654a9e857fb2ea76">getX</a>();
+<a name="l00069"></a>00069         Array&lt;Scalar&gt;&amp; <a class="code" href="classHSF_1_1Nodes.html#aec349ea7122ee1da0a60185e804adf1f">getY</a>();
+<a name="l00070"></a>00070         Array&lt;Scalar&gt;&amp; <a class="code" href="classHSF_1_1Nodes.html#a09fe0de278bdddea1c21634e7ade9fed">getZ</a>();
+<a name="l00071"></a>00071         ArrayArray&lt;Scalar&gt;&amp; <a class="code" href="classHSF_1_1Nodes.html#a760ecb9be7c2a92d622bfce425201784">getXYZ</a>();
+<a name="l00072"></a>00072         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="code" href="classHSF_1_1Nodes.html#ac040e3ba37f121943eb2d90c785addce">getStart</a>();
+<a name="l00073"></a>00073         <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> <a class="code" href="classHSF_1_1Nodes.html#aa61b5c705ee968a95ba9036e55574ca1">getEnd</a>();
+<a name="l00074"></a>00074         <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1Nodes.html#ab8ee8ad861d256901605c11552e003d4">setStart</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> start);
+<a name="l00075"></a>00075         <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1Nodes.html#a7dd80e94f1eae9c903ad4b2797dc0375">setEnd</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> end);
+<a name="l00076"></a>00076 };
+<a name="l00077"></a>00077 
+<a name="l00078"></a>00078 } <span class="comment">// end namespace HSF</span>
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

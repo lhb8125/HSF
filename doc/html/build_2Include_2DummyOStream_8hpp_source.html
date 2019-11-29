@@ -1,0 +1,170 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/Include/DummyOStream.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/Include/DummyOStream.hpp</h1><a href="build_2Include_2DummyOStream_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* Copyright (C) </span>
+<a name="l00002"></a>00002 <span class="comment"> * 2019 - Hu Ren, rh890127a@163.com</span>
+<a name="l00003"></a>00003 <span class="comment"> * This program is free software; you can redistribute it and/or</span>
+<a name="l00004"></a>00004 <span class="comment"> * modify it under the terms of the GNU General Public License</span>
+<a name="l00005"></a>00005 <span class="comment"> * as published by the Free Software Foundation; either version 2</span>
+<a name="l00006"></a>00006 <span class="comment"> * of the License, or (at your option) any later version.</span>
+<a name="l00007"></a>00007 <span class="comment"> * </span>
+<a name="l00008"></a>00008 <span class="comment"> * This program is distributed in the hope that it will be useful,</span>
+<a name="l00009"></a>00009 <span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<a name="l00010"></a>00010 <span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<a name="l00011"></a>00011 <span class="comment"> * GNU General Public License for more details.</span>
+<a name="l00012"></a>00012 <span class="comment"> * </span>
+<a name="l00013"></a>00013 <span class="comment"> * You should have received a copy of the GNU General Public License</span>
+<a name="l00014"></a>00014 <span class="comment"> * along with this program; if not, write to the Free Software</span>
+<a name="l00015"></a>00015 <span class="comment"> * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span>
+<a name="l00016"></a>00016 <span class="comment"> * </span>
+<a name="l00017"></a>00017 <span class="comment"> */</span>
+<a name="l00027"></a>00027 <span class="preprocessor">#ifndef HSF_DUMMYOSTREAM_HPP</span>
+<a name="l00028"></a>00028 <span class="preprocessor"></span><span class="preprocessor">#define HSF_DUMMYOSTREAM_HPP</span>
+<a name="l00029"></a>00029 <span class="preprocessor"></span>
+<a name="l00030"></a>00030 <span class="keyword">namespace </span>HSF
+<a name="l00031"></a>00031 {
+<a name="l00032"></a>00032 
+<a name="l00033"></a><a class="code" href="classHSF_1_1DummyOStream.html">00033</a> <span class="keyword">class </span><a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a>
+<a name="l00034"></a>00034   :
+<a name="l00035"></a>00035     <span class="keyword">public</span> <a class="code" href="classHSF_1_1OStream.html">OStream</a>
+<a name="l00036"></a>00036 {
+<a name="l00037"></a>00037 <span class="keyword">public</span>:
+<a name="l00038"></a>00038 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00039"></a>00039 <span class="comment">// construct &amp; deconstruct</span>
+<a name="l00040"></a>00040 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042   <span class="comment">// construct empty</span>
+<a name="l00043"></a><a class="code" href="classHSF_1_1DummyOStream.html#a295657be440a5d921ca7e547526e7188">00043</a>   <a class="code" href="classHSF_1_1DummyOStream.html#a295657be440a5d921ca7e547526e7188">DummyOStream</a>()
+<a name="l00044"></a>00044     :
+<a name="l00045"></a>00045       <a class="code" href="classHSF_1_1OStream.html">OStream</a>()
+<a name="l00046"></a>00046   {}
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048   <span class="comment">// deconstruct</span>
+<a name="l00049"></a><a class="code" href="classHSF_1_1DummyOStream.html#a525d3b3ad0b0fcf15c630774f9c022ab">00049</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html#a525d3b3ad0b0fcf15c630774f9c022ab">~DummyOStream</a>()
+<a name="l00050"></a>00050   {  }
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00053"></a>00053 <span class="comment">// streaming operator</span>
+<a name="l00054"></a>00054 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00055"></a><a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">00055</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">char</span> chrt)
+<a name="l00056"></a>00056   {
+<a name="l00057"></a>00057     <span class="comment">// do nothing</span>
+<a name="l00058"></a>00058     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00059"></a>00059   }
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="classHSF_1_1DummyOStream.html#ab67a98f5212d00528d5dda50e9858b7b">00061</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">string</span> str)
+<a name="l00062"></a>00062   {
+<a name="l00063"></a>00063     <span class="comment">// do nothing</span>
+<a name="l00064"></a>00064     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00065"></a>00065   }
+<a name="l00066"></a>00066 
+<a name="l00067"></a><a class="code" href="classHSF_1_1DummyOStream.html#a439a7fa1b22a1e7bcc49fa43c686dc0d">00067</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(int64_t val)
+<a name="l00068"></a>00068   {
+<a name="l00069"></a>00069     <span class="comment">// do nothing</span>
+<a name="l00070"></a>00070     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00071"></a>00071   }
+<a name="l00072"></a>00072 
+<a name="l00073"></a><a class="code" href="classHSF_1_1DummyOStream.html#a58e20bb47f254b73898d940bb496ee1f">00073</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(int32_t val)
+<a name="l00074"></a>00074   {
+<a name="l00075"></a>00075     <span class="comment">// do nothing</span>
+<a name="l00076"></a>00076     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00077"></a>00077   }
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="classHSF_1_1DummyOStream.html#a7c3f9f5c2e3a05760819499df1aa6592">00079</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> val)
+<a name="l00080"></a>00080   {
+<a name="l00081"></a>00081     <span class="comment">// do nothing</span>
+<a name="l00082"></a>00082     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00083"></a>00083   }
+<a name="l00084"></a>00084 
+<a name="l00085"></a><a class="code" href="classHSF_1_1DummyOStream.html#a9a138ca0d1ea4ebc7b3d699391bb3635">00085</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val)
+<a name="l00086"></a>00086   {
+<a name="l00087"></a>00087     <span class="comment">// do nothing</span>
+<a name="l00088"></a>00088     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00089"></a>00089   }
+<a name="l00090"></a>00090 
+<a name="l00091"></a><a class="code" href="classHSF_1_1DummyOStream.html#a727be32ccd88ccaee0fae2e8d148e9b5">00091</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">double</span> val)
+<a name="l00092"></a>00092   {
+<a name="l00093"></a>00093     <span class="comment">// do nothing</span>
+<a name="l00094"></a>00094     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00095"></a>00095   }
+<a name="l00096"></a>00096   
+<a name="l00097"></a><a class="code" href="classHSF_1_1DummyOStream.html#af27eca0aa6a04ff2a0e86bc668d88dcd">00097</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<span class="keywordtype">float</span> val)
+<a name="l00098"></a>00098   {
+<a name="l00099"></a>00099     <span class="comment">// do nothing</span>
+<a name="l00100"></a>00100     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00101"></a>00101   }
+<a name="l00102"></a>00102   
+<a name="l00108"></a><a class="code" href="classHSF_1_1DummyOStream.html#a7b609938f7a2d4304a463d6164c2ec3b">00108</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a> &amp; <a class="code" href="classHSF_1_1DummyOStream.html#a2388508ce3a9278f7d0aa4ccfd56f432">operator&lt;&lt;</a>(<a class="code" href="namespaceHSF.html#a5c97750573f23c09a9fed0efa5baa52d" title="OsOp The type of function pointer that matchs &amp;quot;std::endl&amp;quot; and &amp;quot;std::flush&amp;quot;...">OsOp</a> opt)
+<a name="l00109"></a>00109   {
+<a name="l00110"></a>00110     <span class="comment">// do nothing</span>
+<a name="l00111"></a>00111     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00112"></a>00112   }
+<a name="l00113"></a>00113 
+<a name="l00114"></a>00114 };
+<a name="l00115"></a>00115 
+<a name="l00116"></a>00116 } <span class="comment">// namespace HSF</span>
+<a name="l00117"></a>00117 
+<a name="l00118"></a>00118 
+<a name="l00119"></a>00119 
+<a name="l00120"></a>00120 <span class="preprocessor">#endif // HSD_DUMMYOSTREAM_HPP</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

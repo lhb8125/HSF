@@ -1,0 +1,138 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/Include/utilInterfaces.h源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/Include/utilInterfaces.h</h1><a href="build_2Include_2utilInterfaces_8h.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00002"></a>00002 <span class="preprocessor">#ifndef UTILINTERFACES_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span><span class="preprocessor">#define UTILINTERFACES_H</span>
+<a name="l00004"></a>00004 <span class="preprocessor"></span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2Base_8hpp.html">Base.hpp</a>&quot;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2basicFunction_8h.html">basicFunction.h</a>&quot;</span>
+<a name="l00007"></a>00007 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2usingCpp_8hpp.html">usingCpp.hpp</a>&quot;</span>
+<a name="l00008"></a>00008 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2basicFunction_8hpp.html">basicFunction.hpp</a>&quot;</span>
+<a name="l00009"></a>00009 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2container_2Container_8hpp.html">Container.hpp</a>&quot;</span>
+<a name="l00010"></a>00010 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2OStream_8hpp.html">OStream.hpp</a>&quot;</span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2MultiOStream_8hpp.html">MultiOStream.hpp</a>&quot;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2DummyOStream_8hpp.html">DummyOStream.hpp</a>&quot;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html">Communicator.hpp</a>&quot;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2mpiWrapper_2CommunicationManager_2CommunicationManager_8hpp.html">CommunicationManager.hpp</a>&quot;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2mpiWrapper_2mpiWrapper_8hpp.html">mpiWrapper.hpp</a>&quot;</span>
+<a name="l00016"></a>00016 
+<a name="l00017"></a><a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">00017</a> <span class="keyword">typedef</span> label <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>;
+<a name="l00018"></a><a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">00018</a> <span class="keyword">typedef</span> scalar <a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a>;
+<a name="l00019"></a>00019 
+<a name="l00020"></a>00020 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span>
+<a name="l00022"></a>00022 {
+<a name="l00023"></a>00023 <span class="preprocessor">#endif</span>
+<a name="l00024"></a>00024 <span class="preprocessor"></span>
+<a name="l00025"></a>00025 <span class="comment">/*****************************************utility初始化*****************************************/</span>
+<a name="l00026"></a>00026 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a86c96f210c63b53d40fe617863394af5">init_utility_</a>(); 
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028 <span class="comment">/*****************************************进程间数据交换****************************************/</span>
+<a name="l00029"></a>00029 
+<a name="l00034"></a>00034 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a69845c1b5f6aaa2974c77a6f0860ceba" title="获取进程号">get_pid_</a>( <span class="keywordtype">int</span> * pid );
+<a name="l00035"></a>00035 
+<a name="l00040"></a>00040 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a50379056695983a7dd00fc13c3648d56" title="获取进程规模">get_commsize_</a>( <span class="keywordtype">int</span> * commSize );
+<a name="l00041"></a>00041 
+<a name="l00042"></a>00042 
+<a name="l00049"></a>00049 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a36b442dfc1f38f60efcacfae43285177" title="规约整形变量序列">all_reduce_labels_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* data, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count , <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* op);
+<a name="l00050"></a>00050 
+<a name="l00057"></a>00057 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#abdd5905891bcf3cf731567757b6fd90c" title="规约浮点变量序列">all_reduce_scalars_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a>* data, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>* op);
+<a name="l00058"></a>00058 
+<a name="l00064"></a>00064 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#afa24f51c97ca8dfbbc10cd0483794a29" title="主进程广播整形序列">bcast_labels_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* data, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count);
+<a name="l00065"></a>00065 
+<a name="l00071"></a>00071 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a5daa201aacedbaaaedd629c72cb4fc82" title="主进程广播浮点型序列">bcast_scalars_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a>* data, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count);
+<a name="l00072"></a>00072 
+<a name="l00079"></a>00079 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#aee43138b37cf81b3725c71fabbc733d2" title="主进程收集整形序列">gather_labels_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* sdata, <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* rdata, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count );
+<a name="l00080"></a>00080 
+<a name="l00087"></a>00087 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#af7f4d6d45537bd92b4597fbe8898e2e9" title="主进程收集浮点序列">gather_scalars_</a>(<a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a>* sdata, <a class="code" href="build_2Include_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a>* rdata, <span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>* count);
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089 <span class="comment">/*******************************************标准输出*******************************************/</span>
+<a name="l00095"></a>00095 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a24b78782c5a742684f23979bb1fdf238" title="所有进程输出到特定文件">par_std_out_</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);
+<a name="l00096"></a>00096 
+<a name="l00103"></a>00103 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#abd935013162513df7bac6296c50fcb25" title="指定进程号输出到屏幕">proc_std_out_</a>(<span class="keyword">const</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> pid, <span class="keyword">const</span> <span class="keywordtype">char</span>* format, ...);
+<a name="l00104"></a>00104 
+<a name="l00110"></a>00110 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#ad2d762f9d6a2b4a5c31d5ecba8243085" title="主核输出到屏幕">master_std_out_</a>(<span class="keywordtype">char</span>* format, ...);
+<a name="l00111"></a>00111 
+<a name="l00112"></a>00112 <span class="comment">// Fortran 字符串输出</span>
+<a name="l00113"></a>00113 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#afe45e2dd2bb2abc216215411c5990df4">fort_cout_</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">int</span>* len);
+<a name="l00114"></a>00114 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a16f0d2f3ebbb19175d30795a3759132b">fort_pout_</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">int</span>* len);
+<a name="l00115"></a>00115 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#ab8abb176fac737a7352b3ac736554a0d">fort_sout_</a>(<span class="keyword">const</span> <span class="keywordtype">int</span>* pid, <span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keyword">const</span> <span class="keywordtype">int</span>* len);
+<a name="l00116"></a>00116 
+<a name="l00117"></a>00117 <span class="comment">/*******************************************数据输出*******************************************/</span>
+<a name="l00118"></a>00118 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a9b0b7446c2c8c936b92afc635fc771ba">write_restart_</a>(); <span class="comment">// 写出结果文件，用于重启计算</span>
+<a name="l00119"></a>00119 
+<a name="l00123"></a>00123 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#a857849a680cfd3e8ac9bb51f4a3114a2" title="写出网格到CGNS文件中，结果文件名由config文件中resPath关键字指定...">write_mesh_</a>();
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125 
+<a name="l00131"></a>00131 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#ac890ac830a61bf4facfc1f7251443834" title="输出整型场到CGNS文件，结果文件名由config文件中resPath关键字指定...">write_label_field_</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fieldName, <span class="keyword">const</span> <span class="keywordtype">char</span>* fieldType);
+<a name="l00132"></a>00132 
+<a name="l00138"></a>00138 <span class="keywordtype">void</span> <a class="code" href="build_2Include_2utilInterfaces_8h.html#aabd7d808c15ea37613b24040f4020da4" title="输出浮点场到CGNS文件，结果文件名由config文件中resPath关键字指定...">write_scalar_field_</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* fieldName, <span class="keyword">const</span> <span class="keywordtype">char</span>* fieldType);
+<a name="l00139"></a>00139 
+<a name="l00140"></a>00140 <span class="preprocessor">#ifdef __cplusplus</span>
+<a name="l00141"></a>00141 <span class="preprocessor"></span>}
+<a name="l00142"></a>00142 <span class="preprocessor">#endif</span>
+<a name="l00143"></a>00143 <span class="preprocessor"></span>
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 <span class="preprocessor">#endif // INTERFACE_H</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

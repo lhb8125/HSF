@@ -1,0 +1,351 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/Include/MultiOStream.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/Include/MultiOStream.hpp</h1><a href="build_2Include_2MultiOStream_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* Copyright (C) </span>
+<a name="l00002"></a>00002 <span class="comment"> * 2019 - Hu Ren, rh890127a@163.com</span>
+<a name="l00003"></a>00003 <span class="comment"> * This program is free software; you can redistribute it and/or</span>
+<a name="l00004"></a>00004 <span class="comment"> * modify it under the terms of the GNU General Public License</span>
+<a name="l00005"></a>00005 <span class="comment"> * as published by the Free Software Foundation; either version 2</span>
+<a name="l00006"></a>00006 <span class="comment"> * of the License, or (at your option) any later version.</span>
+<a name="l00007"></a>00007 <span class="comment"> * </span>
+<a name="l00008"></a>00008 <span class="comment"> * This program is distributed in the hope that it will be useful,</span>
+<a name="l00009"></a>00009 <span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<a name="l00010"></a>00010 <span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<a name="l00011"></a>00011 <span class="comment"> * GNU General Public License for more details.</span>
+<a name="l00012"></a>00012 <span class="comment"> * </span>
+<a name="l00013"></a>00013 <span class="comment"> * You should have received a copy of the GNU General Public License</span>
+<a name="l00014"></a>00014 <span class="comment"> * along with this program; if not, write to the Free Software</span>
+<a name="l00015"></a>00015 <span class="comment"> * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span>
+<a name="l00016"></a>00016 <span class="comment"> * </span>
+<a name="l00017"></a>00017 <span class="comment"> */</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2OStream_8hpp.html">OStream.hpp</a>&quot;</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031 <span class="preprocessor">#ifndef HSF_MULTIOSTREAM_HPP</span>
+<a name="l00032"></a>00032 <span class="preprocessor"></span><span class="preprocessor">#define HSF_MULTIOSTREAM_HPP</span>
+<a name="l00033"></a>00033 <span class="preprocessor"></span>
+<a name="l00034"></a>00034 <span class="keyword">namespace </span>HSF
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="classHSF_1_1MultiOStream.html">00037</a> <span class="keyword">class </span><a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> : 
+<a name="l00038"></a>00038   <span class="keyword">public</span> <a class="code" href="classHSF_1_1OStream.html">OStream</a>
+<a name="l00039"></a>00039 {
+<a name="l00040"></a>00040   <span class="comment">// core file stream</span>
+<a name="l00041"></a>00041   vector&lt;ostream*&gt; files_;
+<a name="l00042"></a>00042   <span class="comment">// if it is redirected</span>
+<a name="l00043"></a>00043   vector&lt;bool&gt; redirected_;
+<a name="l00044"></a>00044   <span class="comment">// original stream buffer holder in case redirected </span>
+<a name="l00045"></a>00045   vector&lt;StrBuf*&gt; buffers_;
+<a name="l00046"></a>00046 
+<a name="l00047"></a>00047 <span class="keyword">public</span>:
+<a name="l00048"></a>00048 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00049"></a>00049 <span class="comment">// construct &amp; deconstruct</span>
+<a name="l00050"></a>00050 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00051"></a>00051 
+<a name="l00052"></a>00052   <span class="comment">// construct empty</span>
+<a name="l00053"></a><a class="code" href="classHSF_1_1MultiOStream.html#aa480e0d213e42b0c566a3dfb508910b6">00053</a>   <a class="code" href="classHSF_1_1MultiOStream.html#aa480e0d213e42b0c566a3dfb508910b6">MultiOStream</a>()
+<a name="l00054"></a>00054     :
+<a name="l00055"></a>00055     files_(0),redirected_(0), buffers_(0)
+<a name="l00056"></a>00056   {}
+<a name="l00057"></a>00057 
+<a name="l00058"></a>00058   <span class="comment">// construct from file name</span>
+<a name="l00059"></a><a class="code" href="classHSF_1_1MultiOStream.html#a438ace99909dfb8edeb030fee3e389fd">00059</a>   <a class="code" href="classHSF_1_1MultiOStream.html#aa480e0d213e42b0c566a3dfb508910b6">MultiOStream</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>* filename, <span class="keywordtype">int</span> num = 1)
+<a name="l00060"></a>00060     :
+<a name="l00061"></a>00061     files_(num, NULL), redirected_(num, false), buffers_(num, NULL)
+<a name="l00062"></a>00062   {
+<a name="l00063"></a>00063     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; num; i++)
+<a name="l00064"></a>00064       files_[i] = <span class="keyword">new</span> ofstream(filename[i].c_str());
+<a name="l00065"></a>00065   }
+<a name="l00066"></a>00066 
+<a name="l00067"></a>00067   <span class="comment">// construct from file buffer</span>
+<a name="l00068"></a><a class="code" href="classHSF_1_1MultiOStream.html#a4aac510e4c446ac42c8439cb436f84a1">00068</a>   <a class="code" href="classHSF_1_1MultiOStream.html#aa480e0d213e42b0c566a3dfb508910b6">MultiOStream</a>(<a class="code" href="namespaceHSF.html#a099dd77b4cb045fbbd0fb0dd0946e198">StrBuf</a>** rbuf, <span class="keywordtype">int</span> num = 1)
+<a name="l00069"></a>00069     :
+<a name="l00070"></a>00070     files_(num, NULL), redirected_(num, true), buffers_(num, NULL)
+<a name="l00071"></a>00071   {
+<a name="l00072"></a>00072     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; num ; i++)
+<a name="l00073"></a>00073     {
+<a name="l00074"></a>00074       files_[i] = <span class="keyword">new</span> ofstream();
+<a name="l00075"></a>00075       buffers_[i] = files_[i]-&gt;rdbuf();
+<a name="l00076"></a>00076       files_[i]-&gt;ostream::rdbuf(rbuf[i]);
+<a name="l00077"></a>00077     }
+<a name="l00078"></a>00078   }
+<a name="l00079"></a>00079 
+<a name="l00080"></a>00080 <span class="comment">// No clone or operator= (before C++11) for ostream </span>
+<a name="l00081"></a>00081 <span class="comment">/* </span>
+<a name="l00082"></a>00082 <span class="comment">  // copy constructor</span>
+<a name="l00083"></a>00083 <span class="comment">  MultiOStream( const MultiOStream&amp; ref )</span>
+<a name="l00084"></a>00084 <span class="comment">    : </span>
+<a name="l00085"></a>00085 <span class="comment">      OStream(ref), files_(0), redirected_(0), buffers_(0)</span>
+<a name="l00086"></a>00086 <span class="comment">  {</span>
+<a name="l00087"></a>00087 <span class="comment">    // copy data</span>
+<a name="l00088"></a>00088 <span class="comment">    size_t size = ref.getFileNum();</span>
+<a name="l00089"></a>00089 <span class="comment">    for(size_t i = 0; i &lt; size; i++)</span>
+<a name="l00090"></a>00090 <span class="comment">        {</span>
+<a name="l00091"></a>00091 <span class="comment">      this-&gt;files_.push_back(ref.getRawStream(i)-&gt;clone() );</span>
+<a name="l00092"></a>00092 <span class="comment">      this-&gt;redirected_.push_back(ref.redirected(i) );</span>
+<a name="l00093"></a>00093 <span class="comment">      this-&gt;buffers_.push_back(ref.getStrBuf(i)-&gt;clone() );</span>
+<a name="l00094"></a>00094 <span class="comment">    }</span>
+<a name="l00095"></a>00095 <span class="comment">  }</span>
+<a name="l00096"></a>00096 <span class="comment">  </span>
+<a name="l00097"></a>00097 <span class="comment">  // clone</span>
+<a name="l00098"></a>00098 <span class="comment">  virtual MultiOStream* clone() { return new MultiOStream(*this) }; </span>
+<a name="l00099"></a>00099 <span class="comment"></span>
+<a name="l00100"></a>00100 <span class="comment">  // assign operator</span>
+<a name="l00101"></a>00101 <span class="comment">  void operator = ( const MultiOStream&amp; ref )</span>
+<a name="l00102"></a>00102 <span class="comment">  { </span>
+<a name="l00103"></a>00103 <span class="comment">    // deconstruct the older first to close file</span>
+<a name="l00104"></a>00104 <span class="comment">    for(int i = 0; i &lt; files_.size(); i++)</span>
+<a name="l00105"></a>00105 <span class="comment">    {</span>
+<a name="l00106"></a>00106 <span class="comment">      if( redirected_[i] ) files_[i]-&gt;ostream::rdbuf(buffers_[i]);</span>
+<a name="l00107"></a>00107 <span class="comment">      if( files_[i]-&gt;rdbuf() != cout.rdbuf() &amp;&amp; files_[i]-&gt;rdbuf() != NULL )</span>
+<a name="l00108"></a>00108 <span class="comment">        ((ofstream*) files_[i] )-&gt;close();</span>
+<a name="l00109"></a>00109 <span class="comment">      delete files_[i];</span>
+<a name="l00110"></a>00110 <span class="comment">    }</span>
+<a name="l00111"></a>00111 <span class="comment">    // clear containers</span>
+<a name="l00112"></a>00112 <span class="comment">    files_.resize(0);</span>
+<a name="l00113"></a>00113 <span class="comment">    redirected_.resize(0);</span>
+<a name="l00114"></a>00114 <span class="comment">    buffers_.resize(0);</span>
+<a name="l00115"></a>00115 <span class="comment">    // copy data</span>
+<a name="l00116"></a>00116 <span class="comment">    size_t size = ref.getFileNum();</span>
+<a name="l00117"></a>00117 <span class="comment">    for(size_t i = 0; i &lt; size; i++)</span>
+<a name="l00118"></a>00118 <span class="comment">        {</span>
+<a name="l00119"></a>00119 <span class="comment">      this-&gt;files_.push_back(ref.getRawStream(i)-&gt;clone() );</span>
+<a name="l00120"></a>00120 <span class="comment">      this-&gt;redirected_.push_back(ref.redirected(i) );</span>
+<a name="l00121"></a>00121 <span class="comment">      this-&gt;buffers_.push_back(ref.getStrBuf(i)-&gt;clone() );</span>
+<a name="l00122"></a>00122 <span class="comment">    }</span>
+<a name="l00123"></a>00123 <span class="comment">  }</span>
+<a name="l00124"></a>00124 <span class="comment">*/</span>
+<a name="l00125"></a>00125 
+<a name="l00126"></a>00126 
+<a name="l00127"></a>00127   <span class="comment">// deconstruct</span>
+<a name="l00128"></a><a class="code" href="classHSF_1_1MultiOStream.html#ae743ac2c5f62bb631f10e0efdf45c0a5">00128</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html#ae743ac2c5f62bb631f10e0efdf45c0a5">~MultiOStream</a>()
+<a name="l00129"></a>00129   {
+<a name="l00130"></a>00130     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++)
+<a name="l00131"></a>00131     {
+<a name="l00132"></a>00132       <span class="keywordflow">if</span>( redirected_[i] ) files_[i]-&gt;ostream::rdbuf(buffers_[i]);
+<a name="l00133"></a>00133       <span class="keywordflow">if</span>( files_[i]-&gt;rdbuf() != cout.rdbuf() &amp;&amp; files_[i]-&gt;rdbuf() != NULL )
+<a name="l00134"></a>00134         ((ofstream*) files_[i] )-&gt;close();
+<a name="l00135"></a>00135       <span class="keyword">delete</span> files_[i];
+<a name="l00136"></a>00136     }
+<a name="l00137"></a>00137   }
+<a name="l00138"></a>00138 
+<a name="l00139"></a>00139 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00140"></a>00140 <span class="comment">// redirecting &amp; access</span>
+<a name="l00141"></a>00141 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00142"></a><a class="code" href="classHSF_1_1MultiOStream.html#a5b4339f2eafeae22419e413625b94216">00142</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1MultiOStream.html#a5b4339f2eafeae22419e413625b94216">redirect</a>(<a class="code" href="namespaceHSF.html#a099dd77b4cb045fbbd0fb0dd0946e198">StrBuf</a>* rbuf, <span class="keywordtype">int</span> pos = 0)
+<a name="l00143"></a>00143   {
+<a name="l00144"></a>00144     <span class="keywordflow">if</span>(pos &gt;= files_.size())
+<a name="l00145"></a>00145     {
+<a name="l00146"></a>00146       cerr&lt;&lt;__FILE__&lt;&lt;<span class="stringliteral">&quot; + &quot;</span>&lt;&lt;__LINE__&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;endl
+<a name="l00147"></a>00147         &lt;&lt;__FUNCTION__&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;endl
+<a name="l00148"></a>00148         &lt;&lt;<span class="stringliteral">&quot;Error: manipulation on an undefined object!&quot;</span>&lt;&lt;endl;
+<a name="l00149"></a>00149       exit( -1 );
+<a name="l00150"></a>00150     }
+<a name="l00151"></a>00151 
+<a name="l00152"></a>00152     <span class="keywordflow">if</span>(redirected_[pos]) files_[pos]-&gt;ostream::rdbuf(rbuf);
+<a name="l00153"></a>00153     <span class="keywordflow">else</span> 
+<a name="l00154"></a>00154     {
+<a name="l00155"></a>00155       redirected_[pos] = <span class="keyword">true</span>;
+<a name="l00156"></a>00156       buffers_[pos] = files_[pos]-&gt;rdbuf();
+<a name="l00157"></a>00157       files_[pos]-&gt;ostream::rdbuf(rbuf);
+<a name="l00158"></a>00158     }
+<a name="l00159"></a>00159   }
+<a name="l00160"></a>00160 
+<a name="l00161"></a><a class="code" href="classHSF_1_1MultiOStream.html#aa9292b98a3ef97388d1aa6ce8119412f">00161</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1OStream.html#ac3d63743046e59e7f27aa3dde0f6b68c">reset</a>(<span class="keywordtype">int</span> pos = 0)
+<a name="l00162"></a>00162   {
+<a name="l00163"></a>00163     <span class="keywordflow">if</span>(pos &gt;= files_.size())
+<a name="l00164"></a>00164     {
+<a name="l00165"></a>00165       cerr&lt;&lt;__FILE__&lt;&lt;<span class="stringliteral">&quot; + &quot;</span>&lt;&lt;__LINE__&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;endl
+<a name="l00166"></a>00166         &lt;&lt;__FUNCTION__&lt;&lt;<span class="stringliteral">&quot;: &quot;</span>&lt;&lt;endl
+<a name="l00167"></a>00167         &lt;&lt;<span class="stringliteral">&quot;Error: manipulation on an undefined object!&quot;</span>&lt;&lt;endl;
+<a name="l00168"></a>00168       exit( -1 );
+<a name="l00169"></a>00169     }
+<a name="l00170"></a>00170     
+<a name="l00171"></a>00171     <span class="keywordflow">if</span>(redirected_[pos]) 
+<a name="l00172"></a>00172     {
+<a name="l00173"></a>00173       files_[pos]-&gt;ostream::rdbuf(buffers_[pos]);
+<a name="l00174"></a>00174       redirected_[pos] = <span class="keyword">false</span>;
+<a name="l00175"></a>00175     }
+<a name="l00176"></a>00176   }
+<a name="l00177"></a>00177 
+<a name="l00178"></a><a class="code" href="classHSF_1_1MultiOStream.html#afb114bb87da89f7ea7ac65af6ffc65f2">00178</a>   <span class="keyword">virtual</span> <span class="keyword">const</span> ostream* <a class="code" href="classHSF_1_1MultiOStream.html#afb114bb87da89f7ea7ac65af6ffc65f2">getRawStream</a>(<span class="keywordtype">int</span> pos = 0) { <span class="keywordflow">return</span> files_[pos]; }
+<a name="l00179"></a>00179   
+<a name="l00180"></a><a class="code" href="classHSF_1_1MultiOStream.html#a2a33520e221422d2a10e1c3eace3029b">00180</a>   <span class="keyword">virtual</span> <a class="code" href="namespaceHSF.html#a099dd77b4cb045fbbd0fb0dd0946e198">StrBuf</a>* <a class="code" href="classHSF_1_1MultiOStream.html#a2a33520e221422d2a10e1c3eace3029b">getStrBuf</a>(<span class="keywordtype">int</span> pos = 0) { <span class="keywordflow">return</span> files_[pos]-&gt;rdbuf(); }
+<a name="l00181"></a>00181   
+<a name="l00182"></a><a class="code" href="classHSF_1_1MultiOStream.html#a4f08ea78abbcd60f0d6460cdce6ea79d">00182</a>   <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classHSF_1_1MultiOStream.html#a4f08ea78abbcd60f0d6460cdce6ea79d">redirected</a>(<span class="keywordtype">int</span> pos = 0) { <span class="keywordflow">return</span> redirected_[pos]; }
+<a name="l00183"></a>00183  
+<a name="l00184"></a><a class="code" href="classHSF_1_1MultiOStream.html#ac0ac202ca73eb0c39d4b4b3f8f462f34">00184</a>   <span class="keyword">virtual</span> <span class="keywordtype">size_t</span> <a class="code" href="classHSF_1_1MultiOStream.html#ac0ac202ca73eb0c39d4b4b3f8f462f34">getFileNum</a>() { <span class="keywordflow">return</span> files_.size(); } 
+<a name="l00185"></a>00185 
+<a name="l00186"></a>00186   <span class="comment">// add new file</span>
+<a name="l00187"></a><a class="code" href="classHSF_1_1MultiOStream.html#ad43365fb905b031fcbe0e9618daf8d28">00187</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1MultiOStream.html#ad43365fb905b031fcbe0e9618daf8d28">addFile</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename)
+<a name="l00188"></a>00188   {
+<a name="l00189"></a>00189     files_.push_back(NULL);
+<a name="l00190"></a>00190     *(files_.end() - 1 )= <span class="keyword">new</span> ofstream(filename.c_str());
+<a name="l00191"></a>00191     redirected_.push_back(<span class="keyword">false</span>);
+<a name="l00192"></a>00192     buffers_.push_back(NULL);
+<a name="l00193"></a>00193   }
+<a name="l00194"></a>00194 
+<a name="l00195"></a>00195   <span class="comment">// add new buffer</span>
+<a name="l00196"></a><a class="code" href="classHSF_1_1MultiOStream.html#a0fea8b810751922bf4b67b814b31b737">00196</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1MultiOStream.html#a0fea8b810751922bf4b67b814b31b737">addBuffer</a>(<a class="code" href="namespaceHSF.html#a099dd77b4cb045fbbd0fb0dd0946e198">StrBuf</a>* buf)
+<a name="l00197"></a>00197   {
+<a name="l00198"></a>00198     files_.push_back(NULL);
+<a name="l00199"></a>00199     files_[files_.size() - 1 ] = <span class="keyword">new</span> ofstream();
+<a name="l00200"></a>00200     redirected_.push_back(<span class="keyword">true</span>);
+<a name="l00201"></a>00201     buffers_.push_back(files_[files_.size() - 1 ]-&gt;rdbuf() );
+<a name="l00202"></a>00202     files_[files_.size() - 1 ]-&gt;ostream::rdbuf(buf);
+<a name="l00203"></a>00203   }
+<a name="l00204"></a>00204 
+<a name="l00205"></a>00205   <span class="comment">// erase last file</span>
+<a name="l00206"></a><a class="code" href="classHSF_1_1MultiOStream.html#a60ad324c113b00270b59a9745e08a0c1">00206</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1MultiOStream.html#a60ad324c113b00270b59a9745e08a0c1">closeLast</a>()
+<a name="l00207"></a>00207   {
+<a name="l00208"></a>00208     <span class="keywordflow">if</span>(files_.size() &gt; 0 ) 
+<a name="l00209"></a>00209     {
+<a name="l00210"></a>00210       <span class="keywordtype">int</span> pos = files_.size() - 1;
+<a name="l00211"></a>00211       <span class="keywordflow">if</span>( redirected_[pos] ) files_[pos]-&gt;ostream::rdbuf(buffers_[pos]);
+<a name="l00212"></a>00212       <span class="keywordflow">if</span>( files_[pos]-&gt;rdbuf() != cout.rdbuf() &amp;&amp; 
+<a name="l00213"></a>00213           files_[pos]-&gt;rdbuf() != NULL )
+<a name="l00214"></a>00214         ((ofstream*) files_[pos] )-&gt;close();
+<a name="l00215"></a>00215       <span class="keyword">delete</span> files_[pos];
+<a name="l00216"></a>00216       files_.pop_back();
+<a name="l00217"></a>00217       buffers_.pop_back();
+<a name="l00218"></a>00218       redirected_.pop_back();
+<a name="l00219"></a>00219     }
+<a name="l00220"></a>00220     <span class="keywordflow">else</span> <span class="keywordflow">return</span> 0;
+<a name="l00221"></a>00221   }
+<a name="l00222"></a>00222 
+<a name="l00223"></a>00223 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00224"></a>00224 <span class="comment">// streaming operator</span>
+<a name="l00225"></a>00225 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00226"></a><a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">00226</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">char</span> chrt)
+<a name="l00227"></a>00227   {
+<a name="l00228"></a>00228     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00229"></a>00229       *(this-&gt;files_[i])&lt;&lt;chrt;
+<a name="l00230"></a>00230     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00231"></a>00231   }
+<a name="l00232"></a>00232 
+<a name="l00233"></a><a class="code" href="classHSF_1_1MultiOStream.html#ab928595ef99d77f13d961541cb2e9f78">00233</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">string</span> str)
+<a name="l00234"></a>00234   {
+<a name="l00235"></a>00235     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00236"></a>00236       *(this-&gt;files_[i])&lt;&lt;str;
+<a name="l00237"></a>00237     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00238"></a>00238   }
+<a name="l00239"></a>00239 
+<a name="l00240"></a><a class="code" href="classHSF_1_1MultiOStream.html#a960936ac105e7f2ed4801f0725dedfba">00240</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(int64_t val)
+<a name="l00241"></a>00241   {
+<a name="l00242"></a>00242     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00243"></a>00243       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00244"></a>00244     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00245"></a>00245   }
+<a name="l00246"></a>00246 
+<a name="l00247"></a><a class="code" href="classHSF_1_1MultiOStream.html#a83208fee91d9117cf7411cd63477c9fe">00247</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(int32_t val)
+<a name="l00248"></a>00248   {
+<a name="l00249"></a>00249     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00250"></a>00250       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00251"></a>00251     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00252"></a>00252   }
+<a name="l00253"></a>00253 
+<a name="l00254"></a><a class="code" href="classHSF_1_1MultiOStream.html#a40a0605bc99045578fccf9c5413411f5">00254</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> val)
+<a name="l00255"></a>00255   {
+<a name="l00256"></a>00256     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00257"></a>00257       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00258"></a>00258     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00259"></a>00259   }
+<a name="l00260"></a>00260 
+<a name="l00261"></a><a class="code" href="classHSF_1_1MultiOStream.html#a62badc16d7c2ac1ec092032698202938">00261</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val)
+<a name="l00262"></a>00262   {
+<a name="l00263"></a>00263     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00264"></a>00264       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00265"></a>00265     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00266"></a>00266   }
+<a name="l00267"></a>00267 
+<a name="l00268"></a><a class="code" href="classHSF_1_1MultiOStream.html#a5655da107161e680d3ae6eadb35e6617">00268</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">double</span> val)
+<a name="l00269"></a>00269   {
+<a name="l00270"></a>00270     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00271"></a>00271       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00272"></a>00272     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00273"></a>00273   }
+<a name="l00274"></a>00274   
+<a name="l00275"></a><a class="code" href="classHSF_1_1MultiOStream.html#ac926ea2605959066ab85c45a58dfa229">00275</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<span class="keywordtype">float</span> val)
+<a name="l00276"></a>00276   {
+<a name="l00277"></a>00277     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00278"></a>00278       *(this-&gt;files_[i])&lt;&lt;val;
+<a name="l00279"></a>00279     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00280"></a>00280   }
+<a name="l00281"></a>00281 
+<a name="l00287"></a><a class="code" href="classHSF_1_1MultiOStream.html#a31d1b48c4c7aac4ec51352f4dad28c8a">00287</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp; <a class="code" href="classHSF_1_1MultiOStream.html#a5539fcb94f7ab127f5d41768f18c59d0">operator&lt;&lt;</a>(<a class="code" href="namespaceHSF.html#a5c97750573f23c09a9fed0efa5baa52d" title="OsOp The type of function pointer that matchs &amp;quot;std::endl&amp;quot; and &amp;quot;std::flush&amp;quot;...">OsOp</a> opt)
+<a name="l00288"></a>00288   {
+<a name="l00289"></a>00289     <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; files_.size(); i++ )
+<a name="l00290"></a>00290       *(this-&gt;files_[i])&lt;&lt;opt;
+<a name="l00291"></a>00291     <span class="keywordflow">return</span> (<a class="code" href="classHSF_1_1MultiOStream.html">MultiOStream</a> &amp;) *<span class="keyword">this</span>;
+<a name="l00292"></a>00292   }
+<a name="l00293"></a>00293 
+<a name="l00294"></a>00294 };
+<a name="l00295"></a>00295 
+<a name="l00296"></a>00296 
+<a name="l00297"></a>00297 
+<a name="l00298"></a>00298 }<span class="comment">// namespace HSF</span>
+<a name="l00299"></a>00299 
+<a name="l00300"></a>00300 
+<a name="l00301"></a>00301 
+<a name="l00302"></a>00302 <span class="preprocessor">#endif // HSF_MULTIOSTREAM_HPP</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

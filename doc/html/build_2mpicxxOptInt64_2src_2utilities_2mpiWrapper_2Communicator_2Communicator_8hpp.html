@@ -1,0 +1,1230 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp文件参考</h1><code>#include &quot;mpi.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2common_2usingCpp_8hpp_source.html">usingCpp.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2common_2basicFunction_8hpp_source.html">basicFunction.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2OStream_2OStream_8hpp_source.html">OStream.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2OStream_2MultiOStream_8hpp_source.html">MultiOStream.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2OStream_2DummyOStream_8hpp_source.html">DummyOStream.hpp</a>&quot;</code><br/>
+
+<p><a href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_source.html">浏览该文件的源代码。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>组合类型</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Communicator.html">HSF::Communicator</a></td></tr>
+<tr><td colspan="2"><h2>名字空间</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHSF.html">HSF</a></td></tr>
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8b8762ba579fb020fcf7d7791b7a1c37">COMM_MAX_MSG_NUM</a>&nbsp;&nbsp;&nbsp;999</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a81c2b5634312e06e8788bd7910bb2e55">CommOp</a>&nbsp;&nbsp;&nbsp;MPI_Op</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a907b5d73e215085029817275a8dbf7fc">COMM_SUM</a>&nbsp;&nbsp;&nbsp;MPI_SUM</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a31cd81f1544a19b09ccdd280f3d0eb62">COMM_MIN</a>&nbsp;&nbsp;&nbsp;MPI_MIN</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae3e040f90f251305eb2b84fc2f954938">COMM_MAX</a>&nbsp;&nbsp;&nbsp;MPI_MAX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ac4d16bfa34dcc397a19e3ef73326fa75">COMM_PROD</a>&nbsp;&nbsp;&nbsp;MPI_PROD</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a2cd26e5edd0bbf5a5b850017ac267216">COMM_LAND</a>&nbsp;&nbsp;&nbsp;MPI_LAND</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a6182cee0682f08f5c18732a85a5250b8">COMM_LOR</a>&nbsp;&nbsp;&nbsp;MPI_LOR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a4fe9f11b5cc9be0f78bc49a918f38e0a">COMM_BAND</a>&nbsp;&nbsp;&nbsp;MPI_BAND</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8f368e11dcd83572ad04e9a59b7659a7">COMM_BOR</a>&nbsp;&nbsp;&nbsp;MPI_BOR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a641c783a589d38dafc57176dfd6d0e0b">COMM_MAXLOC</a>&nbsp;&nbsp;&nbsp;MPI_MAXLOC</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3d1105a2ff52f7f5559aa9e026078bba">COMM_MINLOC</a>&nbsp;&nbsp;&nbsp;MPI_MINLOC</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab2c292d3d4df4409401e234cc43e1cc6">COMM_LXOR</a>&nbsp;&nbsp;&nbsp;MPI_LXOR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a352a8d7faa1e2755b7710086562d18c8">COMM_BXOR</a>&nbsp;&nbsp;&nbsp;MPI_BXOR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a549d5e38836910b5dfcad1cb5bff033b">COMM_REPLACE</a>&nbsp;&nbsp;&nbsp;MPI_REPLACE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aea427efb7da7bc04e37d01f59c4dfc37">CommData</a>&nbsp;&nbsp;&nbsp;MPI_Datatype</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6af775586c5ff1b0ffea3adb325e5dd">COMM_CHAR</a>&nbsp;&nbsp;&nbsp;MPI_CHAR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a36bff133ae1016a58c675c6f99aa218f">COMM_UNSIGNED_CHAR</a>&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_CHAR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8524fe53a3f1e1423d571ee443f9f3ae">COMM_SHORT</a>&nbsp;&nbsp;&nbsp;MPI_SHORT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3b4fb4fedd73f5e92b76b4008df396f0">COMM_UNSIGNED_SHORT</a>&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_SHORT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa0fb7675b924e0ae5bce5972616ab784">COMM_INT</a>&nbsp;&nbsp;&nbsp;MPI_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9ef8defa4961e004d5d929cdef77fa52">COMM_UNSIGNED</a>&nbsp;&nbsp;&nbsp;MPI_UNSIGNED</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#add7aeed4bb7446728a1baa10b4410417">COMM_LONG</a>&nbsp;&nbsp;&nbsp;MPI_LONG</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1e459fae71e27e0a5a4598571c70d346">COMM_UNSIGNED_LONG</a>&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_LONG</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a603680c85fb5bfc77ec532d51e5f04b9">COMM_LONG_LONG_INT</a>&nbsp;&nbsp;&nbsp;MPI_LONG_LONG_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeae3d5a5753b43571c33e2fbfb492dc8">COMM_LONG_LONG</a>&nbsp;&nbsp;&nbsp;MPI_LONG_LONG</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8c59f69894712621ec76f153b209e514">COMM_FLOAT</a>&nbsp;&nbsp;&nbsp;MPI_FLOAT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a7ddf21e6cfdc940c5bbad4d7a31a2d50">COMM_DOUBLE</a>&nbsp;&nbsp;&nbsp;MPI_DOUBLE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af782a755372aa623080f16bbfea54ba8">COMM_LONG_DOUBLE</a>&nbsp;&nbsp;&nbsp;MPI_LONG_DOUBLE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae4edf6bac7e5ad0f3a148ce7c5785775">COMM_BYTE</a>&nbsp;&nbsp;&nbsp;MPI_BYTE</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aef9fda706f745499701051297d11e0b5">COMM_WCHAR</a>&nbsp;&nbsp;&nbsp;MPI_WCHAR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aabfcbdd9ea322adf4b0b93358c52998e">COMM_PACKED</a>&nbsp;&nbsp;&nbsp;MPI_PACKED</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a89ef9eedf9c5cb1abd3dc8c31cc7ef52">COMM_LB</a>&nbsp;&nbsp;&nbsp;MPI_LB</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a23745e204a19616dc08e6e4835f50b40">COMM_UB</a>&nbsp;&nbsp;&nbsp;MPI_UB</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a6aa39d2925738a52ccbd05a31c1eeb2f">COMM_C_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_C_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ad64af20015751b0573e657002f7a6386">COMM_C_FLOAT_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_C_FLOAT_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#abed5ac8e91e707d7803c48238f452c73">COMM_C_DOUBLE_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_C_DOUBLE_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a31ecaa9058a83d9b615e20f7ed3eb3df">COMM_C_LONG_DOUBLE_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_C_LONG_DOUBLE_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a42a88122f609f4d6c17e8e5e644169d5">COMM_2INT</a>&nbsp;&nbsp;&nbsp;MPI_2INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aaa89c020168ae0258409bd475869ae36">COMM_C_BOOL</a>&nbsp;&nbsp;&nbsp;MPI_C_BOOL</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9947b6c92cee993059351b8f24c6f616">COMM_SIGNED_CHAR</a>&nbsp;&nbsp;&nbsp;MPI_SIGNED_CHAR</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#acda789e119f25ad9f61395d97d94f79f">COMM_UNSIGNED_LONG_LONG</a>&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_LONG_LONG</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa385d2b5fc3a2b6264b163f481297a57">COMM_CHARACTER</a>&nbsp;&nbsp;&nbsp;MPI_CHARACTER</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a239b8b58fd2d07166442633c35354dfa">COMM_INTEGER</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a7806a662034ecb96f5813798f623e833">COMM_REAL</a>&nbsp;&nbsp;&nbsp;MPI_REAL</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a51e1155adf8ef4096d1152f1390b8780">COMM_LOGICAL</a>&nbsp;&nbsp;&nbsp;MPI_LOGICAL</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a84cf9934941c9c6436f35d86f91e04fa">COMM_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a86d184ab7b8cef14fe4103627e250b10">COMM_DOUBLE_PRECISION</a>&nbsp;&nbsp;&nbsp;MPI_DOUBLE_PRECISION</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a65ff04d26040a803d1f1083f5a6305de">COMM_2INTEGER</a>&nbsp;&nbsp;&nbsp;MPI_2INTEGER</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a11daef438aacb7bc5ae4276443ec4b82">COMM_2REAL</a>&nbsp;&nbsp;&nbsp;MPI_2REAL</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a07266070134ef4a4f18cff52cd992ab6">COMM_DOUBLE_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_DOUBLE_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6a9e334b348ffee8b49ae8e7d44606f">COMM_2DOUBLE_PRECISION</a>&nbsp;&nbsp;&nbsp;MPI_2DOUBLE_PRECISION</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ac67c4c2a91cfd28be23a4dd19e0f520f">COMM_2COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_2COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af426da5936b78ef2ec4460c170760618">COMM_2DOUBLE_COMPLEX</a>&nbsp;&nbsp;&nbsp;MPI_2DOUBLE_COMPLEX</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a25e4eecf8d43aa71fa3f37a60875b24c">COMM_REAL2</a>&nbsp;&nbsp;&nbsp;MPI_REAL2</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a2c5a2efa7543e32703804d89315d3d65">COMM_REAL4</a>&nbsp;&nbsp;&nbsp;MPI_REAL4</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1816d25350dd134fcc011bc9fc1404e3">COMM_COMPLEX8</a>&nbsp;&nbsp;&nbsp;MPI_COMPLEX8</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3c5035620388b11ca4891c372166dd96">COMM_REAL8</a>&nbsp;&nbsp;&nbsp;MPI_REAL8</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6fd6570884e1befa9f9c5ff962895ed">COMM_COMPLEX16</a>&nbsp;&nbsp;&nbsp;MPI_COMPLEX16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#afe66293e0b2f5041f965109fbdbeb06e">COMM_REAL16</a>&nbsp;&nbsp;&nbsp;MPI_REAL16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#afbf02c8e5a1998fcb99bc0cd3044505d">COMM_COMPLEX32</a>&nbsp;&nbsp;&nbsp;MPI_COMPLEX32</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab5ca118366ca8c58e13409adb49cec60">COMM_INTEGER1</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER1</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ad49b0e21ea0d57db91aa6396a2808bd3">COMM_COMPLEX4</a>&nbsp;&nbsp;&nbsp;MPI_COMPLEX4</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3ce37ad10b6e3e9741192366e86ce2c9">COMM_INTEGER2</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER2</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeeff480572af7a9f58059cf9276260db">COMM_INTEGER4</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER4</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1c18a8fd38a5c3492ea52133a86bfb25">COMM_INTEGER8</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER8</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a46f69c759a2f7c352c655d61821f6779">COMM_INTEGER16</a>&nbsp;&nbsp;&nbsp;MPI_INTEGER16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a481e2f4d1ff5d12276087149026c6c3d">COMM_INT8_T</a>&nbsp;&nbsp;&nbsp;MPI_INT8_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a5b70ea042f83fb3cc9afc1f52743a99c">COMM_INT16_T</a>&nbsp;&nbsp;&nbsp;MPI_INT16_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a652547087730b059ad3e1367f0ea973a">COMM_INT32_T</a>&nbsp;&nbsp;&nbsp;MPI_INT32_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab583889f119a9b617cb8c1e0b28ca3ae">COMM_INT64_T</a>&nbsp;&nbsp;&nbsp;MPI_INT64_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af4f9f209cee8050774db308602b7d153">COMM_UINT8_T</a>&nbsp;&nbsp;&nbsp;MPI_UINT8_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a298800b49321915f5adf690ece1e85f1">COMM_UINT16_T</a>&nbsp;&nbsp;&nbsp;MPI_UINT16_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeb8bf35fbe1ae766aa5bb8131636ed69">COMM_UINT32_T</a>&nbsp;&nbsp;&nbsp;MPI_UINT32_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1b9d00b0ac6ee8eca818d3f9cd2fca67">COMM_UINT64_T</a>&nbsp;&nbsp;&nbsp;MPI_UINT64_T</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a288ae6cfd64fc724e646309299eec661">COMM_AINT</a>&nbsp;&nbsp;&nbsp;MPI_AINT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a829378a17b9230f38c4aef079d0b4712">COMM_OFFSET</a>&nbsp;&nbsp;&nbsp;MPI_OFFSET</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9f29bbcde48535f497b31eda2fae9607">COMM_FLOAT_INT</a>&nbsp;&nbsp;&nbsp;MPI_FLOAT_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a86410ce34b3e2dd410f782f7452cd344">COMM_DOUBLE_INT</a>&nbsp;&nbsp;&nbsp;MPI_DOUBLE_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa0a2671cbd59b3e7f96f16dccffed425">COMM_LONG_INT</a>&nbsp;&nbsp;&nbsp;MPI_LONG_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aca39923f48bb0bff58b4461f1d5cde05">COMM_SHORT_INT</a>&nbsp;&nbsp;&nbsp;MPI_SHORT_INT</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae83683b2eec8b422c94694abd4563066">COMM_LONG_DOUBLE_INT</a>&nbsp;&nbsp;&nbsp;MPI_LONG_DOUBLE_INT</td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="ac67c4c2a91cfd28be23a4dd19e0f520f"></a><!-- doxytag: member="Communicator.hpp::COMM_2COMPLEX" ref="ac67c4c2a91cfd28be23a4dd19e0f520f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2COMPLEX&nbsp;&nbsp;&nbsp;MPI_2COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af426da5936b78ef2ec4460c170760618"></a><!-- doxytag: member="Communicator.hpp::COMM_2DOUBLE_COMPLEX" ref="af426da5936b78ef2ec4460c170760618" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2DOUBLE_COMPLEX&nbsp;&nbsp;&nbsp;MPI_2DOUBLE_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae6a9e334b348ffee8b49ae8e7d44606f"></a><!-- doxytag: member="Communicator.hpp::COMM_2DOUBLE_PRECISION" ref="ae6a9e334b348ffee8b49ae8e7d44606f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2DOUBLE_PRECISION&nbsp;&nbsp;&nbsp;MPI_2DOUBLE_PRECISION</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a42a88122f609f4d6c17e8e5e644169d5"></a><!-- doxytag: member="Communicator.hpp::COMM_2INT" ref="a42a88122f609f4d6c17e8e5e644169d5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2INT&nbsp;&nbsp;&nbsp;MPI_2INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a65ff04d26040a803d1f1083f5a6305de"></a><!-- doxytag: member="Communicator.hpp::COMM_2INTEGER" ref="a65ff04d26040a803d1f1083f5a6305de" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2INTEGER&nbsp;&nbsp;&nbsp;MPI_2INTEGER</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a11daef438aacb7bc5ae4276443ec4b82"></a><!-- doxytag: member="Communicator.hpp::COMM_2REAL" ref="a11daef438aacb7bc5ae4276443ec4b82" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_2REAL&nbsp;&nbsp;&nbsp;MPI_2REAL</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a288ae6cfd64fc724e646309299eec661"></a><!-- doxytag: member="Communicator.hpp::COMM_AINT" ref="a288ae6cfd64fc724e646309299eec661" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_AINT&nbsp;&nbsp;&nbsp;MPI_AINT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4fe9f11b5cc9be0f78bc49a918f38e0a"></a><!-- doxytag: member="Communicator.hpp::COMM_BAND" ref="a4fe9f11b5cc9be0f78bc49a918f38e0a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_BAND&nbsp;&nbsp;&nbsp;MPI_BAND</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8f368e11dcd83572ad04e9a59b7659a7"></a><!-- doxytag: member="Communicator.hpp::COMM_BOR" ref="a8f368e11dcd83572ad04e9a59b7659a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_BOR&nbsp;&nbsp;&nbsp;MPI_BOR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a352a8d7faa1e2755b7710086562d18c8"></a><!-- doxytag: member="Communicator.hpp::COMM_BXOR" ref="a352a8d7faa1e2755b7710086562d18c8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_BXOR&nbsp;&nbsp;&nbsp;MPI_BXOR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae4edf6bac7e5ad0f3a148ce7c5785775"></a><!-- doxytag: member="Communicator.hpp::COMM_BYTE" ref="ae4edf6bac7e5ad0f3a148ce7c5785775" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_BYTE&nbsp;&nbsp;&nbsp;MPI_BYTE</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aaa89c020168ae0258409bd475869ae36"></a><!-- doxytag: member="Communicator.hpp::COMM_C_BOOL" ref="aaa89c020168ae0258409bd475869ae36" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_C_BOOL&nbsp;&nbsp;&nbsp;MPI_C_BOOL</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6aa39d2925738a52ccbd05a31c1eeb2f"></a><!-- doxytag: member="Communicator.hpp::COMM_C_COMPLEX" ref="a6aa39d2925738a52ccbd05a31c1eeb2f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_C_COMPLEX&nbsp;&nbsp;&nbsp;MPI_C_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abed5ac8e91e707d7803c48238f452c73"></a><!-- doxytag: member="Communicator.hpp::COMM_C_DOUBLE_COMPLEX" ref="abed5ac8e91e707d7803c48238f452c73" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_C_DOUBLE_COMPLEX&nbsp;&nbsp;&nbsp;MPI_C_DOUBLE_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad64af20015751b0573e657002f7a6386"></a><!-- doxytag: member="Communicator.hpp::COMM_C_FLOAT_COMPLEX" ref="ad64af20015751b0573e657002f7a6386" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_C_FLOAT_COMPLEX&nbsp;&nbsp;&nbsp;MPI_C_FLOAT_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a31ecaa9058a83d9b615e20f7ed3eb3df"></a><!-- doxytag: member="Communicator.hpp::COMM_C_LONG_DOUBLE_COMPLEX" ref="a31ecaa9058a83d9b615e20f7ed3eb3df" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_C_LONG_DOUBLE_COMPLEX&nbsp;&nbsp;&nbsp;MPI_C_LONG_DOUBLE_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae6af775586c5ff1b0ffea3adb325e5dd"></a><!-- doxytag: member="Communicator.hpp::COMM_CHAR" ref="ae6af775586c5ff1b0ffea3adb325e5dd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_CHAR&nbsp;&nbsp;&nbsp;MPI_CHAR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa385d2b5fc3a2b6264b163f481297a57"></a><!-- doxytag: member="Communicator.hpp::COMM_CHARACTER" ref="aa385d2b5fc3a2b6264b163f481297a57" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_CHARACTER&nbsp;&nbsp;&nbsp;MPI_CHARACTER</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a84cf9934941c9c6436f35d86f91e04fa"></a><!-- doxytag: member="Communicator.hpp::COMM_COMPLEX" ref="a84cf9934941c9c6436f35d86f91e04fa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_COMPLEX&nbsp;&nbsp;&nbsp;MPI_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae6fd6570884e1befa9f9c5ff962895ed"></a><!-- doxytag: member="Communicator.hpp::COMM_COMPLEX16" ref="ae6fd6570884e1befa9f9c5ff962895ed" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_COMPLEX16&nbsp;&nbsp;&nbsp;MPI_COMPLEX16</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afbf02c8e5a1998fcb99bc0cd3044505d"></a><!-- doxytag: member="Communicator.hpp::COMM_COMPLEX32" ref="afbf02c8e5a1998fcb99bc0cd3044505d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_COMPLEX32&nbsp;&nbsp;&nbsp;MPI_COMPLEX32</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad49b0e21ea0d57db91aa6396a2808bd3"></a><!-- doxytag: member="Communicator.hpp::COMM_COMPLEX4" ref="ad49b0e21ea0d57db91aa6396a2808bd3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_COMPLEX4&nbsp;&nbsp;&nbsp;MPI_COMPLEX4</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1816d25350dd134fcc011bc9fc1404e3"></a><!-- doxytag: member="Communicator.hpp::COMM_COMPLEX8" ref="a1816d25350dd134fcc011bc9fc1404e3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_COMPLEX8&nbsp;&nbsp;&nbsp;MPI_COMPLEX8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7ddf21e6cfdc940c5bbad4d7a31a2d50"></a><!-- doxytag: member="Communicator.hpp::COMM_DOUBLE" ref="a7ddf21e6cfdc940c5bbad4d7a31a2d50" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_DOUBLE&nbsp;&nbsp;&nbsp;MPI_DOUBLE</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a07266070134ef4a4f18cff52cd992ab6"></a><!-- doxytag: member="Communicator.hpp::COMM_DOUBLE_COMPLEX" ref="a07266070134ef4a4f18cff52cd992ab6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_DOUBLE_COMPLEX&nbsp;&nbsp;&nbsp;MPI_DOUBLE_COMPLEX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a86410ce34b3e2dd410f782f7452cd344"></a><!-- doxytag: member="Communicator.hpp::COMM_DOUBLE_INT" ref="a86410ce34b3e2dd410f782f7452cd344" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_DOUBLE_INT&nbsp;&nbsp;&nbsp;MPI_DOUBLE_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a86d184ab7b8cef14fe4103627e250b10"></a><!-- doxytag: member="Communicator.hpp::COMM_DOUBLE_PRECISION" ref="a86d184ab7b8cef14fe4103627e250b10" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_DOUBLE_PRECISION&nbsp;&nbsp;&nbsp;MPI_DOUBLE_PRECISION</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8c59f69894712621ec76f153b209e514"></a><!-- doxytag: member="Communicator.hpp::COMM_FLOAT" ref="a8c59f69894712621ec76f153b209e514" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_FLOAT&nbsp;&nbsp;&nbsp;MPI_FLOAT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9f29bbcde48535f497b31eda2fae9607"></a><!-- doxytag: member="Communicator.hpp::COMM_FLOAT_INT" ref="a9f29bbcde48535f497b31eda2fae9607" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_FLOAT_INT&nbsp;&nbsp;&nbsp;MPI_FLOAT_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa0fb7675b924e0ae5bce5972616ab784"></a><!-- doxytag: member="Communicator.hpp::COMM_INT" ref="aa0fb7675b924e0ae5bce5972616ab784" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INT&nbsp;&nbsp;&nbsp;MPI_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5b70ea042f83fb3cc9afc1f52743a99c"></a><!-- doxytag: member="Communicator.hpp::COMM_INT16_T" ref="a5b70ea042f83fb3cc9afc1f52743a99c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INT16_T&nbsp;&nbsp;&nbsp;MPI_INT16_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a652547087730b059ad3e1367f0ea973a"></a><!-- doxytag: member="Communicator.hpp::COMM_INT32_T" ref="a652547087730b059ad3e1367f0ea973a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INT32_T&nbsp;&nbsp;&nbsp;MPI_INT32_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab583889f119a9b617cb8c1e0b28ca3ae"></a><!-- doxytag: member="Communicator.hpp::COMM_INT64_T" ref="ab583889f119a9b617cb8c1e0b28ca3ae" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INT64_T&nbsp;&nbsp;&nbsp;MPI_INT64_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a481e2f4d1ff5d12276087149026c6c3d"></a><!-- doxytag: member="Communicator.hpp::COMM_INT8_T" ref="a481e2f4d1ff5d12276087149026c6c3d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INT8_T&nbsp;&nbsp;&nbsp;MPI_INT8_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a239b8b58fd2d07166442633c35354dfa"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER" ref="a239b8b58fd2d07166442633c35354dfa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER&nbsp;&nbsp;&nbsp;MPI_INTEGER</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab5ca118366ca8c58e13409adb49cec60"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER1" ref="ab5ca118366ca8c58e13409adb49cec60" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER1&nbsp;&nbsp;&nbsp;MPI_INTEGER1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a46f69c759a2f7c352c655d61821f6779"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER16" ref="a46f69c759a2f7c352c655d61821f6779" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER16&nbsp;&nbsp;&nbsp;MPI_INTEGER16</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3ce37ad10b6e3e9741192366e86ce2c9"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER2" ref="a3ce37ad10b6e3e9741192366e86ce2c9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER2&nbsp;&nbsp;&nbsp;MPI_INTEGER2</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeeff480572af7a9f58059cf9276260db"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER4" ref="aeeff480572af7a9f58059cf9276260db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER4&nbsp;&nbsp;&nbsp;MPI_INTEGER4</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1c18a8fd38a5c3492ea52133a86bfb25"></a><!-- doxytag: member="Communicator.hpp::COMM_INTEGER8" ref="a1c18a8fd38a5c3492ea52133a86bfb25" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_INTEGER8&nbsp;&nbsp;&nbsp;MPI_INTEGER8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2cd26e5edd0bbf5a5b850017ac267216"></a><!-- doxytag: member="Communicator.hpp::COMM_LAND" ref="a2cd26e5edd0bbf5a5b850017ac267216" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LAND&nbsp;&nbsp;&nbsp;MPI_LAND</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a89ef9eedf9c5cb1abd3dc8c31cc7ef52"></a><!-- doxytag: member="Communicator.hpp::COMM_LB" ref="a89ef9eedf9c5cb1abd3dc8c31cc7ef52" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LB&nbsp;&nbsp;&nbsp;MPI_LB</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a51e1155adf8ef4096d1152f1390b8780"></a><!-- doxytag: member="Communicator.hpp::COMM_LOGICAL" ref="a51e1155adf8ef4096d1152f1390b8780" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LOGICAL&nbsp;&nbsp;&nbsp;MPI_LOGICAL</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="add7aeed4bb7446728a1baa10b4410417"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG" ref="add7aeed4bb7446728a1baa10b4410417" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG&nbsp;&nbsp;&nbsp;MPI_LONG</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af782a755372aa623080f16bbfea54ba8"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG_DOUBLE" ref="af782a755372aa623080f16bbfea54ba8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG_DOUBLE&nbsp;&nbsp;&nbsp;MPI_LONG_DOUBLE</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae83683b2eec8b422c94694abd4563066"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG_DOUBLE_INT" ref="ae83683b2eec8b422c94694abd4563066" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG_DOUBLE_INT&nbsp;&nbsp;&nbsp;MPI_LONG_DOUBLE_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa0a2671cbd59b3e7f96f16dccffed425"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG_INT" ref="aa0a2671cbd59b3e7f96f16dccffed425" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG_INT&nbsp;&nbsp;&nbsp;MPI_LONG_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeae3d5a5753b43571c33e2fbfb492dc8"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG_LONG" ref="aeae3d5a5753b43571c33e2fbfb492dc8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG_LONG&nbsp;&nbsp;&nbsp;MPI_LONG_LONG</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a603680c85fb5bfc77ec532d51e5f04b9"></a><!-- doxytag: member="Communicator.hpp::COMM_LONG_LONG_INT" ref="a603680c85fb5bfc77ec532d51e5f04b9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LONG_LONG_INT&nbsp;&nbsp;&nbsp;MPI_LONG_LONG_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6182cee0682f08f5c18732a85a5250b8"></a><!-- doxytag: member="Communicator.hpp::COMM_LOR" ref="a6182cee0682f08f5c18732a85a5250b8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LOR&nbsp;&nbsp;&nbsp;MPI_LOR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab2c292d3d4df4409401e234cc43e1cc6"></a><!-- doxytag: member="Communicator.hpp::COMM_LXOR" ref="ab2c292d3d4df4409401e234cc43e1cc6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_LXOR&nbsp;&nbsp;&nbsp;MPI_LXOR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae3e040f90f251305eb2b84fc2f954938"></a><!-- doxytag: member="Communicator.hpp::COMM_MAX" ref="ae3e040f90f251305eb2b84fc2f954938" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_MAX&nbsp;&nbsp;&nbsp;MPI_MAX</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8b8762ba579fb020fcf7d7791b7a1c37"></a><!-- doxytag: member="Communicator.hpp::COMM_MAX_MSG_NUM" ref="a8b8762ba579fb020fcf7d7791b7a1c37" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_MAX_MSG_NUM&nbsp;&nbsp;&nbsp;999</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a641c783a589d38dafc57176dfd6d0e0b"></a><!-- doxytag: member="Communicator.hpp::COMM_MAXLOC" ref="a641c783a589d38dafc57176dfd6d0e0b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_MAXLOC&nbsp;&nbsp;&nbsp;MPI_MAXLOC</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a31cd81f1544a19b09ccdd280f3d0eb62"></a><!-- doxytag: member="Communicator.hpp::COMM_MIN" ref="a31cd81f1544a19b09ccdd280f3d0eb62" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_MIN&nbsp;&nbsp;&nbsp;MPI_MIN</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3d1105a2ff52f7f5559aa9e026078bba"></a><!-- doxytag: member="Communicator.hpp::COMM_MINLOC" ref="a3d1105a2ff52f7f5559aa9e026078bba" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_MINLOC&nbsp;&nbsp;&nbsp;MPI_MINLOC</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a829378a17b9230f38c4aef079d0b4712"></a><!-- doxytag: member="Communicator.hpp::COMM_OFFSET" ref="a829378a17b9230f38c4aef079d0b4712" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_OFFSET&nbsp;&nbsp;&nbsp;MPI_OFFSET</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aabfcbdd9ea322adf4b0b93358c52998e"></a><!-- doxytag: member="Communicator.hpp::COMM_PACKED" ref="aabfcbdd9ea322adf4b0b93358c52998e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_PACKED&nbsp;&nbsp;&nbsp;MPI_PACKED</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac4d16bfa34dcc397a19e3ef73326fa75"></a><!-- doxytag: member="Communicator.hpp::COMM_PROD" ref="ac4d16bfa34dcc397a19e3ef73326fa75" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_PROD&nbsp;&nbsp;&nbsp;MPI_PROD</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7806a662034ecb96f5813798f623e833"></a><!-- doxytag: member="Communicator.hpp::COMM_REAL" ref="a7806a662034ecb96f5813798f623e833" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REAL&nbsp;&nbsp;&nbsp;MPI_REAL</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afe66293e0b2f5041f965109fbdbeb06e"></a><!-- doxytag: member="Communicator.hpp::COMM_REAL16" ref="afe66293e0b2f5041f965109fbdbeb06e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REAL16&nbsp;&nbsp;&nbsp;MPI_REAL16</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a25e4eecf8d43aa71fa3f37a60875b24c"></a><!-- doxytag: member="Communicator.hpp::COMM_REAL2" ref="a25e4eecf8d43aa71fa3f37a60875b24c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REAL2&nbsp;&nbsp;&nbsp;MPI_REAL2</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2c5a2efa7543e32703804d89315d3d65"></a><!-- doxytag: member="Communicator.hpp::COMM_REAL4" ref="a2c5a2efa7543e32703804d89315d3d65" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REAL4&nbsp;&nbsp;&nbsp;MPI_REAL4</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3c5035620388b11ca4891c372166dd96"></a><!-- doxytag: member="Communicator.hpp::COMM_REAL8" ref="a3c5035620388b11ca4891c372166dd96" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REAL8&nbsp;&nbsp;&nbsp;MPI_REAL8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a549d5e38836910b5dfcad1cb5bff033b"></a><!-- doxytag: member="Communicator.hpp::COMM_REPLACE" ref="a549d5e38836910b5dfcad1cb5bff033b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_REPLACE&nbsp;&nbsp;&nbsp;MPI_REPLACE</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8524fe53a3f1e1423d571ee443f9f3ae"></a><!-- doxytag: member="Communicator.hpp::COMM_SHORT" ref="a8524fe53a3f1e1423d571ee443f9f3ae" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_SHORT&nbsp;&nbsp;&nbsp;MPI_SHORT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aca39923f48bb0bff58b4461f1d5cde05"></a><!-- doxytag: member="Communicator.hpp::COMM_SHORT_INT" ref="aca39923f48bb0bff58b4461f1d5cde05" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_SHORT_INT&nbsp;&nbsp;&nbsp;MPI_SHORT_INT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9947b6c92cee993059351b8f24c6f616"></a><!-- doxytag: member="Communicator.hpp::COMM_SIGNED_CHAR" ref="a9947b6c92cee993059351b8f24c6f616" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_SIGNED_CHAR&nbsp;&nbsp;&nbsp;MPI_SIGNED_CHAR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a907b5d73e215085029817275a8dbf7fc"></a><!-- doxytag: member="Communicator.hpp::COMM_SUM" ref="a907b5d73e215085029817275a8dbf7fc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_SUM&nbsp;&nbsp;&nbsp;MPI_SUM</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a23745e204a19616dc08e6e4835f50b40"></a><!-- doxytag: member="Communicator.hpp::COMM_UB" ref="a23745e204a19616dc08e6e4835f50b40" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UB&nbsp;&nbsp;&nbsp;MPI_UB</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a298800b49321915f5adf690ece1e85f1"></a><!-- doxytag: member="Communicator.hpp::COMM_UINT16_T" ref="a298800b49321915f5adf690ece1e85f1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UINT16_T&nbsp;&nbsp;&nbsp;MPI_UINT16_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aeb8bf35fbe1ae766aa5bb8131636ed69"></a><!-- doxytag: member="Communicator.hpp::COMM_UINT32_T" ref="aeb8bf35fbe1ae766aa5bb8131636ed69" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UINT32_T&nbsp;&nbsp;&nbsp;MPI_UINT32_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1b9d00b0ac6ee8eca818d3f9cd2fca67"></a><!-- doxytag: member="Communicator.hpp::COMM_UINT64_T" ref="a1b9d00b0ac6ee8eca818d3f9cd2fca67" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UINT64_T&nbsp;&nbsp;&nbsp;MPI_UINT64_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af4f9f209cee8050774db308602b7d153"></a><!-- doxytag: member="Communicator.hpp::COMM_UINT8_T" ref="af4f9f209cee8050774db308602b7d153" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UINT8_T&nbsp;&nbsp;&nbsp;MPI_UINT8_T</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ef8defa4961e004d5d929cdef77fa52"></a><!-- doxytag: member="Communicator.hpp::COMM_UNSIGNED" ref="a9ef8defa4961e004d5d929cdef77fa52" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UNSIGNED&nbsp;&nbsp;&nbsp;MPI_UNSIGNED</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a36bff133ae1016a58c675c6f99aa218f"></a><!-- doxytag: member="Communicator.hpp::COMM_UNSIGNED_CHAR" ref="a36bff133ae1016a58c675c6f99aa218f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UNSIGNED_CHAR&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_CHAR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1e459fae71e27e0a5a4598571c70d346"></a><!-- doxytag: member="Communicator.hpp::COMM_UNSIGNED_LONG" ref="a1e459fae71e27e0a5a4598571c70d346" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UNSIGNED_LONG&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_LONG</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acda789e119f25ad9f61395d97d94f79f"></a><!-- doxytag: member="Communicator.hpp::COMM_UNSIGNED_LONG_LONG" ref="acda789e119f25ad9f61395d97d94f79f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UNSIGNED_LONG_LONG&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_LONG_LONG</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3b4fb4fedd73f5e92b76b4008df396f0"></a><!-- doxytag: member="Communicator.hpp::COMM_UNSIGNED_SHORT" ref="a3b4fb4fedd73f5e92b76b4008df396f0" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_UNSIGNED_SHORT&nbsp;&nbsp;&nbsp;MPI_UNSIGNED_SHORT</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aef9fda706f745499701051297d11e0b5"></a><!-- doxytag: member="Communicator.hpp::COMM_WCHAR" ref="aef9fda706f745499701051297d11e0b5" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COMM_WCHAR&nbsp;&nbsp;&nbsp;MPI_WCHAR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aea427efb7da7bc04e37d01f59c4dfc37"></a><!-- doxytag: member="Communicator.hpp::CommData" ref="aea427efb7da7bc04e37d01f59c4dfc37" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CommData&nbsp;&nbsp;&nbsp;MPI_Datatype</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a81c2b5634312e06e8788bd7910bb2e55"></a><!-- doxytag: member="Communicator.hpp::CommOp" ref="a81c2b5634312e06e8788bd7910bb2e55" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CommOp&nbsp;&nbsp;&nbsp;MPI_Op</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

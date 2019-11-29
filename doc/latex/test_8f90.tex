@@ -1,0 +1,59 @@
+\hypertarget{test_8f90}{
+\section{build/mpicxxOptInt64/test/test.f90文件参考}
+\label{test_8f90}\index{build/mpicxxOptInt64/test/test.f90@{build/mpicxxOptInt64/test/test.f90}}
+}
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespacevar__kind__def}{var\_\-kind\_\-def}
+\item 
+namespace \hyperlink{namespacevar__global}{var\_\-global}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+program \hyperlink{test_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}{main}
+\item 
+subroutine \hyperlink{test_8f90_ab0feb0b96896d0783a452ceb0884de54}{calc\_\-eles\_\-vol} (n\_\-ele, e2n, e2n\_\-pos, coord, ele\_\-type, vol)
+\item 
+subroutine \hyperlink{test_8f90_a65b36ff25ffa106dab5c6b52332982e1}{calc\_\-faces\_\-area} (n\_\-face, f2n, f2n\_\-pos, coord, area)
+\item 
+subroutine \hyperlink{test_8f90_aedcabc3101935ffa79dac989cdf8cf09}{calc\_\-HEXA\_\-vol} (coord, vol)
+\item 
+subroutine \hyperlink{test_8f90_a638fb93022b93255d8000bacff09a674}{calc\_\-QUAD\_\-area} (coord, area)
+\item 
+subroutine \hyperlink{test_8f90_a5595358e7ada913cd10a206235165422}{calc\_\-spmv} (n\_\-face, f2c, A, x, b)
+\end{DoxyCompactItemize}
+
+
+\subsection{函数文档}
+\hypertarget{test_8f90_ab0feb0b96896d0783a452ceb0884de54}{
+\index{test.f90@{test.f90}!calc\_\-eles\_\-vol@{calc\_\-eles\_\-vol}}
+\index{calc\_\-eles\_\-vol@{calc\_\-eles\_\-vol}!test.f90@{test.f90}}
+\subsubsection[{calc\_\-eles\_\-vol}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-eles\_\-vol (integer(dpI),intent(in) {\em n\_\-ele}, \/  integer(dpI),dimension($\ast$),intent(in) {\em e2n}, \/  integer(dpI),dimension($\ast$),intent(in) {\em e2n\_\-pos}, \/  real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  integer(dpI),dimension($\ast$),intent(in) {\em ele\_\-type}, \/  real(dpR),dimension($\ast$),intent(inout) {\em vol})}}
+\label{test_8f90_ab0feb0b96896d0783a452ceb0884de54}
+\hypertarget{test_8f90_a65b36ff25ffa106dab5c6b52332982e1}{
+\index{test.f90@{test.f90}!calc\_\-faces\_\-area@{calc\_\-faces\_\-area}}
+\index{calc\_\-faces\_\-area@{calc\_\-faces\_\-area}!test.f90@{test.f90}}
+\subsubsection[{calc\_\-faces\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-faces\_\-area (integer(dpI),intent(in) {\em n\_\-face}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2n}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2n\_\-pos}, \/  real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),dimension($\ast$),intent(inout) {\em area})}}
+\label{test_8f90_a65b36ff25ffa106dab5c6b52332982e1}
+\hypertarget{test_8f90_aedcabc3101935ffa79dac989cdf8cf09}{
+\index{test.f90@{test.f90}!calc\_\-HEXA\_\-vol@{calc\_\-HEXA\_\-vol}}
+\index{calc\_\-HEXA\_\-vol@{calc\_\-HEXA\_\-vol}!test.f90@{test.f90}}
+\subsubsection[{calc\_\-HEXA\_\-vol}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-HEXA\_\-vol (real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),intent(out) {\em vol})}}
+\label{test_8f90_aedcabc3101935ffa79dac989cdf8cf09}
+\hypertarget{test_8f90_a638fb93022b93255d8000bacff09a674}{
+\index{test.f90@{test.f90}!calc\_\-QUAD\_\-area@{calc\_\-QUAD\_\-area}}
+\index{calc\_\-QUAD\_\-area@{calc\_\-QUAD\_\-area}!test.f90@{test.f90}}
+\subsubsection[{calc\_\-QUAD\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-QUAD\_\-area (real(dpR),dimension($\ast$),intent(in) {\em coord}, \/  real(dpR),intent(out) {\em area})}}
+\label{test_8f90_a638fb93022b93255d8000bacff09a674}
+\hypertarget{test_8f90_a5595358e7ada913cd10a206235165422}{
+\index{test.f90@{test.f90}!calc\_\-spmv@{calc\_\-spmv}}
+\index{calc\_\-spmv@{calc\_\-spmv}!test.f90@{test.f90}}
+\subsubsection[{calc\_\-spmv}]{\setlength{\rightskip}{0pt plus 5cm}subroutine calc\_\-spmv (integer(dpI),intent(in) {\em n\_\-face}, \/  integer(dpI),dimension($\ast$),intent(in) {\em f2c}, \/  real(dpR),dimension($\ast$),intent(in) {\em A}, \/  real(dpR),dimension($\ast$),intent(in) {\em x}, \/  real(dpR),dimension($\ast$),intent(inout) {\em b})}}
+\label{test_8f90_a5595358e7ada913cd10a206235165422}
+\hypertarget{test_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}{
+\index{test.f90@{test.f90}!main@{main}}
+\index{main@{main}!test.f90@{test.f90}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}program main ()}}
+\label{test_8f90_a8ec2266d83cd6c0b762cbcbc92c0af3d}

@@ -1,0 +1,60 @@
+\hypertarget{src_2utilities_2common_2Base_8hpp}{
+\section{src/utilities/common/Base.hpp文件参考}
+\label{src_2utilities_2common_2Base_8hpp}\index{src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}}
+}
+{\ttfamily \#include $<$mpi.h$>$}\par
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespaceHSF}{HSF}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{src_2utilities_2common_2Base_8hpp_a14ad76f34bed16b3378254e7021a8b13}{DELETE\_\-POINTER}(ptr)
+\item 
+\#define \hyperlink{src_2utilities_2common_2Base_8hpp_a883cf33a09088aeafd43018a4ce9bdde}{DELETE\_\-OBJECT\_\-POINTER}(ptr)
+\item 
+\#define \hyperlink{src_2utilities_2common_2Base_8hpp_ad111e603bbebe5d87f6bc39264ce4733}{EXIT}~exit(0)
+\item 
+\#define \hyperlink{src_2utilities_2common_2Base_8hpp_a52ed58982c5ebf85d03d83177509088a}{ERROR\_\-EXIT}~exit(1)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{src_2utilities_2common_2Base_8hpp_a883cf33a09088aeafd43018a4ce9bdde}{
+\index{src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}!DELETE\_\-OBJECT\_\-POINTER@{DELETE\_\-OBJECT\_\-POINTER}}
+\index{DELETE\_\-OBJECT\_\-POINTER@{DELETE\_\-OBJECT\_\-POINTER}!src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}}
+\subsubsection[{DELETE\_\-OBJECT\_\-POINTER}]{\setlength{\rightskip}{0pt plus 5cm}\#define DELETE\_\-OBJECT\_\-POINTER(ptr)}}
+\label{src_2utilities_2common_2Base_8hpp_a883cf33a09088aeafd43018a4ce9bdde}
+{\bfseries 值:}
+\begin{DoxyCode}
+if(ptr) \
+{ \
+    delete ptr; \
+    ptr = NULL; \
+}
+\end{DoxyCode}
+\hypertarget{src_2utilities_2common_2Base_8hpp_a14ad76f34bed16b3378254e7021a8b13}{
+\index{src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}!DELETE\_\-POINTER@{DELETE\_\-POINTER}}
+\index{DELETE\_\-POINTER@{DELETE\_\-POINTER}!src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}}
+\subsubsection[{DELETE\_\-POINTER}]{\setlength{\rightskip}{0pt plus 5cm}\#define DELETE\_\-POINTER(ptr)}}
+\label{src_2utilities_2common_2Base_8hpp_a14ad76f34bed16b3378254e7021a8b13}
+{\bfseries 值:}
+\begin{DoxyCode}
+if(ptr) \
+{ \
+    delete [] (ptr); \
+    ptr = NULL; \
+}
+\end{DoxyCode}
+\hypertarget{src_2utilities_2common_2Base_8hpp_a52ed58982c5ebf85d03d83177509088a}{
+\index{src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}!ERROR\_\-EXIT@{ERROR\_\-EXIT}}
+\index{ERROR\_\-EXIT@{ERROR\_\-EXIT}!src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}}
+\subsubsection[{ERROR\_\-EXIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ERROR\_\-EXIT~exit(1)}}
+\label{src_2utilities_2common_2Base_8hpp_a52ed58982c5ebf85d03d83177509088a}
+\hypertarget{src_2utilities_2common_2Base_8hpp_ad111e603bbebe5d87f6bc39264ce4733}{
+\index{src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}!EXIT@{EXIT}}
+\index{EXIT@{EXIT}!src/utilities/common/Base.hpp@{src/utilities/common/Base.hpp}}
+\subsubsection[{EXIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define EXIT~exit(0)}}
+\label{src_2utilities_2common_2Base_8hpp_ad111e603bbebe5d87f6bc39264ce4733}

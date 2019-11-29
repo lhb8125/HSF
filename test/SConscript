@@ -1,0 +1,20 @@
+import GLOVAR as gl
+
+Import('env')
+
+env_local = env.Clone()
+
+env_local.Prepend(LIBS = ['hsf'])
+env_local.Append(LIBPATH = [gl.build_path + '/lib'])
+
+linker_bin_path = '/home/export/online1/amd_dev1/software/MPICH/bin'
+
+cxxfile = ['test.cpp',]
+
+fortranfile = ['ftest.f90']
+
+env_local.Program(gl.build_path + '/bin/test', source = cxxfile, LINK=linker_bin_path + '/mpicxx')
+
+env_local.Program(gl.build_path + '/bin/ftest', source = fortranfile, LINK=linker_bin_path + '/mpifort')
+
+
