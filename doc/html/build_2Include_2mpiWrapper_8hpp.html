@@ -1,0 +1,143 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/Include/mpiWrapper.hpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>build/Include/mpiWrapper.hpp文件参考</h1><code>#include &quot;<a class="el" href="src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp_source.html">Communicator.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2mpiWrapper_2CommunicationManager_2CommunicationManager_8hpp_source.html">CommunicationManager.hpp</a>&quot;</code><br/>
+
+<p><a href="build_2Include_2mpiWrapper_8hpp_source.html">浏览该文件的源代码。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>组合类型</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1COMM.html">HSF::COMM</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight"><a class="el" href="classHSF_1_1COMM.html" title="COMM Communication entrance, enable flexibility by generating different global communication...">COMM</a> Communication entrance, enable flexibility by generating different global communication manager object.  <a href="classHSF_1_1COMM.html#_details">更多...</a><br/></td></tr>
+<tr><td colspan="2"><h2>名字空间</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHSF.html">HSF</a></td></tr>
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2Include_2mpiWrapper_8hpp.html#a9d5348d96b62f9421090be248eb048b3">POUT</a>&nbsp;&nbsp;&nbsp;COMM::pOut()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2Include_2mpiWrapper_8hpp.html#ae137ee023d442de7a8906cf39f3e1a28">PERR</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2Include_2mpiWrapper_8hpp.html#a8c54b10b84183429bcbcbc82c92fcca9">COUT</a>&nbsp;&nbsp;&nbsp;if( COMM::getGlobalId() == 0 ) std::cout</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2Include_2mpiWrapper_8hpp.html#a3b89429ce988b8df488440989dfdd225">SOUT</a>(id)&nbsp;&nbsp;&nbsp;if( COMM::getGlobalId() == id ) std::cout&lt;&lt;&quot;proc[&quot;&lt;&lt;id&lt;&lt;&quot;]: &quot;</td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="a8c54b10b84183429bcbcbc82c92fcca9"></a><!-- doxytag: member="mpiWrapper.hpp::COUT" ref="a8c54b10b84183429bcbcbc82c92fcca9" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define COUT&nbsp;&nbsp;&nbsp;if( COMM::getGlobalId() == 0 ) std::cout</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae137ee023d442de7a8906cf39f3e1a28"></a><!-- doxytag: member="mpiWrapper.hpp::PERR" ref="ae137ee023d442de7a8906cf39f3e1a28" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PERR</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>值:</b><div class="fragment"><pre class="fragment">COMM::pErr()&lt;&lt;<span class="stringliteral">&quot;!Proc[&quot;</span>&lt;&lt;COMM::getGlobalId()&lt;&lt;<span class="stringliteral">&quot;] Error: &quot;</span>&lt;&lt;<span class="stringliteral">&quot;\n\t&quot;</span>\
+&lt;&lt;<span class="stringliteral">&quot;at &quot;</span>&lt;&lt;__FILE__&lt;&lt;<span class="stringliteral">&quot; +&quot;</span>&lt;&lt;__LINE__&lt;&lt;<span class="stringliteral">&quot; in function \&quot;&quot;</span>&lt;&lt;__FUNCTION__&lt;&lt;<span class="stringliteral">&quot;\&quot;: &quot;</span>\
+&lt;&lt;<span class="stringliteral">&quot;\n\t&quot;</span>
+</pre></div>
+</div>
+</div>
+<a class="anchor" id="a9d5348d96b62f9421090be248eb048b3"></a><!-- doxytag: member="mpiWrapper.hpp::POUT" ref="a9d5348d96b62f9421090be248eb048b3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define POUT&nbsp;&nbsp;&nbsp;COMM::pOut()</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3b89429ce988b8df488440989dfdd225"></a><!-- doxytag: member="mpiWrapper.hpp::SOUT" ref="a3b89429ce988b8df488440989dfdd225" args="(id)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SOUT</td>
+          <td>(</td>
+          <td class="paramtype">id&nbsp;</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;if( COMM::getGlobalId() == id ) std::cout&lt;&lt;&quot;proc[&quot;&lt;&lt;id&lt;&lt;&quot;]: &quot;</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

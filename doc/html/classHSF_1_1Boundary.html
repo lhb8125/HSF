@@ -1,0 +1,402 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: HSF::Boundary类参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>组合类型列表</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li><a href="functions.html"><span>组合类型成员</span></a></li>
+    </ul>
+  </div>
+  <div class="navpath"><a class="el" href="namespaceHSF.html">HSF</a>::<a class="el" href="classHSF_1_1Boundary.html">Boundary</a>
+  </div>
+</div>
+<div class="contents">
+<h1>HSF::Boundary类参考</h1><!-- doxytag: class="HSF::Boundary" --><!-- doxytag: inherits="HSF::Mesh,HSF::Mesh,HSF::Mesh" -->
+<p>store the boundary elements  
+<a href="#_details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="build_2Include_2boundary_8hpp_source.html">boundary.hpp</a>&gt;</code></p>
+<div class="dynheader">
+继承图，类HSF::Boundary</div>
+<div class="dynsection">
+ <div class="center">
+  <img src="classHSF_1_1Boundary.gif" usemap="#HSF::Boundary_map" alt=""/>
+  <map id="HSF::Boundary_map" name="HSF::Boundary_map">
+<area href="classHSF_1_1Mesh.html" alt="HSF::Mesh" shape="rect" coords="0,0,98,24"/>
+<area href="classHSF_1_1Mesh.html" alt="HSF::Mesh" shape="rect" coords="108,0,206,24"/>
+<area href="classHSF_1_1Mesh.html" alt="HSF::Mesh" shape="rect" coords="216,0,314,24"/>
+</map>
+ </div>
+</div>
+
+<p><a href="classHSF_1_1Boundary-members.html">所有成员的列表。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>公有成员</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a66741eb92598adf5e34a07568a0a8778">Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#a66741eb92598adf5e34a07568a0a8778"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a8249905be447e99edf81401f17093f5e">~Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#a8249905be447e99edf81401f17093f5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a247677270031ff60c915e7afb1a1de51">exchangeBoundaryElements</a> (<a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;innerTopo)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">exchange boundary faces according to the load balance result  <a href="#a247677270031ff60c915e7afb1a1de51"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#aa9891dd719196ca7307e0327d1eaf39f">writeMesh</a> (const char *filePtr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">write mesh and construct topology  <a href="#aa9891dd719196ca7307e0327d1eaf39f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a66741eb92598adf5e34a07568a0a8778">Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#a66741eb92598adf5e34a07568a0a8778"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a8249905be447e99edf81401f17093f5e">~Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#a8249905be447e99edf81401f17093f5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a247677270031ff60c915e7afb1a1de51">exchangeBoundaryElements</a> (<a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;innerTopo)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">exchange boundary faces according to the load balance result  <a href="#a247677270031ff60c915e7afb1a1de51"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#aa9891dd719196ca7307e0327d1eaf39f">writeMesh</a> (const char *filePtr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">write mesh and construct topology  <a href="#aa9891dd719196ca7307e0327d1eaf39f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a66741eb92598adf5e34a07568a0a8778">Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#a66741eb92598adf5e34a07568a0a8778"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a8249905be447e99edf81401f17093f5e">~Boundary</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#a8249905be447e99edf81401f17093f5e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#a247677270031ff60c915e7afb1a1de51">exchangeBoundaryElements</a> (<a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;innerTopo)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">exchange boundary faces according to the load balance result  <a href="#a247677270031ff60c915e7afb1a1de51"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1Boundary.html#aa9891dd719196ca7307e0327d1eaf39f">writeMesh</a> (const char *filePtr)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">write mesh and construct topology  <a href="#aa9891dd719196ca7307e0327d1eaf39f"></a><br/></td></tr>
+</table>
+<hr/><a name="_details"></a><h2>详细描述</h2>
+<p>store the boundary elements </p>
+<hr/><h2>构造及析构函数文档</h2>
+<a class="anchor" id="a66741eb92598adf5e34a07568a0a8778"></a><!-- doxytag: member="HSF::Boundary::Boundary" ref="a66741eb92598adf5e34a07568a0a8778" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::Boundary::Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="a8249905be447e99edf81401f17093f5e"></a><!-- doxytag: member="HSF::Boundary::~Boundary" ref="a8249905be447e99edf81401f17093f5e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual HSF::Boundary::~Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<a class="anchor" id="a66741eb92598adf5e34a07568a0a8778"></a><!-- doxytag: member="HSF::Boundary::Boundary" ref="a66741eb92598adf5e34a07568a0a8778" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::Boundary::Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="a8249905be447e99edf81401f17093f5e"></a><!-- doxytag: member="HSF::Boundary::~Boundary" ref="a8249905be447e99edf81401f17093f5e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual HSF::Boundary::~Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<a class="anchor" id="a66741eb92598adf5e34a07568a0a8778"></a><!-- doxytag: member="HSF::Boundary::Boundary" ref="a66741eb92598adf5e34a07568a0a8778" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::Boundary::Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="a8249905be447e99edf81401f17093f5e"></a><!-- doxytag: member="HSF::Boundary::~Boundary" ref="a8249905be447e99edf81401f17093f5e" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual HSF::Boundary::~Boundary </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline, virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<hr/><h2>成员函数文档</h2>
+<a class="anchor" id="a247677270031ff60c915e7afb1a1de51"></a><!-- doxytag: member="HSF::Boundary::exchangeBoundaryElements" ref="a247677270031ff60c915e7afb1a1de51" args="(Topology &amp;innerTopo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::exchangeBoundaryElements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>innerTopo</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>exchange boundary faces according to the load balance result </p>
+
+</div>
+</div>
+<a class="anchor" id="a247677270031ff60c915e7afb1a1de51"></a><!-- doxytag: member="HSF::Boundary::exchangeBoundaryElements" ref="a247677270031ff60c915e7afb1a1de51" args="(Topology &amp;innerTopo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::exchangeBoundaryElements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>innerTopo</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>exchange boundary faces according to the load balance result </p>
+
+</div>
+</div>
+<a class="anchor" id="a247677270031ff60c915e7afb1a1de51"></a><!-- doxytag: member="HSF::Boundary::exchangeBoundaryElements" ref="a247677270031ff60c915e7afb1a1de51" args="(Topology &amp;innerTopo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::exchangeBoundaryElements </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Topology.html">Topology</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>innerTopo</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>exchange boundary faces according to the load balance result </p>
+
+<p><p>局部编号</p>
+<p>对所有面单元进行排序</p>
+<p>由面与node之间关系寻找cell与cell之间关系 删除重复的内部面 找到面与cell之间关系</p>
+<p>默认两个面不相等</p>
+<p>第一个node相等时，默认相等</p>
+<p>如果维度不相等，则两个面不相等</p>
+<p>比较各个维度，不相等则跳出，标记不相等</p>
+<p>局部编号</p>
+<p>本地存储原始face2node顺序关系</p>
+<p>记录边界面单元对应cell编号，外部进程单元记-1</p>
+<p>不属于本地进程的face存储排序后的node顺序关系</p>
+<p>将不属于本进程的边界面发送给相应进程</p>
+<p>根据节点个数确定网格面类型，并将网格面分开</p>
+<p>根据网格面类型对网格面拓扑进行重排，使相同类型网格面连续存储</p>
+<p>局部编号</p>
+<p>对所有面单元进行排序</p>
+<p>由面与node之间关系寻找cell与cell之间关系 删除重复的内部面 找到面与cell之间关系</p>
+<p>默认两个面不相等</p>
+<p>第一个node相等时，默认相等</p>
+<p>如果维度不相等，则两个面不相等</p>
+<p>比较各个维度，不相等则跳出，标记不相等</p>
+<p>局部编号</p>
+<p>本地存储原始face2node顺序关系</p>
+<p>记录边界面单元对应cell编号，外部进程单元记-1</p>
+<p>不属于本地进程的face存储排序后的node顺序关系</p>
+<p>将不属于本进程的边界面发送给相应进程</p>
+<p>根据节点个数确定网格面类型，并将网格面分开</p>
+<p>根据网格面类型对网格面拓扑进行重排，使相同类型网格面连续存储 </p>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9891dd719196ca7307e0327d1eaf39f"></a><!-- doxytag: member="HSF::Boundary::writeMesh" ref="aa9891dd719196ca7307e0327d1eaf39f" args="(const char *filePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::writeMesh </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>filePtr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>write mesh and construct topology </p>
+
+<p>重载<a class="el" href="classHSF_1_1Mesh.html#a2cd3b5d0f1dcf97d7b4cb565b32bcaf8">HSF::Mesh</a>。</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9891dd719196ca7307e0327d1eaf39f"></a><!-- doxytag: member="HSF::Boundary::writeMesh" ref="aa9891dd719196ca7307e0327d1eaf39f" args="(const char *filePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::writeMesh </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>filePtr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>write mesh and construct topology </p>
+
+<p>重载<a class="el" href="classHSF_1_1Mesh.html#a2cd3b5d0f1dcf97d7b4cb565b32bcaf8">HSF::Mesh</a>。</p>
+
+</div>
+</div>
+<a class="anchor" id="aa9891dd719196ca7307e0327d1eaf39f"></a><!-- doxytag: member="HSF::Boundary::writeMesh" ref="aa9891dd719196ca7307e0327d1eaf39f" args="(const char *filePtr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::Boundary::writeMesh </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>filePtr</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>write mesh and construct topology </p>
+
+<p><p>读取已有Section网格单元编号</p>
+<p>write connectivity</p>
+<p>读取已有Section网格单元编号</p>
+<p>write connectivity </p>
+</p>
+
+<p>重载<a class="el" href="classHSF_1_1Mesh.html#a2cd3b5d0f1dcf97d7b4cb565b32bcaf8">HSF::Mesh</a>。</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成：<ul>
+<li>build/Include/<a class="el" href="build_2Include_2boundary_8hpp_source.html">boundary.hpp</a></li>
+<li>build/mpicxxOptInt64/src/mesh/<a class="el" href="build_2mpicxxOptInt64_2src_2mesh_2boundary_8hpp_source.html">boundary.hpp</a></li>
+<li>src/mesh/<a class="el" href="src_2mesh_2boundary_8hpp_source.html">boundary.hpp</a></li>
+<li>build/mpicxxOptInt64/src/mesh/<a class="el" href="build_2mpicxxOptInt64_2src_2mesh_2boundary_8cpp.html">boundary.cpp</a></li>
+<li>src/mesh/<a class="el" href="src_2mesh_2boundary_8cpp.html">boundary.cpp</a></li>
+</ul>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

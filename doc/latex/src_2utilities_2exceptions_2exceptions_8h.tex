@@ -1,0 +1,54 @@
+\hypertarget{src_2utilities_2exceptions_2exceptions_8h}{
+\section{src/utilities/exceptions/exceptions.h文件参考}
+\label{src_2utilities_2exceptions_2exceptions_8h}\index{src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}}
+}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{src_2utilities_2exceptions_2exceptions_8h_a28301f76c53b643912da7c538f74e2c6}{ASSERT}(expr)~if( ! (expr) ) $\backslash$
+\item 
+\#define \hyperlink{src_2utilities_2exceptions_2exceptions_8h_a83f1b9ca93564e467aea795ee0711be7}{ABORT}()
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{src_2utilities_2exceptions_2exceptions_8h_ac8324799c6be8ea69723b20d44b04b28}{if} (!(expr))
+\item 
+void \hyperlink{src_2utilities_2exceptions_2exceptions_8h_aa53017181640b47ea1598e70112ba577}{hsf\_\-print\_\-stack\_\-} ()
+\begin{DoxyCompactList}\small\item\em hsf\_\-printStack Print the backtrace to standard IO device or file help locate the scence in which the error occured. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{src_2utilities_2exceptions_2exceptions_8h_a83f1b9ca93564e467aea795ee0711be7}{
+\index{src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}!ABORT@{ABORT}}
+\index{ABORT@{ABORT}!src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}}
+\subsubsection[{ABORT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ABORT()}}
+\label{src_2utilities_2exceptions_2exceptions_8h_a83f1b9ca93564e467aea795ee0711be7}
+{\bfseries 值:}
+\begin{DoxyCode}
+{\
+  hsf_print_stack_();\
+  hsf_stop_mpi_();\
+  abort();\
+}
+\end{DoxyCode}
+\hypertarget{src_2utilities_2exceptions_2exceptions_8h_a28301f76c53b643912da7c538f74e2c6}{
+\index{src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}!ASSERT@{ASSERT}}
+\index{ASSERT@{ASSERT}!src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}}
+\subsubsection[{ASSERT}]{\setlength{\rightskip}{0pt plus 5cm}\#define ASSERT(expr)~if( ! (expr) ) $\backslash$}}
+\label{src_2utilities_2exceptions_2exceptions_8h_a28301f76c53b643912da7c538f74e2c6}
+
+
+\subsection{函数文档}
+\hypertarget{src_2utilities_2exceptions_2exceptions_8h_aa53017181640b47ea1598e70112ba577}{
+\index{src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}!hsf\_\-print\_\-stack\_\-@{hsf\_\-print\_\-stack\_\-}}
+\index{hsf\_\-print\_\-stack\_\-@{hsf\_\-print\_\-stack\_\-}!src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}}
+\subsubsection[{hsf\_\-print\_\-stack\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void hsf\_\-print\_\-stack\_\- ()}}
+\label{src_2utilities_2exceptions_2exceptions_8h_aa53017181640b47ea1598e70112ba577}
+
+
+hsf\_\-printStack Print the backtrace to standard IO device or file help locate the scence in which the error occured. \hypertarget{src_2utilities_2exceptions_2exceptions_8h_ac8324799c6be8ea69723b20d44b04b28}{
+\index{src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}!if@{if}}
+\index{if@{if}!src/utilities/exceptions/exceptions.h@{src/utilities/exceptions/exceptions.h}}
+\subsubsection[{if}]{\setlength{\rightskip}{0pt plus 5cm}if (!expr)}}
+\label{src_2utilities_2exceptions_2exceptions_8h_ac8324799c6be8ea69723b20d44b04b28}

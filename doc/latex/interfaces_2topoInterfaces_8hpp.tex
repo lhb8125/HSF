@@ -1,0 +1,204 @@
+\hypertarget{interfaces_2topoInterfaces_8hpp}{
+\section{interfaces/topoInterfaces.hpp文件参考}
+\label{interfaces_2topoInterfaces_8hpp}\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+}
+{\ttfamily \#include \char`\"{}utilities.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}mesh.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}region.hpp\char`\"{}}\par
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a1df11cce38058f77f8dc43a0f02af097}{init\_\-} (char $\ast$configFile)
+\begin{DoxyCompactList}\small\item\em fortran function interfaces \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a60340a651d62dc41cae96ef5e3cb8715}{getElementsNum\_\-} (int domain, int region, Label $\ast$eleNum)
+\begin{DoxyCompactList}\small\item\em 获取网格单元数目 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_af6016ee1c89a6556c79548393c8859fc}{getFacesNum\_\-} (int domain, int region, Label $\ast$faceNum)
+\begin{DoxyCompactList}\small\item\em 获取所有网格面数目 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a1055772a679cbefac64869390029a25d}{getInnerFacesNum\_\-} (int domain, int region, Label $\ast$innFaceNum)
+\begin{DoxyCompactList}\small\item\em 获取所有内部网格面数目 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a359e15f68c191a4ba93cf5089a387c78}{getBndFacesNum\_\-} (int domain, int region, Label $\ast$bndFaceNum)
+\begin{DoxyCompactList}\small\item\em 获取所有边界网格面数目 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_af420557042b6362f36342edcd68cc3b8}{getNodesNum\_\-} (int domain, int region, Label $\ast$nodeNum)
+\begin{DoxyCompactList}\small\item\em 获取格点node数目 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_aff1367ed155aae8921f0539b07737cab}{getEle2Face\_\-} (int domain, int region, Label $\ast$ele2Face，Label $\ast$pos)
+\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_aa11ba38fc50d4b4e78f08b65f9cf27ba}{getEle2Ele\_\-} (int domain, int region, Label $\ast$ele2Ele，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取网格单元之间的拓扑关系，只存储内部单元 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a0f5a608ef6ca367816e25b1069becb5d}{getEle2Node\_\-} (int domain, int region, Label $\ast$ele2Node，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取网格单元与格点的拓扑关系 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_ad3bdde0f09c9c15098f12537811f1493}{getInnFace2Node\_\-} (int domain, int region, Label $\ast$innFace2Node，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取内部网格面与格点的拓扑关系 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a10d40bfad450a60b02b1bed8da33b4b6}{getbndFace2Node\_\-} (int domain, int region, Label $\ast$bndFace2Node，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取边界网格面与格点的拓扑关系 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a8984dd2af57f711a29848fbada465882}{getInnFace2Ele\_\-} (int domain, int region, Label $\ast$innFace2Ele，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取内部网格面与网格单元的拓扑关系 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_af07a751fdcbaae39b0a477931ae7b42e}{getbndFace2Ele\_\-} (int domain, int region, Label $\ast$bndFace2Ele，Label $\ast$pos)
+\begin{DoxyCompactList}\small\item\em 获取边界网格面与网格单元的拓扑关系 \item\end{DoxyCompactList}\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_a8d37182398d59a086c75a6f696358ca3}{getEleType\_\-} (int domain, int region, int $\ast$eleType)
+\item 
+void \hyperlink{interfaces_2topoInterfaces_8hpp_ab09d48c17dcc26c98409535e1c16b503}{getCoords\_\-} (int domain, int region, Scalar $\ast$coords)
+\begin{DoxyCompactList}\small\item\em 获取格点坐标，以AoS方式存储 \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{变量}
+\begin{DoxyCompactItemize}
+\item 
+Array$<$ Region $>$ \hyperlink{interfaces_2topoInterfaces_8hpp_aeb8610dbeef683c2abea70a1362a2d25}{regs}
+\end{DoxyCompactItemize}
+
+
+\subsection{函数文档}
+\hypertarget{interfaces_2topoInterfaces_8hpp_af07a751fdcbaae39b0a477931ae7b42e}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getbndFace2Ele\_\-@{getbndFace2Ele\_\-}}
+\index{getbndFace2Ele\_\-@{getbndFace2Ele\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getbndFace2Ele\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getbndFace2Ele\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$bndFace2Ele，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_af07a751fdcbaae39b0a477931ae7b42e}
+
+
+获取边界网格面与网格单元的拓扑关系 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em bndFace2Ele}]\mbox{[}out\mbox{]} 边界网格面与网格单元的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a10d40bfad450a60b02b1bed8da33b4b6}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getbndFace2Node\_\-@{getbndFace2Node\_\-}}
+\index{getbndFace2Node\_\-@{getbndFace2Node\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getbndFace2Node\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getbndFace2Node\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$bndFace2Node，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_a10d40bfad450a60b02b1bed8da33b4b6}
+
+
+获取边界网格面与格点的拓扑关系 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em bndFace2Node}]\mbox{[}out\mbox{]} 边界网格面与格点的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a359e15f68c191a4ba93cf5089a387c78}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getBndFacesNum\_\-@{getBndFacesNum\_\-}}
+\index{getBndFacesNum\_\-@{getBndFacesNum\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getBndFacesNum\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getBndFacesNum\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ {\em bndFaceNum})}}
+\label{interfaces_2topoInterfaces_8hpp_a359e15f68c191a4ba93cf5089a387c78}
+
+
+获取所有边界网格面数目 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em bndFaceNum}]\mbox{[}out\mbox{]} 所有边界网格面数目 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_ab09d48c17dcc26c98409535e1c16b503}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getCoords\_\-@{getCoords\_\-}}
+\index{getCoords\_\-@{getCoords\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getCoords\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getCoords\_\- (int {\em domain}, \/  int {\em region}, \/  Scalar $\ast$ {\em coords})}}
+\label{interfaces_2topoInterfaces_8hpp_ab09d48c17dcc26c98409535e1c16b503}
+
+
+获取格点坐标，以AoS方式存储 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em coords}]\mbox{[}out\mbox{]} 格点坐标 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_aa11ba38fc50d4b4e78f08b65f9cf27ba}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getEle2Ele\_\-@{getEle2Ele\_\-}}
+\index{getEle2Ele\_\-@{getEle2Ele\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getEle2Ele\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getEle2Ele\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ele2Ele，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_aa11ba38fc50d4b4e78f08b65f9cf27ba}
+
+
+获取网格单元之间的拓扑关系，只存储内部单元 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em ele2Ele}]\mbox{[}out\mbox{]} 网格单元之间的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_aff1367ed155aae8921f0539b07737cab}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getEle2Face\_\-@{getEle2Face\_\-}}
+\index{getEle2Face\_\-@{getEle2Face\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getEle2Face\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getEle2Face\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ele2Face，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_aff1367ed155aae8921f0539b07737cab}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a0f5a608ef6ca367816e25b1069becb5d}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getEle2Node\_\-@{getEle2Node\_\-}}
+\index{getEle2Node\_\-@{getEle2Node\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getEle2Node\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getEle2Node\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ele2Node，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_a0f5a608ef6ca367816e25b1069becb5d}
+
+
+获取网格单元与格点的拓扑关系 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em ele2Node}]\mbox{[}out\mbox{]} 网格单元与格点的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a60340a651d62dc41cae96ef5e3cb8715}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getElementsNum\_\-@{getElementsNum\_\-}}
+\index{getElementsNum\_\-@{getElementsNum\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getElementsNum\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getElementsNum\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ {\em eleNum})}}
+\label{interfaces_2topoInterfaces_8hpp_a60340a651d62dc41cae96ef5e3cb8715}
+
+
+获取网格单元数目 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em eleNum}]\mbox{[}out\mbox{]} 网格单元数目 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a8d37182398d59a086c75a6f696358ca3}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getEleType\_\-@{getEleType\_\-}}
+\index{getEleType\_\-@{getEleType\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getEleType\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getEleType\_\- (int {\em domain}, \/  int {\em region}, \/  int $\ast$ {\em eleType})}}
+\label{interfaces_2topoInterfaces_8hpp_a8d37182398d59a086c75a6f696358ca3}
+\hypertarget{interfaces_2topoInterfaces_8hpp_af6016ee1c89a6556c79548393c8859fc}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getFacesNum\_\-@{getFacesNum\_\-}}
+\index{getFacesNum\_\-@{getFacesNum\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getFacesNum\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getFacesNum\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ {\em faceNum})}}
+\label{interfaces_2topoInterfaces_8hpp_af6016ee1c89a6556c79548393c8859fc}
+
+
+获取所有网格面数目 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em faceNum}]\mbox{[}out\mbox{]} 所有网格面数目 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a1055772a679cbefac64869390029a25d}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getInnerFacesNum\_\-@{getInnerFacesNum\_\-}}
+\index{getInnerFacesNum\_\-@{getInnerFacesNum\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getInnerFacesNum\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getInnerFacesNum\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ {\em innFaceNum})}}
+\label{interfaces_2topoInterfaces_8hpp_a1055772a679cbefac64869390029a25d}
+
+
+获取所有内部网格面数目 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em innFaceNum}]\mbox{[}out\mbox{]} 所有内部网格面数目 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a8984dd2af57f711a29848fbada465882}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getInnFace2Ele\_\-@{getInnFace2Ele\_\-}}
+\index{getInnFace2Ele\_\-@{getInnFace2Ele\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getInnFace2Ele\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getInnFace2Ele\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$innFace2Ele，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_a8984dd2af57f711a29848fbada465882}
+
+
+获取内部网格面与网格单元的拓扑关系 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em innFace2Ele}]\mbox{[}out\mbox{]} 内部网格面与网格单元的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_ad3bdde0f09c9c15098f12537811f1493}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getInnFace2Node\_\-@{getInnFace2Node\_\-}}
+\index{getInnFace2Node\_\-@{getInnFace2Node\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getInnFace2Node\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getInnFace2Node\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$innFace2Node，Label $\ast$ {\em pos})}}
+\label{interfaces_2topoInterfaces_8hpp_ad3bdde0f09c9c15098f12537811f1493}
+
+
+获取内部网格面与格点的拓扑关系 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em innFace2Node}]\mbox{[}out\mbox{]} 内部网格面与格点的映射关系，AoS格式存储 \item[{\em pos}]\mbox{[}out\mbox{]} AoS格式中结构体的起始位置 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_af420557042b6362f36342edcd68cc3b8}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!getNodesNum\_\-@{getNodesNum\_\-}}
+\index{getNodesNum\_\-@{getNodesNum\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{getNodesNum\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void getNodesNum\_\- (int {\em domain}, \/  int {\em region}, \/  Label $\ast$ {\em nodeNum})}}
+\label{interfaces_2topoInterfaces_8hpp_af420557042b6362f36342edcd68cc3b8}
+
+
+获取格点node数目 
+\begin{DoxyParams}{参数}
+\item[{\em domain}]\mbox{[}in\mbox{]} domain下标索引 \item[{\em region}]\mbox{[}in\mbox{]} region下标索引 \item[{\em nodeNum}]\mbox{[}out\mbox{]} 格点node数目 \end{DoxyParams}
+\hypertarget{interfaces_2topoInterfaces_8hpp_a1df11cce38058f77f8dc43a0f02af097}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!init\_\-@{init\_\-}}
+\index{init\_\-@{init\_\-}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{init\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\- (char $\ast$ {\em configFile})}}
+\label{interfaces_2topoInterfaces_8hpp_a1df11cce38058f77f8dc43a0f02af097}
+
+
+fortran function interfaces 初始化程序，包括参数、网格读入，负载均衡，拓扑与通信对创建等 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em configFile}]参数文件 \end{DoxyParams}
+
+
+read CGNS file
+
+load balance in region
+
+read CGNS file
+
+load balance in region 
+
+\subsection{变量文档}
+\hypertarget{interfaces_2topoInterfaces_8hpp_aeb8610dbeef683c2abea70a1362a2d25}{
+\index{interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}!regs@{regs}}
+\index{regs@{regs}!interfaces/topoInterfaces.hpp@{interfaces/topoInterfaces.hpp}}
+\subsubsection[{regs}]{\setlength{\rightskip}{0pt plus 5cm}Array$<$Region$>$ {\bf regs}}}
+\label{interfaces_2topoInterfaces_8hpp_aeb8610dbeef683c2abea70a1362a2d25}

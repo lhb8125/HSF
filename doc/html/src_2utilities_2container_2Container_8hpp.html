@@ -1,0 +1,271 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: src/utilities/container/Container.hpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>src/utilities/container/Container.hpp文件参考</h1><code>#include &quot;<a class="el" href="src_2utilities_2common_2usingCpp_8hpp_source.html">usingCpp.hpp</a>&quot;</code><br/>
+
+<p><a href="src_2utilities_2container_2Container_8hpp_source.html">浏览该文件的源代码。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>名字空间</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceHSF.html">HSF</a></td></tr>
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#abf4ef44c4c8719bd6d059ca8cdbe0fde">Word</a>&nbsp;&nbsp;&nbsp;string</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#aaaa51ebc6ea4da1a055fc44bbeff0fca">Array</a>&nbsp;&nbsp;&nbsp;vector</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#af6e8ce24bedd0f3ee8aee3b4f24f62ee">List</a>&nbsp;&nbsp;&nbsp;set</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#a6cbc55536f9041eb3f8acf9063078ed3">Table</a>&nbsp;&nbsp;&nbsp;map</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#a9af7702ea01e01c8927d4047bed986db">MultiList</a>&nbsp;&nbsp;&nbsp;multiset</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#a05f2ca9fdaab4a1784822460cef00fcb">MultiTable</a>&nbsp;&nbsp;&nbsp;multimap</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#a24d775b394d621742173c5975181b2a7">toWord</a>&nbsp;&nbsp;&nbsp;to_string</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#af0e096a05c1a980cd4cf3ca0ec3d40e4">w2f</a>&nbsp;&nbsp;&nbsp;stof</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#ad817aa3fdd0d9db71650d5bb1e157d5c">w2d</a>&nbsp;&nbsp;&nbsp;stod</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#af8728e973fc85ab54b55d27fef119a75">w2ld</a>&nbsp;&nbsp;&nbsp;stold</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#ae940f22fb1c42854086e4d88f6e30706">w2i</a>&nbsp;&nbsp;&nbsp;stoi</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#aa6a4244349b460e534440dbd05f52024">w2l</a>&nbsp;&nbsp;&nbsp;stol</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2utilities_2container_2Container_8hpp.html#a68e5419c4236e43deacde9fe60eec8e1">w2ll</a>&nbsp;&nbsp;&nbsp;stoll</td></tr>
+<tr><td colspan="2"><h2>函数</h2></td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class D &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">int&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#a6dc2998ec8bb64efa0517dde5f8ab74a">HSF::sort</a> (Array&lt; D &gt; &amp;data)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">sort, Sort an single array that contains data can be compared  <a href="#a6dc2998ec8bb64efa0517dde5f8ab74a"></a><br/></td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class D , class W &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">int&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#a31d056485ae50f601fdaa21322907005">HSF::sort</a> (Array&lt; D &gt; &amp;data, const Array&lt; W &gt; &amp;weights=Array&lt; W &gt;(0))</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">sort, Sort an single array that contains data can be compared with corresponding weights.  <a href="#a31d056485ae50f601fdaa21322907005"></a><br/></td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class W &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">int&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#aecb490b70bec1ba6b46c17fcc4ffae89">HSF::ascend</a> (const void *a, const void *b)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class W &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">int&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#af2cc1f9a74df5f0056e658379f5af92e">HSF::descend</a> (const void *a, const void *b)</td></tr>
+<tr><td class="memTemplParams" colspan="2">template&lt;class W &gt; </td></tr>
+<tr><td class="memTemplItemLeft" align="right" valign="top">size_t&nbsp;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceHSF.html#a177c9fa2598f6cba867c17cbcfd9c351">HSF::biSearch</a> (const Array&lt; W &gt; &amp;data, W value, ComparePtr comp=ascend&lt; W &gt;)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">biSearch, search the array with binary searching  <a href="#a177c9fa2598f6cba867c17cbcfd9c351"></a><br/></td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="aaaa51ebc6ea4da1a055fc44bbeff0fca"></a><!-- doxytag: member="Container.hpp::Array" ref="aaaa51ebc6ea4da1a055fc44bbeff0fca" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Array&nbsp;&nbsp;&nbsp;vector</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af6e8ce24bedd0f3ee8aee3b4f24f62ee"></a><!-- doxytag: member="Container.hpp::List" ref="af6e8ce24bedd0f3ee8aee3b4f24f62ee" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define List&nbsp;&nbsp;&nbsp;set</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9af7702ea01e01c8927d4047bed986db"></a><!-- doxytag: member="Container.hpp::MultiList" ref="a9af7702ea01e01c8927d4047bed986db" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MultiList&nbsp;&nbsp;&nbsp;multiset</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a05f2ca9fdaab4a1784822460cef00fcb"></a><!-- doxytag: member="Container.hpp::MultiTable" ref="a05f2ca9fdaab4a1784822460cef00fcb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MultiTable&nbsp;&nbsp;&nbsp;multimap</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6cbc55536f9041eb3f8acf9063078ed3"></a><!-- doxytag: member="Container.hpp::Table" ref="a6cbc55536f9041eb3f8acf9063078ed3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Table&nbsp;&nbsp;&nbsp;map</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a24d775b394d621742173c5975181b2a7"></a><!-- doxytag: member="Container.hpp::toWord" ref="a24d775b394d621742173c5975181b2a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define toWord&nbsp;&nbsp;&nbsp;to_string</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad817aa3fdd0d9db71650d5bb1e157d5c"></a><!-- doxytag: member="Container.hpp::w2d" ref="ad817aa3fdd0d9db71650d5bb1e157d5c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2d&nbsp;&nbsp;&nbsp;stod</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af0e096a05c1a980cd4cf3ca0ec3d40e4"></a><!-- doxytag: member="Container.hpp::w2f" ref="af0e096a05c1a980cd4cf3ca0ec3d40e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2f&nbsp;&nbsp;&nbsp;stof</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae940f22fb1c42854086e4d88f6e30706"></a><!-- doxytag: member="Container.hpp::w2i" ref="ae940f22fb1c42854086e4d88f6e30706" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2i&nbsp;&nbsp;&nbsp;stoi</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa6a4244349b460e534440dbd05f52024"></a><!-- doxytag: member="Container.hpp::w2l" ref="aa6a4244349b460e534440dbd05f52024" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2l&nbsp;&nbsp;&nbsp;stol</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af8728e973fc85ab54b55d27fef119a75"></a><!-- doxytag: member="Container.hpp::w2ld" ref="af8728e973fc85ab54b55d27fef119a75" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2ld&nbsp;&nbsp;&nbsp;stold</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a68e5419c4236e43deacde9fe60eec8e1"></a><!-- doxytag: member="Container.hpp::w2ll" ref="a68e5419c4236e43deacde9fe60eec8e1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define w2ll&nbsp;&nbsp;&nbsp;stoll</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="abf4ef44c4c8719bd6d059ca8cdbe0fde"></a><!-- doxytag: member="Container.hpp::Word" ref="abf4ef44c4c8719bd6d059ca8cdbe0fde" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Word&nbsp;&nbsp;&nbsp;string</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

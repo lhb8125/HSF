@@ -1,0 +1,710 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/mpicxxOptInt64/src/interfaces/topoInterfaces.cpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>build/mpicxxOptInt64/src/interfaces/topoInterfaces.cpp文件参考</h1><code>#include &lt;iostream&gt;</code><br/>
+<code>#include &lt;fstream&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+<code>#include &lt;assert.h&gt;</code><br/>
+<code>#include &lt;unistd.h&gt;</code><br/>
+<code>#include &quot;cstdlib&quot;</code><br/>
+<code>#include &quot;mpi.h&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2parameter_2parameter_8hpp_source.html">parameter.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2interfaces_2topoInterfaces_8hpp_source.html">topoInterfaces.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2loadBalancer_2loadBalancer_8hpp_source.html">loadBalancer.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2utilities_2utilities_8hpp_source.html">utilities.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2region_2region_8hpp_source.html">region.hpp</a>&quot;</code><br/>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#ae527c46aba7461971181a962e4c35280">REGION</a>&nbsp;&nbsp;&nbsp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>[0]</td></tr>
+<tr><td colspan="2"><h2>函数</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a1df11cce38058f77f8dc43a0f02af097">init_</a> (char *configFile)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">fortran function interfaces  <a href="#a1df11cce38058f77f8dc43a0f02af097"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a5386af3ccbddd176ecd648d1c1db4993">get_elements_num_</a> (Label *eleNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元数目  <a href="#a5386af3ccbddd176ecd648d1c1db4993"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#ac06e749be23d575896f6b38b114323d5">get_faces_num_</a> (Label *faceNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取所有网格面数目  <a href="#ac06e749be23d575896f6b38b114323d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a46fa209dc7188070fae35e0075afee66">get_inner_faces_num_</a> (Label *innFaceNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取所有内部网格面数目  <a href="#a46fa209dc7188070fae35e0075afee66"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a55bb228ba5726ff5f86cca5eb7ff9e36">get_bnd_faces_num_</a> (Label *bndFaceNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取所有边界网格面数目  <a href="#a55bb228ba5726ff5f86cca5eb7ff9e36"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#ae93efaa0bed26d2b99a2ff2d2d2bc863">get_nodes_num_</a> (Label *nodeNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取格点node数目  <a href="#ae93efaa0bed26d2b99a2ff2d2d2bc863"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#ac90769116163d35549b50b23e058ca0e">get_ele_2_face_pos_</a> (Label *pos)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a695d9a9740484733fa08a5fc1263fd5c">get_ele_2_face_</a> (Label *ele2Face)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元与网格面的拓扑关系  <a href="#a695d9a9740484733fa08a5fc1263fd5c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a6bb447db3be02b57def4ce9a5d8875d2">get_ele_2_ele_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元之间的拓扑关系，只存储内部单元  <a href="#a6bb447db3be02b57def4ce9a5d8875d2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#ad7801a969c1e04a9c84168148895e5d7">get_ele_2_ele_</a> (Label *ele2Ele)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元之间的拓扑关系，只存储内部单元  <a href="#ad7801a969c1e04a9c84168148895e5d7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a43aef53ef5a1524b704102493f639f7d">get_ele_2_node_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元与格点的拓扑关系  <a href="#a43aef53ef5a1524b704102493f639f7d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a03869cedd0975e495cc2d219fa5fc16e">get_ele_2_node_</a> (Label *ele2Node)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元与格点的拓扑关系  <a href="#a03869cedd0975e495cc2d219fa5fc16e"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#acf5ec11d7c08ae3accf6767ec90c9a19">get_inn_face_2_node_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取内部网格面与格点的拓扑关系  <a href="#acf5ec11d7c08ae3accf6767ec90c9a19"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#aa3fef25deb2dd66127d0099c1acf4a61">get_inn_face_2_node_</a> (Label *face2Node)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取内部网格面与格点的拓扑关系  <a href="#aa3fef25deb2dd66127d0099c1acf4a61"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a4b7777658ed1d95e66f8c5ce7912d729">get_bnd_face_2_node_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取边界网格面与格点的拓扑关系  <a href="#a4b7777658ed1d95e66f8c5ce7912d729"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#aa63fd644822e0cc9c9d04086bd0d454d">get_bnd_face_2_node_</a> (Label *face2Node)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取边界网格面与格点的拓扑关系  <a href="#aa63fd644822e0cc9c9d04086bd0d454d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a03321c0429e3cb5b29349d92992aa109">get_inn_face_2_ele_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取内部网格面与网格单元的拓扑关系  <a href="#a03321c0429e3cb5b29349d92992aa109"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#aa31047da379385f2b6979175a97732a9">get_inn_face_2_ele_</a> (Label *face2Ele)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取内部网格面与网格单元的拓扑关系  <a href="#aa31047da379385f2b6979175a97732a9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#afb79df443fb90841bc738d19710d2890">get_bnd_face_2_ele_pos_</a> (Label *pos)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取边界网格面与网格单元的拓扑关系  <a href="#afb79df443fb90841bc738d19710d2890"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#adf5c116913b426991da0538bf03697dc">get_bnd_face_2_ele_</a> (Label *face2Ele)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取边界网格面与网格单元的拓扑关系  <a href="#adf5c116913b426991da0538bf03697dc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a24cedcec48c299c0aea351296c5a02e1">get_ele_type_</a> (Label *eleType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取网格单元类型，以整型方式存储  <a href="#a24cedcec48c299c0aea351296c5a02e1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="build_2mpicxxOptInt64_2src_2interfaces_2topoInterfaces_8cpp.html#a084daa822a816905e79f604aaa0de279">get_coords_</a> (Scalar *coords)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取格点坐标，以AoS方式存储  <a href="#a084daa822a816905e79f604aaa0de279"></a><br/></td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="ae527c46aba7461971181a962e4c35280"></a><!-- doxytag: member="topoInterfaces.cpp::REGION" ref="ae527c46aba7461971181a962e4c35280" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REGION&nbsp;&nbsp;&nbsp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>[0]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>函数文档</h2>
+<a class="anchor" id="adf5c116913b426991da0538bf03697dc"></a><!-- doxytag: member="topoInterfaces.cpp::get_bnd_face_2_ele_" ref="adf5c116913b426991da0538bf03697dc" args="(Label *face2Ele)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_bnd_face_2_ele_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>bndFace2Ele</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取边界网格面与网格单元的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bndFace2Ele</em>&nbsp;</td><td>[out] 边界网格面与网格单元的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afb79df443fb90841bc738d19710d2890"></a><!-- doxytag: member="topoInterfaces.cpp::get_bnd_face_2_ele_pos_" ref="afb79df443fb90841bc738d19710d2890" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_bnd_face_2_ele_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取边界网格面与网格单元的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa63fd644822e0cc9c9d04086bd0d454d"></a><!-- doxytag: member="topoInterfaces.cpp::get_bnd_face_2_node_" ref="aa63fd644822e0cc9c9d04086bd0d454d" args="(Label *face2Node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_bnd_face_2_node_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>bndFace2Node</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取边界网格面与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bndFace2Node</em>&nbsp;</td><td>[out] 边界网格面与格点的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a4b7777658ed1d95e66f8c5ce7912d729"></a><!-- doxytag: member="topoInterfaces.cpp::get_bnd_face_2_node_pos_" ref="a4b7777658ed1d95e66f8c5ce7912d729" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_bnd_face_2_node_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取边界网格面与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a55bb228ba5726ff5f86cca5eb7ff9e36"></a><!-- doxytag: member="topoInterfaces.cpp::get_bnd_faces_num_" ref="a55bb228ba5726ff5f86cca5eb7ff9e36" args="(Label *bndFaceNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_bnd_faces_num_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>bndFaceNum</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取所有边界网格面数目 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bndFaceNum</em>&nbsp;</td><td>[out] 所有边界网格面数目 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a084daa822a816905e79f604aaa0de279"></a><!-- doxytag: member="topoInterfaces.cpp::get_coords_" ref="a084daa822a816905e79f604aaa0de279" args="(Scalar *coords)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_coords_ </td>
+          <td>(</td>
+          <td class="paramtype">Scalar *&nbsp;</td>
+          <td class="paramname"> <em>coords</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取格点坐标，以AoS方式存储 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>coords</em>&nbsp;</td><td>[out] 格点坐标 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ad7801a969c1e04a9c84168148895e5d7"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_ele_" ref="ad7801a969c1e04a9c84168148895e5d7" args="(Label *ele2Ele)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_ele_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>ele2Ele</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元之间的拓扑关系，只存储内部单元 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>ele2Ele</em>&nbsp;</td><td>[out] 网格单元之间的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6bb447db3be02b57def4ce9a5d8875d2"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_ele_pos_" ref="a6bb447db3be02b57def4ce9a5d8875d2" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_ele_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元之间的拓扑关系，只存储内部单元 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a695d9a9740484733fa08a5fc1263fd5c"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_face_" ref="a695d9a9740484733fa08a5fc1263fd5c" args="(Label *ele2Face)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_face_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>ele2Face</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元与网格面的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>ele2Face</em>&nbsp;</td><td>[out] 网格单元与网格面的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac90769116163d35549b50b23e058ca0e"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_face_pos_" ref="ac90769116163d35549b50b23e058ca0e" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_face_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a03869cedd0975e495cc2d219fa5fc16e"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_node_" ref="a03869cedd0975e495cc2d219fa5fc16e" args="(Label *ele2Node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_node_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>ele2Node</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>ele2Node</em>&nbsp;</td><td>[out] 网格单元与格点的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a43aef53ef5a1524b704102493f639f7d"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_2_node_pos_" ref="a43aef53ef5a1524b704102493f639f7d" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_2_node_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a24cedcec48c299c0aea351296c5a02e1"></a><!-- doxytag: member="topoInterfaces.cpp::get_ele_type_" ref="a24cedcec48c299c0aea351296c5a02e1" args="(Label *eleType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_ele_type_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>eleType</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元类型，以整型方式存储 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>eleType</em>&nbsp;</td><td>[out] 网格单元类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5386af3ccbddd176ecd648d1c1db4993"></a><!-- doxytag: member="topoInterfaces.cpp::get_elements_num_" ref="a5386af3ccbddd176ecd648d1c1db4993" args="(Label *eleNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_elements_num_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>eleNum</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取网格单元数目 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>eleNum</em>&nbsp;</td><td>[out] 网格单元数目 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac06e749be23d575896f6b38b114323d5"></a><!-- doxytag: member="topoInterfaces.cpp::get_faces_num_" ref="ac06e749be23d575896f6b38b114323d5" args="(Label *faceNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_faces_num_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>faceNum</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取所有网格面数目 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>faceNum</em>&nbsp;</td><td>[out] 所有网格面数目 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa31047da379385f2b6979175a97732a9"></a><!-- doxytag: member="topoInterfaces.cpp::get_inn_face_2_ele_" ref="aa31047da379385f2b6979175a97732a9" args="(Label *face2Ele)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inn_face_2_ele_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>innFace2Ele</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取内部网格面与网格单元的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>innFace2Ele</em>&nbsp;</td><td>[out] 内部网格面与网格单元的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a03321c0429e3cb5b29349d92992aa109"></a><!-- doxytag: member="topoInterfaces.cpp::get_inn_face_2_ele_pos_" ref="a03321c0429e3cb5b29349d92992aa109" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inn_face_2_ele_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取内部网格面与网格单元的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa3fef25deb2dd66127d0099c1acf4a61"></a><!-- doxytag: member="topoInterfaces.cpp::get_inn_face_2_node_" ref="aa3fef25deb2dd66127d0099c1acf4a61" args="(Label *face2Node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inn_face_2_node_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>innFace2Node</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取内部网格面与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>innFace2Node</em>&nbsp;</td><td>[out] 内部网格面与格点的映射关系，AoS格式存储 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acf5ec11d7c08ae3accf6767ec90c9a19"></a><!-- doxytag: member="topoInterfaces.cpp::get_inn_face_2_node_pos_" ref="acf5ec11d7c08ae3accf6767ec90c9a19" args="(Label *pos)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inn_face_2_node_pos_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>pos</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取内部网格面与格点的拓扑关系 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pos</em>&nbsp;</td><td>[out] AoS格式中结构体的起始位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a46fa209dc7188070fae35e0075afee66"></a><!-- doxytag: member="topoInterfaces.cpp::get_inner_faces_num_" ref="a46fa209dc7188070fae35e0075afee66" args="(Label *innFaceNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_inner_faces_num_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>innFaceNum</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取所有内部网格面数目 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>innFaceNum</em>&nbsp;</td><td>[out] 所有内部网格面数目 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae93efaa0bed26d2b99a2ff2d2d2bc863"></a><!-- doxytag: member="topoInterfaces.cpp::get_nodes_num_" ref="ae93efaa0bed26d2b99a2ff2d2d2bc863" args="(Label *nodeNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_nodes_num_ </td>
+          <td>(</td>
+          <td class="paramtype">Label *&nbsp;</td>
+          <td class="paramname"> <em>nodeNum</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取格点node数目 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>nodeNum</em>&nbsp;</td><td>[out] 格点node数目 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a1df11cce38058f77f8dc43a0f02af097"></a><!-- doxytag: member="topoInterfaces.cpp::init_" ref="a1df11cce38058f77f8dc43a0f02af097" args="(char *configFile)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_ </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>configFile</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>fortran function interfaces </p>
+<p>初始化程序，包括参数、网格读入，负载均衡，拓扑与通信对创建等 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"><tt>[in]</tt>&nbsp;</td><td valign="top"><em>configFile</em>&nbsp;</td><td>参数文件 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><p>read CGNS file</p>
+<p>load balance in region </p>
+</p>
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

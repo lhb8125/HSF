@@ -1,0 +1,107 @@
+\hypertarget{build_2Include_2fieldInterfaces_8hpp}{
+\section{build/Include/fieldInterfaces.hpp文件参考}
+\label{build_2Include_2fieldInterfaces_8hpp}\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+}
+{\ttfamily \#include \char`\"{}Base.hpp\char`\"{}}\par
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_a7ed562dfa0d31787c5ef0c6a06592b41}{get\_\-label\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName, void $\ast$fPtrPtr, label $\ast$ndim, label $\ast$nCells)
+\begin{DoxyCompactList}\small\item\em 获取label类型流场信息 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_a5489715c8ace9fcc55dc35f9553cdddc}{get\_\-scalar\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName, void $\ast$fPtrPtr, label $\ast$ndim, label $\ast$nCells)
+\begin{DoxyCompactList}\small\item\em 获取scalar类型流场信息 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_a73e93004787f34a834c2b0371028e539}{add\_\-label\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName, label $\ast$fPtr, label $\ast$ndim, label $\ast$n)
+\begin{DoxyCompactList}\small\item\em 注册label类型流场信息 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_a5c86dad6789ff475e260bbbb69a3a57e}{add\_\-scalar\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName, scalar $\ast$fPtr, label $\ast$ndim, label $\ast$n)
+\begin{DoxyCompactList}\small\item\em 注册scalar类型流场信息 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_abec9649f443e47f463000a7f9d83f047}{start\_\-exchange\_\-label\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName)
+\begin{DoxyCompactList}\small\item\em 启动label类型流场信息交换 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_ac3191d127d5347b60ad75a3bb7c2fcc7}{finish\_\-exchange\_\-label\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName)
+\begin{DoxyCompactList}\small\item\em 结束label类型流场信息交换 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_abbb34c52241e74abc11ec22407b08a4f}{start\_\-exchange\_\-scalar\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName)
+\begin{DoxyCompactList}\small\item\em 启动scalar类型流场信息交换 \item\end{DoxyCompactList}\item 
+void \hyperlink{build_2Include_2fieldInterfaces_8hpp_a4dd6ad3851c3cc9a66d35018948a83e6}{finish\_\-exchange\_\-scalar\_\-field\_\-} (const char $\ast$setType, const char $\ast$fieldName)
+\begin{DoxyCompactList}\small\item\em 结束scalar类型流场信息交换 \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{函数文档}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_a73e93004787f34a834c2b0371028e539}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!add\_\-label\_\-field\_\-@{add\_\-label\_\-field\_\-}}
+\index{add\_\-label\_\-field\_\-@{add\_\-label\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{add\_\-label\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void add\_\-label\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName}, \/  label $\ast$ {\em fPtr}, \/  label $\ast$ {\em ndim}, \/  label $\ast$ {\em n})}}
+\label{build_2Include_2fieldInterfaces_8hpp_a73e93004787f34a834c2b0371028e539}
+
+
+注册label类型流场信息 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]label类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]label类型流场变量名 \item[\mbox{$\leftarrow$} {\em fPtr}]流场变量首地址 \item[\mbox{$\leftarrow$} {\em ndim}]流场变量结构体内变量数量 \item[\mbox{$\leftarrow$} {\em n}]流场变量结构体数量 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_a5c86dad6789ff475e260bbbb69a3a57e}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!add\_\-scalar\_\-field\_\-@{add\_\-scalar\_\-field\_\-}}
+\index{add\_\-scalar\_\-field\_\-@{add\_\-scalar\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{add\_\-scalar\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void add\_\-scalar\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName}, \/  scalar $\ast$ {\em fPtr}, \/  label $\ast$ {\em ndim}, \/  label $\ast$ {\em n})}}
+\label{build_2Include_2fieldInterfaces_8hpp_a5c86dad6789ff475e260bbbb69a3a57e}
+
+
+注册scalar类型流场信息 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]scalar类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]scalar类型流场变量名 \item[\mbox{$\leftarrow$} {\em fPtr}]流场变量首地址 \item[\mbox{$\leftarrow$} {\em ndim}]流场变量结构体内变量数量 \item[\mbox{$\leftarrow$} {\em n}]流场变量结构体数量 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_ac3191d127d5347b60ad75a3bb7c2fcc7}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!finish\_\-exchange\_\-label\_\-field\_\-@{finish\_\-exchange\_\-label\_\-field\_\-}}
+\index{finish\_\-exchange\_\-label\_\-field\_\-@{finish\_\-exchange\_\-label\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{finish\_\-exchange\_\-label\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void finish\_\-exchange\_\-label\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName})}}
+\label{build_2Include_2fieldInterfaces_8hpp_ac3191d127d5347b60ad75a3bb7c2fcc7}
+
+
+结束label类型流场信息交换 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]label类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]label类型流场变量名 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_a4dd6ad3851c3cc9a66d35018948a83e6}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!finish\_\-exchange\_\-scalar\_\-field\_\-@{finish\_\-exchange\_\-scalar\_\-field\_\-}}
+\index{finish\_\-exchange\_\-scalar\_\-field\_\-@{finish\_\-exchange\_\-scalar\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{finish\_\-exchange\_\-scalar\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void finish\_\-exchange\_\-scalar\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName})}}
+\label{build_2Include_2fieldInterfaces_8hpp_a4dd6ad3851c3cc9a66d35018948a83e6}
+
+
+结束scalar类型流场信息交换 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]scalar类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]scalar类型流场变量名 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_a7ed562dfa0d31787c5ef0c6a06592b41}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!get\_\-label\_\-field\_\-@{get\_\-label\_\-field\_\-}}
+\index{get\_\-label\_\-field\_\-@{get\_\-label\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{get\_\-label\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void get\_\-label\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName}, \/  void $\ast$ {\em fPtrPtr}, \/  label $\ast$ {\em ndim}, \/  label $\ast$ {\em nCells})}}
+\label{build_2Include_2fieldInterfaces_8hpp_a7ed562dfa0d31787c5ef0c6a06592b41}
+
+
+获取label类型流场信息 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]label类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]label类型流场变量名 \item[\mbox{$\rightarrow$} {\em fPtrPtr}]流场变量首地址 \item[\mbox{$\rightarrow$} {\em ndim}]流场变量结构体内变量数量 \item[\mbox{$\rightarrow$} {\em nCells}]流场变量结构体数量 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_a5489715c8ace9fcc55dc35f9553cdddc}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!get\_\-scalar\_\-field\_\-@{get\_\-scalar\_\-field\_\-}}
+\index{get\_\-scalar\_\-field\_\-@{get\_\-scalar\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{get\_\-scalar\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void get\_\-scalar\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName}, \/  void $\ast$ {\em fPtrPtr}, \/  label $\ast$ {\em ndim}, \/  label $\ast$ {\em nCells})}}
+\label{build_2Include_2fieldInterfaces_8hpp_a5489715c8ace9fcc55dc35f9553cdddc}
+
+
+获取scalar类型流场信息 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]scalar类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]scalar类型流场变量名 \item[\mbox{$\rightarrow$} {\em fPtrPtr}]流场变量首地址 \item[\mbox{$\rightarrow$} {\em ndim}]流场变量结构体内变量数量 \item[\mbox{$\rightarrow$} {\em nCells}]流场变量结构体数量 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_abec9649f443e47f463000a7f9d83f047}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!start\_\-exchange\_\-label\_\-field\_\-@{start\_\-exchange\_\-label\_\-field\_\-}}
+\index{start\_\-exchange\_\-label\_\-field\_\-@{start\_\-exchange\_\-label\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{start\_\-exchange\_\-label\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void start\_\-exchange\_\-label\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName})}}
+\label{build_2Include_2fieldInterfaces_8hpp_abec9649f443e47f463000a7f9d83f047}
+
+
+启动label类型流场信息交换 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]label类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]label类型流场变量名 \end{DoxyParams}
+\hypertarget{build_2Include_2fieldInterfaces_8hpp_abbb34c52241e74abc11ec22407b08a4f}{
+\index{build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}!start\_\-exchange\_\-scalar\_\-field\_\-@{start\_\-exchange\_\-scalar\_\-field\_\-}}
+\index{start\_\-exchange\_\-scalar\_\-field\_\-@{start\_\-exchange\_\-scalar\_\-field\_\-}!build/Include/fieldInterfaces.hpp@{build/Include/fieldInterfaces.hpp}}
+\subsubsection[{start\_\-exchange\_\-scalar\_\-field\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void start\_\-exchange\_\-scalar\_\-field\_\- (const char $\ast$ {\em setType}, \/  const char $\ast$ {\em fieldName})}}
+\label{build_2Include_2fieldInterfaces_8hpp_abbb34c52241e74abc11ec22407b08a4f}
+
+
+启动scalar类型流场信息交换 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em setType}]scalar类型流场变量类型名 \item[\mbox{$\leftarrow$} {\em fieldName}]scalar类型流场变量名 \end{DoxyParams}

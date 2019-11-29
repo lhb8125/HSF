@@ -1,0 +1,56 @@
+\hypertarget{utilInterfaces_8c}{
+\section{src/interfaces/utilInterfaces.c文件参考}
+\label{utilInterfaces_8c}\index{src/interfaces/utilInterfaces.c@{src/interfaces/utilInterfaces.c}}
+}
+{\ttfamily \#include \char`\"{}utility.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}interface.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}stdarg.h\char`\"{}}\par
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{utilInterfaces_8c_a86c96f210c63b53d40fe617863394af5}{init\_\-utility\_\-} ()
+\item 
+void \hyperlink{utilInterfaces_8c_a24b78782c5a742684f23979bb1fdf238}{par\_\-std\_\-out\_\-} (const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em 所有进程输出到特定文件 \item\end{DoxyCompactList}\item 
+void \hyperlink{utilInterfaces_8c_abd935013162513df7bac6296c50fcb25}{proc\_\-std\_\-out\_\-} (const \hyperlink{src_2interfaces_2utilInterfaces_8h_a2e6cd2bcdd5e35fcb4e30df8d4fab345}{LABEL} pid, const char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em 指定进程号输出到屏幕 \item\end{DoxyCompactList}\item 
+void \hyperlink{utilInterfaces_8c_ad2d762f9d6a2b4a5c31d5ecba8243085}{master\_\-std\_\-out\_\-} (char $\ast$format,...)
+\begin{DoxyCompactList}\small\item\em 主核输出到屏幕 \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{函数文档}
+\hypertarget{utilInterfaces_8c_a86c96f210c63b53d40fe617863394af5}{
+\index{utilInterfaces.c@{utilInterfaces.c}!init\_\-utility\_\-@{init\_\-utility\_\-}}
+\index{init\_\-utility\_\-@{init\_\-utility\_\-}!utilInterfaces.c@{utilInterfaces.c}}
+\subsubsection[{init\_\-utility\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void init\_\-utility\_\- ()}}
+\label{utilInterfaces_8c_a86c96f210c63b53d40fe617863394af5}
+\hypertarget{utilInterfaces_8c_ad2d762f9d6a2b4a5c31d5ecba8243085}{
+\index{utilInterfaces.c@{utilInterfaces.c}!master\_\-std\_\-out\_\-@{master\_\-std\_\-out\_\-}}
+\index{master\_\-std\_\-out\_\-@{master\_\-std\_\-out\_\-}!utilInterfaces.c@{utilInterfaces.c}}
+\subsubsection[{master\_\-std\_\-out\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void master\_\-std\_\-out\_\- (char $\ast$ {\em format}, \/   {\em ...})}}
+\label{utilInterfaces_8c_ad2d762f9d6a2b4a5c31d5ecba8243085}
+
+
+主核输出到屏幕 
+\begin{DoxyParams}{参数}
+\item[{\em format}]\mbox{[}in\mbox{]} 输出格式 \item[{\em ...}]\mbox{[}in\mbox{]} 变量名，不定参数个数 \end{DoxyParams}
+\hypertarget{utilInterfaces_8c_a24b78782c5a742684f23979bb1fdf238}{
+\index{utilInterfaces.c@{utilInterfaces.c}!par\_\-std\_\-out\_\-@{par\_\-std\_\-out\_\-}}
+\index{par\_\-std\_\-out\_\-@{par\_\-std\_\-out\_\-}!utilInterfaces.c@{utilInterfaces.c}}
+\subsubsection[{par\_\-std\_\-out\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void par\_\-std\_\-out\_\- (const char $\ast$ {\em format}, \/   {\em ...})}}
+\label{utilInterfaces_8c_a24b78782c5a742684f23979bb1fdf238}
+
+
+所有进程输出到特定文件 
+\begin{DoxyParams}{参数}
+\item[{\em format}]\mbox{[}in\mbox{]} 输出格式 \item[{\em ...}]\mbox{[}in\mbox{]} 变量名，不定参数个数 \end{DoxyParams}
+\hypertarget{utilInterfaces_8c_abd935013162513df7bac6296c50fcb25}{
+\index{utilInterfaces.c@{utilInterfaces.c}!proc\_\-std\_\-out\_\-@{proc\_\-std\_\-out\_\-}}
+\index{proc\_\-std\_\-out\_\-@{proc\_\-std\_\-out\_\-}!utilInterfaces.c@{utilInterfaces.c}}
+\subsubsection[{proc\_\-std\_\-out\_\-}]{\setlength{\rightskip}{0pt plus 5cm}void proc\_\-std\_\-out\_\- (const {\bf LABEL} {\em pid}, \/  const char $\ast$ {\em format}, \/   {\em ...})}}
+\label{utilInterfaces_8c_abd935013162513df7bac6296c50fcb25}
+
+
+指定进程号输出到屏幕 
+\begin{DoxyParams}{参数}
+\item[{\em pid}]\mbox{[}in\mbox{]} 指定进程号 \item[{\em format}]\mbox{[}in\mbox{]} 输出格式 \item[{\em ...}]\mbox{[}in\mbox{]} 变量名，不定参数个数 \end{DoxyParams}

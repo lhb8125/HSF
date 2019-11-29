@@ -1,0 +1,752 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: src/interfaces/utilInterfaces.cpp文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>src/interfaces/utilInterfaces.cpp文件参考</h1><code>#include &quot;<a class="el" href="src_2interfaces_2interface_8hpp_source.html">interface.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="src_2interfaces_2utilInterfaces_8h_source.html">utilInterfaces.h</a>&quot;</code><br/>
+<code>#include &quot;stdarg.h&quot;</code><br/>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>宏定义</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#ae527c46aba7461971181a962e4c35280">REGION</a>&nbsp;&nbsp;&nbsp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>[0]</td></tr>
+<tr><td colspan="2"><h2>函数</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a86c96f210c63b53d40fe617863394af5">init_utility_</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a69845c1b5f6aaa2974c77a6f0860ceba">get_pid_</a> (int *pid)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取进程号  <a href="#a69845c1b5f6aaa2974c77a6f0860ceba"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a50379056695983a7dd00fc13c3648d56">get_commsize_</a> (int *commSize)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">获取进程规模  <a href="#a50379056695983a7dd00fc13c3648d56"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a36b442dfc1f38f60efcacfae43285177">all_reduce_labels_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *data, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count, unsigned int *op)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">规约整形变量序列  <a href="#a36b442dfc1f38f60efcacfae43285177"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#abdd5905891bcf3cf731567757b6fd90c">all_reduce_scalars_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *data, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count, unsigned int *op)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">规约浮点变量序列  <a href="#abdd5905891bcf3cf731567757b6fd90c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#afa24f51c97ca8dfbbc10cd0483794a29">bcast_labels_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *data, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">主进程广播整形序列  <a href="#afa24f51c97ca8dfbbc10cd0483794a29"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a5daa201aacedbaaaedd629c72cb4fc82">bcast_scalars_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *data, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">主进程广播浮点型序列  <a href="#a5daa201aacedbaaaedd629c72cb4fc82"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#aee43138b37cf81b3725c71fabbc733d2">gather_labels_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *sdata, <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *rdata, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">主进程收集整形序列  <a href="#aee43138b37cf81b3725c71fabbc733d2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#af7f4d6d45537bd92b4597fbe8898e2e9">gather_scalars_</a> (<a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *sdata, <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *rdata, const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *count)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">主进程收集浮点序列  <a href="#af7f4d6d45537bd92b4597fbe8898e2e9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a24b78782c5a742684f23979bb1fdf238">par_std_out_</a> (const char *format,...)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">所有进程输出到特定文件  <a href="#a24b78782c5a742684f23979bb1fdf238"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#abd935013162513df7bac6296c50fcb25">proc_std_out_</a> (const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> pid, const char *format,...)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">指定进程号输出到屏幕  <a href="#abd935013162513df7bac6296c50fcb25"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#ad2d762f9d6a2b4a5c31d5ecba8243085">master_std_out_</a> (char *format,...)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">主核输出到屏幕  <a href="#ad2d762f9d6a2b4a5c31d5ecba8243085"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#afe45e2dd2bb2abc216215411c5990df4">fort_cout_</a> (const char *str, const int *len)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a16f0d2f3ebbb19175d30795a3759132b">fort_pout_</a> (const char *str, const int *len)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#ab8abb176fac737a7352b3ac736554a0d">fort_sout_</a> (const int *pid, const char *str, const int *len)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a9b0b7446c2c8c936b92afc635fc771ba">write_restart_</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#a857849a680cfd3e8ac9bb51f4a3114a2">write_mesh_</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">写出网格到CGNS文件中  <a href="#a857849a680cfd3e8ac9bb51f4a3114a2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#ac890ac830a61bf4facfc1f7251443834">write_label_field_</a> (const char *fieldName, const char *fieldType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">输出整型场到CGNS文件，结果文件名由config文件中resPath关键字指定  <a href="#ac890ac830a61bf4facfc1f7251443834"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2interfaces_2utilInterfaces_8cpp.html#aabd7d808c15ea37613b24040f4020da4">write_scalar_field_</a> (const char *fieldName, const char *fieldType)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">输出浮点场到CGNS文件，结果文件名由config文件中resPath关键字指定  <a href="#aabd7d808c15ea37613b24040f4020da4"></a><br/></td></tr>
+</table>
+<hr/><h2>宏定义文档</h2>
+<a class="anchor" id="ae527c46aba7461971181a962e4c35280"></a><!-- doxytag: member="utilInterfaces.cpp::REGION" ref="ae527c46aba7461971181a962e4c35280" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define REGION&nbsp;&nbsp;&nbsp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>[0]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>函数文档</h2>
+<a class="anchor" id="a36b442dfc1f38f60efcacfae43285177"></a><!-- doxytag: member="utilInterfaces.cpp::all_reduce_labels_" ref="a36b442dfc1f38f60efcacfae43285177" args="(LABEL *data, const LABEL *count, unsigned int *op)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void all_reduce_labels_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&nbsp;</td>
+          <td class="paramname"> <em>op</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>规约整形变量序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>[inout] label类型变量 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>op</em>&nbsp;</td><td>[in] 操作类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abdd5905891bcf3cf731567757b6fd90c"></a><!-- doxytag: member="utilInterfaces.cpp::all_reduce_scalars_" ref="abdd5905891bcf3cf731567757b6fd90c" args="(SCALAR *data, const LABEL *count, unsigned int *op)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void all_reduce_scalars_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int *&nbsp;</td>
+          <td class="paramname"> <em>op</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>规约浮点变量序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>[inout] scalar类型变量 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>op</em>&nbsp;</td><td>[in] 操作类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afa24f51c97ca8dfbbc10cd0483794a29"></a><!-- doxytag: member="utilInterfaces.cpp::bcast_labels_" ref="afa24f51c97ca8dfbbc10cd0483794a29" args="(LABEL *data, const LABEL *count)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bcast_labels_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>主进程广播整形序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>[inout] 变量序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5daa201aacedbaaaedd629c72cb4fc82"></a><!-- doxytag: member="utilInterfaces.cpp::bcast_scalars_" ref="a5daa201aacedbaaaedd629c72cb4fc82" args="(SCALAR *data, const LABEL *count)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bcast_scalars_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *&nbsp;</td>
+          <td class="paramname"> <em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>主进程广播浮点型序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>data</em>&nbsp;</td><td>[inout] 变量序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="afe45e2dd2bb2abc216215411c5990df4"></a><!-- doxytag: member="utilInterfaces.cpp::fort_cout_" ref="afe45e2dd2bb2abc216215411c5990df4" args="(const char *str, const int *len)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fort_cout_ </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a16f0d2f3ebbb19175d30795a3759132b"></a><!-- doxytag: member="utilInterfaces.cpp::fort_pout_" ref="a16f0d2f3ebbb19175d30795a3759132b" args="(const char *str, const int *len)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fort_pout_ </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8abb176fac737a7352b3ac736554a0d"></a><!-- doxytag: member="utilInterfaces.cpp::fort_sout_" ref="ab8abb176fac737a7352b3ac736554a0d" args="(const int *pid, const char *str, const int *len)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fort_sout_ </td>
+          <td>(</td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int *&nbsp;</td>
+          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aee43138b37cf81b3725c71fabbc733d2"></a><!-- doxytag: member="utilInterfaces.cpp::gather_labels_" ref="aee43138b37cf81b3725c71fabbc733d2" args="(LABEL *sdata, LABEL *rdata, const LABEL *count)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gather_labels_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>sdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>rdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>主进程收集整形序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>sdata</em>&nbsp;</td><td>[in] 发送序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>rdata</em>&nbsp;</td><td>[inout] 接收序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af7f4d6d45537bd92b4597fbe8898e2e9"></a><!-- doxytag: member="utilInterfaces.cpp::gather_scalars_" ref="af7f4d6d45537bd92b4597fbe8898e2e9" args="(SCALAR *sdata, SCALAR *rdata, const LABEL *count)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void gather_scalars_ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *&nbsp;</td>
+          <td class="paramname"> <em>sdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a9ca176b9d327cb9f99894ba96caa597f">SCALAR</a> *&nbsp;</td>
+          <td class="paramname"> <em>rdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a> *&nbsp;</td>
+          <td class="paramname"> <em>count</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>主进程收集浮点序列 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>sdata</em>&nbsp;</td><td>[in] 发送序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>rdata</em>&nbsp;</td><td>[inout] 接收序列 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>count</em>&nbsp;</td><td>[in] 变量个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a50379056695983a7dd00fc13c3648d56"></a><!-- doxytag: member="utilInterfaces.cpp::get_commsize_" ref="a50379056695983a7dd00fc13c3648d56" args="(int *commSize)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_commsize_ </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>commSize</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取进程规模 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>commSize</em>&nbsp;</td><td>[out] 进程总数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a69845c1b5f6aaa2974c77a6f0860ceba"></a><!-- doxytag: member="utilInterfaces.cpp::get_pid_" ref="a69845c1b5f6aaa2974c77a6f0860ceba" args="(int *pid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void get_pid_ </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>pid</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>获取进程号 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pid</em>&nbsp;</td><td>[out] 进程ID </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a86c96f210c63b53d40fe617863394af5"></a><!-- doxytag: member="utilInterfaces.cpp::init_utility_" ref="a86c96f210c63b53d40fe617863394af5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init_utility_ </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad2d762f9d6a2b4a5c31d5ecba8243085"></a><!-- doxytag: member="utilInterfaces.cpp::master_std_out_" ref="ad2d762f9d6a2b4a5c31d5ecba8243085" args="(char *format,...)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void master_std_out_ </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>主核输出到屏幕 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>format</em>&nbsp;</td><td>[in] 输出格式 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>...</em>&nbsp;</td><td>[in] 变量名，不定参数个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a24b78782c5a742684f23979bb1fdf238"></a><!-- doxytag: member="utilInterfaces.cpp::par_std_out_" ref="a24b78782c5a742684f23979bb1fdf238" args="(const char *format,...)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void par_std_out_ </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>所有进程输出到特定文件 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>format</em>&nbsp;</td><td>[in] 输出格式 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>...</em>&nbsp;</td><td>[in] 变量名，不定参数个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abd935013162513df7bac6296c50fcb25"></a><!-- doxytag: member="utilInterfaces.cpp::proc_std_out_" ref="abd935013162513df7bac6296c50fcb25" args="(const LABEL pid, const char *format,...)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void proc_std_out_ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="src_2interfaces_2utilInterfaces_8h.html#a2e6cd2bcdd5e35fcb4e30df8d4fab345">LABEL</a>&nbsp;</td>
+          <td class="paramname"> <em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname"> <em>...</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>指定进程号输出到屏幕 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pid</em>&nbsp;</td><td>[in] 指定进程号 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>format</em>&nbsp;</td><td>[in] 输出格式 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>...</em>&nbsp;</td><td>[in] 变量名，不定参数个数 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ac890ac830a61bf4facfc1f7251443834"></a><!-- doxytag: member="utilInterfaces.cpp::write_label_field_" ref="ac890ac830a61bf4facfc1f7251443834" args="(const char *fieldName, const char *fieldType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_label_field_ </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>fieldName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>fieldType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>输出整型场到CGNS文件，结果文件名由config文件中resPath关键字指定 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>fieldName</em>&nbsp;</td><td>[in] 场名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fieldType</em>&nbsp;</td><td>[in] 场类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a857849a680cfd3e8ac9bb51f4a3114a2"></a><!-- doxytag: member="utilInterfaces.cpp::write_mesh_" ref="a857849a680cfd3e8ac9bb51f4a3114a2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_mesh_ </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>写出网格到CGNS文件中 </p>
+<p>写出网格到CGNS文件中，结果文件名由config文件中resPath关键字指定</p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>meshFile</em>&nbsp;</td><td>[in] CGNS文件名 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9b0b7446c2c8c936b92afc635fc771ba"></a><!-- doxytag: member="utilInterfaces.cpp::write_restart_" ref="a9b0b7446c2c8c936b92afc635fc771ba" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_restart_ </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aabd7d808c15ea37613b24040f4020da4"></a><!-- doxytag: member="utilInterfaces.cpp::write_scalar_field_" ref="aabd7d808c15ea37613b24040f4020da4" args="(const char *fieldName, const char *fieldType)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_scalar_field_ </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>fieldName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>fieldType</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>输出浮点场到CGNS文件，结果文件名由config文件中resPath关键字指定 </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>fieldName</em>&nbsp;</td><td>[in] 场名 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fieldType</em>&nbsp;</td><td>[in] 场类型 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

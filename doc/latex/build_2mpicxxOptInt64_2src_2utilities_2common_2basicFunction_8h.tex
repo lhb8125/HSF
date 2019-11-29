@@ -1,0 +1,113 @@
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h}{
+\section{build/mpicxxOptInt64/src/utilities/common/basicFunction.h文件参考}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h}\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+}
+{\ttfamily \#include \char`\"{}stdint.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}stdlib.h\char`\"{}}\par
+{\ttfamily \#include $<$string.h$>$}\par
+{\ttfamily \#include \char`\"{}sys/types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}sys/stat.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}unistd.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}dirent.h\char`\"{}}\par
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_afa99ec4acc4ecb2dc3c2d05da15d0e3f}{MAX}(a, b)~( ( (a) $>$ (b) ) ? (a) : (b) )
+\item 
+\#define \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a3acffbd305ee72dcd4593c0d8af64a4f}{MIN}(a, b)~( ( (a) $<$ (b) ) ? (a) : (b) )
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint64\_\-t \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae038e82942a65922bf0c621a284f0438}{Hash}
+\item 
+typedef uint32\_\-t \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a8a801999868ae4c7535a6422eaf4d67e}{Hash32}
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{src_2utilities_2common_2basicFunction_8h_ae038e82942a65922bf0c621a284f0438}{Hash} \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a180c569308d474ebc3b28df65f6bb6a9}{str2Hash} (const char $\ast$str)
+\item 
+\hyperlink{src_2utilities_2common_2basicFunction_8h_a8a801999868ae4c7535a6422eaf4d67e}{Hash32} \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac3e48f6fcbd15db15efd2f6ebdd1eb1a}{str2Hash32} (const char $\ast$str)
+\item 
+int \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac2a67ef603fdb58931a3a086caa56ccf}{access} (const char $\ast$\_\-Filename, int \_\-AccessMode)
+\item 
+int \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a147355201cfd8cdd37b1cd5108b483b0}{mkdir} (const char $\ast$\_\-path, mode\_\-t mode)
+\item 
+int \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a5589bdea70d7b030cb3243f8ffe6c856}{rmdir} (const char $\ast$\_\-Path)
+\item 
+int \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a2e201ecf402760c86e101fe664950b85}{rename} (const char $\ast$oldname, const char $\ast$newname) \_\-\_\-THROW
+\item 
+void \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae6b32058189f6f3ddbb216269d83d877}{rmtree} (const char path\mbox{[}$\,$\mbox{]})
+\item 
+int \hyperlink{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ad2796cd3b6136035c681fbe3c36da894}{remakeDir} (const char $\ast$path)
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_afa99ec4acc4ecb2dc3c2d05da15d0e3f}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!MAX@{MAX}}
+\index{MAX@{MAX}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{MAX}]{\setlength{\rightskip}{0pt plus 5cm}\#define MAX(a, \/  b)~( ( (a) $>$ (b) ) ? (a) : (b) )}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_afa99ec4acc4ecb2dc3c2d05da15d0e3f}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a3acffbd305ee72dcd4593c0d8af64a4f}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!MIN@{MIN}}
+\index{MIN@{MIN}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{MIN}]{\setlength{\rightskip}{0pt plus 5cm}\#define MIN(a, \/  b)~( ( (a) $<$ (b) ) ? (a) : (b) )}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a3acffbd305ee72dcd4593c0d8af64a4f}
+
+
+\subsection{类型定义文档}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae038e82942a65922bf0c621a284f0438}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!Hash@{Hash}}
+\index{Hash@{Hash}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{Hash}]{\setlength{\rightskip}{0pt plus 5cm}typedef uint64\_\-t {\bf Hash}}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae038e82942a65922bf0c621a284f0438}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a8a801999868ae4c7535a6422eaf4d67e}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!Hash32@{Hash32}}
+\index{Hash32@{Hash32}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{Hash32}]{\setlength{\rightskip}{0pt plus 5cm}typedef uint32\_\-t {\bf Hash32}}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a8a801999868ae4c7535a6422eaf4d67e}
+
+
+\subsection{函数文档}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac2a67ef603fdb58931a3a086caa56ccf}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!access@{access}}
+\index{access@{access}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{access}]{\setlength{\rightskip}{0pt plus 5cm}int access (const char $\ast$ {\em \_\-Filename}, \/  int {\em \_\-AccessMode})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac2a67ef603fdb58931a3a086caa56ccf}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a147355201cfd8cdd37b1cd5108b483b0}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!mkdir@{mkdir}}
+\index{mkdir@{mkdir}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{mkdir}]{\setlength{\rightskip}{0pt plus 5cm}int mkdir (const char $\ast$ {\em \_\-path}, \/  mode\_\-t {\em mode})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a147355201cfd8cdd37b1cd5108b483b0}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ad2796cd3b6136035c681fbe3c36da894}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!remakeDir@{remakeDir}}
+\index{remakeDir@{remakeDir}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{remakeDir}]{\setlength{\rightskip}{0pt plus 5cm}int remakeDir (const char $\ast$ {\em path})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ad2796cd3b6136035c681fbe3c36da894}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a2e201ecf402760c86e101fe664950b85}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!rename@{rename}}
+\index{rename@{rename}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{rename}]{\setlength{\rightskip}{0pt plus 5cm}int rename (const char $\ast$ {\em oldname}, \/  const char $\ast$ {\em newname})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a2e201ecf402760c86e101fe664950b85}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a5589bdea70d7b030cb3243f8ffe6c856}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!rmdir@{rmdir}}
+\index{rmdir@{rmdir}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{rmdir}]{\setlength{\rightskip}{0pt plus 5cm}int rmdir (const char $\ast$ {\em \_\-Path})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a5589bdea70d7b030cb3243f8ffe6c856}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae6b32058189f6f3ddbb216269d83d877}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!rmtree@{rmtree}}
+\index{rmtree@{rmtree}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{rmtree}]{\setlength{\rightskip}{0pt plus 5cm}void rmtree (const char {\em path}\mbox{[}$\,$\mbox{]})}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ae6b32058189f6f3ddbb216269d83d877}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a180c569308d474ebc3b28df65f6bb6a9}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!str2Hash@{str2Hash}}
+\index{str2Hash@{str2Hash}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{str2Hash}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hash} str2Hash (const char $\ast$ {\em str})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_a180c569308d474ebc3b28df65f6bb6a9}
+\hypertarget{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac3e48f6fcbd15db15efd2f6ebdd1eb1a}{
+\index{build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}!str2Hash32@{str2Hash32}}
+\index{str2Hash32@{str2Hash32}!build/mpicxxOptInt64/src/utilities/common/basicFunction.h@{build/mpicxxOptInt64/src/utilities/common/basicFunction.h}}
+\subsubsection[{str2Hash32}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hash32} str2Hash32 (const char $\ast$ {\em str})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{build_2mpicxxOptInt64_2src_2utilities_2common_2basicFunction_8h_ac3e48f6fcbd15db15efd2f6ebdd1eb1a}

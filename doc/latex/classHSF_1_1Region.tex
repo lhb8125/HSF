@@ -1,0 +1,463 @@
+\hypertarget{classHSF_1_1Region}{
+\section{HSF::Region类参考}
+\label{classHSF_1_1Region}\index{HSF::Region@{HSF::Region}}
+}
+
+
+This class describes a region.  
+
+
+{\ttfamily \#include $<$region.hpp$>$}\subsection*{公有成员}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{Region} ()
+\item 
+\hyperlink{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{$\sim$Region} ()
+\item 
+\hyperlink{classHSF_1_1Mesh}{Mesh} \& \hyperlink{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{getMesh} ()
+\item 
+\hyperlink{classHSF_1_1Boundary}{Boundary} \& \hyperlink{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{getBoundary} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{initBeforeBalance} (char $\ast$meshFile)
+\item 
+void \hyperlink{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{initAfterBalance} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{writeMesh} (char $\ast$meshFile)
+\begin{DoxyCompactList}\small\item\em write mesh to CGNS file \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{writeField} (const char $\ast$, const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em write field to CGNS file \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{createInterFaces} (Array$<$ Array$<$ label $>$ $>$ \&faceCells, label cellNum)
+\begin{DoxyCompactList}\small\item\em guhf \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{initFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em Initializes the fields. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{updateFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em update the fields \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ \& \hyperlink{classHSF_1_1Region_ad6b6fb8af5a80adae5aa77b04a092a01}{getField} (const Word, const Word)
+\begin{DoxyCompactList}\small\item\em Gets the field from field table. \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{addField} (Word, Word, \hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ $\ast$)
+\begin{DoxyCompactList}\small\item\em Adds a field to region. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{deleteField} (Word, Word)
+\begin{DoxyCompactList}\small\item\em delete a named field \item\end{DoxyCompactList}\item 
+\hyperlink{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{Region} ()
+\item 
+\hyperlink{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{$\sim$Region} ()
+\item 
+\hyperlink{classHSF_1_1Mesh}{Mesh} \& \hyperlink{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{getMesh} ()
+\item 
+\hyperlink{classHSF_1_1Boundary}{Boundary} \& \hyperlink{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{getBoundary} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{initBeforeBalance} (char $\ast$meshFile)
+\item 
+void \hyperlink{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{initAfterBalance} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{writeMesh} (char $\ast$meshFile)
+\begin{DoxyCompactList}\small\item\em write mesh to CGNS file \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{writeField} (const char $\ast$, const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em write field to CGNS file \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{createInterFaces} (Array$<$ Array$<$ label $>$ $>$ \&faceCells, label cellNum)
+\begin{DoxyCompactList}\small\item\em guhf \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{initFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em Initializes the fields. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{updateFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em update the fields \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ \& \hyperlink{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}{getField} (const Word, const Word)
+\begin{DoxyCompactList}\small\item\em Gets the field from field table. \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{addField} (Word, Word, \hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ $\ast$)
+\begin{DoxyCompactList}\small\item\em Adds a field to region. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{deleteField} (Word, Word)
+\begin{DoxyCompactList}\small\item\em delete a named field \item\end{DoxyCompactList}\item 
+\hyperlink{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{Region} ()
+\item 
+\hyperlink{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{$\sim$Region} ()
+\item 
+\hyperlink{classHSF_1_1Mesh}{Mesh} \& \hyperlink{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{getMesh} ()
+\item 
+\hyperlink{classHSF_1_1Boundary}{Boundary} \& \hyperlink{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{getBoundary} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{initBeforeBalance} (char $\ast$meshFile)
+\item 
+void \hyperlink{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{initAfterBalance} ()
+\item 
+void \hyperlink{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{writeMesh} (char $\ast$meshFile)
+\begin{DoxyCompactList}\small\item\em write mesh to CGNS file \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{writeField} (const char $\ast$, const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em write field to CGNS file \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{createInterFaces} (Array$<$ Array$<$ label $>$ $>$ \&faceCells, label cellNum)
+\begin{DoxyCompactList}\small\item\em guhf \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{initFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em Initializes the fields. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{updateFields} (Word fieldName)
+\begin{DoxyCompactList}\small\item\em update the fields \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ \& \hyperlink{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}{getField} (const Word, const Word)
+\begin{DoxyCompactList}\small\item\em Gets the field from field table. \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{addField} (Word, Word, \hyperlink{classHSF_1_1Field}{Field}$<$ T $>$ $\ast$)
+\begin{DoxyCompactList}\small\item\em Adds a field to region. \item\end{DoxyCompactList}\item 
+void \hyperlink{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{deleteField} (Word, Word)
+\begin{DoxyCompactList}\small\item\em delete a named field \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{详细描述}
+This class describes a region. 
+
+\subsection{构造及析构函数文档}
+\hypertarget{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{
+\index{HSF::Region@{HSF::Region}!Region@{Region}}
+\index{Region@{Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::Region ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}
+\hypertarget{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{
+\index{HSF::Region@{HSF::Region}!$\sim$Region@{$\sim$Region}}
+\index{$\sim$Region@{$\sim$Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{$\sim$Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::$\sim$Region ()}}
+\label{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}
+\hypertarget{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{
+\index{HSF::Region@{HSF::Region}!Region@{Region}}
+\index{Region@{Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::Region ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}
+\hypertarget{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{
+\index{HSF::Region@{HSF::Region}!$\sim$Region@{$\sim$Region}}
+\index{$\sim$Region@{$\sim$Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{$\sim$Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::$\sim$Region ()}}
+\label{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}
+\hypertarget{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}{
+\index{HSF::Region@{HSF::Region}!Region@{Region}}
+\index{Region@{Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::Region ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa31738c265f5192d61a8a7b8f89c972a}
+\hypertarget{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}{
+\index{HSF::Region@{HSF::Region}!$\sim$Region@{$\sim$Region}}
+\index{$\sim$Region@{$\sim$Region}!HSF::Region@{HSF::Region}}
+\subsubsection[{$\sim$Region}]{\setlength{\rightskip}{0pt plus 5cm}HSF::Region::$\sim$Region ()}}
+\label{classHSF_1_1Region_addfd3a382c30688582a760a25a2d8cbc}
+
+
+\subsection{成员函数文档}
+\hypertarget{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{
+\index{HSF::Region@{HSF::Region}!addField@{addField}}
+\index{addField@{addField}!HSF::Region@{HSF::Region}}
+\subsubsection[{addField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::addField (Word, \/  Word, \/  {\bf Field}$<$ T $>$ $\ast$)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}
+
+
+Adds a field to region. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \item[{\em Field$<$T$>$$\ast$}]field pointer \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\hypertarget{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{
+\index{HSF::Region@{HSF::Region}!addField@{addField}}
+\index{addField@{addField}!HSF::Region@{HSF::Region}}
+\subsubsection[{addField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::addField (Word, \/  Word, \/  {\bf Field}$<$ T $>$ $\ast$)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}
+
+
+Adds a field to region. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \item[{\em Field$<$T$>$$\ast$}]field pointer \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\hypertarget{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}{
+\index{HSF::Region@{HSF::Region}!addField@{addField}}
+\index{addField@{addField}!HSF::Region@{HSF::Region}}
+\subsubsection[{addField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::addField (Word {\em setType}, \/  Word {\em name}, \/  {\bf Field}$<$ T $>$ $\ast$ {\em f})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aec3f0520f9618a0e0d92a5c2a102b980}
+
+
+Adds a field to region. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \item[{\em Field$<$T$>$$\ast$}]field pointer \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\hypertarget{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{
+\index{HSF::Region@{HSF::Region}!createInterFaces@{createInterFaces}}
+\index{createInterFaces@{createInterFaces}!HSF::Region@{HSF::Region}}
+\subsubsection[{createInterFaces}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::createInterFaces (Array$<$ Array$<$ label $>$ $>$ \& {\em faceCells}, \/  label {\em cellNum})}}
+\label{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}
+
+
+guhf \hypertarget{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{
+\index{HSF::Region@{HSF::Region}!createInterFaces@{createInterFaces}}
+\index{createInterFaces@{createInterFaces}!HSF::Region@{HSF::Region}}
+\subsubsection[{createInterFaces}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::createInterFaces (Array$<$ Array$<$ label $>$ $>$ \& {\em faceCells}, \/  label {\em cellNum})}}
+\label{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}
+
+
+guhf \hypertarget{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}{
+\index{HSF::Region@{HSF::Region}!createInterFaces@{createInterFaces}}
+\index{createInterFaces@{createInterFaces}!HSF::Region@{HSF::Region}}
+\subsubsection[{createInterFaces}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::createInterFaces (Array$<$ Array$<$ label $>$ $>$ \& {\em faceCells}, \/  label {\em cellNum})}}
+\label{classHSF_1_1Region_a39c7b59ebdc736618d652d53d1dace0b}
+
+
+guhf \hypertarget{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{
+\index{HSF::Region@{HSF::Region}!deleteField@{deleteField}}
+\index{deleteField@{deleteField}!HSF::Region@{HSF::Region}}
+\subsubsection[{deleteField}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::deleteField (Word, \/  Word)}}
+\label{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}
+
+
+delete a named field 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{
+\index{HSF::Region@{HSF::Region}!deleteField@{deleteField}}
+\index{deleteField@{deleteField}!HSF::Region@{HSF::Region}}
+\subsubsection[{deleteField}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::deleteField (Word, \/  Word)}}
+\label{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}
+
+
+delete a named field 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}{
+\index{HSF::Region@{HSF::Region}!deleteField@{deleteField}}
+\index{deleteField@{deleteField}!HSF::Region@{HSF::Region}}
+\subsubsection[{deleteField}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::deleteField (Word, \/  Word)}}
+\label{classHSF_1_1Region_ab74797105c6eaf54c3d5101a919d15b6}
+
+
+delete a named field 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{
+\index{HSF::Region@{HSF::Region}!getBoundary@{getBoundary}}
+\index{getBoundary@{getBoundary}!HSF::Region@{HSF::Region}}
+\subsubsection[{getBoundary}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Boundary}\& HSF::Region::getBoundary ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}
+\hypertarget{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{
+\index{HSF::Region@{HSF::Region}!getBoundary@{getBoundary}}
+\index{getBoundary@{getBoundary}!HSF::Region@{HSF::Region}}
+\subsubsection[{getBoundary}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Boundary}\& HSF::Region::getBoundary ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}
+\hypertarget{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}{
+\index{HSF::Region@{HSF::Region}!getBoundary@{getBoundary}}
+\index{getBoundary@{getBoundary}!HSF::Region@{HSF::Region}}
+\subsubsection[{getBoundary}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Boundary}\& HSF::Region::getBoundary ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_aa887ee45c20b3b65acc17693d8cb4c45}
+\hypertarget{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}{
+\index{HSF::Region@{HSF::Region}!getField@{getField}}
+\index{getField@{getField}!HSF::Region@{HSF::Region}}
+\subsubsection[{getField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ {\bf Field}$<$T$>$\& HSF::Region::getField (const  {\em Word}, \/  const  {\em Word})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}
+
+
+Gets the field from field table. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\begin{DoxyReturn}{返回}
+The field. 
+\end{DoxyReturn}
+\hypertarget{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}{
+\index{HSF::Region@{HSF::Region}!getField@{getField}}
+\index{getField@{getField}!HSF::Region@{HSF::Region}}
+\subsubsection[{getField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ {\bf Field}$<$T$>$\& HSF::Region::getField (const  {\em Word}, \/  const  {\em Word})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_a2fc8f3916190395f4b43547755113c8e}
+
+
+Gets the field from field table. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\begin{DoxyReturn}{返回}
+The field. 
+\end{DoxyReturn}
+\hypertarget{classHSF_1_1Region_ad6b6fb8af5a80adae5aa77b04a092a01}{
+\index{HSF::Region@{HSF::Region}!getField@{getField}}
+\index{getField@{getField}!HSF::Region@{HSF::Region}}
+\subsubsection[{getField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ {\bf Field}$<$ T $>$ \& HSF::Region::getField (const Word {\em fieldType}, \/  const Word {\em fieldName})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_ad6b6fb8af5a80adae5aa77b04a092a01}
+
+
+Gets the field from field table. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em Word}]field setType: face, node, ... \item[\mbox{$\leftarrow$} {\em Word}]field name \end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+\item[{\em T}]label, scalar \end{DoxyTemplParams}
+\begin{DoxyReturn}{返回}
+The field. 
+\end{DoxyReturn}
+\hypertarget{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{
+\index{HSF::Region@{HSF::Region}!getMesh@{getMesh}}
+\index{getMesh@{getMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{getMesh}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mesh}\& HSF::Region::getMesh ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}
+\hypertarget{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{
+\index{HSF::Region@{HSF::Region}!getMesh@{getMesh}}
+\index{getMesh@{getMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{getMesh}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mesh}\& HSF::Region::getMesh ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}
+\hypertarget{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}{
+\index{HSF::Region@{HSF::Region}!getMesh@{getMesh}}
+\index{getMesh@{getMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{getMesh}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Mesh}\& HSF::Region::getMesh ()\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_ab8349c21da1ed2153d3f0906dd571302}
+\hypertarget{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{
+\index{HSF::Region@{HSF::Region}!initAfterBalance@{initAfterBalance}}
+\index{initAfterBalance@{initAfterBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initAfterBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initAfterBalance ()}}
+\label{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}
+\hypertarget{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{
+\index{HSF::Region@{HSF::Region}!initAfterBalance@{initAfterBalance}}
+\index{initAfterBalance@{initAfterBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initAfterBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initAfterBalance ()}}
+\label{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}
+\hypertarget{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}{
+\index{HSF::Region@{HSF::Region}!initAfterBalance@{initAfterBalance}}
+\index{initAfterBalance@{initAfterBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initAfterBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initAfterBalance ()}}
+\label{classHSF_1_1Region_adb2b4937aae6fff73189a039b25eccfd}
+
+
+创建通信对
+
+创建通信对 \hypertarget{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{
+\index{HSF::Region@{HSF::Region}!initBeforeBalance@{initBeforeBalance}}
+\index{initBeforeBalance@{initBeforeBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initBeforeBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initBeforeBalance (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}
+\hypertarget{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{
+\index{HSF::Region@{HSF::Region}!initBeforeBalance@{initBeforeBalance}}
+\index{initBeforeBalance@{initBeforeBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initBeforeBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initBeforeBalance (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}
+\hypertarget{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}{
+\index{HSF::Region@{HSF::Region}!initBeforeBalance@{initBeforeBalance}}
+\index{initBeforeBalance@{initBeforeBalance}!HSF::Region@{HSF::Region}}
+\subsubsection[{initBeforeBalance}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initBeforeBalance (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a9c38c5fc0d2fa5680eda4ab6a6933e4f}
+\hypertarget{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{
+\index{HSF::Region@{HSF::Region}!initFields@{initFields}}
+\index{initFields@{initFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{initFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}
+
+
+Initializes the fields. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{
+\index{HSF::Region@{HSF::Region}!initFields@{initFields}}
+\index{initFields@{initFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{initFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}
+
+
+Initializes the fields. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}{
+\index{HSF::Region@{HSF::Region}!initFields@{initFields}}
+\index{initFields@{initFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{initFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::initFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a04109e318bad70575bf6aa0f810913bf}
+
+
+Initializes the fields. 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{
+\index{HSF::Region@{HSF::Region}!updateFields@{updateFields}}
+\index{updateFields@{updateFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{updateFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::updateFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}
+
+
+update the fields 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{
+\index{HSF::Region@{HSF::Region}!updateFields@{updateFields}}
+\index{updateFields@{updateFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{updateFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::updateFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}
+
+
+update the fields 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}{
+\index{HSF::Region@{HSF::Region}!updateFields@{updateFields}}
+\index{updateFields@{updateFields}!HSF::Region@{HSF::Region}}
+\subsubsection[{updateFields}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::updateFields (Word {\em fieldName})}}
+\label{classHSF_1_1Region_a4a3da7e779636d389f013301006a02b4}
+
+
+update the fields 
+\begin{DoxyParams}{参数}
+\item[\mbox{$\leftarrow$} {\em fieldName}]The field name \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{
+\index{HSF::Region@{HSF::Region}!writeField@{writeField}}
+\index{writeField@{writeField}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::writeField (const char $\ast$, \/  const char $\ast$, \/  const char $\ast$)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}
+
+
+write field to CGNS file \hypertarget{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{
+\index{HSF::Region@{HSF::Region}!writeField@{writeField}}
+\index{writeField@{writeField}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::writeField (const char $\ast$, \/  const char $\ast$, \/  const char $\ast$)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}
+
+
+write field to CGNS file \hypertarget{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}{
+\index{HSF::Region@{HSF::Region}!writeField@{writeField}}
+\index{writeField@{writeField}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeField}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void HSF::Region::writeField (const char $\ast$ {\em resFile}, \/  const char $\ast$ {\em fieldName}, \/  const char $\ast$ {\em fieldType})\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classHSF_1_1Region_a2298d4a70a05cfef042c077410c3c29b}
+
+
+write field to CGNS file 
+
+流场变量
+
+流场变量
+
+流场变量 \hypertarget{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{
+\index{HSF::Region@{HSF::Region}!writeMesh@{writeMesh}}
+\index{writeMesh@{writeMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeMesh}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::writeMesh (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}
+
+
+write mesh to CGNS file 
+\begin{DoxyParams}{参数}
+\item[{\em meshFile}]The mesh file \item[{\em field}]The field \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{
+\index{HSF::Region@{HSF::Region}!writeMesh@{writeMesh}}
+\index{writeMesh@{writeMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeMesh}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::writeMesh (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}
+
+
+write mesh to CGNS file 
+\begin{DoxyParams}{参数}
+\item[{\em meshFile}]The mesh file \item[{\em field}]The field \end{DoxyParams}
+\hypertarget{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}{
+\index{HSF::Region@{HSF::Region}!writeMesh@{writeMesh}}
+\index{writeMesh@{writeMesh}!HSF::Region@{HSF::Region}}
+\subsubsection[{writeMesh}]{\setlength{\rightskip}{0pt plus 5cm}void HSF::Region::writeMesh (char $\ast$ {\em meshFile})}}
+\label{classHSF_1_1Region_a26f134480b539676bf18b26a96434c89}
+
+
+write mesh to CGNS file 
+\begin{DoxyParams}{参数}
+\item[{\em meshFile}]The mesh file \item[{\em field}]The field \end{DoxyParams}
+
+
+该类的文档由以下文件生成：\begin{DoxyCompactItemize}
+\item 
+build/Include/\hyperlink{build_2Include_2region_8hpp}{region.hpp}\item 
+build/mpicxxOptInt64/src/region/\hyperlink{build_2mpicxxOptInt64_2src_2region_2region_8hpp}{region.hpp}\item 
+src/region/\hyperlink{src_2region_2region_8hpp}{region.hpp}\item 
+build/mpicxxOptInt64/src/region/\hyperlink{build_2mpicxxOptInt64_2src_2region_2region_8cpp}{region.cpp}\item 
+src/region/\hyperlink{src_2region_2region_8cpp}{region.cpp}\end{DoxyCompactItemize}

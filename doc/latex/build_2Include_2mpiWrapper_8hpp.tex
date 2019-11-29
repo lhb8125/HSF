@@ -1,0 +1,56 @@
+\hypertarget{build_2Include_2mpiWrapper_8hpp}{
+\section{build/Include/mpiWrapper.hpp文件参考}
+\label{build_2Include_2mpiWrapper_8hpp}\index{build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}}
+}
+{\ttfamily \#include \char`\"{}Communicator.hpp\char`\"{}}\par
+{\ttfamily \#include \char`\"{}CommunicationManager.hpp\char`\"{}}\par
+\subsection*{组合类型}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classHSF_1_1COMM}{HSF::COMM}
+\begin{DoxyCompactList}\small\item\em \hyperlink{classHSF_1_1COMM}{COMM} Communication entrance, enable flexibility by generating different global communication manager object. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespaceHSF}{HSF}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{build_2Include_2mpiWrapper_8hpp_a9d5348d96b62f9421090be248eb048b3}{POUT}~COMM::pOut()
+\item 
+\#define \hyperlink{build_2Include_2mpiWrapper_8hpp_ae137ee023d442de7a8906cf39f3e1a28}{PERR}
+\item 
+\#define \hyperlink{build_2Include_2mpiWrapper_8hpp_a8c54b10b84183429bcbcbc82c92fcca9}{COUT}~if( COMM::getGlobalId() == 0 ) std::cout
+\item 
+\#define \hyperlink{build_2Include_2mpiWrapper_8hpp_a3b89429ce988b8df488440989dfdd225}{SOUT}(id)~if( COMM::getGlobalId() == id ) std::cout$<$$<$\char`\"{}proc\mbox{[}\char`\"{}$<$$<$id$<$$<$\char`\"{}\mbox{]}: \char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{build_2Include_2mpiWrapper_8hpp_a8c54b10b84183429bcbcbc82c92fcca9}{
+\index{build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}!COUT@{COUT}}
+\index{COUT@{COUT}!build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}}
+\subsubsection[{COUT}]{\setlength{\rightskip}{0pt plus 5cm}\#define COUT~if( COMM::getGlobalId() == 0 ) std::cout}}
+\label{build_2Include_2mpiWrapper_8hpp_a8c54b10b84183429bcbcbc82c92fcca9}
+\hypertarget{build_2Include_2mpiWrapper_8hpp_ae137ee023d442de7a8906cf39f3e1a28}{
+\index{build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}!PERR@{PERR}}
+\index{PERR@{PERR}!build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}}
+\subsubsection[{PERR}]{\setlength{\rightskip}{0pt plus 5cm}\#define PERR}}
+\label{build_2Include_2mpiWrapper_8hpp_ae137ee023d442de7a8906cf39f3e1a28}
+{\bfseries 值:}
+\begin{DoxyCode}
+COMM::pErr()<<"!Proc["<<COMM::getGlobalId()<<"] Error: "<<"\n\t"\
+<<"at "<<__FILE__<<" +"<<__LINE__<<" in function \""<<__FUNCTION__<<"\": "\
+<<"\n\t"
+\end{DoxyCode}
+\hypertarget{build_2Include_2mpiWrapper_8hpp_a9d5348d96b62f9421090be248eb048b3}{
+\index{build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}!POUT@{POUT}}
+\index{POUT@{POUT}!build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}}
+\subsubsection[{POUT}]{\setlength{\rightskip}{0pt plus 5cm}\#define POUT~COMM::pOut()}}
+\label{build_2Include_2mpiWrapper_8hpp_a9d5348d96b62f9421090be248eb048b3}
+\hypertarget{build_2Include_2mpiWrapper_8hpp_a3b89429ce988b8df488440989dfdd225}{
+\index{build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}!SOUT@{SOUT}}
+\index{SOUT@{SOUT}!build/Include/mpiWrapper.hpp@{build/Include/mpiWrapper.hpp}}
+\subsubsection[{SOUT}]{\setlength{\rightskip}{0pt plus 5cm}\#define SOUT(id)~if( COMM::getGlobalId() == id ) std::cout$<$$<$\char`\"{}proc\mbox{[}\char`\"{}$<$$<$id$<$$<$\char`\"{}\mbox{]}: \char`\"{}}}
+\label{build_2Include_2mpiWrapper_8hpp_a3b89429ce988b8df488440989dfdd225}

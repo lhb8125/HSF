@@ -1,0 +1,350 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>文件列表</span></a></li>
+      <li><a href="globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<h1>build/mpicxxOptInt64/src/utilities/mpiWrapper/Communicator/Communicator.hpp</h1><a href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html">浏览该文件的文档。</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/* Copyright (C) </span>
+<a name="l00002"></a>00002 <span class="comment"> * 2019 - Hu Ren, rh890127a@163.com</span>
+<a name="l00003"></a>00003 <span class="comment"> * This program is free software; you can redistribute it and/or</span>
+<a name="l00004"></a>00004 <span class="comment"> * modify it under the terms of the GNU General Public License</span>
+<a name="l00005"></a>00005 <span class="comment"> * as published by the Free Software Foundation; either version 2</span>
+<a name="l00006"></a>00006 <span class="comment"> * of the License, or (at your option) any later version.</span>
+<a name="l00007"></a>00007 <span class="comment"> * </span>
+<a name="l00008"></a>00008 <span class="comment"> * This program is distributed in the hope that it will be useful,</span>
+<a name="l00009"></a>00009 <span class="comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<a name="l00010"></a>00010 <span class="comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<a name="l00011"></a>00011 <span class="comment"> * GNU General Public License for more details.</span>
+<a name="l00012"></a>00012 <span class="comment"> * </span>
+<a name="l00013"></a>00013 <span class="comment"> * You should have received a copy of the GNU General Public License</span>
+<a name="l00014"></a>00014 <span class="comment"> * along with this program; if not, write to the Free Software</span>
+<a name="l00015"></a>00015 <span class="comment"> * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</span>
+<a name="l00016"></a>00016 <span class="comment"> * </span>
+<a name="l00017"></a>00017 <span class="comment"> */</span>
+<a name="l00027"></a>00027 <span class="preprocessor">#include &quot;mpi.h&quot;</span>
+<a name="l00028"></a>00028 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2usingCpp_8hpp.html">usingCpp.hpp</a>&quot;</span>
+<a name="l00029"></a>00029 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2common_2basicFunction_8hpp.html">basicFunction.hpp</a>&quot;</span>
+<a name="l00030"></a>00030 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2OStream_8hpp.html">OStream.hpp</a>&quot;</span>
+<a name="l00031"></a>00031 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2MultiOStream_8hpp.html">MultiOStream.hpp</a>&quot;</span>
+<a name="l00032"></a>00032 <span class="preprocessor">#include &quot;<a class="code" href="src_2utilities_2OStream_2DummyOStream_8hpp.html">DummyOStream.hpp</a>&quot;</span>
+<a name="l00033"></a>00033 
+<a name="l00034"></a>00034 <span class="preprocessor">#ifndef HSF_COMMUNICATOR_HPP</span>
+<a name="l00035"></a>00035 <span class="preprocessor"></span><span class="preprocessor">#define HSF_COMMUNICATOR_HPP</span>
+<a name="l00036"></a>00036 <span class="preprocessor"></span>
+<a name="l00037"></a>00037 <span class="comment">// set the max message number in the register in case overflow caused by misuse</span>
+<a name="l00038"></a>00038 <span class="comment">// of the communicator</span>
+<a name="l00039"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8b8762ba579fb020fcf7d7791b7a1c37">00039</a> <span class="preprocessor">#define COMM_MAX_MSG_NUM 999</span>
+<a name="l00040"></a>00040 <span class="preprocessor"></span>
+<a name="l00041"></a>00041 <span class="keyword">namespace </span>HSF
+<a name="l00042"></a>00042 {
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 <span class="keyword">typedef</span> std::string <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a>;
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 <span class="keyword">class </span>CommunicationManager;
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 <span class="comment">// communiation operations</span>
+<a name="l00049"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a81c2b5634312e06e8788bd7910bb2e55">00049</a> <span class="preprocessor">#define CommOp MPI_Op</span>
+<a name="l00050"></a>00050 <span class="preprocessor"></span>
+<a name="l00051"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a907b5d73e215085029817275a8dbf7fc">00051</a> <span class="preprocessor">#define COMM_SUM MPI_SUM</span>
+<a name="l00052"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a31cd81f1544a19b09ccdd280f3d0eb62">00052</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_MIN MPI_MIN</span>
+<a name="l00053"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae3e040f90f251305eb2b84fc2f954938">00053</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_MAX MPI_MAX</span>
+<a name="l00054"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ac4d16bfa34dcc397a19e3ef73326fa75">00054</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_PROD MPI_PROD</span>
+<a name="l00055"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a2cd26e5edd0bbf5a5b850017ac267216">00055</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LAND MPI_LAND</span>
+<a name="l00056"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a6182cee0682f08f5c18732a85a5250b8">00056</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LOR MPI_LOR</span>
+<a name="l00057"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a4fe9f11b5cc9be0f78bc49a918f38e0a">00057</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_BAND MPI_BAND</span>
+<a name="l00058"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8f368e11dcd83572ad04e9a59b7659a7">00058</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_BOR MPI_BOR</span>
+<a name="l00059"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a641c783a589d38dafc57176dfd6d0e0b">00059</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_MAXLOC MPI_MAXLOC</span>
+<a name="l00060"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3d1105a2ff52f7f5559aa9e026078bba">00060</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_MINLOC MPI_MINLOC</span>
+<a name="l00061"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab2c292d3d4df4409401e234cc43e1cc6">00061</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LXOR MPI_LXOR</span>
+<a name="l00062"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a352a8d7faa1e2755b7710086562d18c8">00062</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_BXOR MPI_BXOR</span>
+<a name="l00063"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a549d5e38836910b5dfcad1cb5bff033b">00063</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REPLACE MPI_REPLACE</span>
+<a name="l00064"></a>00064 <span class="preprocessor"></span>
+<a name="l00065"></a>00065 <span class="comment">// communication data types</span>
+<a name="l00066"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aea427efb7da7bc04e37d01f59c4dfc37">00066</a> <span class="preprocessor">#define CommData MPI_Datatype</span>
+<a name="l00067"></a>00067 <span class="preprocessor"></span>
+<a name="l00068"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6af775586c5ff1b0ffea3adb325e5dd">00068</a> <span class="preprocessor">#define COMM_CHAR   MPI_CHAR</span>
+<a name="l00069"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a36bff133ae1016a58c675c6f99aa218f">00069</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UNSIGNED_CHAR   MPI_UNSIGNED_CHAR</span>
+<a name="l00070"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8524fe53a3f1e1423d571ee443f9f3ae">00070</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_SHORT   MPI_SHORT</span>
+<a name="l00071"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3b4fb4fedd73f5e92b76b4008df396f0">00071</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UNSIGNED_SHORT   MPI_UNSIGNED_SHORT</span>
+<a name="l00072"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa0fb7675b924e0ae5bce5972616ab784">00072</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INT   MPI_INT</span>
+<a name="l00073"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9ef8defa4961e004d5d929cdef77fa52">00073</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UNSIGNED   MPI_UNSIGNED</span>
+<a name="l00074"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#add7aeed4bb7446728a1baa10b4410417">00074</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG   MPI_LONG</span>
+<a name="l00075"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1e459fae71e27e0a5a4598571c70d346">00075</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UNSIGNED_LONG   MPI_UNSIGNED_LONG</span>
+<a name="l00076"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a603680c85fb5bfc77ec532d51e5f04b9">00076</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG_LONG_INT   MPI_LONG_LONG_INT</span>
+<a name="l00077"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeae3d5a5753b43571c33e2fbfb492dc8">00077</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG_LONG   MPI_LONG_LONG</span>
+<a name="l00078"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a8c59f69894712621ec76f153b209e514">00078</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_FLOAT   MPI_FLOAT</span>
+<a name="l00079"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a7ddf21e6cfdc940c5bbad4d7a31a2d50">00079</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_DOUBLE   MPI_DOUBLE</span>
+<a name="l00080"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af782a755372aa623080f16bbfea54ba8">00080</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG_DOUBLE   MPI_LONG_DOUBLE</span>
+<a name="l00081"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae4edf6bac7e5ad0f3a148ce7c5785775">00081</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_BYTE   MPI_BYTE</span>
+<a name="l00082"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aef9fda706f745499701051297d11e0b5">00082</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_WCHAR   MPI_WCHAR</span>
+<a name="l00083"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aabfcbdd9ea322adf4b0b93358c52998e">00083</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_PACKED   MPI_PACKED</span>
+<a name="l00084"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a89ef9eedf9c5cb1abd3dc8c31cc7ef52">00084</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LB   MPI_LB</span>
+<a name="l00085"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a23745e204a19616dc08e6e4835f50b40">00085</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UB   MPI_UB</span>
+<a name="l00086"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a6aa39d2925738a52ccbd05a31c1eeb2f">00086</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_C_COMPLEX   MPI_C_COMPLEX</span>
+<a name="l00087"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ad64af20015751b0573e657002f7a6386">00087</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_C_FLOAT_COMPLEX   MPI_C_FLOAT_COMPLEX</span>
+<a name="l00088"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#abed5ac8e91e707d7803c48238f452c73">00088</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_C_DOUBLE_COMPLEX   MPI_C_DOUBLE_COMPLEX</span>
+<a name="l00089"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a31ecaa9058a83d9b615e20f7ed3eb3df">00089</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_C_LONG_DOUBLE_COMPLEX   MPI_C_LONG_DOUBLE_COMPLEX</span>
+<a name="l00090"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a42a88122f609f4d6c17e8e5e644169d5">00090</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2INT   MPI_2INT</span>
+<a name="l00091"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aaa89c020168ae0258409bd475869ae36">00091</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_C_BOOL   MPI_C_BOOL</span>
+<a name="l00092"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9947b6c92cee993059351b8f24c6f616">00092</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_SIGNED_CHAR   MPI_SIGNED_CHAR</span>
+<a name="l00093"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#acda789e119f25ad9f61395d97d94f79f">00093</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UNSIGNED_LONG_LONG   MPI_UNSIGNED_LONG_LONG</span>
+<a name="l00094"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa385d2b5fc3a2b6264b163f481297a57">00094</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_CHARACTER   MPI_CHARACTER</span>
+<a name="l00095"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a239b8b58fd2d07166442633c35354dfa">00095</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER   MPI_INTEGER</span>
+<a name="l00096"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a7806a662034ecb96f5813798f623e833">00096</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REAL   MPI_REAL</span>
+<a name="l00097"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a51e1155adf8ef4096d1152f1390b8780">00097</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LOGICAL   MPI_LOGICAL</span>
+<a name="l00098"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a84cf9934941c9c6436f35d86f91e04fa">00098</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_COMPLEX   MPI_COMPLEX</span>
+<a name="l00099"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a86d184ab7b8cef14fe4103627e250b10">00099</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_DOUBLE_PRECISION   MPI_DOUBLE_PRECISION</span>
+<a name="l00100"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a65ff04d26040a803d1f1083f5a6305de">00100</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2INTEGER   MPI_2INTEGER</span>
+<a name="l00101"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a11daef438aacb7bc5ae4276443ec4b82">00101</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2REAL   MPI_2REAL</span>
+<a name="l00102"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a07266070134ef4a4f18cff52cd992ab6">00102</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_DOUBLE_COMPLEX   MPI_DOUBLE_COMPLEX</span>
+<a name="l00103"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6a9e334b348ffee8b49ae8e7d44606f">00103</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2DOUBLE_PRECISION   MPI_2DOUBLE_PRECISION</span>
+<a name="l00104"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ac67c4c2a91cfd28be23a4dd19e0f520f">00104</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2COMPLEX   MPI_2COMPLEX</span>
+<a name="l00105"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af426da5936b78ef2ec4460c170760618">00105</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_2DOUBLE_COMPLEX   MPI_2DOUBLE_COMPLEX</span>
+<a name="l00106"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a25e4eecf8d43aa71fa3f37a60875b24c">00106</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REAL2   MPI_REAL2</span>
+<a name="l00107"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a2c5a2efa7543e32703804d89315d3d65">00107</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REAL4   MPI_REAL4</span>
+<a name="l00108"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1816d25350dd134fcc011bc9fc1404e3">00108</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_COMPLEX8   MPI_COMPLEX8</span>
+<a name="l00109"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3c5035620388b11ca4891c372166dd96">00109</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REAL8   MPI_REAL8</span>
+<a name="l00110"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae6fd6570884e1befa9f9c5ff962895ed">00110</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_COMPLEX16   MPI_COMPLEX16</span>
+<a name="l00111"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#afe66293e0b2f5041f965109fbdbeb06e">00111</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_REAL16   MPI_REAL16</span>
+<a name="l00112"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#afbf02c8e5a1998fcb99bc0cd3044505d">00112</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_COMPLEX32   MPI_COMPLEX32</span>
+<a name="l00113"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab5ca118366ca8c58e13409adb49cec60">00113</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER1   MPI_INTEGER1</span>
+<a name="l00114"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ad49b0e21ea0d57db91aa6396a2808bd3">00114</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_COMPLEX4   MPI_COMPLEX4</span>
+<a name="l00115"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a3ce37ad10b6e3e9741192366e86ce2c9">00115</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER2   MPI_INTEGER2</span>
+<a name="l00116"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeeff480572af7a9f58059cf9276260db">00116</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER4   MPI_INTEGER4</span>
+<a name="l00117"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1c18a8fd38a5c3492ea52133a86bfb25">00117</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER8   MPI_INTEGER8</span>
+<a name="l00118"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a46f69c759a2f7c352c655d61821f6779">00118</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INTEGER16   MPI_INTEGER16</span>
+<a name="l00119"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a481e2f4d1ff5d12276087149026c6c3d">00119</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INT8_T   MPI_INT8_T</span>
+<a name="l00120"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a5b70ea042f83fb3cc9afc1f52743a99c">00120</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INT16_T   MPI_INT16_T</span>
+<a name="l00121"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a652547087730b059ad3e1367f0ea973a">00121</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INT32_T   MPI_INT32_T</span>
+<a name="l00122"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ab583889f119a9b617cb8c1e0b28ca3ae">00122</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_INT64_T   MPI_INT64_T</span>
+<a name="l00123"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#af4f9f209cee8050774db308602b7d153">00123</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UINT8_T   MPI_UINT8_T</span>
+<a name="l00124"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a298800b49321915f5adf690ece1e85f1">00124</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UINT16_T   MPI_UINT16_T</span>
+<a name="l00125"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aeb8bf35fbe1ae766aa5bb8131636ed69">00125</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UINT32_T   MPI_UINT32_T</span>
+<a name="l00126"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a1b9d00b0ac6ee8eca818d3f9cd2fca67">00126</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_UINT64_T   MPI_UINT64_T</span>
+<a name="l00127"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a288ae6cfd64fc724e646309299eec661">00127</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_AINT   MPI_AINT</span>
+<a name="l00128"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a829378a17b9230f38c4aef079d0b4712">00128</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_OFFSET   MPI_OFFSET</span>
+<a name="l00129"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a9f29bbcde48535f497b31eda2fae9607">00129</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_FLOAT_INT   MPI_FLOAT_INT</span>
+<a name="l00130"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#a86410ce34b3e2dd410f782f7452cd344">00130</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_DOUBLE_INT   MPI_DOUBLE_INT</span>
+<a name="l00131"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aa0a2671cbd59b3e7f96f16dccffed425">00131</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG_INT   MPI_LONG_INT</span>
+<a name="l00132"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#aca39923f48bb0bff58b4461f1d5cde05">00132</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_SHORT_INT   MPI_SHORT_INT</span>
+<a name="l00133"></a><a class="code" href="build_2mpicxxOptInt64_2src_2utilities_2mpiWrapper_2Communicator_2Communicator_8hpp.html#ae83683b2eec8b422c94694abd4563066">00133</a> <span class="preprocessor"></span><span class="preprocessor">#define COMM_LONG_DOUBLE_INT   MPI_LONG_DOUBLE_INT</span>
+<a name="l00134"></a>00134 <span class="preprocessor"></span>
+<a name="l00135"></a>00135 <span class="keyword">class </span>Communicator
+<a name="l00136"></a>00136 {
+<a name="l00137"></a>00137 <span class="keyword">public</span>:
+<a name="l00143"></a>00143   <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classHSF_1_1Communicator.html#a24b77c60a7c2901833ba7bf4e02540c7" title="CommunicationManager Declare the CommunicationManager as friend class to enable deep...">CommunicationManager</a>;
+<a name="l00144"></a>00144 
+<a name="l00145"></a>00145 <span class="keyword">private</span>:
+<a name="l00146"></a>00146 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00147"></a>00147 <span class="comment">// communicator info</span>
+<a name="l00148"></a>00148 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00149"></a>00149   <span class="comment">// communicator handle</span>
+<a name="l00150"></a>00150   MPI_Comm comm_;
+<a name="l00151"></a>00151   <span class="comment">// communicator size</span>
+<a name="l00152"></a>00152   <span class="keywordtype">int</span> size_;
+<a name="l00153"></a>00153   <span class="comment">// local rank </span>
+<a name="l00154"></a>00154   <span class="keywordtype">int</span> rank_;
+<a name="l00155"></a>00155   <span class="comment">// log file name</span>
+<a name="l00156"></a>00156   <span class="keywordtype">string</span> fname_;
+<a name="l00157"></a>00157 
+<a name="l00158"></a>00158 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00159"></a>00159 <span class="comment">// io object</span>
+<a name="l00160"></a>00160 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00164"></a>00164 <span class="comment"></span>  OStream* log_;
+<a name="l00165"></a>00165 
+<a name="l00166"></a>00166 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00167"></a>00167 <span class="comment">// task registor</span>
+<a name="l00168"></a>00168 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00174"></a>00174 <span class="comment"></span>  map&lt;TaskName, vector&lt;MPI_Request&gt; &gt; taskRequests_;
+<a name="l00175"></a>00175   
+<a name="l00176"></a>00176   <span class="keyword">typedef</span> map&lt;TaskName, vector&lt;MPI_Request&gt; &gt; TaskRequestTable;
+<a name="l00177"></a>00177   <span class="keyword">typedef</span> pair&lt;TaskName, vector&lt;MPI_Request&gt; &gt; TaskRequestPair;
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179   <span class="comment">// insert requests</span>
+<a name="l00180"></a>00180   MPI_Request* insertRequest( <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task);
+<a name="l00181"></a>00181   
+<a name="l00182"></a>00182   <span class="comment">// generate tag</span>
+<a name="l00183"></a>00183   <a class="code" href="build_2Include_2basicFunction_8h.html#a8a801999868ae4c7535a6422eaf4d67e">Hash32</a> generateTag( <span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a>&amp; task, <span class="keyword">const</span> <span class="keywordtype">int</span> source, <span class="keyword">const</span> <span class="keywordtype">int</span> dest);
+<a name="l00184"></a>00184 
+<a name="l00185"></a>00185   <span class="comment">// unregister task</span>
+<a name="l00186"></a>00186   <span class="keywordtype">int</span> unregisterTask( <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task);
+<a name="l00187"></a>00187 
+<a name="l00188"></a>00188   <span class="comment">// message number statistics</span>
+<a name="l00189"></a>00189   <span class="keywordtype">size_t</span> messageNum_;
+<a name="l00190"></a>00190  
+<a name="l00191"></a>00191 <span class="keyword">public</span>:
+<a name="l00192"></a>00192 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00193"></a>00193 <span class="comment">// constructor and deconstructor</span>
+<a name="l00194"></a>00194 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00199"></a><a class="code" href="classHSF_1_1Communicator.html#a3d860a8bbf699d64805747144fc4e53b">00199</a> <span class="comment"></span>  <a class="code" href="classHSF_1_1Communicator.html#a3d860a8bbf699d64805747144fc4e53b" title="Communicator Consctruct an NULL communicator.">Communicator</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> fname)
+<a name="l00200"></a>00200     :
+<a name="l00201"></a>00201       comm_(NULL), fname_(fname), size_(-1), rank_(-1), log_(NULL),
+<a name="l00202"></a>00202       messageNum_(0), taskRequests_()
+<a name="l00203"></a>00203   {
+<a name="l00204"></a>00204   }
+<a name="l00205"></a>00205 
+<a name="l00210"></a><a class="code" href="classHSF_1_1Communicator.html#a3cd6eb9e85605b89e7763246aac70bb0">00210</a>   <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1Communicator.html#a3cd6eb9e85605b89e7763246aac70bb0" title="~Communicator defult deconstructor">~Communicator</a>()
+<a name="l00211"></a>00211   {
+<a name="l00212"></a>00212     <span class="keywordflow">if</span>(comm_ != NULL )
+<a name="l00213"></a>00213       MPI_Comm_free(&amp;comm_);
+<a name="l00214"></a>00214     <span class="keywordflow">if</span>(log_ != NULL )
+<a name="l00215"></a>00215       <span class="keyword">delete</span> log_;
+<a name="l00216"></a>00216   }
+<a name="l00217"></a>00217 
+<a name="l00218"></a><a class="code" href="classHSF_1_1Communicator.html#a0c67eacadd200a1f385bf1487561d05d">00218</a>   <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classHSF_1_1Communicator.html#a0c67eacadd200a1f385bf1487561d05d">setLogFile</a>( <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; fname)
+<a name="l00219"></a>00219   {
+<a name="l00220"></a>00220     fname_ = fname;
+<a name="l00221"></a>00221     <span class="keywordflow">if</span>(this-&gt;<a class="code" href="classHSF_1_1Communicator.html#a49da303dc707182ac09c2021a7b36619">getMyId</a>() == 0 )
+<a name="l00222"></a>00222       <span class="keyword">this</span> -&gt; log_ = <span class="keyword">new</span> <a class="code" href="classHSF_1_1OStream.html">OStream</a>(fname_ );
+<a name="l00223"></a>00223     <span class="keywordflow">else</span>
+<a name="l00224"></a>00224       <span class="keyword">this</span> -&gt; log_ = <span class="keyword">new</span> <a class="code" href="classHSF_1_1DummyOStream.html">DummyOStream</a>();
+<a name="l00225"></a>00225   }
+<a name="l00226"></a>00226 
+<a name="l00227"></a>00227 
+<a name="l00228"></a>00228 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00229"></a>00229 <span class="comment">// Access</span>
+<a name="l00230"></a>00230 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00231"></a><a class="code" href="classHSF_1_1Communicator.html#a49da303dc707182ac09c2021a7b36619">00231</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a49da303dc707182ac09c2021a7b36619">getMyId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> rank_; }
+<a name="l00232"></a>00232 
+<a name="l00233"></a><a class="code" href="classHSF_1_1Communicator.html#a064ce6664bdb8aaff6ddd1db54bd10ab">00233</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a064ce6664bdb8aaff6ddd1db54bd10ab">getMySize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> size_; }
+<a name="l00234"></a>00234 
+<a name="l00235"></a>00235 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00236"></a>00236 <span class="comment">// parallel standard I/O</span>
+<a name="l00237"></a>00237 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00244"></a><a class="code" href="classHSF_1_1Communicator.html#a80806fd26dfa925ef6fb55cee2cb74f5">00244</a> <span class="comment"></span>  <span class="keyword">virtual</span> <a class="code" href="classHSF_1_1OStream.html">OStream</a>&amp; <a class="code" href="classHSF_1_1Communicator.html#a80806fd26dfa925ef6fb55cee2cb74f5" title="operator&amp;lt;&amp;lt; output stream to the communicator log file">log</a>() { <span class="keywordflow">return</span> *log_; }
+<a name="l00245"></a>00245 
+<a name="l00246"></a>00246 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00247"></a>00247 <span class="comment">// Data tranmission</span>
+<a name="l00248"></a>00248 <span class="comment">// - All implimented with unblocking version. Unbloking collective</span>
+<a name="l00249"></a>00249 <span class="comment">// - communication is supported in MPI version higher than 3.0</span>
+<a name="l00250"></a>00250 <span class="comment">// - Triger MPI 3.0 use -DMPIv3</span>
+<a name="l00251"></a>00251 <span class="comment">//--------------------------------------------------------------</span>
+<a name="l00252"></a>00252   
+<a name="l00253"></a>00253   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a936cbdaf86f7ff982c50b17d1958051c">bcast</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task, 
+<a name="l00254"></a>00254       <span class="keywordtype">void</span>* buffer, <span class="keywordtype">int</span> count, <span class="keywordtype">int</span> root = 0 );
+<a name="l00255"></a>00255 
+<a name="l00256"></a>00256   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a27fd4507bb56bef2605e6f8d52fa5fb3">gather</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00257"></a>00257       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">void</span>* recvbuff, <span class="keywordtype">int</span> recvcount, 
+<a name="l00258"></a>00258       <span class="keywordtype">int</span> root = 0 );
+<a name="l00259"></a>00259   
+<a name="l00260"></a>00260   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a26c56ac757a53a2627babfe4ad655215">gatherV</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00261"></a>00261       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">void</span>* recvbuff, <span class="keyword">const</span> <span class="keywordtype">int</span>* recvcounts,
+<a name="l00262"></a>00262       <span class="keywordtype">int</span> root = 0 );
+<a name="l00263"></a>00263 
+<a name="l00264"></a>00264   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a5ed8822c246260f867db03b07e914a45">allGather</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00265"></a>00265       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">void</span>* recvbuff, <span class="keywordtype">int</span> recvcount );
+<a name="l00266"></a>00266   
+<a name="l00267"></a>00267   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a1ab5360c4fe2a01291e223dcd5b48a67">allGatherV</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00268"></a>00268       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">void</span>* recvbuff, <span class="keyword">const</span> <span class="keywordtype">int</span>* recvcounts 
+<a name="l00269"></a>00269       );
+<a name="l00270"></a>00270 
+<a name="l00271"></a>00271   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a421c23c24d63ffc349d4e5d44c9fea43">scatter</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00272"></a>00272       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">void</span>* recvbuff, <span class="keywordtype">int</span> recvcount,
+<a name="l00273"></a>00273       <span class="keywordtype">int</span> root = 0 );
+<a name="l00274"></a>00274 
+<a name="l00275"></a>00275   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a1678c6aa967e7aa1a54f760c8e6abeaa">scatterV</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00276"></a>00276       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keyword">const</span> <span class="keywordtype">int</span>* sendcounts, <span class="keywordtype">void</span>* recvbuff, <span class="keywordtype">int</span> recvcount,
+<a name="l00277"></a>00277       <span class="keywordtype">int</span> root = 0 );
+<a name="l00278"></a>00278   
+<a name="l00279"></a>00279   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#ab1aebbfbbeaf4275b5d127f791a1a00b">send</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00280"></a>00280       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendcount, <span class="keywordtype">int</span> senddest);
+<a name="l00281"></a>00281   
+<a name="l00282"></a>00282   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a698780dd247832a2f3f0178f3dfce270">recv</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00283"></a>00283       <span class="keywordtype">void</span>* recvbuf, <span class="keywordtype">int</span> recvcount, <span class="keywordtype">int</span> recvdest );
+<a name="l00284"></a>00284   
+<a name="l00285"></a>00285   <span class="comment">// warning: make sure message between each process pair is unique</span>
+<a name="l00286"></a>00286   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a9fd860c63129153fd3951050b6f89c5b">groupSend</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00287"></a>00287       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">int</span> sendnum, <span class="keyword">const</span> <span class="keywordtype">int</span>* sendcounts, 
+<a name="l00288"></a>00288       <span class="keyword">const</span> <span class="keywordtype">int</span>* senddests);
+<a name="l00289"></a>00289   
+<a name="l00290"></a>00290   <span class="comment">// warning: make sure message between each process pair is unique</span>
+<a name="l00291"></a>00291   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a227d4526e8392d941a5ab1b8ead22ded">groupRecv</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00292"></a>00292       <span class="keywordtype">void</span>* recvbuf, <span class="keywordtype">int</span> recvnum, <span class="keyword">const</span> <span class="keywordtype">int</span>* recvcounts, <span class="keyword">const</span> <span class="keywordtype">int</span>* recvdests
+<a name="l00293"></a>00293       );
+<a name="l00294"></a>00294   
+<a name="l00295"></a>00295   <span class="comment">// warning: make sure message between each process pair is unique</span>
+<a name="l00296"></a>00296   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a71edf40d99144d1f73fe62a9ece81b1c">exchange</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00297"></a>00297       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">void</span>* recvbuf, <span class="keywordtype">int</span> num, <span class="keyword">const</span> <span class="keywordtype">int</span>* counts, 
+<a name="l00298"></a>00298       <span class="keyword">const</span> <span class="keywordtype">int</span>* dests );
+<a name="l00299"></a>00299   
+<a name="l00300"></a>00300   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a0db2a6f37d9658f57fa2a5c7d2e26950">reduce</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00301"></a>00301       <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">void</span>* recvbuf, <span class="keywordtype">int</span> count, <a class="code" href="build_2Include_2Communicator_8hpp.html#aea427efb7da7bc04e37d01f59c4dfc37">CommData</a> datatype, 
+<a name="l00302"></a>00302       <a class="code" href="build_2Include_2Communicator_8hpp.html#a81c2b5634312e06e8788bd7910bb2e55">CommOp</a> op, <span class="keywordtype">int</span> root = 0);
+<a name="l00303"></a>00303 
+<a name="l00304"></a>00304   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a510bb4c1d745693f8dabcbdc9694b782">allReduce</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task,
+<a name="l00305"></a>00305        <span class="keyword">const</span> <span class="keywordtype">void</span>* sendbuf, <span class="keywordtype">void</span>* recvbuf, <span class="keywordtype">int</span> count, <a class="code" href="build_2Include_2Communicator_8hpp.html#aea427efb7da7bc04e37d01f59c4dfc37">CommData</a> datatype,
+<a name="l00306"></a>00306        <a class="code" href="build_2Include_2Communicator_8hpp.html#a81c2b5634312e06e8788bd7910bb2e55">CommOp</a> op);
+<a name="l00307"></a>00307 
+<a name="l00308"></a>00308   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a1773f5d7c1f6c6bc83e53a48deba5510">finishTask</a>(<span class="keyword">const</span> <a class="code" href="namespaceHSF.html#a928eb958edfcd09f62de19e9cd3bac70">TaskName</a> task);
+<a name="l00309"></a>00309 
+<a name="l00310"></a><a class="code" href="classHSF_1_1Communicator.html#a268366a86ccbb00d630b9b660a02b7c2">00310</a>   <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="classHSF_1_1Communicator.html#a268366a86ccbb00d630b9b660a02b7c2">barrier</a>()
+<a name="l00311"></a>00311   {
+<a name="l00312"></a>00312     MPI_Barrier(<span class="keyword">this</span> -&gt; comm_ );
+<a name="l00313"></a>00313   }
+<a name="l00314"></a>00314 
+<a name="l00315"></a>00315 };
+<a name="l00316"></a>00316 
+<a name="l00317"></a>00317 } <span class="comment">// namespace HSF</span>
+<a name="l00318"></a>00318 
+<a name="l00319"></a>00319 
+<a name="l00320"></a>00320 
+<a name="l00321"></a>00321 
+<a name="l00322"></a>00322 <span class="preprocessor">#endif // HSF_COMMUNICATOR_HPP</span>
+</pre></div></div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

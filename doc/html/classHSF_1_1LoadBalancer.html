@@ -1,0 +1,841 @@
+<!-- This comment will put IE 6, 7 and 8 in quirks mode -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>unstructured framework: HSF::LoadBalancer类参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javaScript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body onload='searchBox.OnSelectItem(0);'>
+<!-- 制作者 Doxygen 1.6.1 -->
+<script type="text/javascript"><!--
+var searchBox = new SearchBox("searchBox", "search",false,'搜索');
+--></script>
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>首页</span></a></li>
+      <li><a href="namespaces.html"><span>名字空间</span></a></li>
+      <li class="current"><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <img id="MSearchSelect" src="search/search.png"
+             onmouseover="return searchBox.OnSearchSelectShow()"
+             onmouseout="return searchBox.OnSearchSelectHide()"
+             alt=""/>
+        <input type="text" id="MSearchField" value="搜索" accesskey="S"
+             onfocus="searchBox.OnSearchFieldFocus(true)" 
+             onblur="searchBox.OnSearchFieldFocus(false)" 
+             onkeyup="searchBox.OnSearchFieldChange(event)"/>
+        <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>组合类型列表</span></a></li>
+      <li><a href="hierarchy.html"><span>类继承关系</span></a></li>
+      <li><a href="functions.html"><span>组合类型成员</span></a></li>
+    </ul>
+  </div>
+  <div class="navpath"><a class="el" href="namespaceHSF.html">HSF</a>::<a class="el" href="classHSF_1_1LoadBalancer.html">LoadBalancer</a>
+  </div>
+</div>
+<div class="contents">
+<h1>HSF::LoadBalancer类参考</h1><!-- doxytag: class="HSF::LoadBalancer" -->
+<p>load balancer for regions  
+<a href="#_details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="build_2Include_2loadBalancer_8hpp_source.html">loadBalancer.hpp</a>&gt;</code></p>
+
+<p><a href="classHSF_1_1LoadBalancer-members.html">所有成员的列表。</a></p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="2"><h2>公有成员</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#af9fd71150f3cd1b8c4f87023b916dedc">LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#af9fd71150f3cd1b8c4f87023b916dedc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aa03846f31ea99f255b23adf0777cf373">~LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#aa03846f31ea99f255b23adf0777cf373"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a06147f535aa0c290b332c9578d80d3fa">LoadBalancer_2</a> (const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; s, const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; nei, <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> procNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Second Level load balance.  <a href="#a06147f535aa0c290b332c9578d80d3fa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aff34a6877828f65b92b9e146eaaced3b">exchangeRegion</a> (<a class="el" href="classHSF_1_1Region.html">Region</a> &amp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">communicate the region based on the results of loadBalancer_2  <a href="#aff34a6877828f65b92b9e146eaaced3b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a51cafaff8985b257cff113299e48697f">LoadBalancer_3</a> (Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;reg)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Third Level load balance with parmetis.  <a href="#a51cafaff8985b257cff113299e48697f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a934f19588ae53f8f2133ddb0af955e15">getProcId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a969ba490fb82cdb116643d670b8c66b2">getProcLoad</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#ad25ef85b3641df45c4f62a5dccf15454">getProcLoadSum</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#af9fd71150f3cd1b8c4f87023b916dedc">LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#af9fd71150f3cd1b8c4f87023b916dedc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aa03846f31ea99f255b23adf0777cf373">~LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#aa03846f31ea99f255b23adf0777cf373"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a06147f535aa0c290b332c9578d80d3fa">LoadBalancer_2</a> (const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; s, const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; nei, <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> procNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Second Level load balance.  <a href="#a06147f535aa0c290b332c9578d80d3fa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aff34a6877828f65b92b9e146eaaced3b">exchangeRegion</a> (<a class="el" href="classHSF_1_1Region.html">Region</a> &amp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">communicate the region based on the results of loadBalancer_2  <a href="#aff34a6877828f65b92b9e146eaaced3b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a9c6357abc32209101f62d07846cf8cff">LoadBalancer_3</a> (Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;reg)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Third Level load balance with parmetis.  <a href="#a9c6357abc32209101f62d07846cf8cff"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a934f19588ae53f8f2133ddb0af955e15">getProcId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a969ba490fb82cdb116643d670b8c66b2">getProcLoad</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#ad25ef85b3641df45c4f62a5dccf15454">getProcLoadSum</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#af9fd71150f3cd1b8c4f87023b916dedc">LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">default constructor  <a href="#af9fd71150f3cd1b8c4f87023b916dedc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aa03846f31ea99f255b23adf0777cf373">~LoadBalancer</a> ()</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">deconstructor  <a href="#aa03846f31ea99f255b23adf0777cf373"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a06147f535aa0c290b332c9578d80d3fa">LoadBalancer_2</a> (const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; s, const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; nei, <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> procNum)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Second Level load balance.  <a href="#a06147f535aa0c290b332c9578d80d3fa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#aff34a6877828f65b92b9e146eaaced3b">exchangeRegion</a> (<a class="el" href="classHSF_1_1Region.html">Region</a> &amp;<a class="el" href="src_2interfaces_2interface_8hpp.html#aeb8610dbeef683c2abea70a1362a2d25">regs</a>)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">communicate the region based on the results of loadBalancer_2  <a href="#aff34a6877828f65b92b9e146eaaced3b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a9c6357abc32209101f62d07846cf8cff">LoadBalancer_3</a> (Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;reg)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Third Level load balance with parmetis.  <a href="#a9c6357abc32209101f62d07846cf8cff"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a934f19588ae53f8f2133ddb0af955e15">getProcId</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt; &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a969ba490fb82cdb116643d670b8c66b2">getProcLoad</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#ad25ef85b3641df45c4f62a5dccf15454">getProcLoadSum</a> ()</td></tr>
+<tr><td colspan="2"><h2>静态公有成员</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#af816897dbfedc38b2d56b756f9f31a09">collectNeighborCell</a> (<a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;bndFaceList, Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;bndFaceArr, Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;face2CellArr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a459b7a6b19fccba53c7c6bd5d6ff60a2">collectNeighborCell</a> (<a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;bndFaceList, Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;bndFaceArr, Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;face2CellArr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="classHSF_1_1LoadBalancer.html#a459b7a6b19fccba53c7c6bd5d6ff60a2">collectNeighborCell</a> (<a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;bndFaceList, Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;bndFaceArr, Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;face2CellArr)</td></tr>
+</table>
+<hr/><a name="_details"></a><h2>详细描述</h2>
+<p>load balancer for regions </p>
+<hr/><h2>构造及析构函数文档</h2>
+<a class="anchor" id="af9fd71150f3cd1b8c4f87023b916dedc"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer" ref="af9fd71150f3cd1b8c4f87023b916dedc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="aa03846f31ea99f255b23adf0777cf373"></a><!-- doxytag: member="HSF::LoadBalancer::~LoadBalancer" ref="aa03846f31ea99f255b23adf0777cf373" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::~LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<a class="anchor" id="af9fd71150f3cd1b8c4f87023b916dedc"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer" ref="af9fd71150f3cd1b8c4f87023b916dedc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="aa03846f31ea99f255b23adf0777cf373"></a><!-- doxytag: member="HSF::LoadBalancer::~LoadBalancer" ref="aa03846f31ea99f255b23adf0777cf373" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::~LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<a class="anchor" id="af9fd71150f3cd1b8c4f87023b916dedc"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer" ref="af9fd71150f3cd1b8c4f87023b916dedc" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>default constructor </p>
+
+</div>
+</div>
+<a class="anchor" id="aa03846f31ea99f255b23adf0777cf373"></a><!-- doxytag: member="HSF::LoadBalancer::~LoadBalancer" ref="aa03846f31ea99f255b23adf0777cf373" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">HSF::LoadBalancer::~LoadBalancer </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>deconstructor </p>
+
+</div>
+</div>
+<hr/><h2>成员函数文档</h2>
+<a class="anchor" id="a459b7a6b19fccba53c7c6bd5d6ff60a2"></a><!-- doxytag: member="HSF::LoadBalancer::collectNeighborCell" ref="a459b7a6b19fccba53c7c6bd5d6ff60a2" args="(ArrayArray&lt; Label &gt; &amp;bndFaceList, Array&lt; Array&lt; Label &gt; &gt; &amp;bndFaceArr, Array&lt; Label &gt; &amp;face2CellArr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Array&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt; HSF::LoadBalancer::collectNeighborCell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceArr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>face2CellArr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a459b7a6b19fccba53c7c6bd5d6ff60a2"></a><!-- doxytag: member="HSF::LoadBalancer::collectNeighborCell" ref="a459b7a6b19fccba53c7c6bd5d6ff60a2" args="(ArrayArray&lt; Label &gt; &amp;bndFaceList, Array&lt; Array&lt; Label &gt; &gt; &amp;bndFaceArr, Array&lt; Label &gt; &amp;face2CellArr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static Array&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt; HSF::LoadBalancer::collectNeighborCell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceArr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>face2CellArr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af816897dbfedc38b2d56b756f9f31a09"></a><!-- doxytag: member="HSF::LoadBalancer::collectNeighborCell" ref="af816897dbfedc38b2d56b756f9f31a09" args="(ArrayArray&lt; Label &gt; &amp;bndFaceList, Array&lt; Array&lt; Label &gt; &gt; &amp;bndFaceArr, Array&lt; Label &gt; &amp;face2CellArr)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; HSF::LoadBalancer::collectNeighborCell </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>bndFaceArr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Array&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>face2CellArr</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p><p>face2Cell &gt;= 0 process boundary face ==-1 inner face ==-2 physical boundary face</p>
+<p>face2Cell &gt;= 0 process boundary face ==-1 inner face ==-2 physical boundary face </p>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="aff34a6877828f65b92b9e146eaaced3b"></a><!-- doxytag: member="HSF::LoadBalancer::exchangeRegion" ref="aff34a6877828f65b92b9e146eaaced3b" args="(Region &amp;regs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::exchangeRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Region.html">Region</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>regs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>communicate the region based on the results of loadBalancer_2 </p>
+
+</div>
+</div>
+<a class="anchor" id="aff34a6877828f65b92b9e146eaaced3b"></a><!-- doxytag: member="HSF::LoadBalancer::exchangeRegion" ref="aff34a6877828f65b92b9e146eaaced3b" args="(Region &amp;regs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::exchangeRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Region.html">Region</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>regs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>communicate the region based on the results of loadBalancer_2 </p>
+
+</div>
+</div>
+<a class="anchor" id="aff34a6877828f65b92b9e146eaaced3b"></a><!-- doxytag: member="HSF::LoadBalancer::exchangeRegion" ref="aff34a6877828f65b92b9e146eaaced3b" args="(Region &amp;regs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::exchangeRegion </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classHSF_1_1Region.html">Region</a> &amp;&nbsp;</td>
+          <td class="paramname"> <em>regs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>communicate the region based on the results of loadBalancer_2 </p>
+
+</div>
+</div>
+<a class="anchor" id="a934f19588ae53f8f2133ddb0af955e15"></a><!-- doxytag: member="HSF::LoadBalancer::getProcId" ref="a934f19588ae53f8f2133ddb0af955e15" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt;&amp; HSF::LoadBalancer::getProcId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a934f19588ae53f8f2133ddb0af955e15"></a><!-- doxytag: member="HSF::LoadBalancer::getProcId" ref="a934f19588ae53f8f2133ddb0af955e15" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt;&amp; HSF::LoadBalancer::getProcId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a934f19588ae53f8f2133ddb0af955e15"></a><!-- doxytag: member="HSF::LoadBalancer::getProcId" ref="a934f19588ae53f8f2133ddb0af955e15" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&gt;&amp; HSF::LoadBalancer::getProcId </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a969ba490fb82cdb116643d670b8c66b2"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoad" ref="a969ba490fb82cdb116643d670b8c66b2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>&gt;&amp; HSF::LoadBalancer::getProcLoad </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a969ba490fb82cdb116643d670b8c66b2"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoad" ref="a969ba490fb82cdb116643d670b8c66b2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>&gt;&amp; HSF::LoadBalancer::getProcLoad </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a969ba490fb82cdb116643d670b8c66b2"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoad" ref="a969ba490fb82cdb116643d670b8c66b2" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt;<a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>&gt;&amp; HSF::LoadBalancer::getProcLoad </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad25ef85b3641df45c4f62a5dccf15454"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoadSum" ref="ad25ef85b3641df45c4f62a5dccf15454" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* HSF::LoadBalancer::getProcLoadSum </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad25ef85b3641df45c4f62a5dccf15454"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoadSum" ref="ad25ef85b3641df45c4f62a5dccf15454" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* HSF::LoadBalancer::getProcLoadSum </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad25ef85b3641df45c4f62a5dccf15454"></a><!-- doxytag: member="HSF::LoadBalancer::getProcLoadSum" ref="ad25ef85b3641df45c4f62a5dccf15454" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a>* HSF::LoadBalancer::getProcLoadSum </td>
+          <td>(</td>
+          <td class="paramname"></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td><code> [inline]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a06147f535aa0c290b332c9578d80d3fa"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_2" ref="a06147f535aa0c290b332c9578d80d3fa" args="(const Array&lt; Scalar &gt; s, const ArrayArray&lt; Label &gt; nei, Label procNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::LoadBalancer_2 </td>
+          <td>(</td>
+          <td class="paramtype">const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>nei</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>procNum</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Second Level load balance. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>measurement for all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nei</em>&nbsp;</td><td>connectivity among all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>procNum</em>&nbsp;</td><td>count of processes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a06147f535aa0c290b332c9578d80d3fa"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_2" ref="a06147f535aa0c290b332c9578d80d3fa" args="(const Array&lt; Scalar &gt; s, const ArrayArray&lt; Label &gt; nei, Label procNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::LoadBalancer_2 </td>
+          <td>(</td>
+          <td class="paramtype">const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>nei</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>procNum</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Second Level load balance. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>measurement for all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nei</em>&nbsp;</td><td>connectivity among all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>procNum</em>&nbsp;</td><td>count of processes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a06147f535aa0c290b332c9578d80d3fa"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_2" ref="a06147f535aa0c290b332c9578d80d3fa" args="(const Array&lt; Scalar &gt; s, const ArrayArray&lt; Label &gt; nei, Label procNum)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HSF::LoadBalancer::LoadBalancer_2 </td>
+          <td>(</td>
+          <td class="paramtype">const Array&lt; <a class="el" href="namespaceHSF.html#a7419497552ed1c5631a818b75eed1aec">Scalar</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a>&lt; <a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> &gt;&nbsp;</td>
+          <td class="paramname"> <em>nei</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>&nbsp;</td>
+          <td class="paramname"> <em>procNum</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Second Level load balance. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>s</em>&nbsp;</td><td>measurement for all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nei</em>&nbsp;</td><td>connectivity among all regions </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>procNum</em>&nbsp;</td><td>count of processes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><p>ID of processes in each region</p>
+<p>proportion of ID of processes in each region</p>
+<p>count of processes in each region</p>
+<p>sum up the measurements of all regions</p>
+<p>average measurement load for each process</p>
+<p>Select the private processes for each region</p>
+<p>total count of processes</p>
+<p>calculate the count of private processes</p>
+<p>remove the load charged for provate processes</p>
+<p>construct the processes ID with <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a> type</p>
+<p>Select the public processes for each region</p>
+<p>The public process must be the last process for each region</p>
+<p>if all processes are assigned, then find the process with the least load</p>
+<p>0 indicate the region has been assigned the public process</p>
+<p>if the neighbor region is waiting for assigning the public process and the load of this public process does not exceed the average measurement load.</p>
+<p>mark the neighbor region as finished region.</p>
+<p>ID of processes in each region</p>
+<p>proportion of ID of processes in each region</p>
+<p>count of processes in each region</p>
+<p>sum up the measurements of all regions</p>
+<p>average measurement load for each process</p>
+<p>Select the private processes for each region</p>
+<p>total count of processes</p>
+<p>calculate the count of private processes</p>
+<p>remove the load charged for provate processes</p>
+<p>construct the processes ID with <a class="el" href="classHSF_1_1ArrayArray.html">ArrayArray</a> type</p>
+<p>Select the public processes for each region</p>
+<p>The public process must be the last process for each region</p>
+<p>if all processes are assigned, then find the process with the least load</p>
+<p>0 indicate the region has been assigned the public process</p>
+<p>if the neighbor region is waiting for assigning the public process and the load of this public process does not exceed the average measurement load.</p>
+<p>mark the neighbor region as finished region. </p>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a9c6357abc32209101f62d07846cf8cff"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_3" ref="a9c6357abc32209101f62d07846cf8cff" args="(Array&lt; Region &gt; &amp;reg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* HSF::LoadBalancer::LoadBalancer_3 </td>
+          <td>(</td>
+          <td class="paramtype">Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>reg</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Third Level load balance with parmetis. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>reg</em>&nbsp;</td><td>the collection of regions owned by this processor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c6357abc32209101f62d07846cf8cff"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_3" ref="a9c6357abc32209101f62d07846cf8cff" args="(Array&lt; Region &gt; &amp;reg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a>* HSF::LoadBalancer::LoadBalancer_3 </td>
+          <td>(</td>
+          <td class="paramtype">Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>reg</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Third Level load balance with parmetis. </p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>reg</em>&nbsp;</td><td>the collection of regions owned by this processor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a51cafaff8985b257cff113299e48697f"></a><!-- doxytag: member="HSF::LoadBalancer::LoadBalancer_3" ref="a51cafaff8985b257cff113299e48697f" args="(Array&lt; Region &gt; &amp;reg)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceHSF.html#ae65d72be782e989396ebe5ec6ae4c2b6">Label</a> * HSF::LoadBalancer::LoadBalancer_3 </td>
+          <td>(</td>
+          <td class="paramtype">Array&lt; <a class="el" href="classHSF_1_1Region.html">Region</a> &gt; &amp;&nbsp;</td>
+          <td class="paramname"> <em>regs</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Third Level load balance with parmetis. </p>
+<p>Third Level load balance with ParMETIS.</p>
+<dl><dt><b>参数:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>reg</em>&nbsp;</td><td>the collection of regions owned by this processor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><p>if this region is private for the process then it need not to be partitioned</p>
+<p>record the type of cells</p>
+<p>construct the topology array: cell2Node</p>
+<p>对所有面单元进行排序</p>
+<p>由面与node之间关系寻找cell与cell之间关系 删除重复的内部面 找到面与cell之间关系</p>
+<p>默认两个面不相等</p>
+<p>第一个node相等时，默认相等</p>
+<p>如果维度不相等，则两个面不相等</p>
+<p>比较各个维度，不相等则跳出，标记不相等</p>
+<p>本面对应cell编号为owner，相等面对应cell编号为neighbor</p>
+<p>删除相等面</p>
+<p>删除面单元中最后一个元素，即cell编号</p>
+<p>记录面单元对应cell编号，内部面cell编号标记为-1</p>
+<p>收集边界面与node的关系</p>
+<p>MPI通信获取边界面对应其他进程的cell编号</p>
+<p>输入网格负载均衡后的拓扑</p>
+<p>输出原始网格拓扑</p>
+<p>if this region is private for the process then it need not to be partitioned</p>
+<p>record the type of cells</p>
+<p>construct the topology array: cell2Node</p>
+<p>对所有面单元进行排序</p>
+<p>由面与node之间关系寻找cell与cell之间关系 删除重复的内部面 找到面与cell之间关系</p>
+<p>默认两个面不相等</p>
+<p>第一个node相等时，默认相等</p>
+<p>如果维度不相等，则两个面不相等</p>
+<p>比较各个维度，不相等则跳出，标记不相等</p>
+<p>本面对应cell编号为owner，相等面对应cell编号为neighbor</p>
+<p>删除相等面</p>
+<p>删除面单元中最后一个元素，即cell编号</p>
+<p>记录面单元对应cell编号，内部面cell编号标记为-1</p>
+<p>收集边界面与node的关系</p>
+<p>MPI通信获取边界面对应其他进程的cell编号</p>
+<p>输入网格负载均衡后的拓扑</p>
+<p>输出原始网格拓扑 </p>
+</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成：<ul>
+<li>build/Include/<a class="el" href="build_2Include_2loadBalancer_8hpp_source.html">loadBalancer.hpp</a></li>
+<li>build/mpicxxOptInt64/src/loadBalancer/<a class="el" href="build_2mpicxxOptInt64_2src_2loadBalancer_2loadBalancer_8hpp_source.html">loadBalancer.hpp</a></li>
+<li>src/loadBalancer/<a class="el" href="src_2loadBalancer_2loadBalancer_8hpp_source.html">loadBalancer.hpp</a></li>
+<li>build/mpicxxOptInt64/src/loadBalancer/<a class="el" href="build_2mpicxxOptInt64_2src_2loadBalancer_2loadBalancer_8cpp.html">loadBalancer.cpp</a></li>
+<li>src/loadBalancer/<a class="el" href="src_2loadBalancer_2loadBalancer_8cpp.html">loadBalancer.cpp</a></li>
+</ul>
+</div>
+<!--- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&nbsp;</span>全部</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&nbsp;</span>类</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&nbsp;</span>名字空间</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&nbsp;</span>文件</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&nbsp;</span>函数</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&nbsp;</span>变量</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&nbsp;</span>类型定义</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&nbsp;</span>友元</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&nbsp;</span>宏定义</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<hr size="1"/><address style="text-align: right;"><small>Generated at 15 Nov 2019 for unstructured framework by&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.6.1 </small></address>
+</body>
+</html>

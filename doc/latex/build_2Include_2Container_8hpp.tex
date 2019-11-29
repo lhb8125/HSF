@@ -1,0 +1,125 @@
+\hypertarget{build_2Include_2Container_8hpp}{
+\section{build/Include/Container.hpp文件参考}
+\label{build_2Include_2Container_8hpp}\index{build/Include/Container.hpp@{build/Include/Container.hpp}}
+}
+{\ttfamily \#include \char`\"{}usingCpp.hpp\char`\"{}}\par
+\subsection*{名字空间}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespaceHSF}{HSF}
+\end{DoxyCompactItemize}
+\subsection*{宏定义}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_abf4ef44c4c8719bd6d059ca8cdbe0fde}{Word}~string
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_aaaa51ebc6ea4da1a055fc44bbeff0fca}{Array}~vector
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_af6e8ce24bedd0f3ee8aee3b4f24f62ee}{List}~set
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_a6cbc55536f9041eb3f8acf9063078ed3}{Table}~map
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_a9af7702ea01e01c8927d4047bed986db}{MultiList}~multiset
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_a05f2ca9fdaab4a1784822460cef00fcb}{MultiTable}~multimap
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_a24d775b394d621742173c5975181b2a7}{toWord}~to\_\-string
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_af0e096a05c1a980cd4cf3ca0ec3d40e4}{w2f}~stof
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_ad817aa3fdd0d9db71650d5bb1e157d5c}{w2d}~stod
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_af8728e973fc85ab54b55d27fef119a75}{w2ld}~stold
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_ae940f22fb1c42854086e4d88f6e30706}{w2i}~stoi
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_aa6a4244349b460e534440dbd05f52024}{w2l}~stol
+\item 
+\#define \hyperlink{build_2Include_2Container_8hpp_a68e5419c4236e43deacde9fe60eec8e1}{w2ll}~stoll
+\end{DoxyCompactItemize}
+\subsection*{类型定义}
+\begin{DoxyCompactItemize}
+\item 
+typedef int \hyperlink{namespaceHSF_ad5c260e0fc81004bced4ebf9662faf7f}{HSF::ComparePtr} (const void $\ast$, const void $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{函数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class D $>$ }\\int \hyperlink{namespaceHSF_a6dc2998ec8bb64efa0517dde5f8ab74a}{HSF::sort} (Array$<$ D $>$ \&data)
+\begin{DoxyCompactList}\small\item\em sort, Sort an single array that contains data can be compared \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$class D , class W $>$ }\\int \hyperlink{namespaceHSF_a31d056485ae50f601fdaa21322907005}{HSF::sort} (Array$<$ D $>$ \&data, const Array$<$ W $>$ \&weights=Array$<$ W $>$(0))
+\begin{DoxyCompactList}\small\item\em sort, Sort an single array that contains data can be compared with corresponding weights. \item\end{DoxyCompactList}\item 
+{\footnotesize template$<$class W $>$ }\\int \hyperlink{namespaceHSF_aecb490b70bec1ba6b46c17fcc4ffae89}{HSF::ascend} (const void $\ast$a, const void $\ast$b)
+\item 
+{\footnotesize template$<$class W $>$ }\\int \hyperlink{namespaceHSF_af2cc1f9a74df5f0056e658379f5af92e}{HSF::descend} (const void $\ast$a, const void $\ast$b)
+\item 
+{\footnotesize template$<$class W $>$ }\\size\_\-t \hyperlink{namespaceHSF_a177c9fa2598f6cba867c17cbcfd9c351}{HSF::biSearch} (const Array$<$ W $>$ \&data, W value, ComparePtr comp=ascend$<$ W $>$)
+\begin{DoxyCompactList}\small\item\em biSearch, search the array with binary searching \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{宏定义文档}
+\hypertarget{build_2Include_2Container_8hpp_aaaa51ebc6ea4da1a055fc44bbeff0fca}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!Array@{Array}}
+\index{Array@{Array}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{Array}]{\setlength{\rightskip}{0pt plus 5cm}\#define Array~vector}}
+\label{build_2Include_2Container_8hpp_aaaa51ebc6ea4da1a055fc44bbeff0fca}
+\hypertarget{build_2Include_2Container_8hpp_af6e8ce24bedd0f3ee8aee3b4f24f62ee}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!List@{List}}
+\index{List@{List}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{List}]{\setlength{\rightskip}{0pt plus 5cm}\#define List~set}}
+\label{build_2Include_2Container_8hpp_af6e8ce24bedd0f3ee8aee3b4f24f62ee}
+\hypertarget{build_2Include_2Container_8hpp_a9af7702ea01e01c8927d4047bed986db}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!MultiList@{MultiList}}
+\index{MultiList@{MultiList}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{MultiList}]{\setlength{\rightskip}{0pt plus 5cm}\#define MultiList~multiset}}
+\label{build_2Include_2Container_8hpp_a9af7702ea01e01c8927d4047bed986db}
+\hypertarget{build_2Include_2Container_8hpp_a05f2ca9fdaab4a1784822460cef00fcb}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!MultiTable@{MultiTable}}
+\index{MultiTable@{MultiTable}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{MultiTable}]{\setlength{\rightskip}{0pt plus 5cm}\#define MultiTable~multimap}}
+\label{build_2Include_2Container_8hpp_a05f2ca9fdaab4a1784822460cef00fcb}
+\hypertarget{build_2Include_2Container_8hpp_a6cbc55536f9041eb3f8acf9063078ed3}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!Table@{Table}}
+\index{Table@{Table}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{Table}]{\setlength{\rightskip}{0pt plus 5cm}\#define Table~map}}
+\label{build_2Include_2Container_8hpp_a6cbc55536f9041eb3f8acf9063078ed3}
+\hypertarget{build_2Include_2Container_8hpp_a24d775b394d621742173c5975181b2a7}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!toWord@{toWord}}
+\index{toWord@{toWord}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{toWord}]{\setlength{\rightskip}{0pt plus 5cm}\#define toWord~to\_\-string}}
+\label{build_2Include_2Container_8hpp_a24d775b394d621742173c5975181b2a7}
+\hypertarget{build_2Include_2Container_8hpp_ad817aa3fdd0d9db71650d5bb1e157d5c}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2d@{w2d}}
+\index{w2d@{w2d}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2d}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2d~stod}}
+\label{build_2Include_2Container_8hpp_ad817aa3fdd0d9db71650d5bb1e157d5c}
+\hypertarget{build_2Include_2Container_8hpp_af0e096a05c1a980cd4cf3ca0ec3d40e4}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2f@{w2f}}
+\index{w2f@{w2f}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2f}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2f~stof}}
+\label{build_2Include_2Container_8hpp_af0e096a05c1a980cd4cf3ca0ec3d40e4}
+\hypertarget{build_2Include_2Container_8hpp_ae940f22fb1c42854086e4d88f6e30706}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2i@{w2i}}
+\index{w2i@{w2i}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2i}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2i~stoi}}
+\label{build_2Include_2Container_8hpp_ae940f22fb1c42854086e4d88f6e30706}
+\hypertarget{build_2Include_2Container_8hpp_aa6a4244349b460e534440dbd05f52024}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2l@{w2l}}
+\index{w2l@{w2l}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2l}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2l~stol}}
+\label{build_2Include_2Container_8hpp_aa6a4244349b460e534440dbd05f52024}
+\hypertarget{build_2Include_2Container_8hpp_af8728e973fc85ab54b55d27fef119a75}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2ld@{w2ld}}
+\index{w2ld@{w2ld}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2ld}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2ld~stold}}
+\label{build_2Include_2Container_8hpp_af8728e973fc85ab54b55d27fef119a75}
+\hypertarget{build_2Include_2Container_8hpp_a68e5419c4236e43deacde9fe60eec8e1}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!w2ll@{w2ll}}
+\index{w2ll@{w2ll}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{w2ll}]{\setlength{\rightskip}{0pt plus 5cm}\#define w2ll~stoll}}
+\label{build_2Include_2Container_8hpp_a68e5419c4236e43deacde9fe60eec8e1}
+\hypertarget{build_2Include_2Container_8hpp_abf4ef44c4c8719bd6d059ca8cdbe0fde}{
+\index{build/Include/Container.hpp@{build/Include/Container.hpp}!Word@{Word}}
+\index{Word@{Word}!build/Include/Container.hpp@{build/Include/Container.hpp}}
+\subsubsection[{Word}]{\setlength{\rightskip}{0pt plus 5cm}\#define Word~string}}
+\label{build_2Include_2Container_8hpp_abf4ef44c4c8719bd6d059ca8cdbe0fde}
