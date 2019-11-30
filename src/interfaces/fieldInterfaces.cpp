@@ -22,13 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/**
-* @file: fieldInterfaces.cpp
-* @author: Hanfeng
+/*
+* @File: fieldInterfaces.cpp
+* @Author: Hanfeng
 * @Email:
 * @Date:   2019-11-9 10:52:48
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-15 09:56:19
+* @Last Modified by:   Hanfeng
+* @Last Modified time: 2019-11-30 15:22:43
+*/
+
+/*
+* @brief:
 */
 
 #include "interface.hpp"
@@ -36,10 +40,9 @@ THE SOFTWARE.
 
 using namespace HSF;
 
-
 #define REGION regs[0]
 
-void get_label_field_
+void HSF::get_label_field_
 (
 	const char* setType,
 	const char* fieldName,
@@ -55,7 +58,7 @@ void get_label_field_
 }
 
 
-void get_scalar_field_
+void HSF::get_scalar_field_
 (
 	const char* setType,
 	const char* fieldName,
@@ -71,7 +74,7 @@ void get_scalar_field_
 }
 
 
-void add_label_field_
+void HSF::add_label_field_
 (
 	const char* setType,
 	const char* fieldName,
@@ -81,11 +84,11 @@ void add_label_field_
 )
 {
 	Field<label>* fnew = new Field<label>(setType, *ndim, *n, fPtr);
-	REGION.addField<label>(setType, fieldName, fnew);
+	REGION.addField<label>(fieldName, fnew);
 }
 
 
-void add_scalar_field_
+void HSF::add_scalar_field_
 (
 	const char* setType,
 	const char* fieldName,
@@ -95,11 +98,11 @@ void add_scalar_field_
 )
 {
 	Field<scalar>* fnew = new Field<scalar>(setType, *ndim, *n, fPtr);
-	REGION.addField<scalar>(setType, fieldName, fnew);
+	REGION.addField<scalar>(fieldName, fnew);
 }
 
 
-void start_exchange_label_field_
+void HSF::start_exchange_label_field_
 (
 	const char* setType,
 	const char* fieldName
@@ -110,7 +113,7 @@ void start_exchange_label_field_
 }
 
 
-void finish_exchange_label_field_
+void HSF::finish_exchange_label_field_
 (
 	const char* setType,
 	const char* fieldName
@@ -121,7 +124,7 @@ void finish_exchange_label_field_
 }
 
 
-void start_exchange_scalar_field_
+void HSF::start_exchange_scalar_field_
 (
 	const char* setType,
 	const char* fieldName
@@ -132,7 +135,7 @@ void start_exchange_scalar_field_
 }
 
 
-void finish_exchange_scalar_field_
+void HSF::finish_exchange_scalar_field_
 (
 	const char* setType,
 	const char* fieldName
@@ -140,4 +143,42 @@ void finish_exchange_scalar_field_
 {
 	Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
 	fieldI.checkSendStatus();
+}
+
+
+void HSF::get_scalar_field_neighbor_data_
+(
+	const char* setType,
+	const char* fieldName,
+	void* fPtrPtr,
+	label* ndim,
+	label* n
+)
+{
+	// Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
+	// Table<Word, scalar*>* nbrDataPtr = fieldI.getNbrData();
+	// Table<Word, scalar*>& nbrData = *nbrDataPtr;
+	// Table<Word, scalar*>::iterator it = nbrData.begin();
+	// Table<Word, Patch*>& patches = fieldI.getPatchTab();
+
+
+
+}
+
+
+void HSF::get_scalar_field_neighbor_addressing_
+(
+	const char* setType,
+	const char* fieldName,
+	void* fPtrPtr,
+	label* n
+)
+{
+	// Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
+	// Table<Word, scalar*>* nbrDataPtr = fieldI.getNbrData();
+	// Table<Word, scalar*>& nbrData = *nbrDataPtr;
+	// Table<Word, scalar*>::iterator it = nbrData.begin();
+	// Table<Word, Patch*>& patches = fieldI.getPatchTab();
+
+
 }
