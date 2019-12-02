@@ -27,8 +27,8 @@ THE SOFTWARE.
 * @author: Hanfeng
 * @Email:
 * @Date:   2019-11-9 10:53:54
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-15 09:55:06
+* @Last Modified by:   Hanfeng
+* @Last Modified time: 2019-11-30 15:19:46
 */
 
 
@@ -37,9 +37,8 @@ THE SOFTWARE.
 
 #include "base.hpp"
 
-using namespace HSF;
-// namespace HSF
-// {
+namespace HSF
+{
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,7 +73,7 @@ void get_scalar_field_(const char* setType, const char* fieldName,
 * @param[in]  setType label类型流场变量类型名
 * @param[in]  fieldName label类型流场变量名
 * @param[in]  fPtr 流场变量首地址
-* @param[in] ndim 流场变量结构体内变量数量
+* @param[in]  ndim 流场变量结构体内变量数量
 * @param[in]  n 流场变量结构体数量
 */
 void add_label_field_(const char* setType, const char* fieldName,
@@ -121,12 +120,28 @@ void start_exchange_scalar_field_(const char* setType, const char* fieldName);
 */
 void finish_exchange_scalar_field_(const char* setType, const char* fieldName);
 
-
+/**
+* @brief 获得从其它进程交换得到的数据块
+* @param[in]  setType scalar类型流场变量类型名
+* @param[in]  fieldName scalar类型流场变量名
+* @param[out]  fPtrPtr 数据块首地址
+* @param[out]  ndim 数据块结构体内变量数量
+* @param[out]  n 数据块结构体数量
+*/
+void get_scalar_field_neighbor_data_(const char* setType, const char* fieldName, void* fPtrPtr, label* ndim, label* n);
+/**
+* @brief 获得从其它进程交换得到的数据块的拓扑信息
+* @param[in]  setType scalar类型流场变量类型名
+* @param[in]  fieldName scalar类型流场变量名
+* @param[out]  fPtrPtr 拓扑信息首地址
+* @param[out]  n 拓扑信息数据段大小
+*/
+void get_scalar_field_neighbor_addressing_(const char* setType, const char* fieldName, void* fPtrPtr, label* n);
 
 #ifdef __cplusplus
 }
 #endif
 
-// } //- end namespace HSF
+} //- end namespace HSF
 
 #endif //- end fortranInterfaces_hpp
