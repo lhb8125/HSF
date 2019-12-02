@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-28 11:27:04
+* @last Modified time: 2019-11-29 17:28:32
 */
 #ifndef REGION_HPP
 #define REGION_HPP
@@ -327,8 +327,8 @@ void Region::writeField(const char* resFile,
     if(cgp_field_write(iFile, iBase, iZone, S, dataType, fieldName, &Fs))
         Terminate("writeSolutionInfo", cg_get_error());
 
-    Label *cellStartId = new Label[numProcs+1];
-    Label num = nCells*ndim;
+    label *cellStartId = new label[numProcs+1];
+    label num = nCells*ndim;
     MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
     cellStartId[0] = 0;
     for (int i = 0; i < numProcs; ++i)

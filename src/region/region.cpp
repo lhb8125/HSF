@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-28 13:58:29
+* @last Modified time: 2019-11-29 17:28:27
 */
 #include <algorithm>
 #include "region.hpp"
@@ -50,8 +50,8 @@ void Region::initAfterBalance()
 
     /// 创建通信对
 	par_std_out_("start creating interfaces ...\n");
-    Label cellNum = this->getMesh().getTopology().getCellsNum();
-    Array<Array<Label> > faceCells
+    label cellNum = this->getMesh().getTopology().getCellsNum();
+    Array<Array<label> > faceCells
         = this->getMesh().getTopology().getFace2CellPatch();
 
     createInterFaces(faceCells, cellNum);

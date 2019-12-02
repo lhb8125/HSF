@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:27:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-27 14:02:41
+* @last Modified time: 2019-11-29 17:28:44
 */
 #include <cstdio>
 #include <assert.h>
@@ -44,7 +44,7 @@ void Topology::constructTopology()
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
-	ArrayArray<Label> cell2Node = this->cell2Node_;
+	ArrayArray<label> cell2Node = this->cell2Node_;
 	// if(rank==0)
 	// {
 	// for (int i = 0; i < cell2Node.num; ++i)
@@ -57,9 +57,9 @@ void Topology::constructTopology()
 	// 	printf("\n");
 	// }
 	// }
-	Label cellNum = cell2Node.size();
+	label cellNum = cell2Node.size();
 	this->cellNum_ = cell2Node.size();
-	Label *cellStartIdTmp = new Label[nprocs+1];
+	label *cellStartIdTmp = new label[nprocs+1];
 	MPI_Allgather(&cellNum, 1, MPI_LABEL, &cellStartIdTmp[1], 1, MPI_LABEL, MPI_COMM_WORLD);
 	cellStartIdTmp[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
@@ -67,14 +67,14 @@ void Topology::constructTopology()
 		cellStartIdTmp[i] += cellStartIdTmp[i-1];
 	}
 	this->cellStartId_ = cellStartIdTmp[rank];
-	Array<Array<Label> > faces2NodesTmp;
-	Array<Array<Label> > cell2Cell(cellNum);
+	Array<Array<label> > faces2NodesTmp;
+	Array<Array<label> > cell2Cell(cellNum);
 	for (int i = 0; i < cellNum; ++i)
 	{
-		Label faceNumTmp = Section::facesNumForEle(cellType_[i]);
+		label faceNumTmp = Section::facesNumForEle(cellType_[i]);
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
-			Array<Label> face2NodeTmp = Section::faceNodesForEle(
+			Array<label> face2NodeTmp = Section::faceNodesForEle(
 				&cell2Node.data[cell2Node.startIdx[i]], cellType_[i], j);
 			sort(face2NodeTmp.begin(), face2NodeTmp.end());
 			face2NodeTmp.push_back(i+cellStartId_);
@@ -83,7 +83,7 @@ void Topology::constructTopology()
 	}
 	// printf("faceNum: %d, cellNum: %d\n", faces2NodesTmp.size(), cell2Cell.size());
 	// 对所有面单元进行排序
-	Array<Label> weight;
+	Array<label> weight;
 	for (int i = 0; i < faces2NodesTmp.size(); ++i)
 	{
 		weight.push_back(faces2NodesTmp[i][0]);
@@ -94,9 +94,9 @@ void Topology::constructTopology()
 	// 删除重复的内部面
 	// 找到面与cell之间关系
 	bool* isInner = new bool[faces2NodesTmp.size()];
-	Array<Array<Label> > face2NodeInn, face2NodeBnd;
-	Array<Array<Label> > face2CellInn, face2CellBnd;
-	Array<Array<Label> > cell2CellArr(cellNum);
+	Array<Array<label> > face2NodeInn, face2NodeBnd;
+	Array<Array<label> > face2CellInn, face2CellBnd;
+	Array<Array<label> > cell2CellArr(cellNum);
 	for (int i = 0; i < faces2NodesTmp.size(); ++i){isInner[i] = false;}
 	for (int i = 0; i < faces2NodesTmp.size(); ++i)
 	{
@@ -128,14 +128,14 @@ void Topology::constructTopology()
 			if(isEqual)
 			{
 				// 本面对应cell编号为owner，相等面对应cell编号为neighbor
-				Label ownerId 
+				label ownerId 
 					= faces2NodesTmp[i][faces2NodesTmp[i].size()-1]-cellStartId_;
-				Label neighborId
+				label neighborId
 					= faces2NodesTmp[end][faces2NodesTmp[end].size()-1]-cellStartId_;
 				cell2CellArr[ownerId].push_back(neighborId);
 				cell2CellArr[neighborId].push_back(ownerId);
 				// 记录面单元左右cell编号
-				Array<Label> face2CellTmp;
+				Array<label> face2CellTmp;
 				face2CellTmp.push_back(ownerId+cellStartId_);
 				face2CellTmp.push_back(neighborId+cellStartId_);
 				face2CellInn.push_back(face2CellTmp);
@@ -149,13 +149,13 @@ void Topology::constructTopology()
 			}
 			end++;
 		}
-		Label cellId = faces2NodesTmp[i][faces2NodesTmp[i].size()-1];
+		label cellId = faces2NodesTmp[i][faces2NodesTmp[i].size()-1];
 		// 删除面单元中最后一个元素，即cell编号
 		faces2NodesTmp[i].pop_back();
 		// 记录边界面单元对应cell编号，外部进程单元记-1
 		if(!isEqual)
 		{
-			Array<Label> face2CellTmp;
+			Array<label> face2CellTmp;
 			face2CellTmp.push_back(cellId);
 			face2CellTmp.push_back(-1);
 			face2CellBnd.push_back(face2CellTmp);
@@ -177,7 +177,7 @@ void Topology::constructTopology()
 	}
 
 	// 根据节点个数确定网格面类型，并将网格面分开
-	Array<Label> faceNodeNum;
+	Array<label> faceNodeNum;
 	for (int i = 0; i < face2NodeInn.size(); ++i)
 	{
 		bool isExist = false;
@@ -197,8 +197,8 @@ void Topology::constructTopology()
 		}
 	}
 	// 根据网格面类型对网格面拓扑进行重排，使相同类型网格面连续存储
-	Array<Array<Array<Label> > > face2NodeWithType(faceNodeNum.size());
-	Array<Array<Array<Label> > > face2CellWithType(faceNodeNum.size());
+	Array<Array<Array<label> > > face2NodeWithType(faceNodeNum.size());
+	Array<Array<Array<label> > > face2CellWithType(faceNodeNum.size());
 	for (int i = 0; i < face2NodeInn.size(); ++i)
 	{
 		bool isExist = false;
@@ -229,14 +229,14 @@ void Topology::constructTopology()
 	// 将重排后的face2node拓扑关系复位，原始顺序从cell2node中获取
 	for (int i = 0; i < face2NodeInn.size(); ++i)
 	{
-		Label cellIdx = face2CellInn[i][0];
-		Label faceNumTmp = Section::facesNumForEle(cellType_[cellIdx]);
+		label cellIdx = face2CellInn[i][0];
+		label faceNumTmp = Section::facesNumForEle(cellType_[cellIdx]);
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
-			Array<Label> face2NodeTmp = Section::faceNodesForEle(
+			Array<label> face2NodeTmp = Section::faceNodesForEle(
 				&cell2Node.data[cell2Node.startIdx[cellIdx]],
 				cellType_[cellIdx], j);
-			Array<Label> tmp;
+			Array<label> tmp;
 			tmp.assign(face2NodeTmp.begin(), face2NodeTmp.end());
 			sort(face2NodeTmp.begin(), face2NodeTmp.end());
 			if(compareArray(face2NodeTmp, face2NodeInn[i]))
@@ -258,7 +258,7 @@ void Topology::constructTopology()
 	// }
 
 	// 获取cell2face的拓扑关系
-	Array<Array<Label> > cell2FaceArr(cell2CellArr.size());
+	Array<Array<label> > cell2FaceArr(cell2CellArr.size());
 	for (int i = 0; i < face2CellInn.size(); ++i)
 	{
 		for (int j = 0; j < face2CellInn[i].size(); ++j)
@@ -295,14 +295,14 @@ void Topology::constructTopology()
 	DELETE_POINTER(isInner);
 }
 
-void Topology::setPatchInfo(Array<Array<Label> > face2NodeInn,
-	Array<Array<Label> > face2NodeBnd, Array<Array<Label> > face2CellInn,
-	Array<Array<Label> > face2CellBnd)
+void Topology::setPatchInfo(Array<Array<label> > face2NodeInn,
+	Array<Array<label> > face2NodeBnd, Array<Array<label> > face2CellInn,
+	Array<Array<label> > face2CellBnd)
 {
 	int rank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-	Array<Array<Label> > face2CellArr, face2NodeArr;
+	Array<Array<label> > face2CellArr, face2NodeArr;
 	face2CellArr.clear();
 	face2CellArr.insert(face2CellArr.end(), face2CellBnd.begin(), face2CellBnd.end());
 	face2CellArr.insert(face2CellArr.end(), face2CellInn.begin(), face2CellInn.end());
@@ -311,14 +311,14 @@ void Topology::setPatchInfo(Array<Array<Label> > face2NodeInn,
 	face2NodeArr.insert(face2NodeArr.end(), face2NodeBnd.begin(), face2NodeBnd.end());
 	face2NodeArr.insert(face2NodeArr.end(), face2NodeInn.begin(), face2NodeInn.end());
 
-	Array<Label> face2CellTmp;
+	Array<label> face2CellTmp;
 	for (int i = 0; i < face2CellArr.size(); ++i)
 	{
 		face2CellTmp.push_back(face2CellArr[i][0]);
 		// 对于内部面，令其为-1
 		if(face2CellArr[i][1]!=-1) face2CellTmp[i] = -1;
 	}
-	ArrayArray<Label> face2NodeBndTmp;
+	ArrayArray<label> face2NodeBndTmp;
 	transformArray(face2NodeBnd, face2NodeBndTmp);
 	// if(rank==1)
 	// {
@@ -327,7 +327,7 @@ void Topology::setPatchInfo(Array<Array<Label> > face2NodeInn,
 	// 		printf("%d, %d, %d\n", i, face2NodeBndTmp.startIdx[i], face2NodeBndTmp.startIdx[i+1]);
 	// 	}
 	// }
-	Array<Label> face2CellNew;
+	Array<label> face2CellNew;
 	face2CellNew = LoadBalancer::collectNeighborCell(face2NodeBndTmp,
 		face2NodeBnd, face2CellTmp);
 
@@ -335,7 +335,7 @@ void Topology::setPatchInfo(Array<Array<Label> > face2NodeInn,
 	{
 		if(face2CellNew[i]>=0)
 		{
-			Array<Label> face2CellPatchTmp;
+			Array<label> face2CellPatchTmp;
 			face2CellPatchTmp.push_back(face2CellArr[i][0]);
 			face2CellPatchTmp.push_back(face2CellNew[i]);
 			face2CellPatch_.push_back(face2CellPatchTmp);
@@ -353,13 +353,13 @@ void Topology::setPatchInfo(Array<Array<Label> > face2NodeInn,
 
 void Topology::constructTopology(Array<Section>& secs)
 {
-	Label secNum = secs.size();
+	label secNum = secs.size();
 	int rank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
 	/// record the type of cells
 	cellNum_ = 0;
-	Array<Label> tmp;
+	Array<label> tmp;
 	for (int i = 0; i < secNum; ++i)
 	{
 		cellNum_ += secs[i].num;
@@ -373,9 +373,9 @@ void Topology::constructTopology(Array<Section>& secs)
 
 	// / construct the topology array: cell2Node
 	cell2Node_.num = cellNum_;
-	cell2Node_.startIdx = new Label[cellNum_+1];
+	cell2Node_.startIdx = new label[cellNum_+1];
 	cell2Node_.startIdx[0] = 0;
-	Label k=0;
+	label k=0;
 	for (int i = 0; i < secNum; ++i)
 	{
 		for (int j = 0; j < secs[i].num; ++j)
@@ -385,7 +385,7 @@ void Topology::constructTopology(Array<Section>& secs)
 			k++;
 		}
 	}
-	cell2Node_.data = new Label[cell2Node_.startIdx[cellNum_]];
+	cell2Node_.data = new label[cell2Node_.startIdx[cellNum_]];
 	k=0;
 	for (int i = 0; i < secNum; ++i)
 	{
@@ -394,7 +394,7 @@ void Topology::constructTopology(Array<Section>& secs)
 		{
 			memcpy(&cell2Node_.data[cell2Node_.startIdx[k]],
 				&secs[i].conn[l],
-				Section::nodesNumForEle(secs[i].type)*sizeof(Label));
+				Section::nodesNumForEle(secs[i].type)*sizeof(label));
 			k++;
 			l += Section::nodesNumForEle(secs[i].type);
 		}
@@ -409,17 +409,17 @@ void Topology::constructTopology(Array<Section>& secs)
 // 	printf("\n");
 // }
 	/// construct the topology array: face2Node
-	// Array<Array<Label> > faces2NodesBndTmp;
+	// Array<Array<label> > faces2NodesBndTmp;
 #if 0
-	Array<Array<Label> > faces2NodesTmp;
+	Array<Array<label> > faces2NodesTmp;
 	for (int i = 0; i < cellNum_; ++i)
 	{
-		Label faceNumTmp = Section::facesNumForEle(cellType_[i]);
+		label faceNumTmp = Section::facesNumForEle(cellType_[i]);
 		// if(rank==0) printf("cellIdx: %d, faceNumTmp: %d, cellType: %d\n", i, faceNumTmp, cellType_[i]);
 		// if the face num equals to 0, then the cell is considered as face.
 		// if(faceNumTmp==0)
 		// {
-		// 	Array<Label> faceEleTmp;
+		// 	Array<label> faceEleTmp;
 		// 	for (int j = cell2Node_.startIdx[i]; j < cell2Node_.startIdx[i+1]; ++j)
 		// 	{
 		// 		faceEleTmp.push_back(cell2Node_.data[j]);
@@ -436,7 +436,7 @@ void Topology::constructTopology(Array<Section>& secs)
 	}
 	// eliminate the duplicate faces and seperate the boundary face and internal face
 	// faceNum_b_  = filterArray(faces2NodesBndTmp);
-	Label *faceNum = filterArray(faces2NodesTmp);
+	label *faceNum = filterArray(faces2NodesTmp);
 	faceNum_ = faceNum[0]+faceNum[1];
 	faceNum_b_ = faceNum[0];
 	faceNum_i_ = faceNum[1];
@@ -455,15 +455,15 @@ void Topology::constructTopology(Array<Section>& secs)
 	face2Node_ = transformArray(faces2NodesTmp);
 
 	// construct the topology array: cell2Face
-	Array<Array<Label> > cells2FacesTmp;
+	Array<Array<label> > cells2FacesTmp;
 	for (int i = 0; i < cellNum_; ++i)
 	{
-		Array<Label> cell2FacesTmp;
-		Label faceIdx;
-		Label faceNumTmp = Section::facesNumForEle(cellType_[i]);
+		Array<label> cell2FacesTmp;
+		label faceIdx;
+		label faceNumTmp = Section::facesNumForEle(cellType_[i]);
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
-			Array<Label> face2NodesTmp
+			Array<label> face2NodesTmp
 				= Section::faceNodesForEle(
 					&cell2Node_.data[cell2Node_.startIdx[i]], cellType_[i], j);
 			sort(face2NodesTmp.begin(), face2NodesTmp.end());
@@ -502,11 +502,11 @@ void Topology::constructTopology(Array<Section>& secs)
 // }
 #if 0
 	// construct the topology array: face2Cell
-	face2Cell_.startIdx = new Label[faceNum_+1];
+	face2Cell_.startIdx = new label[faceNum_+1];
 	face2Cell_.num = faceNum_;
-	face2Cell_.data = new Label[faceNum_i_*2+faceNum_b_];
+	face2Cell_.data = new label[faceNum_i_*2+faceNum_b_];
 	face2Cell_.startIdx[0] = 0;
-	Label *bonus = new Label[faceNum_];
+	label *bonus = new label[faceNum_];
 	for (int i = 0; i < faceNum_; ++i) { bonus[i]=0; }
 	for (int i = 0; i < faceNum_b_; ++i)
 	{
@@ -520,7 +520,7 @@ void Topology::constructTopology(Array<Section>& secs)
 	{
 		for (int j = cell2Face_.startIdx[i]; j < cell2Face_.startIdx[i+1]; ++j)
 		{
-			Label idx = cell2Face_.data[j];
+			label idx = cell2Face_.data[j];
 			/// if the face is boundary face, then ignore it
 			face2Cell_.data[face2Cell_.startIdx[idx]+bonus[idx]] = i;
 			bonus[idx]++;
@@ -543,9 +543,9 @@ void Topology::constructTopology(Array<Section>& secs)
 	
 }
 
-// Label Topology::reorderFace2Node(Array<Array<Label> >& face2NodeTmp, Array<Array<Label> >& face2NodeBndTmp)
+// label Topology::reorderFace2Node(Array<Array<label> >& face2NodeTmp, Array<Array<label> >& face2NodeBndTmp)
 // {
-// 	Array<Array<Label> > result;
+// 	Array<Array<label> > result;
 // 	// printf("%d,%d\n", face2NodeTmp.size(), face2NodeBndTmp.size());
 // 	face2NodeTmp.insert(face2NodeTmp.begin(), face2NodeBndTmp.begin(),face2NodeBndTmp.end());
 // 	// printf("%d,%d\n", face2NodeTmp.size(), face2NodeBndTmp.size());
@@ -559,16 +559,16 @@ void Topology::genEdgeTopo()
 	int rank;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-	ArrayArray<Label> cell2Node = this->cell2Node_;
+	ArrayArray<label> cell2Node = this->cell2Node_;
 
-	Label cellNum = cell2Node.size();
-	Array<Array<Label> > edges2NodesTmp;
+	label cellNum = cell2Node.size();
+	Array<Array<label> > edges2NodesTmp;
 	for (int i = 0; i < cellNum; ++i)
 	{
-		Label edgeNumTmp = Section::edgesNumForEle(this->cellType_[i]);
+		label edgeNumTmp = Section::edgesNumForEle(this->cellType_[i]);
 		for (int j = 0; j < edgeNumTmp; ++j)
 		{
-			Array<Label> edge2NodeTmp = Section::edgeNodesForEle(
+			Array<label> edge2NodeTmp = Section::edgeNodesForEle(
 				&cell2Node.data[cell2Node.startIdx[i]], cellType_[i], j);
 			sort(edge2NodeTmp.begin(), edge2NodeTmp.end());
 			edge2NodeTmp.push_back(i+cellStartId_);
@@ -576,7 +576,7 @@ void Topology::genEdgeTopo()
 		}
 	}
 	// 对所有边单元进行排序
-	Array<Label> weight;
+	Array<label> weight;
 	for (int i = 0; i < edges2NodesTmp.size(); ++i)
 	{
 		weight.push_back(edges2NodesTmp[i][0]);
@@ -585,8 +585,8 @@ void Topology::genEdgeTopo()
 	// quicksortArray(edges2NodesTmp, 0, edges2NodesTmp.size()-1);
 	// 找到面与cell之间关系
 	bool* isInner = new bool[edges2NodesTmp.size()];
-	Array<Array<Label> > edge2NodeInn, edge2NodeBnd;
-	Array<Array<Label> > edge2CellInn, edge2CellBnd;
+	Array<Array<label> > edge2NodeInn, edge2NodeBnd;
+	Array<Array<label> > edge2CellInn, edge2CellBnd;
 	for (int i = 0; i < edges2NodesTmp.size(); ++i){isInner[i] = false;}
 	for (int i = 0; i < edges2NodesTmp.size(); ++i)
 	{
@@ -595,11 +595,11 @@ void Topology::genEdgeTopo()
 		// 默认两个面不相等
 		bool isEqual = false;
 
-		Array<Label> edge2CellTmp;
-		Label ownerId = edges2NodesTmp[i][edges2NodesTmp[i].size()-1];
+		Array<label> edge2CellTmp;
+		label ownerId = edges2NodesTmp[i][edges2NodesTmp[i].size()-1];
 		edge2CellTmp.push_back(ownerId);
 
-		Array<Label> edge2NodeTmp;
+		Array<label> edge2NodeTmp;
 		edge2NodeTmp = edges2NodesTmp[i];
 		edge2NodeTmp.pop_back();
 
@@ -626,7 +626,7 @@ void Topology::genEdgeTopo()
 			}
 			if(isEqual)
 			{
-				Label neighborId = edges2NodesTmp[end][edges2NodesTmp[end].size()-1];
+				label neighborId = edges2NodesTmp[end][edges2NodesTmp[end].size()-1];
 				edge2CellTmp.push_back(neighborId);
 				// 删除相等面
 				isInner[i] = true;
@@ -646,11 +646,11 @@ void Topology::genEdgeTopo()
 	}
 	// par_std_out_("inner edge num: %d, boundary edge num: %d\n", edge2NodeInn.size(), edge2CellBnd.size());
 
-	Array<Array<Label> > edge2NodeArr;
+	Array<Array<label> > edge2NodeArr;
 	edge2NodeArr.insert(edge2NodeArr.end(), edge2NodeInn.begin(), edge2NodeInn.end());
 	edge2NodeArr.insert(edge2NodeArr.end(), edge2NodeBnd.begin(), edge2NodeBnd.end());
 
-	Array<Array<Label> > edge2CellArr;
+	Array<Array<label> > edge2CellArr;
 	edge2CellArr.insert(edge2CellArr.end(), edge2CellInn.begin(), edge2CellInn.end());
 	edge2CellArr.insert(edge2CellArr.end(), edge2CellBnd.begin(), edge2CellBnd.end());
 
@@ -664,18 +664,18 @@ void Topology::genEdgeTopo()
 	// 	printf("\n");
 	// }
 
-	Array<Array<Label> > cell2EdgeArr(this->cellNum_);
+	Array<Array<label> > cell2EdgeArr(this->cellNum_);
 	for (int i = 0; i < edge2CellArr.size(); ++i)
 	{
 		/// 重排edge2node编号
-		Label cellIdx = edge2CellArr[i][0]-cellStartId_;
-		Label edgeNumTmp = Section::edgesNumForEle(cellType_[cellIdx]);
+		label cellIdx = edge2CellArr[i][0]-cellStartId_;
+		label edgeNumTmp = Section::edgesNumForEle(cellType_[cellIdx]);
 		for (int j = 0; j < edgeNumTmp; ++j)
 		{
-			Array<Label> edge2NodeTmp = Section::edgeNodesForEle(
+			Array<label> edge2NodeTmp = Section::edgeNodesForEle(
 				&cell2Node.data[cell2Node.startIdx[cellIdx]],
 				cellType_[cellIdx], j);
-			Array<Label> tmp;
+			Array<label> tmp;
 			tmp.assign(edge2NodeTmp.begin(), edge2NodeTmp.end());
 			sort(edge2NodeTmp.begin(), edge2NodeTmp.end());
 			if(compareArray(edge2NodeTmp, edge2NodeArr[i]))

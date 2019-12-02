@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-27 10:40:14
+* @last Modified time: 2019-11-29 17:26:11
 */
 #include "mpi.h"
 #include "boundary.hpp"
@@ -465,7 +465,7 @@ void Boundary::writeMesh(const char* filePtr)
     */
     // printf("%d, %d\n", end, conn.num);
     ElementType_t eleType = (ElementType_t)cellType[0];
-    if(cgp_section_write(iFile, iBase, iZone, typeToString(eleType), eleType, end+1, cellStartId[numProcs],
+    if(cgp_section_write(iFile, iBase, iZone, typeToWord(eleType), eleType, end+1, cellStartId[numProcs],
         0, &iSec))
         Terminate("writeSecInfo", cg_get_error());
     par_std_out_("rank %d write from %d to %d\n", rank, cellStartId[rank]+1, cellStartId[rank+1]);

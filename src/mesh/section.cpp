@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:22:22
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-26 17:20:14
+* @last Modified time: 2019-11-29 17:28:24
 */
 #include <cstdio>
 #include <cstdlib>
@@ -17,7 +17,7 @@ namespace HSF
 /*
 * @brief counts of nodes for each element type
 */
-bool Section::compareEleType(const Label secType, const Label meshType_)
+bool Section::compareEleType(const label secType, const label meshType_)
 {
 	bool ltmp = secType==TRI_3 || secType==TRI_6 || secType==TRI_9;
 	ltmp = ltmp || secType==QUAD_4 || secType==QUAD_8 || secType==QUAD_9;
@@ -29,7 +29,7 @@ bool Section::compareEleType(const Label secType, const Label meshType_)
 /*
 * @brief counts of faces for each element type
 */
-Label Section::nodesNumForEle(const Label eleType)
+label Section::nodesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -48,7 +48,7 @@ Label Section::nodesNumForEle(const Label eleType)
 	}
 }
 
-Label Section::facesNumForEle(const Label eleType)
+label Section::facesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -66,7 +66,7 @@ Label Section::facesNumForEle(const Label eleType)
 	}
 }
 
-Label Section::edgesNumForEle(const Label eleType)
+label Section::edgesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -87,10 +87,10 @@ Label Section::edgesNumForEle(const Label eleType)
 /*
 * @brief whether the section belongs to the entity through the elements type 
 */
-Array<Label> Section::faceNodesForEle(
-	Label* conn, const Label eleType, const Label idx)
+Array<label> Section::faceNodesForEle(
+	label* conn, const label eleType, const label idx)
 {
-	Array<Label> tmp;
+	Array<label> tmp;
 	// //printf("%d, %d\n", eleType, TETRA_4);
 	if(eleType==TETRA_4)
 	{
@@ -222,10 +222,10 @@ Array<Label> Section::faceNodesForEle(
 	return tmp;
 }
 
-Array<Label> Section::edgeNodesForEle(
-	Label* conn, const Label eleType, const Label idx)
+Array<label> Section::edgeNodesForEle(
+	label* conn, const label eleType, const label idx)
 {
-	Array<Label> tmp;
+	Array<label> tmp;
 	// //printf("%d, %d\n", eleType, TETRA_4);
 	if(eleType==TETRA_4)
 	{

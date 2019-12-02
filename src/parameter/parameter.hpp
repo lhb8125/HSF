@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:22:31
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 14:46:27
+* @last Modified time: 2019-11-29 17:26:21
 */
 #ifndef PARAMETER_HPP 
 #define PARAMETER_HPP
@@ -31,28 +31,28 @@ namespace HSF
 
 // class paraEquation {
 //   public:
-// 	String name;
-// 	String solver;
-// 	String preconditioner;
+// 	Word name;
+// 	Word solver;
+// 	Word preconditioner;
 
-// 	String getSolver() {return solver;}
-// 	String getPreconditioner() {return preconditioner;}
+// 	Word getSolver() {return solver;}
+// 	Word getPreconditioner() {return preconditioner;}
 // };
 
 // class paraScheme {
 //   public:
-// 	String name;
-// 	Array<String> format;
-// 	Array<String>& getFormat() {return format;}	
+// 	Word name;
+// 	Array<Word> format;
+// 	Array<Word>& getFormat() {return format;}	
 // };
 
 // class paraRegion {
 //   public:
-// 	String name;
-// 	String path;
+// 	Word name;
+// 	Word path;
 // 	Array<paraScheme> scheme;
 
-// 	String getPath() {return path;}
+// 	Word getPath() {return path;}
 // 	paraScheme& getScheme(char* name)
 // 	{
 // 		for (int i = 0; i < scheme.size(); ++i)
@@ -65,8 +65,8 @@ namespace HSF
 
 // class paraTurbulent {
 //   public:
-// 	String model;
-// 	String getModel() {return model;}
+// 	Word model;
+// 	Word getModel() {return model;}
 // };
 
 // class paraSolve {
@@ -83,7 +83,7 @@ namespace HSF
 
 // class paraDomain {
 //   public:
-// 	String name;
+// 	Word name;
 // 	Array<paraEquation> equ;
 // 	Array<paraRegion> reg;
 // 	paraTurbulent turb;
@@ -161,7 +161,7 @@ class Parameter {
 template<typename T>
 void Parameter::getPara(const int* nPara, void* resVal, ...)
 {
-	String configFile = paraFile_;
+	Word configFile = paraFile_;
 	YAML::Node config = YAML::LoadFile(configFile);
 	va_list args;
 	va_start(args, resVal);
@@ -183,8 +183,8 @@ void Parameter::getPara(const int* nPara, void* resVal, ...)
 
 	va_end(args);
 
-	String res = config.as<String>();
-	// std::cout<<config.as<String>()<<std::endl;
+	Word res = config.as<Word>();
+	// std::cout<<config.as<Word>()<<std::endl;
 	if(typeid(T)==typeid(int))
 	{
 		int* tmp = (int*)resVal;

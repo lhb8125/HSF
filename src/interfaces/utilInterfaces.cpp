@@ -257,7 +257,7 @@ void write_scalar_field_(const char* fieldName, const char* fieldType)
 
 void get_label_para_(const int* nPara, int* retVal, ...)
 {
-  String configFile = "./config.yaml";
+  Word configFile = "./config.yaml";
   YAML::Node config = YAML::LoadFile(configFile);
   va_list args;
   va_start(args, retVal);
@@ -280,7 +280,7 @@ void get_label_para_(const int* nPara, int* retVal, ...)
 
 void get_scalar_para_(const int* nPara, float* retVal, ...)
 {
-  String configFile = "./config.yaml";
+  Word configFile = "./config.yaml";
   YAML::Node config = YAML::LoadFile(configFile);
   va_list args;
   va_start(args, retVal);
@@ -297,13 +297,13 @@ void get_scalar_para_(const int* nPara, float* retVal, ...)
   }
 
   va_end(args);
-  String res = config.as<String>();
+  Word res = config.as<Word>();
   retVal[0] = std::stof(res);
 }
 
 void get_string_para_(const int* nPara, char* retVal, ...)
 {
-  String configFile = "./config.yaml";
+  Word configFile = "./config.yaml";
   YAML::Node config = YAML::LoadFile(configFile);
   va_list args;
   va_start(args, retVal);
@@ -321,6 +321,6 @@ void get_string_para_(const int* nPara, char* retVal, ...)
 
   va_end(args);
   // retVal[0] = config.as<string>();
-  String res = config.as<String>();
+  Word res = config.as<Word>();
   strcpy(retVal, res.c_str());
 }

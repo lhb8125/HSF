@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-27 15:32:54
+* @last Modified time: 2019-11-29 17:28:06
 */
 #ifndef BOUNDARY_HPP
 #define BOUNDARY_HPP
@@ -56,9 +56,9 @@ public:
 // struct BCSection
 // {
 // 	char* name;
-// 	Label type;
-// 	Label nBCElems;
-// 	Label* BCElems_;
+// 	label type;
+// 	label nBCElems;
+// 	label* BCElems_;
 // }
 
 } // end namespace HSF;

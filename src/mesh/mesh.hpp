@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-24 09:25:44
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-28 10:27:09
+* @last Modified time: 2019-11-29 17:26:12
 */
 #ifndef MESH_HPP
 #define MESH_HPP
@@ -129,7 +129,7 @@ public:
 	/**
 	* @brief translate the element type to string
 	*/
-	char* typeToString(ElementType_t eleType);
+	char* typeToWord(ElementType_t eleType);
 
 	/**
 	* @brief fetch the coordinates of nodes owned by this process

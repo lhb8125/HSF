@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-09 15:08:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-27 11:32:09
+* @last Modified time: 2019-11-29 17:28:45
 */
 #ifndef TOPOLOGY_HPP
 #define TOPOLOGY_HPP
@@ -23,54 +23,54 @@ class Topology
 {
 private:
 	
-	Label nodeNum_; ///< count of nodes;
+	label nodeNum_; ///< count of nodes;
 	
-	Label cellNum_; ///< count of cells;
+	label cellNum_; ///< count of cells;
 	
-	Label edgeNum_; ///< count of edges;
+	label edgeNum_; ///< count of edges;
 	
-	Label faceNum_; ///< count of faces;
+	label faceNum_; ///< count of faces;
 	
-	Label faceNum_b_; ///< count of boundary faces;
+	label faceNum_b_; ///< count of boundary faces;
 	
-	Label faceNum_i_; ///< count of internal faces;
+	label faceNum_i_; ///< count of internal faces;
 	
-	Label cellStartId_; ///< global start index of elements of this processor
+	label cellStartId_; ///< global start index of elements of this processor
 	
-	ArrayArray<Label> node2Node_; ///< Connectivity between nodes and nodes
+	ArrayArray<label> node2Node_; ///< Connectivity between nodes and nodes
 	
-	ArrayArray<Label> node2Edge_; ///< Connectivity between nodes and edges
+	ArrayArray<label> node2Edge_; ///< Connectivity between nodes and edges
 	
-	ArrayArray<Label> edge2Node_; ///< Connectivity between edges and nodes (finish)
+	ArrayArray<label> edge2Node_; ///< Connectivity between edges and nodes (finish)
 	
-	ArrayArray<Label> edge2Cell_; ///< Connectivity between edges and cells (finish)
+	ArrayArray<label> edge2Cell_; ///< Connectivity between edges and cells (finish)
 	
-	ArrayArray<Label> face2Node_; ///< Connectivity between faces and nodes (finish)
+	ArrayArray<label> face2Node_; ///< Connectivity between faces and nodes (finish)
 	
-	Array<Array<Label> > face2NodeBnd_; ///< Connectivity between faces and nodes at the boundary (finish)
+	Array<Array<label> > face2NodeBnd_; ///< Connectivity between faces and nodes at the boundary (finish)
 	
-	ArrayArray<Label> face2Cell_; ///< Connectivity between faces and cells (finish)
+	ArrayArray<label> face2Cell_; ///< Connectivity between faces and cells (finish)
 	
-	Array<Array<Label> > face2CellPatch_; ///< Connectivity between faces and cells at the process boundary (finish)
+	Array<Array<label> > face2CellPatch_; ///< Connectivity between faces and cells at the process boundary (finish)
 	
-	Array<Array<Label> > face2CellBnd_; ///< Connectivity between faces and cells at the boundary (finish)
+	Array<Array<label> > face2CellBnd_; ///< Connectivity between faces and cells at the boundary (finish)
 	
-	ArrayArray<Label> face2Edge_; ///< Connectivity between faces and edges
+	ArrayArray<label> face2Edge_; ///< Connectivity between faces and edges
 	
-	ArrayArray<Label> cell2Cell_; ///< Connectivity between cells and cells (finish)
+	ArrayArray<label> cell2Cell_; ///< Connectivity between cells and cells (finish)
 	
-	ArrayArray<Label> cell2Node_; ///< Connectivity between cells and nodes (finish)
+	ArrayArray<label> cell2Node_; ///< Connectivity between cells and nodes (finish)
 	
-	ArrayArray<Label> cell2Face_; ///< Connectivity between cells and faces (finish)
+	ArrayArray<label> cell2Face_; ///< Connectivity between cells and faces (finish)
 	
-	ArrayArray<Label> cell2Edge_; ///< Connectivity between cells and edges (finish)
+	ArrayArray<label> cell2Edge_; ///< Connectivity between cells and edges (finish)
 	
-	Array<Label> cellType_; ///< type of cells
+	Array<label> cellType_; ///< type of cells
 	
-	Array<Label> faceType_; ///< type of faces
+	Array<label> faceType_; ///< type of faces
 	// /// reorder the face2Node topology to seperate the boundary faces and internal faces
-	// Label reorderFace2Node(Array<Array<Label> >& face2NodeTmp,
-	// 	Array<Array<Label> >& face2NodeBndTmp);
+	// label reorderFace2Node(Array<Array<label> >& face2NodeTmp,
+	// 	Array<Array<label> >& face2NodeBndTmp);
 	/**
 	* @brief generate the face2Cell topology at the boundary face
 	* @param[in] face2NodeInn face-to-node topology, sorted for the first node index at least
@@ -78,9 +78,9 @@ private:
 	* @param[in] face2CellInn face-to-cell topology, one-to-one corresponding to the face above
 	* @param[in] face2CellBnd face-to-cell boundary topology, one-to-one corresponding to the face above
 	*/
-	void setPatchInfo(Array<Array<Label> > face2NodeInn,
-		Array<Array<Label> > face2NodeBnd, Array<Array<Label> > face2CellInn,
-		Array<Array<Label> > face2CellBnd);
+	void setPatchInfo(Array<Array<label> > face2NodeInn,
+		Array<Array<label> > face2NodeBnd, Array<Array<label> > face2CellInn,
+		Array<Array<label> > face2CellBnd);
 	/**
 	* @brief generate the edge-based topology
 	*/
@@ -107,32 +107,32 @@ public:
 	* @brief get the count of nodes
 	* @return the count of nodes
 	*/
-	Label getNodesNum(){return this->nodeNum_;};
+	label getNodesNum(){return this->nodeNum_;};
 	/**
 	* @brief get the count of cells
 	*/
-	Label getCellsNum(){return this->cellNum_;};
+	label getCellsNum(){return this->cellNum_;};
 	/**
 	* @brief get the count of faces
 	*/
-	Label getFacesNum(){return this->faceNum_;};
+	label getFacesNum(){return this->faceNum_;};
 	/**
 	* @brief get the count of internal faces
 	*/
-	Label getInnFacesNum(){return this->faceNum_i_;};
+	label getInnFacesNum(){return this->faceNum_i_;};
 	/**
 	* @brief get the count of boundary faces
 	*/
-	Label getBndFacesNum(){return this->faceNum_b_;};
+	label getBndFacesNum(){return this->faceNum_b_;};
 	/**
 	* @brief get the count of edges
 	*/
-	Label getEdgesNum(){return this->edgeNum_;};
+	label getEdgesNum(){return this->edgeNum_;};
 
 	/**
 	* @brief set the topology between cell and node
 	*/
-	void setCell2Node(ArrayArray<Label>& cell2Node)
+	void setCell2Node(ArrayArray<label>& cell2Node)
 	{
 		this->cell2Node_ = cell2Node;
 		this->cellNum_ = cell2Node.size();
@@ -142,7 +142,7 @@ public:
 	/**
 	* @brief set the topology between cell and node
 	*/
-	void setCell2Node(Array<Array<Label> >& cell2Node)
+	void setCell2Node(Array<Array<label> >& cell2Node)
 	{
 		transformArray(cell2Node, this->cell2Node_);
 		this->cellNum_  = cell2Node.size();
@@ -151,7 +151,7 @@ public:
 	/**
 	* @brief set the topology between face and node
 	*/
-	void setFace2Node(Array<Array<Label> >& face2Node)
+	void setFace2Node(Array<Array<label> >& face2Node)
 	{
 		transformArray(face2Node, this->face2Node_);
 		this->faceNum_ = face2Node.size();
@@ -160,7 +160,7 @@ public:
 	/**
 	* @brief set the topology between cell and face
 	*/
-	void setFace2Cell(Array<Array<Label> >& face2Cell)
+	void setFace2Cell(Array<Array<label> >& face2Cell)
 	{
 		transformArray(face2Cell, this->face2Cell_);
 		this->faceNum_ = face2Cell.size();
@@ -169,7 +169,7 @@ public:
 	/**
 	* @brief set the cell type 
 	*/
-	void setCellType(Array<Label>& cellType)
+	void setCellType(Array<label>& cellType)
 	{
 		this->cellType_.clear();
 		this->cellType_.assign(cellType.begin(), cellType.end());
@@ -178,7 +178,7 @@ public:
 	/**
 	* @brief set the start index of cells in this processor
 	*/
-	void setCellStartId(Label cellStartId)
+	void setCellStartId(label cellStartId)
 	{
 		this->cellStartId_ = cellStartId;
 	};
@@ -187,49 +187,49 @@ public:
 	/**
 	* @brief get the topology between face and node on the boundary
 	*/
-	const Array<Array<Label> >& getFace2NodeBnd() {return this->face2NodeBnd_;};
+	const Array<Array<label> >& getFace2NodeBnd() {return this->face2NodeBnd_;};
 
 	/**
 	* @brief get the topology between face and cell on the boundary
 	*/
-	const Array<Array<Label> >& getFace2CellBnd() {return this->face2CellBnd_;};
+	const Array<Array<label> >& getFace2CellBnd() {return this->face2CellBnd_;};
 
 	/**
 	* @brief get the cell type
 	*/
-	const Array<Label>& getCellType() { return this->cellType_;};
+	const Array<label>& getCellType() { return this->cellType_;};
 
 	/**
 	* @brief get the topology between face and cell on the processor boundary
 	*/
-	const Array<Array<Label> > getFace2CellPatch() {return this->face2CellPatch_;};
+	const Array<Array<label> > getFace2CellPatch() {return this->face2CellPatch_;};
 
 	/**
 	* @brief get the start index of cells in this processor
 	*/
-	Label getCellStartId() {return this->cellStartId_;};
+	label getCellStartId() {return this->cellStartId_;};
 
 	// 拓扑关系输出接口
 	/**
 	* @brief get the topology between cells and nodes
 	*/
-	const ArrayArray<Label> getCell2Node() {return this->cell2Node_;};
+	const ArrayArray<label> getCell2Node() {return this->cell2Node_;};
 	/**
 	* @brief get the topology between cells and faces
 	*/
-	const ArrayArray<Label> getCell2Face() {return this->cell2Face_;};
+	const ArrayArray<label> getCell2Face() {return this->cell2Face_;};
 	/**
 	* @brief get the topology between cells and cells
 	*/
-	const ArrayArray<Label> getCell2Cell() {return this->cell2Cell_;};
+	const ArrayArray<label> getCell2Cell() {return this->cell2Cell_;};
 	/**
 	* @brief get the topology between faces and nodes
 	*/
-	const ArrayArray<Label> getFace2Node() {return this->face2Node_;};
+	const ArrayArray<label> getFace2Node() {return this->face2Node_;};
 	/**
 	* @brief get the topology between faces and cells
 	*/
-	const ArrayArray<Label> getFace2Cell() {return this->face2Cell_;};
+	const ArrayArray<label> getFace2Cell() {return this->face2Cell_;};
 };
 
 } // end namespace HSF

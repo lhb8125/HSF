@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 10:52:19
+* @last Modified time: 2019-11-29 17:26:12
 */
 #include <cstdio>
 #include <iostream>
@@ -278,7 +278,7 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     int iSec;
     ElementType_t eleType = (ElementType_t)cellType[0];
     // par_std_out_("internal faces: %d, %d\n", 1, cellStartId[numProcs]);
-    if(cgp_section_write(iFile, iBase, iZone, typeToString(eleType), eleType,
+    if(cgp_section_write(iFile, iBase, iZone, typeToWord(eleType), eleType,
         1, cellStartId[numProcs], 0, &iSec))
         Terminate("writeSecInfo", cg_get_error());
     // par_std_out_("%d, %d\n", start, end);
@@ -645,7 +645,7 @@ void Mesh::readCGNSFile(const char* filePtr)
  //    	Terminate("closeGridCGNS", cg_get_error());
 }
 
-char* Mesh::typeToString(ElementType_t eleType)
+char* Mesh::typeToWord(ElementType_t eleType)
 {
     switch(eleType)
     {
