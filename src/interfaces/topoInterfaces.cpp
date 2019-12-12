@@ -4,7 +4,7 @@
 * @brief: fortran function interfaces
 * @date:   2019-11-11 10:56:28
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:29:56
+* @last Modified time: 2019-12-12 15:34:54
 */
 #include <iostream>
 #include <fstream>
@@ -44,9 +44,9 @@ void init_(char* configFile, int* length)
 	int nPara = 4;
 	char meshFile[100];
 	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
-	para.getPara<char>(&nPara, meshFile, "domain1", "region", "0", "path");
+	para.getPara<char>(meshFile, nPara, "domain1", "region", "0", "path");
 	char resultFile[100];
-	para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
+	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
 
 	/// initialization before load balance
 	Region reg;

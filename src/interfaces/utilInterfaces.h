@@ -160,7 +160,7 @@ void write_scalar_field_(const char* fieldName, const char* fieldType);
 * @param[out]  retVal 控制参数值
 * @param[in] ...  控制参数树字符串
 */
-void get_label_para_(const int* nPara, int* retVal, ...);
+void get_label_para_(int* retVal, int* nPara, ...);
 
 /**
 * @brief 获取浮点型控制参数
@@ -168,7 +168,7 @@ void get_label_para_(const int* nPara, int* retVal, ...);
 * @param[out]  retVal 控制参数值
 * @param[in]  ... 控制参数树字符串
 */
-void get_scalar_para_(const int* nPara, float* retVal, ...);
+void get_scalar_para_(float* retVal, int* nPara, ...);
  
 /**
 * @brief 获取字符串控制参数
@@ -176,7 +176,10 @@ void get_scalar_para_(const int* nPara, float* retVal, ...);
 * @param[out]  retVal 控制参数值
 * @param[in]  ... 控制参数树字符串
 */
-void get_string_para_(const int* nPara, char* retVal, ...);
+void get_string_para_(char* retVal, int* str_len, int* nPara, ...);
+
+
+
 
 #ifdef __cplusplus
 }

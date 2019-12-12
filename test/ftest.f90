@@ -34,10 +34,20 @@ module var_global
     ! end function test_f
 end module var_global
 
+module var_c_string
+    use var_kind_def
+    use iso_c_binding
+    implicit none
+    ! integer, parameter:: str_num = 10
+    character(len=30):: str_arr(1)
+    POINTER(str_ptr, str_arr)
+end module
+
 program main
     use var_kind_def
     use var_global
     use utility
+    use var_c_string
     implicit none
     character(len=strlen):: config_file = './config.yaml'
     integer(dpI):: iele, iface, inode
@@ -54,7 +64,7 @@ program main
     POINTER(vol_new2, vol_new)
     integer(dpI):: ndim_new, n_ele_new, ndim
 
-    integer:: nPara, write_interval
+    integer:: nPara, write_interval, str_len
     character(20):: mesh_file, result_file
     real:: delta_t
 
@@ -66,16 +76,23 @@ program main
 
     ! 获取控制参数
     nPara = 4
-    call get_string_para(nPara, mesh_file, "domain1", "region", "0", "path")
+
+    call get_string_para(mesh_file, str_len, nPara, &
+        & "domain1"//C_NULL_CHAR, &
+        & "region"//C_NULL_CHAR, &
+        & "0"//C_NULL_CHAR, &
+        & "path"//C_NULL_CHAR)
+    ! mesh_file = str_arr(5)
     ! call par_std_out("mesh file: %s \n", mesh_file)
-    write(iobuf,*),"mesh file: ", mesh_file
+    write(iobuf,*),"mesh file: ", mesh_file(1:str_len)
     call flush2master()
     nPara = 3
-    call get_label_para(nPara, write_interval, "domain1", "solve", "writeInterval")
+    call get_label_para(write_interval, nPara, &
+        & "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "writeInterval"//C_NULL_CHAR)
     ! call master_std_out("write internal: %d \n", write_interval)
     write(iobuf,*),"write_interval: ", write_interval
     call flush2master()
-    call get_scalar_para(nPara, delta_t, "domain1", "solve", "deltaT")
+    call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
     write(*,*),"delta_t: ", delta_t
     ! call master_std_out("delta t: %f \n", delta_t)
 

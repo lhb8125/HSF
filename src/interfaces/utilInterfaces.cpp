@@ -203,7 +203,7 @@ void write_mesh_()
 {
   char resultFile[100];
   int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
+  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeMesh(resultFile);
 }
 
@@ -242,7 +242,7 @@ void write_label_field_(const char* fieldName, const char* fieldType)
 {
   char resultFile[100];
   int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
+  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeField<label>(resultFile, fieldName, fieldType); 
 }
 
@@ -250,77 +250,66 @@ void write_scalar_field_(const char* fieldName, const char* fieldType)
 {
   char resultFile[100];
   int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
+  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeField<scalar>(resultFile, fieldName, fieldType); 
 }
 
 
-void get_label_para_(const int* nPara, int* retVal, ...)
+void get_label_para_(int* retVal, int* nPara, ...)
 {
-  Word configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
-  va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  char* strList[*nPara];
 
-  char* para;
+  va_list args;
+  va_start(args, nPara);
+
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+    strList[i] = str;
   }
 
   va_end(args);
-  retVal[0] = config.as<int>();
-  // retVal[0] = std::stoi(res);
+
+  para.getPara<int>(retVal, strList, *nPara);
 }
 
-void get_scalar_para_(const int* nPara, float* retVal, ...)
+void get_scalar_para_(float* retVal, int* nPara, ...)
 {
-  Word configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
-  va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  char* strList[*nPara];
 
-  char* para;
+  va_list args;
+  va_start(args, nPara);
+
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+    strList[i] = str;
   }
 
   va_end(args);
-  Word res = config.as<Word>();
-  retVal[0] = std::stof(res);
+
+  para.getPara<float>(retVal, strList, *nPara);
 }
 
-void get_string_para_(const int* nPara, char* retVal, ...)
+void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
 {
-  Word configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
-  va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  char* strList[*nPara];
 
-  char* para;
+  va_list args;
+  va_start(args, nPara);
+
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+    strList[i] = str;
   }
 
   va_end(args);
-  // retVal[0] = config.as<string>();
-  Word res = config.as<Word>();
-  strcpy(retVal, res.c_str());
+
+  str_len[0] = 0;
+  para.getPara<char>(retVal, strList, *nPara);
+  while(*retVal++!='\0') str_len[0]++;
 }

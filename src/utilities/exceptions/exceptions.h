@@ -31,6 +31,13 @@
 extern "C" {
 #endif 
 
+#define Terminate(location, content) \
+{ \
+	printf("Location: %s, error message: %s, file: %s, line: %d\n", \
+		location, content, __FILE__, __LINE__); \
+	exit(-1); \
+}
+
 #define ASSERT( expr ) \
 if( ! (expr) ) \
 
@@ -42,14 +49,14 @@ if( ! (expr) ) \
   abort();\
 }
 
-if( ! (expr) )
-{
-  // some code
-  // abort
-  hsf_print_stack_();
-  hsf_stop_mpi_();
-  abort();
-}
+// if( ! (expr) )
+// {
+//   // some code
+//   // abort
+//   hsf_print_stack_();
+//   hsf_stop_mpi_();
+//   abort();
+// }
 
 /**
  * @brief hsf_printStack 

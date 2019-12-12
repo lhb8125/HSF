@@ -10,6 +10,9 @@
 #include "cgnslib.h"
 #include "utilities.hpp"
 
+#define Inner 0
+#define Boco 1
+
 namespace HSF
 {
 

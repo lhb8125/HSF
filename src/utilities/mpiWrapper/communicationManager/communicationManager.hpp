@@ -215,9 +215,9 @@ public:
    */
   virtual int destroy(Communicator& comm)
   {
-    if(comm.comm_ != NULL )
+    if(comm.comm_)
       MPI_Comm_free(&(comm.comm_) );
-    if(comm.log_ != NULL )
+    if(comm.log_)
       delete comm.log_;
   }
 

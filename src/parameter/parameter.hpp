@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:22:31
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:26:21
+* @last Modified time: 2019-12-12 15:34:30
 */
 #ifndef PARAMETER_HPP 
 #define PARAMETER_HPP
@@ -151,7 +151,10 @@ class Parameter {
 	*/
 	// void getPara(const int* nPara, void* resVal, const char* type, ...);
 	template<typename T>
-	void getPara(const int* nPara, void* resVal, ...);
+	void getPara(void* resVal, int nPara, ...);
+
+	template<typename T>
+	void getPara(void* resVal, char** strList, const int strLen);
 
 	// void printPara();
 
@@ -159,16 +162,53 @@ class Parameter {
 };
 
 template<typename T>
-void Parameter::getPara(const int* nPara, void* resVal, ...)
+void Parameter::getPara(void* resVal, char** strList, const int strLen)
+{
+	Word configFile = paraFile_;
+	YAML::Node config = YAML::LoadFile(configFile);	
+
+	// printf("%d\n", len);
+	for (int i = 0; i < strLen; ++i)
+	{
+		// printf("%s\n", strList[i]);
+		config = config[strList[i]];
+		if(!config) 
+		{
+			resVal = NULL;
+			Terminate("getPara", "please check the parameter string");
+		}
+	}
+	Word res = config.as<Word>();
+	// std::cout<<config.as<Word>()<<std::endl;
+	if(typeid(T)==typeid(int))
+	{
+		int* tmp = (int*)resVal;
+		tmp[0] = std::stoi(res);
+	}else if(typeid(T)==typeid(char))
+	{
+		char* tmp = (char*)resVal;
+		strcpy(tmp, res.c_str());
+	}else if(typeid(T)==typeid(float))
+	{
+		float* tmp = (float*)resVal;
+		tmp[0] = std::stof(res);
+	}else 
+	{
+		Terminate("reading parameters", "the type must be the basic type");
+	}	
+}
+
+template<typename T>
+void Parameter::getPara(void* resVal, int nPara, ...)
 {
 	Word configFile = paraFile_;
 	YAML::Node config = YAML::LoadFile(configFile);
 	va_list args;
-	va_start(args, resVal);
+	va_start(args, nPara);
 	// printf("parameter num: %d, return type: %s\n", *nPara, type);
 
 	char* para;
-	for (int i = 0; i < *nPara; ++i)
+	for (int i = 0; i < nPara; ++i)
 	{
 		// printf("%s, \n", va_arg(args, char*));
 		para = va_arg(args, char*);
@@ -177,6 +217,7 @@ void Parameter::getPara(const int* nPara, void* resVal, ...)
 		if(!config) 
 		{
 			resVal = NULL;
+			Terminate("getPara", "please check the parameter string");
 		}
 		// paras.push_back(Word(para));
 	}
@@ -193,6 +234,10 @@ void Parameter::getPara(const int* nPara, void* resVal, ...)
 	{
 		char* tmp = (char*)resVal;
 		strcpy(tmp, res.c_str());
+	}else if(typeid(T)==typeid(float))
+	{
+		float* tmp = (float*)resVal;
+		tmp[0] = std::stof(res);
 	}else 
 	{
 		Terminate("reading parameters", "the type must be the basic type");
