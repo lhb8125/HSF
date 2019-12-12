@@ -195,8 +195,7 @@ public:
    */
   Communicator(const string fname)
     :
-      comm_(NULL), fname_(fname), size_(-1), rank_(-1), log_(NULL),
-      messageNum_(0), taskRequests_()
+      fname_(fname), size_(-1), rank_(-1), log_(NULL),messageNum_(0)
   {
   }
 
@@ -206,9 +205,9 @@ public:
    */
   virtual ~Communicator()
   {
-    if(comm_ != NULL )
+    if(comm_)
       MPI_Comm_free(&comm_);
-    if(log_ != NULL )
+    if(log_)
       delete log_;
   }
 
