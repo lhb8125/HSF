@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:28:32
+* @last Modified time: 2019-12-13 03:09:07
 */
 #ifndef REGION_HPP
 #define REGION_HPP
@@ -279,6 +279,7 @@ void Region::writeField(const char* resFile,
     T* dataPtr = fieldI.getLocalData();
 	label ndim = fieldI.getDim();
 	label nCells = fieldI.getSize();
+    // label nCells = 64;
     par_std_out_("resFile: %s, fieldName: %s, fieldType: %s, dim: %d, num: %d\n", resFile, fieldName, fieldType, ndim, nCells);
 
 	DataType_t dataType;
@@ -322,13 +323,18 @@ void Region::writeField(const char* resFile,
     	if(solLoc==location) S=i;
     }
    	if(nSols==0 || S==-1)
+    {
+        // printf("create new solution info\n");
    		cg_sol_write(iFile, iBase, iZone, solName, location, &S);
+    }
 	// cg_field_write(iFile, iBase, iZone, S, dataType, fieldName, dataPtr, &Fs);
     if(cgp_field_write(iFile, iBase, iZone, S, dataType, fieldName, &Fs))
         Terminate("writeSolutionInfo", cg_get_error());
+    // printf("%d, %d, %d\n", nSols, S, Fs);
 
     label *cellStartId = new label[numProcs+1];
     label num = nCells*ndim;
+
     MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
     cellStartId[0] = 0;
     for (int i = 0; i < numProcs; ++i)
@@ -337,8 +343,25 @@ void Region::writeField(const char* resFile,
     }
     cgsize_t start = cellStartId[rank]+1;
     cgsize_t end = cellStartId[rank+1];
-    // cgsize_t end = start+1;
-    // printf("rank: %d, %d, %d\n", rank, start, end);
+    // cgsize_t start[1];
+    // start[0] = cellStartId[rank]+1;
+    // // for(int k=0;k<1;k++) start[k] = cellStartId[rank]+1;
+    // cgsize_t end[1];
+
+    // int tmp = (int)cellStartId[rank+1];
+    // if(tmp!=64) printf("%d\n", cellStartId[rank+1]);
+    // end[0] = cellStartId[rank+1];
+
+    // char* test = (char*)(&ndim);
+    // for (int i = 0; i < 8; ++i)
+    // {
+    //     printf("%c, ", test[i]);
+    // }
+    // // for(int k=0;k<1;k++) end[k] = 64;
+    // // cgsize_t end = start+1;
+    // end[0] = (cgsize_t)test[0];
+    // end[0] = cellStartId[rank+1];
+    // printf("rank: %d, %ld, %ld\n", rank, start[0], end[0]);
     // for (int i = 0; i < end-start+1; ++i)
     // {
     //     std::cout<<i<<", "<<dataPtr[i]<<std::endl;

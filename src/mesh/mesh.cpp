@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:26:12
+* @last Modified time: 2019-12-12 16:44:34
 */
 #include <cstdio>
 #include <iostream>
@@ -515,6 +515,9 @@ void Mesh::initCGNSFilePar(const char* filePtr)
     if(cg_boco_gridlocation_write(iFile, iBase, iZone, iBC, CellCenter))
     	Terminate("writeBCLocation", cg_get_error());
 
+    if(cgp_close(iFile))
+        Terminate("closeCGNSFile",cg_get_error());
+    
     DELETE_POINTER(faces);
     free(e);
     free(x);

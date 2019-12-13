@@ -62,7 +62,7 @@ program main
 
     real(dpR) :: vol_new(1)
     POINTER(vol_new2, vol_new)
-    integer(dpI):: ndim_new, n_ele_new, ndim
+    integer(dpI):: ndim_new, n_ele_new, n_dim
 
     integer:: nPara, write_interval, str_len
     character(20):: mesh_file, result_file
@@ -115,7 +115,8 @@ program main
         pid(iele) = my_id
     end do
     ! 注册进程号场
-    call add_scalar_field("cell", "pid", pid, 1, n_ele)
+    n_dim = 1
+    call add_scalar_field("cell", "pid", pid, n_dim, n_ele)
 
     ! 获取单元与格点拓扑关系
     allocate(e2n_pos(n_ele+1), stat=err_mem)
@@ -179,8 +180,8 @@ program main
     call calc_faces_area(n_face_i, if2n, if2n_pos, coord, area)
 
     ! 注册vol场
-    ndim = 1
-    call add_scalar_field("cell", "VOL", vol, ndim, n_ele)
+    n_dim = 1
+    call add_scalar_field("cell", "VOL", vol, n_dim, n_ele)
     call get_scalar_field("cell", "VOL", vol_new2, ndim_new, n_ele_new)
 
     ! b=A*x
@@ -194,7 +195,8 @@ program main
     end do
     call calc_spmv(n_face_i, if2e, area, x, b)
     ! 注册b场
-    call add_scalar_field("cell", "b", b, 1, n_ele)
+    n_dim = 1
+    call add_scalar_field("cell", "b", b, n_dim, n_ele)
 
 
     ! 输出网格到CGNS文件中
