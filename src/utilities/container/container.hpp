@@ -111,15 +111,15 @@ public:
   /**
   * @brief operator overload: =
   */
-  ArrayArray<T> operator=(const ArrayArray& arr)
+  ArrayArray<T>& operator=(const ArrayArray& arr)
   {
-    ArrayArray<T> tmp;
-    tmp.num = arr.num;
-    tmp.startIdx = arr.startIdx;
-    tmp.data = arr.data;
-    tmp.refCount = arr.refCount;
-    tmp.refCount->incRefCount();
-    return tmp;
+    // ArrayArray<T> tmp;
+    this->num = arr.num;
+    this->startIdx = arr.startIdx;
+    this->data = arr.data;
+    this->refCount = arr.refCount;
+    this->refCount->incRefCount();
+    return *this;
   };
   /**
   * @brief deconstructor

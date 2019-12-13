@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-09 15:08:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:28:45
+* @last Modified time: 2019-12-13 15:47:48
 */
 #ifndef TOPOLOGY_HPP
 #define TOPOLOGY_HPP
@@ -136,7 +136,7 @@ public:
 	{
 		this->cell2Node_ = cell2Node;
 		this->cellNum_ = cell2Node.size();
-		// printf("%d\n", cell2Node_.num);
+		// printf("%d, %d\n", cell2Node_.num, cell2Node.size());
 	};
 
 	/**

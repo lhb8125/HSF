@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:27:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:28:44
+* @last Modified time: 2019-12-13 15:28:58
 */
 #include <cstdio>
 #include <assert.h>
@@ -45,6 +45,7 @@ void Topology::constructTopology()
 	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
 	ArrayArray<label> cell2Node = this->cell2Node_;
+	// printf("cell2Node_: %d, cellType_: %d\n", cell2Node_.size(), cellType_.size());
 	// if(rank==0)
 	// {
 	// for (int i = 0; i < cell2Node.num; ++i)
@@ -72,6 +73,7 @@ void Topology::constructTopology()
 	for (int i = 0; i < cellNum; ++i)
 	{
 		label faceNumTmp = Section::facesNumForEle(cellType_[i]);
+		// printf("%d, %d, %d\n", rank, i, cellType_[i]);
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
 			Array<label> face2NodeTmp = Section::faceNodesForEle(
@@ -230,7 +232,9 @@ void Topology::constructTopology()
 	for (int i = 0; i < face2NodeInn.size(); ++i)
 	{
 		label cellIdx = face2CellInn[i][0];
+		// printf("2: %d, %d, %d\n", rank, cellIdx, cellType_[cellIdx]);
 		label faceNumTmp = Section::facesNumForEle(cellType_[cellIdx]);
+		// printf("2: %d, %d, %d\n", rank, cellIdx, cellType_[cellIdx]);
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
 			Array<label> face2NodeTmp = Section::faceNodesForEle(

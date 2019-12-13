@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:26:11
+* @last Modified time: 2019-12-13 15:24:22
 */
 #include "mpi.h"
 #include "boundary.hpp"
@@ -128,6 +128,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
 
     ArrayArray<label> cell2Node = innerTopo.getCell2Node();
     Array<label> cellType = innerTopo.getCellType();
+
     label cellStartId = innerTopo.getCellStartId();
 
     ArrayArray<label> face2NodeBnd = getTopology().getCell2Node();
@@ -139,7 +140,9 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     Array<Array<label> > faces2NodesTmp;
     for (int i = 0; i < cellNum; ++i)
     {
+        // printf("before: %d, %d, %d\n", rank, i, cellType[i]);
         label faceNumTmp = Section::facesNumForEle(cellType[i]);
+        // printf("after: %d, %d, %d\n", rank, i, cellType[i]);
         for (int j = 0; j < faceNumTmp; ++j)
         {
             Array<label> face2NodeTmp = Section::faceNodesForEle(

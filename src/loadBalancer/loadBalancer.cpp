@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-23 15:26:27
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 10:58:44
+* @last Modified time: 2019-12-13 16:25:14
 */
 #include <cstdio>
 #include "mpi.h"
@@ -310,7 +310,9 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 		Array<Array<label> > cell2Cell(cellNum);
 		for (int i = 0; i < cellNum; ++i)
 		{
+			// printf("before: %d, %d, %d\n", rank, i, cellType[i]);
 			label faceNumTmp = Section::facesNumForEle(cellType[i]);
+			// printf("after: %d, %d, %d\n", rank, i, cellType[i]);
 			for (int j = 0; j < faceNumTmp; ++j)
 			{
 				Array<label> face2NodeTmp = Section::faceNodesForEle(
