@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-23 15:26:27
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-13 16:25:14
+* @last Modified time: 2019-12-16 08:49:25
 */
 #include <cstdio>
 #include "mpi.h"
@@ -548,7 +548,8 @@ par_std_out_("boundary faces num: %d\n", bndFaces);
 		for (int j = 0; j < nparts; ++j)
 		{
 			// tpwgts[j] = procLoad_.data[j+procId_.startIdx[regIdx]];
-			tpwgts[j] = (real_t)1/nparts;
+			tpwgts[j] = (real_t)1/(real_t)nparts;
+			// tpwgts[j] = 1.0/3.0;
 		}
 		real_t  ubvec = 1.05;
 		label  options[3] = {0, 0, 0};

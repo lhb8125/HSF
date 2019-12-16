@@ -296,6 +296,7 @@ void get_scalar_para_(float* retVal, int* nPara, ...)
 void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
 {
   char* strList[*nPara];
+  // printf("%s\n", retVal);
 
   va_list args;
   va_start(args, nPara);
