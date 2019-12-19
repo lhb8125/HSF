@@ -72,16 +72,17 @@ program main
 
     ! 初始化
     call init_utility_fort()
-    call init(config_file, len_trim(config_file))
+    call init(trim(config_file))
 
     ! 获取控制参数
-    nPara = 4
+    nPara = 5
 
     call get_string_para(mesh_file, str_len, nPara, &
         & "domain1"//C_NULL_CHAR, &
         & "region"//C_NULL_CHAR, &
         & "0"//C_NULL_CHAR, &
-        & "path"//C_NULL_CHAR)
+        & "path"//C_NULL_CHAR, &
+        & "1"//C_NULL_CHAR)
     ! mesh_file = str_arr(5)
     ! call par_std_out("mesh file: %s \n", mesh_file)
     write(iobuf,*),"mesh file: ", mesh_file(1:str_len)
@@ -94,10 +95,10 @@ program main
     call flush2master()
     call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
     write(*,*),"delta_t: ", delta_t
-    ! call master_std_out("delta t: %f \n", delta_t)
+    call master_std_out("delta t: %f \n", delta_t)
 
 
-    ! 获取基本单元数目
+    ! ! 获取基本单元数目
     call get_elements_num(n_ele)
     call get_inner_faces_num(n_face_i)
     call get_bnd_faces_num(n_face_b)
@@ -208,6 +209,7 @@ program main
     ! 输出进程号场到CGNS文件中
     call write_scalar_field("pid", "cell")
 
+    ! call clear()
     ! f_ptr => test_f
     ! ndim = f_ptr()
 

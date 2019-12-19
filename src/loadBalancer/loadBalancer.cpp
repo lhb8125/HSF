@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-23 15:26:27
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-16 08:49:25
+* @last Modified time: 2019-12-17 15:20:20
 */
 #include <cstdio>
 #include "mpi.h"
@@ -248,6 +248,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 	for (int iReg = 0; iReg < regNum; ++iReg)
 	{
 		Array<Section> secs = regs[iReg].getMesh().getSections();
+		Nodes& nodes = regs[iReg].getMesh().getNodes();
 		label secNum = secs.size();
 		// if this region is private for the process
 		// then it need not to be partitioned
@@ -382,6 +383,16 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 						isEqual = false;
 						break;
 					}
+					// const scalar* i_xyz   = nodes.getXYZ(faces2NodesTmp[i][j]-1-16*rank);
+					// const scalar* end_xyz = nodes.getXYZ(faces2NodesTmp[end][j]-1-16*rank);
+					// for (int k = 0; k < SOL_DIM; ++k)
+					// {
+					// 	if(i_xyz[k]!=end_xyz[k])
+					// 	{
+					// 		isEqual = false;
+					// 		break;
+					// 	}
+					// }
 				}
 				if(isEqual)
 				{

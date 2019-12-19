@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:22:31
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-12 15:34:30
+* @last Modified time: 2019-12-16 17:21:39
 */
 #ifndef PARAMETER_HPP 
 #define PARAMETER_HPP
@@ -121,8 +121,9 @@ class Parameter {
 	/**
 	* @brief default constructor
 	*/
-	Parameter(const char* paraFile, const int length) {
-		strncpy(paraFile_, paraFile, length);
+	Parameter(const char* paraFile) {
+		// strncpy(paraFile_, paraFile, length);
+		strcpy(paraFile_, paraFile);
 	};
 	Parameter() {};
 	/**
@@ -133,9 +134,11 @@ class Parameter {
 	* @brief set the parameter file
 	*/
 
-	void setParaFile(const char* paraFile, const int length) {
-		strncpy(paraFile_, paraFile, length);
-		paraFile_[length]='\0';
+	void setParaFile(const char* paraFile) {
+		// strncpy(paraFile_, paraFile, length);
+		strcpy(paraFile_, paraFile);
+		// printf("%s, %s, %d, %d\n", paraFile_, paraFile, strlen(paraFile), length);
+		// paraFile_[strlen(paraFile)]='\0';
 	}
 	// /**
 	// * @brief read parameter through yaml-cpp
@@ -156,6 +159,17 @@ class Parameter {
 	template<typename T>
 	void getPara(void* resVal, char** strList, const int strLen);
 
+	/**
+	* @brief get the parameter in config file
+	* @param[in] nPara the count of parameters
+	* @param[out] resVal return value
+	* @param[in] ... other parameter
+	* @tparam T char, int, float
+	*/
+	// void getPara(const int* nPara, void* resVal, const char* type, ...);
+	template<typename T>
+	void getPara(Array<T*>& resVal, int nPara, ...);
+
 	// void printPara();
 
 	// paraDomain& getDomain(char* name);
@@ -165,7 +179,13 @@ template<typename T>
 void Parameter::getPara(void* resVal, char** strList, const int strLen)
 {
 	Word configFile = paraFile_;
-	YAML::Node config = YAML::LoadFile(configFile);	
+	YAML::Node config = YAML::LoadFile(configFile);
+	if(!config) 
+	{
+		resVal = NULL;
+		printf("YAML file: %s\n", paraFile_);
+		Terminate("loadYAMLFile", "please check the parameter string");
+	}
 
 	// printf("%d\n", len);
 	for (int i = 0; i < strLen; ++i)
@@ -203,6 +223,12 @@ void Parameter::getPara(void* resVal, int nPara, ...)
 {
 	Word configFile = paraFile_;
 	YAML::Node config = YAML::LoadFile(configFile);
+	if(!config) 
+	{
+		resVal = NULL;
+		printf("YAML file: %s\n", paraFile_);
+		Terminate("loadYAMLFile", "please check the parameter string");
+	}
 	va_list args;
 	va_start(args, nPara);
 	// printf("parameter num: %d, return type: %s\n", *nPara, type);
@@ -219,6 +245,7 @@ void Parameter::getPara(void* resVal, int nPara, ...)
 			resVal = NULL;
 			Terminate("getPara", "please check the parameter string");
 		}
+		// printf("%d\n", config.size());
 		// paras.push_back(Word(para));
 	}
 
@@ -244,6 +271,61 @@ void Parameter::getPara(void* resVal, int nPara, ...)
 	}	
 }
 
+
+template<typename T>
+void Parameter::getPara(Array<T*>& resVal, int nPara, ...)
+{
+	Word configFile = paraFile_;
+	YAML::Node config = YAML::LoadFile(configFile);
+	if(!config) 
+	{
+		printf("YAML file: %s\n", paraFile_);
+		Terminate("loadYAMLFile", "please check the parameter string");
+	}
+	va_list args;
+	va_start(args, nPara);
+	// printf("parameter num: %d, return type: %s\n", *nPara, type);
+
+	char* para;
+	for (int i = 0; i < nPara; ++i)
+	{
+		// printf("%s, \n", va_arg(args, char*));
+		para = va_arg(args, char*);
+		// printf("%s\n", para);
+		config = config[para];
+		if(!config) 
+		{
+			Terminate("getPara", "please check the parameter string");
+		}
+		// printf("%d\n", config.size());
+		// paras.push_back(Word(para));
+	}
+
+	va_end(args);
+
+	int nRes = config.size();
+	for (int i = 0; i < nRes; ++i)
+	{
+		Word res = config[i].as<Word>();
+		// std::cout<<config.as<Word>()<<std::endl;
+		if(typeid(T)==typeid(int))
+		{
+			int* tmp = (int*)resVal[i];
+			tmp[0] = std::stoi(res);
+		}else if(typeid(T)==typeid(char))
+		{
+			char* tmp = (char*)resVal[i];
+			strcpy(tmp, res.c_str());
+		}else if(typeid(T)==typeid(float))
+		{
+			float* tmp = (float*)resVal[i];
+			tmp[0] = std::stof(res);
+		}else 
+		{
+			Terminate("reading parameters", "the type must be the basic type");
+		}			
+	}	
+}
 // void Parameter::readPara(const char* paraFile) {
 // 	strcpy(paraFile_, paraFile);
 // }

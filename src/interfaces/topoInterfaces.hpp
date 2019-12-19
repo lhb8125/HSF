@@ -4,7 +4,7 @@
 * @brief: fortran function interfaces
 * @date:   2019-11-11 10:56:28
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:29:57
+* @last Modified time: 2019-12-18 08:31:53
 */
 #ifndef TOPOINTERFACES_HPP
 #define TOPOINTERFACES_HPP
@@ -22,9 +22,10 @@ extern "C"
 /**
 * @brief 初始化程序，包括参数、网格读入，负载均衡，拓扑与通信对创建等
 * @param[in]  configFile 参数文件
-* @param[in]  length 参数文件名有效字符串长度
 */
-void init_(char* configFile, int* length);
+void init_(char* configFile);
+
+void clear_();
 
 /**
 * @brief 获取网格单元数目

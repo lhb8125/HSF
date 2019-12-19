@@ -94,6 +94,7 @@ public:
     refCount = new RefCounted();
     startIdx = NULL;
     data = NULL;
+    num = 0;
     // par_std_out_("constructor: %d\n", refCount->GetRefCount());
   };
   /**

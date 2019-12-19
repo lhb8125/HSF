@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-09 15:08:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:30:02
+* @last Modified time: 2019-12-18 09:49:00
 */
 #ifndef NODES_HPP
 #define NODES_HPP
@@ -74,6 +74,10 @@ public:
 	* @brief copy function
 	*/
 	void copy(Nodes* nodes);
+	/**
+	* @brief add function
+	*/
+	void add(Nodes* nodes);
 
 	/**
 	* @brief get X coordinates
@@ -96,28 +100,34 @@ public:
 	const ArrayArray<scalar>& getXYZ();
 
 	/**
+	* @brief get XYZ coordinates with index
+	* @param[in] idx node index
+	*/
+	const scalar* getXYZ(label idx);
+
+	/**
 	* @brief get the global start index of nodes
 	* @return global start index of nodes
 	*/
-	label getStart();
+	// label getStart();
 
 	/**
 	* @brief get the global end index of nodes
 	* @return global end index of nodes
 	*/
-	label getEnd();
+	// label getEnd();
 
 	/**
 	* @brief set the global start index of nodes
 	* @param[in] start global start index of nodes
 	*/
-	void setStart(const label start);
+	// void setStart(const label start);
 
 	/**
 	* @brief set the global end index of nodes
 	* @param[in] end global end index of nodes
 	*/
-	void setEnd(const label end);
+	// void setEnd(const label end);
 };
 
 } // end namespace HSF

@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-13 15:48:17
+* @last Modified time: 2019-12-18 08:40:35
 */
 #include <algorithm>
 #include "region.hpp"
@@ -30,10 +30,11 @@ bool compare(pair<label, pair<label, label> > a, pair<label, pair<label, label> 
 }
 
 
-void Region::initBeforeBalance(char* meshFile)
+void Region::initBeforeBalance(Array<char*> meshFile)
 {
-	strncpy(meshFile_, meshFile, sizeof(meshFile_));
+	// strncpy(meshFile_, meshFile, sizeof(meshFile_));
 	// this->meshFile_[sizeof(meshFile)-1]='/0';
+    meshFile_.assign(meshFile.begin(), meshFile.end());
 	par_std_out_("start reading mesh ...\n");
 	this->getMesh().readMesh(meshFile);
 	par_std_out_("finish reading mesh ...\n");
@@ -44,6 +45,7 @@ void Region::initAfterBalance()
 {
 	par_std_out_("start constructing topology ...\n");
 	this->getMesh().fetchNodes(this->meshFile_);
+    // this->getMesh().fetchNodes(this->meshFile_[1]);
 	this->getMesh().getTopology().constructTopology();
 	par_std_out_("finish constructing topology ...\n");
 	MPI_Barrier(MPI_COMM_WORLD);

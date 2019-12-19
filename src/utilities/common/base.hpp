@@ -78,6 +78,8 @@ typedef short int label16;
 #define EXIT exit(0)
 #define ERROR_EXIT exit(1)
 
+#define SOL_DIM 3
+
 }
 
 #endif //- Base_hpp

@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-24 09:25:44
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-03 10:31:18
+* @last Modified time: 2019-12-18 07:54:11
 */
 #ifndef MESH_HPP
 #define MESH_HPP
@@ -28,8 +28,16 @@ private:
 	Topology topo_; ///< topology
 	
 	Nodes nodes_; ///< Coordinates of Nodes
+
+	Array<label> nodeStartIdx_; ///< start index of nodes reading from CGNS file
+
+	Array<label> nodeEndIdx_; ///< end index of nodes reading from CGNS file
+
+	Array<label> nodeNumLocal_; ///< end index of nodes reading from CGNS file
+
+	Array<label> nodeNumGlobal_; ///< end index of nodes reading from CGNS file
 	
-	Nodes ownNodes_; ///< Coordinates of nodes owned by this process
+	Nodes *ownNodes_; ///< Coordinates of nodes owned by this process
 	
 	Table<label, label> coordMap_; ///< map between the absolute index and the local index
 	
@@ -37,9 +45,9 @@ private:
 
 	label meshType_; ///< the type of mesh: boundary or inner mesh
 	
-	label nodeNum_; /// count of nodes
+	// label nodeNum_; ///< count of nodes
 	
-	label eleNum_; /// count of elements
+	label eleNum_; ///< count of elements
 	/**
 	* @brief read mesh file with CGNS format
 	*/
@@ -47,7 +55,7 @@ private:
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/
-	void readCGNSFilePar(const char* filePtr);
+	void readCGNSFilePar(const char* filePtr, int fileIdx);
 	/**
 	* @brief write mesh file with CGNS format, parallel version
 	*/
@@ -63,6 +71,7 @@ public:
 	Mesh()
 	{
 		this->meshType_ = Inner;
+		this->eleNum_ = 0;
 	};
 	/**
 	* @brief deconstructor
@@ -71,9 +80,14 @@ public:
 	/**
 	* @brief read mesh and construct topology
 	*/
-	void readMesh(const char* filePtr)
+	void readMesh(const Array<char*> filePtr)
 	{
-		readCGNSFilePar(filePtr);
+		// readCGNSFilePar(filePtr[0], 0);
+		// readCGNSFilePar(filePtr[1], 1);
+		for (int i = 0; i < filePtr.size(); ++i)
+		{
+			readCGNSFilePar(filePtr[i], i);
+		}
 		topo_.constructTopology(this->secs_);
 	};
 	/**
@@ -107,7 +121,7 @@ public:
 	/**
 	* @brief get coordinates of nodes owned by this process
 	*/
-	Nodes& getOwnNodes() {return this->ownNodes_;};
+	Nodes& getOwnNodes() {return *this->ownNodes_;};
 
 	/**
 	* @brief get the collections of section in CGNS file
@@ -136,7 +150,7 @@ public:
 	/**
 	* @brief fetch the coordinates of nodes owned by this process
 	*/
-	void fetchNodes(char* filePtr);
+	void fetchNodes(Array<char*> fileArr);
 
 	/**
 	* @brief get the map between the absolute index and the local index

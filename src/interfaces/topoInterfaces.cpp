@@ -4,7 +4,7 @@
 * @brief: fortran function interfaces
 * @date:   2019-11-11 10:56:28
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-12 15:34:54
+* @last Modified time: 2019-12-18 08:32:07
 */
 #include <iostream>
 #include <fstream>
@@ -27,12 +27,12 @@ using namespace HSF;
 */
 /*****************************************************************************/
 
-void init_(char* configFile, int* length)
+void init_(char* configFile)
 {
 	LoadBalancer *lb = new LoadBalancer();
 	// std::cout<<"start initializing ......"<<std::endl;
 
-	para.setParaFile(configFile, *length);
+	para.setParaFile(configFile);
 
 	// printf("%s\n", configFile);
 
@@ -42,9 +42,12 @@ void init_(char* configFile, int* length)
 	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
 
 	int nPara = 4;
-	char meshFile[100];
+	// char meshFile[100];
+	Array<char*> mesh_file(2);
+	mesh_file[0] = new char[100];
+	mesh_file[1] = new char[100];
 	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
-	para.getPara<char>(meshFile, nPara, "domain1", "region", "0", "path");
+	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
 	char resultFile[100];
 	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
 
@@ -52,7 +55,7 @@ void init_(char* configFile, int* length)
 	Region reg;
 	// regs.resize(1);
 	regs.push_back(reg);
-	REGION.initBeforeBalance(meshFile);
+	REGION.initBeforeBalance(mesh_file);
 
 	/// load balance in region
 	lb->LoadBalancer_3(regs);
@@ -60,7 +63,11 @@ void init_(char* configFile, int* length)
 	/// initialization after load balance
 	REGION.initAfterBalance();
 
-	// DELETE_POINTER(lb);
+}
+
+void clear_()
+{
+	regs.clear();
 }
 
 void get_elements_num_(label* eleNum)

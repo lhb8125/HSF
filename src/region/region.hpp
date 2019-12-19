@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-13 03:09:07
+* @last Modified time: 2019-12-16 17:18:19
 */
 #ifndef REGION_HPP
 #define REGION_HPP
@@ -28,7 +28,7 @@ namespace HSF
 class Region
 {
 private:
-	char meshFile_[200]; ///< mesh file name
+	Array<char*> meshFile_; ///< mesh file name
 
 	Mesh mesh_; ///< internal mesh
 
@@ -73,7 +73,7 @@ public:
     /**
     * @brief initialization before load balance
     */
-	void initBeforeBalance(char* meshFile);
+	void initBeforeBalance(Array<char*> meshFile);
 
     /**
     * @brief initialization after load balance

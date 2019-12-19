@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-09 11:04:42
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-26 17:23:58
+* @last Modified time: 2019-12-18 08:42:29
 */
 #include <iostream>
 #include <fstream>
@@ -39,78 +39,46 @@ int main(int argc, char** argv)
 	LoadBalancer *lb = new LoadBalancer();
 	OUT<<"hello world!"<<ENDL;
 
-	Parameter para;
+	Parameter para("./config.yaml");
 
 	/// initialize MPI environment
 	printf("initialize MPI environment ......\n");
-	int numproces, rank;
-	MPI_Init(&argc, &argv);
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &numproces);
-	printf("This is process %d, %d processes are launched\n", rank, numproces);
+	// int numproces, rank;
+	// MPI_Init(&argc, &argv);
+	// MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
+	// printf("This is process %d, %d processes are launched\n", rank, numproces);
+	init_utility_();
 
-	// if(rank==0) std::cout<<"Solver: "<<para.getDomain("dom").getEquation("P").getSolver()<<std::endl;
-	// if(rank==0) std::cout<<"Path: "<<para.getDomain("dom").getRegion("region2").getPath()<<std::endl;
-	/// construct mesh block topology
-	// Array<Scalar> s;
-	// ArrayArray<Label> nei;
-	// // Label procNum = 4;
-	// loadRegionTopologyFromYAML("regionTopo.yaml",s, nei, numproces);
-
-	// LoadBalancer *lb = new LoadBalancer(s, nei, procNum);
-
-	// lb->LoadBalancer_2(s, nei, procNum);
-
-	/// evaluate the result of load balancer
-	// ArrayArray<Label> procId = lb->getProcId();
-	// OUT<<"Item: region (processes ID)"<<ENDL;
-	// procId.display();
-	// ArrayArray<Scalar> procLoad = lb->getProcLoad();
-	// OUT<<"Item: region (measurement)"<<ENDL;
-	// procLoad.display();
-	// Scalar* procLoadSum = lb->getProcLoadSum();
-	// OUT<<"Item: process (measurement)"<<ENDL;
-	// for (int i = 0; i < procNum; ++i)
-	// {
-	// 	OUT<<"Item: "<<i<<" ("<<procLoadSum[i]<<")"<<ENDL;
-	// }
-	char* meshFile = "/home/export/online1/amd_dev1/liuhb/unstructured_frame/data/hexa_20.cgns";
-	char* resultFile = "/home/export/online1/amd_dev1/liuhb/unstructured_frame/data/hexa_result.cgns";
-
+	int nPara = 4;
+	// char meshFile[100];
+	Array<char*> mesh_file(2);
+	mesh_file[0] = new char[100];
+	mesh_file[1] = new char[100];
+	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
+	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
+	printf("reading CGNS file: %s, %s\n", mesh_file[0], mesh_file[1]);
+	char resultFile[100];
+	nPara = 4;
+	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
+	printf("writing CGNS file: %s\n", resultFile);
 	/// read CGNS file
-	Array<Region> regs(1);
-	regs[0].initBeforeBalance(meshFile);
+	Array<Region> regs;
+	Region reg;
+	regs.push_back(reg);
 
-	// /// only one region for test.
-	// Region reg;
-	// // reg.getMesh().readMesh("data/40W.cgns");
-	// // printf("writing HDF5 cgns file: ......\n");
-	// // reg.getMesh().writeMesh("data/hdf5.cgns");
-	// printf("reading HDF5 cgns file: ......\n");
-	// // reg.getMesh().initMesh("data/hdf5.cgns");
-	// // MPI_Barrier(MPI_COMM_WORLD);
-	// // reg.getMesh().readMesh("data/hdf5.cgns");
-	// reg.getMesh().readMesh("/home/export/online1/amd_dev1/liuhb/unstructured_frame/data/hdf5.cgns");
-	// MPI_Barrier(MPI_COMM_WORLD);
-	// // MPI_Barrier(MPI_COMM_WORLD);
-
-	// regs.push_back(reg);
+	regs[0].initBeforeBalance(mesh_file);
 
 	/// load balance in region
 	lb->LoadBalancer_3(regs);
 
 	regs[0].initAfterBalance();
-	// regs[0].getMesh().getTopology().constructTopology();
-	// MPI_Barrier(MPI_COMM_WORLD);
 
-	// regs[0].getBoundary().readMesh("/home/export/online1/amd_dev1/liuhb/unstructured_frame/data/hdf5.cgns");
-	// Topology innerTopo = regs[0].getMesh().getTopology();
-	// regs[0].getBoundary().exchangeBoundaryElements(innerTopo);
-
-	// regs[0].getMesh().writeMesh(meshFile, parts);
 	regs[0].writeMesh(resultFile);
 
-	MPI_Finalize();
+	// regs[0].getMesh().initMesh(resultFile);
+
+	// MPI_Finalize();
 	return 0;
 }
 

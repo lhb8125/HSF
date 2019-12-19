@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-12 16:44:34
+* @last Modified time: 2019-12-18 08:40:00
 */
 #include <cstdio>
 #include <iostream>
@@ -21,7 +21,7 @@
 namespace HSF
 {
 
-void Mesh::readCGNSFilePar(const char* filePtr)
+void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 {
 	int rank, numProcs;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -59,17 +59,17 @@ void Mesh::readCGNSFilePar(const char* filePtr)
 		zoneType != Unstructured)
 		Terminate("readZoneInfo", cg_get_error());
 	par_std_out_("nZones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", nZones, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
-	this->nodeNum_ = sizes[0];
-	this->eleNum_  = sizes[1];
+	// this->nodeNum_ = sizes[0];
+	this->eleNum_  += sizes[1];
 
 	int nCoords;
 	if(cg_ncoords(iFile, iBase, iZone, &nCoords) ||
 		nCoords != 3)
 		Terminate("readNCoords", cg_get_error());
-    int nnodes = (nodeNum_ + numProcs - 1) / numProcs;
+    int nnodes = (sizes[0] + numProcs - 1) / numProcs;
     cgsize_t start  = nnodes * rank + 1;
     cgsize_t end    = nnodes * (rank + 1);
-    if (end > nodeNum_) end = nodeNum_;
+    if (end > sizes[0]) end = sizes[0];
     nnodes = end - start + 1;
     Array<scalar*> coords;
     par_std_out_("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
@@ -98,18 +98,29 @@ void Mesh::readCGNSFilePar(const char* filePtr)
     // par_std_out_("%d\n", sizeof(dataType));
 
     // Nodes *node = new Nodes(x, y, z, nnodes);
+    label nodeStartId;
+    if(fileIdx==0)  nodeStartId = 0;
+    else  nodeStartId = this->nodeNumGlobal_[fileIdx-1];
     Nodes node(x, y, z, nnodes);
-	this->nodes_.copy(&node);
-	this->nodes_.setStart(start);
-	this->nodes_.setEnd(end);
+	this->nodes_.add(&node);
+    // this->nodes_.setStart(start);
+    // this->nodes_.setEnd(end);
+    this->nodeStartIdx_.push_back(start);
+    this->nodeEndIdx_.push_back(end);
+    this->nodeNumLocal_.push_back(end-start+1);
+    this->nodeNumGlobal_.push_back(sizes[0]);
+	// node.setStart(start);
+	// node.setEnd(end);
+    // this->nodes.push_back(node);
     // int i,j,k,n,nn,ne;
     // nn = 0;
     // if(rank==0){
     // for (int i = 0; i < nnodes; ++i)
     // {
-    //     par_std_out_("x: %lf, ", x[i]);
-    //     par_std_out_("y: %lf, ", y[i]);
-    //     par_std_out_("z: %lf\n", z[i]);
+    //     par_std_out_("%d, x: %f, ", i, x[i]);
+    //     par_std_out_("y: %f, ", y[i]);
+    //     par_std_out_("z: %f\n", z[i]);
+    // }
     	
     // }
 	int nSecs;
@@ -157,16 +168,19 @@ void Mesh::readCGNSFilePar(const char* filePtr)
         {
             par_std_out_("This is 64 precision\n");
             sec.conn   = (label*)elements;
+            for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
+            {
+                sec.conn[i] += nodeStartId;
+                // printf("%d, %d, %d\n", fileIdx, i, sec.conn[i]);
+            }
         } else if(precision==32)
         {
             int *eles32 = (int*)&elements[0];
             label* eles64 = new label[nEles*Section::nodesNumForEle(type)];
-            for (int i = 0; i < nEles; ++i)
+            for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
     	    {
-                for (int j = 0; j < Section::nodesNumForEle(type); ++j)
-                {
-                    eles64[i*Section::nodesNumForEle(type)+j] = (label)eles32[i*Section::nodesNumForEle(type)+j];
-                }
+                eles64[i] = (label)eles32[i] + nodeStartId;
+                // eles64[i] = (label)eles32[i];
         	}
             sec.conn = eles64;
             eles32 = NULL;
@@ -192,8 +206,13 @@ void Mesh::readCGNSFilePar(const char* filePtr)
 
 void Mesh::writeCGNSFilePar(const char* filePtr)
 {
+    int idx = 0;
 	int nodesPerSide = 5;
-	int nodeNum = this->nodeNum_;
+	int nodeNum = 0;
+    for (int i = 0; i < this->nodeNumGlobal_.size(); ++i)
+    {
+        nodeNum += this->nodeNumGlobal_[i];
+    }
 	int eleNum  = this->eleNum_;
 
 	int rank, numProcs;
@@ -234,8 +253,8 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
 
     /* number of nodes and range this process will write */
     int nnodes = this->nodes_.size();
-    cgsize_t start  = this->nodes_.getStart();
-    cgsize_t end    = this->nodes_.getEnd();
+    // cgsize_t start  = this->nodes_.getStart();
+    // cgsize_t end  = this->nodes_.getEnd();
     /* create the coordinate data for this process */
     scalar* x = new scalar[nnodes];
     scalar* y = new scalar[nnodes];
@@ -245,21 +264,49 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     	x[i] = this->nodes_.getX()[i];
     	y[i] = this->nodes_.getY()[i];
     	z[i] = this->nodes_.getZ()[i];
-    	// par_std_out_("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
+    	par_std_out_("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
     }
 
+    // printf("%d, %d, %d\n", start, end, this->nodes_.ize());
+
     // /* write the coordinate data in parallel */
-    if (cgp_coord_write_data(iFile, iBase, iZone, Cx, &start, &end, x) ||
-        cgp_coord_write_data(iFile, iBase, iZone, Cy, &start, &end, y) ||
-        cgp_coord_write_data(iFile, iBase, iZone, Cz, &start, &end, z))
-        Terminate("writeCoords", cg_get_error());
-	MPI_Barrier(MPI_COMM_WORLD);
+    int coordIdx = 0;
+    for (int i = 0; i < this->nodeStartIdx_.size(); ++i)
+    {
+        cgsize_t start  = this->nodeStartIdx_[i];
+        cgsize_t end    = this->nodeEndIdx_[i];
+        if(i>0) 
+        {
+            start += this->nodeNumGlobal_[i-1];
+            end   += this->nodeNumGlobal_[i-1];
+        }
+        scalar* tmpX = &x[coordIdx];
+        scalar* tmpY = &y[coordIdx];
+        scalar* tmpZ = &z[coordIdx];
+        // printf("file: %d, from %d to %d, startIdx: %d\n", i, start, end, coordIdx);
+        // for (int j= 0; j < end-start+1; ++j)
+        // {
+        //     printf("%f, %f, %f\n", tmpX[j], tmpY[j], tmpZ[j]);
+        // }
+        if (cgp_coord_write_data(iFile, iBase, iZone, Cx, &start, &end, tmpX) ||
+            cgp_coord_write_data(iFile, iBase, iZone, Cy, &start, &end, tmpY) ||
+            cgp_coord_write_data(iFile, iBase, iZone, Cz, &start, &end, tmpZ))
+            Terminate("writeCoords", cg_get_error());
+        coordIdx += end-start+1;
+        MPI_Barrier(MPI_COMM_WORLD);
+    }
+ //    if (cgp_coord_write_data(iFile, iBase, iZone, Cx, &start, &end, x) ||
+ //        cgp_coord_write_data(iFile, iBase, iZone, Cy, &start, &end, y) ||
+ //        cgp_coord_write_data(iFile, iBase, iZone, Cz, &start, &end, z))
+ //        Terminate("writeCoords", cg_get_error());
+	// MPI_Barrier(MPI_COMM_WORLD);
 
 
     /// write connectivity
     ArrayArray<label> conn = this->getTopology().getCell2Node();
     Array<label> cellType = this->getTopology().getCellType();
     label *cellStartId = new label[numProcs+1];
+    // printf("cell num: %d\n", conn.num);
     MPI_Allgather(&conn.num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
     cellStartId[0] = 0;
     // if(rank==1)
@@ -283,6 +330,7 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
         Terminate("writeSecInfo", cg_get_error());
     // par_std_out_("%d, %d\n", start, end);
     cgsize_t *data = (cgsize_t*)conn.data;
+    // conn.display();
     if(cgp_elements_write_data(iFile, iBase, iZone, iSec, cellStartId[rank]+1,
         cellStartId[rank+1], data))
         Terminate("writeSecConn", cg_get_error());
@@ -663,42 +711,81 @@ char* Mesh::typeToWord(ElementType_t eleType)
     }
 }
 
-void Mesh::fetchNodes(char* filePtr)
+void Mesh::fetchNodes(Array<char*> fileArr)
 {
     int rank, nprocs;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
-    int iFile;
+    int* iFile = new int[fileArr.size()];
     int iBase=1,iZone=1;
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
-    if(cgp_open(filePtr, CG_MODE_MODIFY, &iFile))
-        Terminate("readBaseInfo", cg_get_error());
+    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
+    {
+        if(cgp_open(fileArr[fileIdx], CG_MODE_MODIFY, &iFile[fileIdx]))
+            Terminate("readBaseInfo", cg_get_error());
+    }
+
 
     Array<Array<label> > cell2NodeArr;
     transformArray(this->getTopology().getCell2Node(), cell2NodeArr);
 
-    label nodeNum = this->nodes_.size();
-    label *nodeStartId = new label[nprocs+1];
-    MPI_Allgather(&nodeNum, 1, MPI_LABEL, &nodeStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
-    nodeStartId[0] = 0;
-    for (int i = 1; i <= nprocs; ++i)
+    // char zoneName[20];
+    // int nZones;
+    // cgsize_t sizes[3];
+    // ZoneType_t zoneType;
+    // if(cg_nzones(iFile, iBase, &nZones) ||
+    //     cg_zone_read(iFile, iBase, iZone, zoneName, sizes) ||
+    //     cg_zone_type(iFile, iBase, iZone, &zoneType) ||
+    //     zoneType != Unstructured)
+    //     Terminate("readZoneInfo", cg_get_error());
+    // par_std_out_("nZones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", nZones, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
+
+    // int nCoords;
+    // if(cg_ncoords(iFile, iBase, iZone, &nCoords) ||
+    //     nCoords != 3)
+    //     Terminate("readNCoords", cg_get_error());
+    // int nnodes = (sizes[0] + nprocs - 1) / nprocs;
+    // cgsize_t start  = nnodes * rank + 1;
+    // cgsize_t end    = nnodes * (rank + 1);
+    // if (end > sizes[0]) end = sizes[0];
+    // nnodes = end - start + 1;
+
+    label* nodeStartId = new label[nprocs*fileArr.size()+1];
+    label tmpIdx = 1;
+    // 收集各进程node数量，并按照文件编号和进程编号顺序放置
+    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
     {
+        label nodeNum = this->nodeNumLocal_[fileIdx];
+        MPI_Allgather(&nodeNum, 1, MPI_LABEL, &nodeStartId[tmpIdx], 1, MPI_LABEL, MPI_COMM_WORLD);
+        tmpIdx += nprocs;
+    }
+    // 递增方式对node数量进行编号
+    nodeStartId[0] = 0;
+    label maxNodeNum = 0;
+    for (int i = 1; i <= nprocs+fileArr.size(); ++i)
+    {
+        maxNodeNum = maxNodeNum > nodeStartId[i] ? maxNodeNum : nodeStartId[i];
         nodeStartId[i] += nodeStartId[i-1];
     }
 
-    int nBlocks = nprocs;
+    int nBlocks = nprocs*fileArr.size();
     // 找出本进程所需node局部编号
     Array<Array<label> > nodeINeed(nBlocks);
     for (int i = 0; i < cell2NodeArr.size(); ++i)
     {
+        // printf("cell: %d\n", i);
         for (int j = 0; j < cell2NodeArr[i].size(); ++j)
         {
             for (int k = 0; k < nBlocks; ++k)
             {
+                // 如果网格单元的格点落在该分段内，则记录该格点编号在该分段内的相对位置
                 if(cell2NodeArr[i][j]<=nodeStartId[k+1] && cell2NodeArr[i][j]>nodeStartId[k])
+                {
                     nodeINeed[k].push_back(cell2NodeArr[i][j]-nodeStartId[k]-1);
+                    // printf("%d, %d, %d\n", i, k, cell2NodeArr[i][j]-nodeStartId[k]-1);
+                }
             }
         }
     }
@@ -710,33 +797,39 @@ void Mesh::fetchNodes(char* filePtr)
         nodeINeed[i].erase(unique(nodeINeed[i].begin(), nodeINeed[i].end()), nodeINeed[i].end());
     }
 
-    scalar *x = new scalar[nodeStartId[1]-nodeStartId[0]];
-    scalar *y = new scalar[nodeStartId[1]-nodeStartId[0]];
-    scalar *z = new scalar[nodeStartId[1]-nodeStartId[0]];
+    scalar *x = new scalar[maxNodeNum];
+    scalar *y = new scalar[maxNodeNum];
+    scalar *z = new scalar[maxNodeNum];
     Array<Array<scalar> > xarr(nBlocks), yarr(nBlocks), zarr(nBlocks);
     label idxStart[nBlocks];
     label id = 0;
-    for (int i = 0; i < nBlocks; ++i)
+    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
     {
-        // label idx = (rank+i)%nBlocks;
-        // printf("%d, %d, %d\n", rank, idx, i);
-        cgsize_t start = nodeStartId[i]+1;
-        cgsize_t end = nodeStartId[i+1];
-        if(cgp_coord_read_data(iFile, iBase, iZone, 1, &start, &end, x) ||
-            cgp_coord_read_data(iFile, iBase, iZone, 2, &start, &end, y) ||
-            cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
-            Terminate("readCoords", cg_get_error());
-        for (int j = 0; j < nodeINeed[i].size(); ++j)
+        for (int irank = 0; irank < nprocs; ++irank)
         {
-            coordMap_.insert(pair<label, label>(nodeINeed[i][j]+nodeStartId[i], id));
-            xarr[i].push_back(x[nodeINeed[i][j]]);
-            yarr[i].push_back(y[nodeINeed[i][j]]);
-            zarr[i].push_back(z[nodeINeed[i][j]]);
-            id++;
+            int iblock = fileIdx*nprocs+irank;
+            cgsize_t start = this->nodeStartIdx_[fileIdx];
+            cgsize_t end = this->nodeEndIdx_[fileIdx];
+            if(cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 1, &start, &end, x) ||
+                cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 2, &start, &end, y) ||
+                cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 3, &start, &end, z))
+                Terminate("readCoords", cg_get_error());
+            for (int j = 0; j < nodeINeed[iblock].size(); ++j)
+            {
+                // node的原始绝对编号与本地编号的映射
+                coordMap_.insert(pair<label, label>(nodeINeed[iblock][j]+nodeStartId[iblock], id));
+                xarr[iblock].push_back(x[nodeINeed[iblock][j]]);
+                yarr[iblock].push_back(y[nodeINeed[iblock][j]]);
+                zarr[iblock].push_back(z[nodeINeed[iblock][j]]);
+                id++;
+            }
+            // printf("%d, %d\n", fileIdx, id);
+            // idxStart[idx] = id;
+            MPI_Barrier(MPI_COMM_WORLD);
         }
-        // idxStart[idx] = id;
-        MPI_Barrier(MPI_COMM_WORLD);
     }
+
+    // printf("rank: %d, local node num: %d\n", rank, id);
 
     Array<scalar> coordX, coordY, coordZ;
     for (int i = 0; i < nBlocks; ++i)
@@ -746,7 +839,8 @@ void Mesh::fetchNodes(char* filePtr)
         coordZ.insert(coordZ.end(), zarr[i].begin(), zarr[i].end());
         if(i>0) idxStart[i] += idxStart[i-1];
     }
-    this->ownNodes_.copy(new Nodes(coordX, coordY, coordZ));
+    Nodes node(coordX, coordY, coordZ);
+    this->ownNodes_ = new Nodes(coordX, coordY, coordZ);
 
     // for (it = coordMap_.begin(); it != coordMap_.end() ; ++it)
     // {
@@ -796,22 +890,22 @@ void Mesh::fetchNodes(char* filePtr)
     //     }
     // }
 
-    Table<label, label>::iterator it;
-    for (int i = 0; i < cell2NodeArr.size(); ++i)
-    {
-        for (int j = 0; j < cell2NodeArr[i].size(); ++j)
-        {
-            label originId = cell2NodeArr[i][j]-1;
-            it = coordMap_.find(originId);
-            if(it!=coordMap_.end())
-            {
-                cell2NodeArr[i][j] = it->second+1;
-            } else
-            {
-                Terminate("rearrange cell2Node", "the relative index is miss");
-            }
-        }
-    }
+    // Table<label, label>::iterator it;
+    // for (int i = 0; i < cell2NodeArr.size(); ++i)
+    // {
+    //     for (int j = 0; j < cell2NodeArr[i].size(); ++j)
+    //     {
+    //         label originId = cell2NodeArr[i][j]-1;
+    //         it = coordMap_.find(originId);
+    //         if(it!=coordMap_.end())
+    //         {
+    //             cell2NodeArr[i][j] = it->second+1;
+    //         } else
+    //         {
+    //             Terminate("rearrange cell2Node", "the relative index is miss");
+    //         }
+    //     }
+    // }
     // if(rank==1)
     // {
     //     for (int i = 0; i < coordX.size(); ++i)
@@ -840,8 +934,13 @@ void Mesh::fetchNodes(char* filePtr)
     DELETE_POINTER(x);
     DELETE_POINTER(nodeStartId);
 
-    if(cgp_close(iFile))
-        Terminate("closeCGNSFile",cg_get_error());
+    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
+    {
+        if(cgp_close(iFile[fileIdx]))
+            Terminate("closeCGNSFile",cg_get_error());
+    }
+
+    DELETE_POINTER(iFile);
 }
 
 } //end namespace HSF
