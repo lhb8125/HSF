@@ -1,7 +1,7 @@
 /**
 * @file: test.cpp
 * @author: Liu Hongbin
-* @brief: 
+* @brief:
 * @date:   2019-10-09 11:04:42
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-26 17:23:58
@@ -27,11 +27,11 @@ using namespace HSF;
 
 // #define DEBUG_YAML
 
-// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
-// 	ArrayArray<Label> &nei, Label procNum);
-// void operator >> (const YAML::Node& node, Array<Scalar>& s);
-// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei);
-// void operator >> (const YAML::Node& node, Array<Label>& regionIdx);
+// void loadRegionTopologyFromYAML(String filePtr, Array<scalar> &s,
+// 	ArrayArray<label> &nei, label procNum);
+// void operator >> (const YAML::Node& node, Array<scalar>& s);
+// void operator >> (const YAML::Node& node, Array<Array<label> >& nei);
+// void operator >> (const YAML::Node& node, Array<label>& regionIdx);
 // void hdf5ToAdf(char* filePtr, char* desFilePtr);
 
 int main(int argc, char** argv)
@@ -52,9 +52,9 @@ int main(int argc, char** argv)
 	// if(rank==0) std::cout<<"Solver: "<<para.getDomain("dom").getEquation("P").getSolver()<<std::endl;
 	// if(rank==0) std::cout<<"Path: "<<para.getDomain("dom").getRegion("region2").getPath()<<std::endl;
 	/// construct mesh block topology
-	// Array<Scalar> s;
-	// ArrayArray<Label> nei;
-	// // Label procNum = 4;
+	// Array<scalar> s;
+	// ArrayArray<label> nei;
+	// // label procNum = 4;
 	// loadRegionTopologyFromYAML("regionTopo.yaml",s, nei, numproces);
 
 	// LoadBalancer *lb = new LoadBalancer(s, nei, procNum);
@@ -62,13 +62,13 @@ int main(int argc, char** argv)
 	// lb->LoadBalancer_2(s, nei, procNum);
 
 	/// evaluate the result of load balancer
-	// ArrayArray<Label> procId = lb->getProcId();
+	// ArrayArray<label> procId = lb->getProcId();
 	// OUT<<"Item: region (processes ID)"<<ENDL;
 	// procId.display();
-	// ArrayArray<Scalar> procLoad = lb->getProcLoad();
+	// ArrayArray<scalar> procLoad = lb->getProcLoad();
 	// OUT<<"Item: region (measurement)"<<ENDL;
 	// procLoad.display();
-	// Scalar* procLoadSum = lb->getProcLoadSum();
+	// scalar* procLoadSum = lb->getProcLoadSum();
 	// OUT<<"Item: process (measurement)"<<ENDL;
 	// for (int i = 0; i < procNum; ++i)
 	// {
@@ -114,8 +114,8 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
-// 	ArrayArray<Label> &nei, Label procNum)
+// void loadRegionTopologyFromYAML(String filePtr, Array<scalar> &s,
+// 	ArrayArray<label> &nei, label procNum)
 // {
 // 	OUT<<"reading YAML file: "<<filePtr<<" ......"<<ENDL;
 // 	std::ifstream fin(filePtr.c_str());
@@ -127,8 +127,8 @@ int main(int argc, char** argv)
 // 	{
 // 		measurement[i] >> s;
 // 	}
-// 	Array<Array<Label> > neiTmp;
-// 	Array<Label> regIdxTmp;
+// 	Array<Array<label> > neiTmp;
+// 	Array<label> regIdxTmp;
 // 	const YAML::Node& topology = doc["topology"];
 // 	for (int i = 0; i < topology.size(); ++i)
 // 	{
@@ -138,16 +138,16 @@ int main(int argc, char** argv)
 
 // 	/// transform the vector<vector<int> > to ArrayArray
 // 	nei.num = s.size();
-// 	nei.startIdx = new Label[nei.num+1];
+// 	nei.startIdx = new label[nei.num+1];
 // 	nei.startIdx[0] = 0;
 // 	for (int i = 0; i < nei.num; ++i)
 // 	{
 // 		nei.startIdx[i+1] = nei.startIdx[i]+neiTmp[regIdxTmp[i]].size();
 // 	}
-// 	nei.data = new Label[nei.startIdx[nei.num]];
+// 	nei.data = new label[nei.startIdx[nei.num]];
 // 	for (int i = 0; i < nei.num; ++i)
 // 	{
-// 		Label k = 0;
+// 		label k = 0;
 // 		for (int j = nei.startIdx[i]; j < nei.startIdx[i+1]; ++j)
 // 		{
 // 			nei.data[j] = neiTmp[regIdxTmp[i]][k];
@@ -167,7 +167,7 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<Scalar>& s)
+// void operator >> (const YAML::Node& node, Array<scalar>& s)
 // {
 // 	String mea;
 // 	node["mea"] >> mea;
@@ -181,11 +181,11 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei)
+// void operator >> (const YAML::Node& node, Array<Array<label> >& nei)
 // {
 // 	// String neighbor;
 // 	// node["neighbor"].as<string>() >> neighbor;
-// 	Array<Label> neiTmp;
+// 	Array<label> neiTmp;
 // 	int tmp;
 // 	const YAML::Node& neighbor = node["neighbor"];
 // 	for (int i = 0; i < neighbor.size(); ++i)
@@ -209,9 +209,9 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<Label>& regionIdx)
+// void operator >> (const YAML::Node& node, Array<label>& regionIdx)
 // {
-// 	Label tmp;
+// 	label tmp;
 // 	node["regionIdx"] >> tmp;
 // 	regionIdx.push_back(tmp);
 

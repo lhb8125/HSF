@@ -50,8 +50,8 @@ void Region::initAfterBalance()
 
     /// 创建通信对
 	par_std_out_("start creating interfaces ...\n");
-    Label cellNum = this->getMesh().getTopology().getCellsNum();
-    Array<Array<Label> > faceCells
+    label cellNum = this->getMesh().getTopology().getCellsNum();
+    Array<Array<label> > faceCells
         = this->getMesh().getTopology().getFace2CellPatch();
 
     createInterFaces(faceCells, cellNum);

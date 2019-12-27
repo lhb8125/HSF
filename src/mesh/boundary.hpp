@@ -1,7 +1,7 @@
 /**
 * @file: boundary.cpp
 * @author: Liu Hongbin
-* @brief: 
+* @brief:
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-27 15:32:54
@@ -22,11 +22,11 @@ class Boundary : public Mesh
 {
 private:
 	label meshType_; ///< Identification for mesh type
-	
+
 	Array<BCSection> BCSecs_; ///< Boundary condition section information for CGNS file
-	
+
 	void readBoundaryCondition(const char* filePtr); ///< read mesh file with CGNS format
-	
+
 	void writeBoundaryCondition(const char* filePtr); ///< write mesh file with CGNS format
 
 public:
@@ -56,9 +56,9 @@ public:
 // struct BCSection
 // {
 // 	char* name;
-// 	Label type;
-// 	Label nBCElems;
-// 	Label* BCElems_;
+// 	label type;
+// 	label nBCElems;
+// 	label* BCElems_;
 // }
 
 } // end namespace HSF;

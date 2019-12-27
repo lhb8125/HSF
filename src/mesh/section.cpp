@@ -1,7 +1,7 @@
 /**
-* @file: 
+* @file:
 * @author: Liu Hongbin
-* @brief: 
+* @brief:
 * @date:   2019-10-14 16:22:22
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-26 17:20:14
@@ -17,7 +17,7 @@ namespace HSF
 /*
 * @brief counts of nodes for each element type
 */
-bool Section::compareEleType(const Label secType, const Label meshType_)
+bool Section::compareEleType(const label secType, const label meshType_)
 {
 	bool ltmp = secType==TRI_3 || secType==TRI_6 || secType==TRI_9;
 	ltmp = ltmp || secType==QUAD_4 || secType==QUAD_8 || secType==QUAD_9;
@@ -29,7 +29,7 @@ bool Section::compareEleType(const Label secType, const Label meshType_)
 /*
 * @brief counts of faces for each element type
 */
-Label Section::nodesNumForEle(const Label eleType)
+label Section::nodesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -48,7 +48,7 @@ Label Section::nodesNumForEle(const Label eleType)
 	}
 }
 
-Label Section::facesNumForEle(const Label eleType)
+label Section::facesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -66,7 +66,7 @@ Label Section::facesNumForEle(const Label eleType)
 	}
 }
 
-Label Section::edgesNumForEle(const Label eleType)
+label Section::edgesNumForEle(const label eleType)
 {
 	switch(eleType)
 	{
@@ -85,12 +85,12 @@ Label Section::edgesNumForEle(const Label eleType)
 }
 
 /*
-* @brief whether the section belongs to the entity through the elements type 
+* @brief whether the section belongs to the entity through the elements type
 */
-Array<Label> Section::faceNodesForEle(
-	Label* conn, const Label eleType, const Label idx)
+Array<label> Section::faceNodesForEle(
+	label* conn, const label eleType, const label idx)
 {
-	Array<Label> tmp;
+	Array<label> tmp;
 	// //printf("%d, %d\n", eleType, TETRA_4);
 	if(eleType==TETRA_4)
 	{
@@ -163,7 +163,7 @@ Array<Label> Section::faceNodesForEle(
 			tmp.push_back(conn[5]);
 			tmp.push_back(conn[6]);
 			tmp.push_back(conn[7]);
-		}		
+		}
 	} else if(eleType==HEXA_27)
 	{
 		/// the first face
@@ -172,7 +172,7 @@ Array<Label> Section::faceNodesForEle(
 			tmp.push_back(conn[0]); tmp.push_back(conn[3]);
 			tmp.push_back(conn[2]);	tmp.push_back(conn[1]);
 			tmp.push_back(conn[11]); tmp.push_back(conn[10]);
-			tmp.push_back(conn[9]);	tmp.push_back(conn[8]);	
+			tmp.push_back(conn[9]);	tmp.push_back(conn[8]);
 			tmp.push_back(conn[20]);
 		} else if(idx==1)
 		/// the second face
@@ -214,7 +214,7 @@ Array<Label> Section::faceNodesForEle(
 			tmp.push_back(conn[16]); tmp.push_back(conn[17]);
 			tmp.push_back(conn[18]); tmp.push_back(conn[19]);
 			tmp.push_back(conn[25]);
-		}		
+		}
 	} else
 	{
 		Terminate("find face nodes for Elements", "The element type is not supported");
@@ -222,10 +222,10 @@ Array<Label> Section::faceNodesForEle(
 	return tmp;
 }
 
-Array<Label> Section::edgeNodesForEle(
-	Label* conn, const Label eleType, const Label idx)
+Array<label> Section::edgeNodesForEle(
+	label* conn, const label eleType, const label idx)
 {
-	Array<Label> tmp;
+	Array<label> tmp;
 	// //printf("%d, %d\n", eleType, TETRA_4);
 	if(eleType==TETRA_4)
 	{
@@ -337,7 +337,7 @@ Array<Label> Section::edgeNodesForEle(
 		{
 			tmp.push_back(conn[7]);	tmp.push_back(conn[4]);
 			tmp.push_back(conn[19]);
-		}	
+		}
 	} else
 	{
 		Terminate("find face nodes for Elements", "The element type is not supported");

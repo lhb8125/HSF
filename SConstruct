@@ -74,7 +74,7 @@ if gl.platform == 'sw':
 else:
 	env['CC']   = software_home + '/MPICH/bin/mpicc'
 	env['CXX']  = software_home + '/MPICH/bin/mpicxx'
-	env['F90']  = software_home + '/MPICH/bin//mpifort'
+	env['F90']  = software_home + '/MPICH/bin/mpifort'
 	#env['AR']   = 'ar'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicc'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicxx'
