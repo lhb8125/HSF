@@ -1,7 +1,7 @@
 /**
 * @file: iterator.hpp
 * @author: Liu Hongbin
-* @brief: 
+* @brief:
 * @date:   2019-09-10 10:19:24
 * @last Modified by:   lenovo
 * @last Modified time: 2019-10-08 09:51:49
@@ -13,15 +13,15 @@ class Iterator
 {
 private:
 	/// Count of mesh information arrays
-	Label meshInfoNum_;
+	label meshInfoNum_;
 	/// Count of field arrays
-	Label fieldNum_;
+	label fieldNum_;
 	/// mesh information arrays
-	Array<Scalar> meshInfo_;
+	Array<scalar> meshInfo_;
 	/// field arrays
-	Array<Scalar> field_;
+	Array<scalar> field_;
 	/// topology array: cell2face, face2cell, ...
-	ArrayArray<Label> topologyArray_;
+	ArrayArray<label> topologyArray_;
 	/**
 	* @brief get topology array through translator
 	*/
@@ -88,5 +88,5 @@ public:
 	{
 		ops(meshInfo_, field_, topologyArray_);
 	};
-	
+
 };

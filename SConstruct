@@ -8,7 +8,7 @@ software_home = '/home/export/online1/amd_dev1/software'
 hdf5_path = software_home + '/HDF5/hdf5-1.10.5'
 cgns_path = software_home + '/CGNS/CGNS-3.4.0/src/SampleScripts'
 #yaml_path = software_home + '/yaml-cpp/yaml-cpp-0.6.2'
-yaml_path = '/home/export/online1/amd_dev1/software/yaml-cpp/yaml-cpp-yaml-cpp-0.5.3'
+yaml_path = software_home + '/yaml-cpp/yaml-cpp-yaml-cpp-0.5.3'
 parmetis_path = software_home + '/ParMETIS/parmetis-4.0.3/x86Install_64_64'
 
 # Set our required environment
@@ -74,7 +74,7 @@ if gl.platform == 'sw':
 else:
 	env['CC']   = software_home + '/MPICH/bin/mpicc'
 	env['CXX']  = software_home + '/MPICH/bin/mpicxx'
-	env['F90']  = software_home + '/MPICH/bin//mpifort'
+	env['F90']  = software_home + '/MPICH/bin/mpifort'
 	#env['AR']   = 'ar'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicc'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicxx'
@@ -83,6 +83,9 @@ else:
 	env.Append(CPPPATH = [parmetis_path + '/include'])
 	env.Append(CPPPATH = [yaml_path + '/include'])
 	env.Append(F90PATH = [software_home + '/MPICH/include'])
+
+	# for unap
+	env.Append(CPPPATH = ['/home/export/online1/amd_dev1/guhf/unap/x86Install/include'])
 
 # env['LINKFLAGS'] = '-lstdc++'
 

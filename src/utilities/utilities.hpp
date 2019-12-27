@@ -32,21 +32,11 @@ namespace HSF
 
 // #define Array std::vector
 #define String std::string
-//#define Label label
-//#define Scalar scalar
-typedef label Label;
-typedef scalar Scalar;
 
 #define Inner 0
 #define Boco 1
 
 #define Terminate(location, content) {printf("Location: %s, error message: %s, file: %s, line: %d\n", location, content, __FILE__, __LINE__); exit(-1);}
-
-#if(Label==long)
-#define MPI_LABEL MPI_LONG
-#else
-#define MPI_LABEL MPI_INT
-#endif
 
 // #define DEBUG_METIS
 // #define DEBUG
@@ -85,8 +75,8 @@ template <class T>
 class ArrayArray : public RefCounted
 {
 public:
-	Label  num; ///< size of structs
-	Label* startIdx; ///< start index of structs
+	label  num; ///< size of structs
+	label* startIdx; ///< start index of structs
 	T*     data; ///< structs
 	RefCounted* refCount; /// count of reference pointers
 	/**
@@ -149,7 +139,7 @@ public:
 	* @brief get the size of structs
 	* @return the size of structs
 	*/
-	Label size() const {return num;};
+	label size() const {return num;};
 	/**
 	* @brief print the class to screen
 	*/
@@ -170,7 +160,7 @@ public:
 };
 
 /**
-* @brief divide the data into two parts, 
+* @brief divide the data into two parts,
 *        the values of left part is smaller than pivot
 *        the values of right part is larger than pivot
 * @param[in] arr the unpartitioned data
@@ -215,11 +205,11 @@ void quicksortArray(Array<Array<T> >& arr, int l, int r)
 * @brief eliminate the duplicate elements
 *        and pick the unique ones and divide them into two parts
 * @param[in][out] original array
-* @return Label[0]: size of the unique one
-*         Label[1]: size of the duplicate one
+* @return label[0]: size of the unique one
+*         label[1]: size of the duplicate one
 */
 template<class T>
-Label* filterArray(Array<Array<T> >& arr)
+label* filterArray(Array<Array<T> >& arr)
 {
 	int num = arr.size();
 	quicksortArray(arr, 0, num-1);
@@ -260,7 +250,7 @@ Label* filterArray(Array<Array<T> >& arr)
 	arr.insert(arr.end(), bndArr.begin(), bndArr.end());
 	arr.insert(arr.end(), innArr.begin(), innArr.end());
 	printf("arr: %d, bndArr: %d, innArr: %d\n", arr.size(), bndArr.size(), innArr.size());
-	Label *faceNum = new Label[2];
+	label *faceNum = new label[2];
 	faceNum[0] = bndArr.size();
 	faceNum[1] = innArr.size();
 	return faceNum;
@@ -298,11 +288,11 @@ void transformArray(const Array<Array<T> >& arr, ArrayArray<T>& res)
 {
 	int cellNum = arr.size();
 	res.num = cellNum;
-	res.startIdx = new Label[cellNum+1];
+	res.startIdx = new label[cellNum+1];
 	res.startIdx[0] = 0;
 	for (int i = 0; i < cellNum; ++i)
 	{
-		res.startIdx[i+1] = res.startIdx[i]+arr[i].size();	
+		res.startIdx[i+1] = res.startIdx[i]+arr[i].size();
 	}
 	// printf("cellNum: %d, nodeNum: %d\n", cellNum, res.startIdx[cellNum]);
 	res.data = new T[res.startIdx[cellNum]];
@@ -345,7 +335,7 @@ void transformArray(const ArrayArray<T>& arr, Array<Array<T> >& res)
 * @return the index of entry
 */
 template<class T>
-Label findArray(Array<Array<T> >& arr, Array<T>& value)
+label findArray(Array<Array<T> >& arr, Array<T>& value)
 {
 	int num = arr.size();
 	// printf("%d\n", num);
@@ -372,12 +362,12 @@ Label findArray(Array<Array<T> >& arr, Array<T>& value)
 * @return the index of entry
 */
 template<class T>
-Label findSortedArray(Array<Array<T> >& arr, Array<T>& value, Label l, Label r)
+label findSortedArray(Array<Array<T> >& arr, Array<T>& value, label l, label r)
 {
-	// Label num = std::min(arr.size(),value.size());
-	Label num = arr.size();
+	// label num = std::min(arr.size(),value.size());
+	label num = arr.size();
 	bool isFinded = false;
-	Label m;
+	label m;
 	while(l<r)
 	{
 		m = (l+r)/2;

@@ -50,8 +50,8 @@ void Region::initAfterBalance()
 
     /// 创建通信对
 	par_std_out_("start creating interfaces ...\n");
-    Label cellNum = this->getMesh().getTopology().getCellsNum();
-    Array<Array<Label> > faceCells
+    label cellNum = this->getMesh().getTopology().getCellsNum();
+    Array<Array<label> > faceCells
         = this->getMesh().getTopology().getFace2CellPatch();
 
     createInterFaces(faceCells, cellNum);
@@ -235,46 +235,6 @@ void Region::createInterFaces
     }
 
     DELETE_POINTER(partitionInfo);
-}
-
-
-void Region::initFields(Word fieldName)
-{
-    // Table<Word, scalarField*>::iterator it = fieldTable_.find(fieldName);
-    // if(it == fieldTable_.end())
-    // {
-    //  cout << "Error: can not find this field: " << fieldName << endl;
-    //  ERROR_EXIT;
-    // }
-
-    // scalarField* fieldSend = it->second;
-    // Word fieldType = fieldSend->getType();
-
-    // //- choose proper interface: face, node
-
-    // for(label i=0; i<interFaces_.size(); ++i)
-    // {
-    //  Patch* pp = interFaces_[i].second;
-    //  Word patchType = pp->getType();
-    //  if(fieldType == patchType)
-    //  {
-    //      pp.send(*fieldSend);
-    //  }
-    // }
-}
-
-void Region::updateFields(Word fieldName)
-{
-    // Table<Word, scalarField*>::iterator it = fieldTable_.find(fieldName);
-    // if(it == fieldTable_.end())
-    // {
-    //  cout << "Error: can not find this field: " << fieldName << endl;
-    //  ERROR_EXIT;
-    // }
-
-    // scalarField* fieldSend = it->second;
-    // Word fieldType = fieldSend->getType();
-
 }
 
 
