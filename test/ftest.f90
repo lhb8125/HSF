@@ -59,6 +59,7 @@ program main
     real(dpR),allocatable:: b(:),x(:)
     real(dpR), allocatable:: vol(:), area(:), coord(:)
     real(dpR),allocatable:: pid(:)
+    character(len=20):: field_name, field_type
 
     real(dpR) :: vol_new(1)
     POINTER(vol_new2, vol_new)
@@ -95,7 +96,7 @@ program main
     call flush2master()
     call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
     write(*,*),"delta_t: ", delta_t
-    call master_std_out("delta t: %f \n", delta_t)
+    ! call master_std_out("delta t: %f \n", delta_t)
 
 
     ! ! 获取基本单元数目
@@ -117,7 +118,7 @@ program main
     end do
     ! 注册进程号场
     n_dim = 1
-    call add_scalar_field("cell", "pid", pid, n_dim, n_ele)
+    call add_scalar_field("cell"//C_NULL_CHAR, "pid"//C_NULL_CHAR, pid, n_dim, n_ele)
 
     ! 获取单元与格点拓扑关系
     allocate(e2n_pos(n_ele+1), stat=err_mem)
@@ -182,8 +183,10 @@ program main
 
     ! 注册vol场
     n_dim = 1
-    call add_scalar_field("cell", "VOL", vol, n_dim, n_ele)
-    call get_scalar_field("cell", "VOL", vol_new2, ndim_new, n_ele_new)
+    call add_scalar_field("cell"//C_NULL_CHAR, "VOL"//C_NULL_CHAR, vol, &
+        & n_dim, n_ele)
+    call get_scalar_field("cell"//C_NULL_CHAR, "VOL"//C_NULL_CHAR, vol_new2, &
+        & ndim_new, n_ele_new)
 
     ! b=A*x
     allocate(b(n_ele), stat=err_mem)
@@ -197,19 +200,19 @@ program main
     call calc_spmv(n_face_i, if2e, area, x, b)
     ! 注册b场
     n_dim = 1
-    call add_scalar_field("cell", "b", b, n_dim, n_ele)
+    call add_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_ele)
 
 
     ! 输出网格到CGNS文件中
     call write_mesh()
     ! 输出体积场到CGNS文件中
-    call write_scalar_field("VOL", "cell")
+    call write_scalar_field("VOL"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出b场到CGNS文件中
-    call write_scalar_field("b", "cell")
+    call write_scalar_field("b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出进程号场到CGNS文件中
-    call write_scalar_field("pid", "cell")
+    call write_scalar_field("pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
 
-    ! call clear()
+    call clear()
     ! f_ptr => test_f
     ! ndim = f_ptr()
 

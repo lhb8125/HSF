@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-09 11:04:42
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-18 08:42:29
+* @last Modified time: 2019-12-23 10:15:46
 */
 #include <iostream>
 #include <fstream>
@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 	mesh_file[1] = new char[100];
 	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
 	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
+	
 	printf("reading CGNS file: %s, %s\n", mesh_file[0], mesh_file[1]);
 	char resultFile[100];
 	nPara = 4;
@@ -69,6 +70,7 @@ int main(int argc, char** argv)
 
 	regs[0].initBeforeBalance(mesh_file);
 
+	
 	/// load balance in region
 	lb->LoadBalancer_3(regs);
 
@@ -79,6 +81,7 @@ int main(int argc, char** argv)
 	// regs[0].getMesh().initMesh(resultFile);
 
 	// MPI_Finalize();
+	
 	return 0;
 }
 
