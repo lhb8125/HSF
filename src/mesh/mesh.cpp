@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-18 08:40:00
+* @last Modified time: 2020-01-05 16:34:32
 */
 #include <cstdio>
 #include <iostream>
@@ -764,10 +764,11 @@ void Mesh::fetchNodes(Array<char*> fileArr)
     // 递增方式对node数量进行编号
     nodeStartId[0] = 0;
     label maxNodeNum = 0;
-    for (int i = 1; i <= nprocs+fileArr.size(); ++i)
+    for (int i = 1; i <= nprocs*fileArr.size(); ++i)
     {
         maxNodeNum = maxNodeNum > nodeStartId[i] ? maxNodeNum : nodeStartId[i];
         nodeStartId[i] += nodeStartId[i-1];
+        // printf("%d, %d\n", i, nodeStartId[i-1]);
     }
 
     int nBlocks = nprocs*fileArr.size();
@@ -784,7 +785,7 @@ void Mesh::fetchNodes(Array<char*> fileArr)
                 if(cell2NodeArr[i][j]<=nodeStartId[k+1] && cell2NodeArr[i][j]>nodeStartId[k])
                 {
                     nodeINeed[k].push_back(cell2NodeArr[i][j]-nodeStartId[k]-1);
-                    // printf("%d, %d, %d\n", i, k, cell2NodeArr[i][j]-nodeStartId[k]-1);
+                    // if(rank==0) printf("%d, %d, %d\n", i, k, cell2NodeArr[i][j]-nodeStartId[k]-1);
                 }
             }
         }
@@ -808,8 +809,18 @@ void Mesh::fetchNodes(Array<char*> fileArr)
         for (int irank = 0; irank < nprocs; ++irank)
         {
             int iblock = fileIdx*nprocs+irank;
-            cgsize_t start = this->nodeStartIdx_[fileIdx];
-            cgsize_t end = this->nodeEndIdx_[fileIdx];
+            // cgsize_t start = this->nodeStartIdx_[fileIdx];
+            // cgsize_t end = this->nodeEndIdx_[fileIdx];
+            cgsize_t start = nodeStartId[iblock]+1;
+            cgsize_t end   = nodeStartId[iblock+1];
+            int nFile = fileIdx;
+            while(nFile>0) 
+            {
+                start -= this->nodeNumGlobal_[nFile-1];
+                end   -= this->nodeNumGlobal_[nFile-1];
+                nFile--;
+            }
+            // printf("%d, %d, %d, %d\n", fileIdx, iblock, nodeStartId[iblock], nodeStartId[iblock+1]);
             if(cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 1, &start, &end, x) ||
                 cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 2, &start, &end, y) ||
                 cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 3, &start, &end, z))
@@ -842,12 +853,11 @@ void Mesh::fetchNodes(Array<char*> fileArr)
     Nodes node(coordX, coordY, coordZ);
     this->ownNodes_ = new Nodes(coordX, coordY, coordZ);
 
+    // Table<label, label>::iterator it;
     // for (it = coordMap_.begin(); it != coordMap_.end() ; ++it)
     // {
-    //     for (int i = 0; i < nBlocks; ++i)
-    //     {
-    //         if(it->first<=nodeStartId[i+1] && it->first>nodeStartId[k])
-    //     }
+    //     if(rank==1) printf("%d, %d\n", it->first, it->second);
+    //     if(rank==1) printf("%f, %f, %f\n", coordX[it->second], coordY[it->second], coordZ[it->second]);
     // }
 
     // label *bonus = new label[nBlocks];
