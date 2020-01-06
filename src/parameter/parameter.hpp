@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:22:31
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-20 17:50:45
+* @last Modified time: 2020-01-06 09:43:36
 */
 #ifndef PARAMETER_HPP 
 #define PARAMETER_HPP
@@ -304,10 +304,18 @@ void Parameter::getPara(Array<T*>& resVal, int nPara, ...)
 	va_end(args);
 
 	int nRes = config.size();
+	// 如果该节点为标量，则重设数组维度
+	if(nRes==0) nRes=1;
+	
+	resVal.resize(nRes);
+
 	for (int i = 0; i < nRes; ++i)
 	{
-		Word res = config[i].as<Word>();
-		// std::cout<<config.as<Word>()<<std::endl;
+		Word res;
+		if(nRes>1) res = config[i].as<Word>();
+		else res = config.as<Word>();
+
+		// std::cout<<res<<std::endl;
 		if(typeid(T)==typeid(int))
 		{
 			int* tmp = (int*)resVal[i];

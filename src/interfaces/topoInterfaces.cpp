@@ -4,7 +4,7 @@
 * @brief: fortran function interfaces
 * @date:   2019-11-11 10:56:28
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-18 08:32:07
+* @last Modified time: 2020-01-06 09:37:20
 */
 #include <iostream>
 #include <fstream>
@@ -43,9 +43,11 @@ void init_(char* configFile)
 
 	int nPara = 4;
 	// char meshFile[100];
-	Array<char*> mesh_file(2);
-	mesh_file[0] = new char[100];
-	mesh_file[1] = new char[100];
+	Array<char*> mesh_file(10);
+	for (int i = 0; i < mesh_file.size(); ++i)
+	{
+		mesh_file[i] = new char[100];
+	}
 	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
 	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
 	char resultFile[100];

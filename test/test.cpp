@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-09 11:04:42
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-23 10:15:46
+* @last Modified time: 2020-01-06 09:45:08
 */
 #include <iostream>
 #include <fstream>
@@ -52,13 +52,21 @@ int main(int argc, char** argv)
 
 	int nPara = 4;
 	// char meshFile[100];
-	Array<char*> mesh_file(2);
-	mesh_file[0] = new char[100];
-	mesh_file[1] = new char[100];
+	Array<char*> mesh_file(10);
+	for (int i = 0; i < mesh_file.size(); ++i)
+	{
+		mesh_file[i] = new char[100];
+	}
 	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
 	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
 	
-	printf("reading CGNS file: %s, %s\n", mesh_file[0], mesh_file[1]);
+	printf("reading CGNS file: ");
+	for (int i = 0; i < mesh_file.size(); ++i)
+	{
+		printf("%s, ", mesh_file[i]);
+	}
+	printf("\n");
+
 	char resultFile[100];
 	nPara = 4;
 	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
