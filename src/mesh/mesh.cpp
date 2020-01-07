@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 10:37:06
+* @last Modified time: 2020-01-07 17:10:06
 */
 #include <cstdio>
 #include <iostream>
@@ -301,39 +301,62 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
  //        Terminate("writeCoords", cg_get_error());
 	// MPI_Barrier(MPI_COMM_WORLD);
 
+    Array<label> cellBlockStartIdx = this->getBlockTopology().getCellBlockStartIdx();
+    ArrayArray<label> conn = this->getBlockTopology().getCell2Node();
+    Array<label> cellType = this->getBlockTopology().getCellType();
+    par_std_out_("write %d sections\n", cellBlockStartIdx.size()-1);
 
-    /// write connectivity
-    ArrayArray<label> conn = this->getTopology().getCell2Node();
-    Array<label> cellType = this->getTopology().getCellType();
     label *cellStartId = new label[numProcs+1];
-    // printf("cell num: %d\n", conn.num);
-    MPI_Allgather(&conn.num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
     cellStartId[0] = 0;
-    // if(rank==1)
-    // {
+    for (int iSec = 0; iSec < cellBlockStartIdx.size()-1; ++iSec)
+    {
+        label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
+        MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
-            // cellStartId[i]++;
         }
-        // par_std_out_("\n");
-    // }
-    /*
-    * filter section
-    * code
-    */
-    int iSec;
-    ElementType_t eleType = (ElementType_t)cellType[0];
-    // par_std_out_("internal faces: %d, %d\n", 1, cellStartId[numProcs]);
-    if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
-        eleType, 1, cellStartId[numProcs], 0, &iSec))
-        Terminate("writeSecInfo", cg_get_error());
-    // par_std_out_("%d, %d\n", start, end);
-    cgsize_t *data = (cgsize_t*)conn.data;
-    // conn.display();
-    if(cgp_elements_write_data(iFile, iBase, iZone, iSec, cellStartId[rank]+1,
-        cellStartId[rank+1], data))
-        Terminate("writeSecConn", cg_get_error());
+        ElementType_t eleType = (ElementType_t)cellType[iSec];
+        int S;
+        if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
+            eleType, 1, cellStartId[numProcs], 0, &S))
+            Terminate("writeSecInfo", cg_get_error());
+
+        cgsize_t *data = (cgsize_t*)&conn.data[conn.startIdx[cellBlockStartIdx[iSec]]];
+        // conn.display();
+        if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1,
+            cellStartId[rank+1], data))
+            Terminate("writeSecConn", cg_get_error());
+    }
+
+    // /// write connectivity
+    // ArrayArray<label> conn = this->getTopology().getCell2Node();
+    // Array<label> cellType = this->getTopology().getCellType();
+    // label *cellStartId = new label[numProcs+1];
+    // // printf("cell num: %d\n", conn.num);
+    // MPI_Allgather(&conn.num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+    // cellStartId[0] = 0;
+    // // if(rank==1)
+    // // {
+    //     for (int i = 0; i < numProcs; ++i)
+    //     {
+    //         cellStartId[i+1] += cellStartId[i];
+    //         // cellStartId[i]++;
+    //     }
+    //     // par_std_out_("\n");
+    // // }
+    // int iSec;
+    // ElementType_t eleType = (ElementType_t)cellType[0];
+    // // par_std_out_("internal faces: %d, %d\n", 1, cellStartId[numProcs]);
+    // if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
+    //     eleType, 1, cellStartId[numProcs], 0, &iSec))
+    //     Terminate("writeSecInfo", cg_get_error());
+    // // par_std_out_("%d, %d\n", start, end);
+    // cgsize_t *data = (cgsize_t*)conn.data;
+    // // conn.display();
+    // if(cgp_elements_write_data(iFile, iBase, iZone, iSec, cellStartId[rank]+1,
+    //     cellStartId[rank+1], data))
+    //     Terminate("writeSecConn", cg_get_error());
 
     DELETE_POINTER(cellStartId);
 

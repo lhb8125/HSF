@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2020-01-06 15:57:25
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-06 16:36:50
+* @last Modified time: 2020-01-07 17:02:50
 */
 
 #ifndef BLOCKTOPOLOGY_HPP
@@ -46,6 +46,12 @@ private:
 	
 	Array<label> faceType_; ///< type of faces
 
+	Array<label> cellBlockStartIdx_; ///< the start index of each block in the overall cell topology
+
+	Array<label> faceBlockStartIdx_; ///< the start index of each block in the overall face topology
+
+	Array<label> reorderCellTopo(Topology& topo); ///< reorder the cell-related topology
+
 public:
 	/**
 	* @brief default constructor
@@ -60,12 +66,22 @@ public:
 	/**
 	* @brief get the count of cell types over the region
 	*/
-	label getCellBlockNum(){return this->cell2Cell_.size();};
+	Array<label> getCellBlockStartIdx(){return this->cellBlockStartIdx_;};
 
 	/**
 	* @brief get the count of face types over the region
 	*/
-	label getFaceBlockNum(){return this->face2Node_.size();};
+	Array<label> getFaceBlockStartIdx(){return this->faceBlockStartIdx_;};
+
+	/**
+	* @brief get the cell2node topology
+	*/
+	ArrayArray<label> getCell2Node(){return this->cell2Node_;};
+
+	/**
+	* @brief get the cell block type
+	*/
+	Array<label> getCellType(){return this->cellType_;};
 };
 
 }

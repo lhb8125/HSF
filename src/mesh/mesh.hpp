@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-24 09:25:44
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 09:11:44
+* @last Modified time: 2020-01-07 16:52:00
 */
 #ifndef MESH_HPP
 #define MESH_HPP
@@ -115,6 +115,11 @@ public:
 	* @brief get class Topology
 	*/
 	Topology& getTopology() {return this->topo_;};
+
+	/**
+	* @brief get block topology
+	*/
+	BlockTopology& getBlockTopology() {return *this->blockTopo_;};
 
 	/**
 	* @brief get coordinates of Nodes without load balance
