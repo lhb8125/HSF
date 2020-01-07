@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-11-28 10:57:45
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-13 17:11:10
+* @last Modified time: 2020-01-06 17:44:22
 */
 
 #include "geometry.hpp"
@@ -149,6 +149,8 @@ scalar calculateCellVol(const Array<scalar>& x, const Array<scalar>& y,
 	switch(nnodes)
 	{
 		case 4: return calculateTETRAVol(x, y, z); break;
+		/// TODO
+		case 5: return calculateTETRAVol(x, y, z); break;
 		case 8: return calculateHEXAVol(x, y, z); break;
 		default:
 			Terminate("calculateCellVol", "unrecognized cell type");

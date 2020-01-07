@@ -76,11 +76,16 @@ public:
 	* @return whether the section belongs to the entity
 	*/
 	static bool compareEleType(const label secType, const label meshType_);
+
+	/**
+	* @brief translate the element type to string
+	*/
+	static char* typeToWord(ElementType_t eleType);
 };
 
 struct BCSection
 {
-	char name[40]; ///< section name
+	char name[CHAR_DIM]; ///< section name
 
 	BCType_t type; ///< boundary condition type
 

@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-13 15:24:22
+* @last Modified time: 2020-01-07 10:34:10
 */
 #include "mpi.h"
 #include "boundary.hpp"
@@ -32,7 +32,7 @@ void Boundary::readBoundaryCondition(const char* filePtr)
     if(cg_nbocos(iFile, iBase, iZone, &nBocos))
         Terminate("readNBocos", cg_get_error());
 
-    char bocoName[40];
+    char bocoName[CHAR_DIM];
     int normalIndex[3];
     PointSetType_t ptsetType[1];
     cgsize_t normalListSize;
@@ -424,7 +424,7 @@ void Boundary::writeMesh(const char* filePtr)
 
     int iFile, nBases;
     int iBase=1, iZone=1;
-    char basename[20];
+    char basename[CHAR_DIM];
 
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
@@ -440,7 +440,7 @@ void Boundary::writeMesh(const char* filePtr)
     cgsize_t start, end;
     for (int iSec = 1; iSec <= nSecs; ++iSec)
     {
-        char secName[20];
+        char secName[CHAR_DIM];
         ElementType_t type;
         int nBnd, parentFlag;
         if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
@@ -468,8 +468,8 @@ void Boundary::writeMesh(const char* filePtr)
     */
     // printf("%d, %d\n", end, conn.num);
     ElementType_t eleType = (ElementType_t)cellType[0];
-    if(cgp_section_write(iFile, iBase, iZone, typeToWord(eleType), eleType, end+1, cellStartId[numProcs],
-        0, &iSec))
+    if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
+        eleType, end+1, cellStartId[numProcs], 0, &iSec))
         Terminate("writeSecInfo", cg_get_error());
     par_std_out_("rank %d write from %d to %d\n", rank, cellStartId[rank]+1, cellStartId[rank+1]);
     cgsize_t *data = (cgsize_t*)conn.data;

@@ -96,7 +96,6 @@ program main
     call flush2master()
     call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
     write(*,*),"delta_t: ", delta_t
-    ! call master_std_out("delta t: %f \n", delta_t)
 
 
     ! ! 获取基本单元数目

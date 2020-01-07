@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-16 17:18:19
+* @last Modified time: 2020-01-07 10:40:09
 */
 #ifndef REGION_HPP
 #define REGION_HPP
@@ -267,7 +267,7 @@ void Region::writeField(const char* resFile,
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
 	int iBase=1, iZone=1;
-	char basename[20];
+	char basename[CHAR_DIM];
 
 	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
@@ -318,7 +318,7 @@ void Region::writeField(const char* resFile,
     for (int i = 1; i <= nSols; ++i)
     {
     	GridLocation_t solLoc;
-    	char solNameTmp[20];
+    	char solNameTmp[CHAR_DIM];
     	cg_sol_info(iFile, iBase, iZone, i, solNameTmp, &solLoc);
     	if(solLoc==location) S=i;
     }

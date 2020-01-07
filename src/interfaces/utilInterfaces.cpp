@@ -201,7 +201,7 @@ void write_restart_()
 //
 void write_mesh_()
 {
-  char resultFile[100];
+  char resultFile[CHAR_DIM];
   int nPara = 4;
   para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeMesh(resultFile);
@@ -240,7 +240,7 @@ void write_mesh_()
 
 void write_label_field_(const char* fieldName, const char* fieldType)
 {
-  char resultFile[100];
+  char resultFile[CHAR_DIM];
   int nPara = 4;
   para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeField<label>(resultFile, fieldName, fieldType); 
@@ -248,7 +248,7 @@ void write_label_field_(const char* fieldName, const char* fieldType)
 
 void write_scalar_field_(const char* fieldName, const char* fieldType)
 {
-  char resultFile[100];
+  char resultFile[CHAR_DIM];
   int nPara = 4;
   para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
   REGION.writeField<scalar>(resultFile, fieldName, fieldType); 

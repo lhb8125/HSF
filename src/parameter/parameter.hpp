@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:22:31
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-06 09:43:36
+* @last Modified time: 2020-01-07 10:39:03
 */
 #ifndef PARAMETER_HPP 
 #define PARAMETER_HPP
@@ -115,7 +115,7 @@ namespace HSF
 */
 class Parameter {
   private:
-	char paraFile_[200];
+	char paraFile_[CHAR_DIM];
 	// Array<paraDomain> domain_;
   public:
 	/**

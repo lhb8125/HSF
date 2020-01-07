@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-10-14 09:17:17
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-23 10:09:52
+* @last Modified time: 2020-01-06 16:23:57
 */
 #include <algorithm>
 #include "region.hpp"
@@ -70,6 +70,11 @@ void Region::initAfterBalance()
     par_std_out_("start initialize mesh information ...\n");
     this->meshInfo_.init(mesh_);
     par_std_out_("finish initialize mesh information ...\n");
+
+    par_std_out_("start generate block topology ...\n");
+    this->getMesh().generateBlockTopo();
+    par_std_out_("finish generate block topology ...\n");
+
 }
 
 void Region::writeMesh(char* meshFile)

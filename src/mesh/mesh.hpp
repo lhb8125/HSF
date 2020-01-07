@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-24 09:25:44
 * @last Modified by:   lenovo
-* @last Modified time: 2019-12-18 07:54:11
+* @last Modified time: 2020-01-07 09:11:44
 */
 #ifndef MESH_HPP
 #define MESH_HPP
@@ -12,6 +12,7 @@
 #include "utilities.hpp"
 #include "section.hpp"
 #include "topology.hpp"
+#include "blockTopology.hpp"
 #include "nodes.hpp"
 
 
@@ -26,6 +27,8 @@ class Mesh
 {
 private:
 	Topology topo_; ///< topology
+
+	BlockTopology* blockTopo_;
 	
 	Nodes nodes_; ///< Coordinates of Nodes
 
@@ -142,10 +145,7 @@ public:
 
 	void setMeshType(label meshType) {this->meshType_ = meshType;};
 
-	/**
-	* @brief translate the element type to string
-	*/
-	char* typeToWord(ElementType_t eleType);
+
 
 	/**
 	* @brief fetch the coordinates of nodes owned by this process
@@ -156,6 +156,11 @@ public:
 	* @brief get the map between the absolute index and the local index
 	*/
 	Table<label, label>& getCoordMap() {return this->coordMap_;};
+
+	/**
+	* @brief generate the block topology
+	*/
+	void generateBlockTopo() {blockTopo_ = new BlockTopology(topo_);};
 	
 };
 

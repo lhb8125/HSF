@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:22:22
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 17:28:24
+* @last Modified time: 2020-01-07 09:13:08
 */
 #include <cstdio>
 #include <cstdlib>
@@ -118,6 +118,39 @@ Array<label> Section::faceNodesForEle(
 			tmp.push_back(conn[2]);
 			tmp.push_back(conn[0]);
 			tmp.push_back(conn[3]);
+		}
+	}else if(eleType==PYRA_5)
+	{
+		/// the first face
+		if(idx==0)
+		{
+			tmp.push_back(conn[0]);
+			tmp.push_back(conn[3]);
+			tmp.push_back(conn[2]);
+			tmp.push_back(conn[1]);
+		} else if(idx==1)
+		/// the second face
+		{
+			tmp.push_back(conn[0]);
+			tmp.push_back(conn[1]);
+			tmp.push_back(conn[4]);
+		} else if(idx==2)
+		/// the third face
+		{
+			tmp.push_back(conn[1]);
+			tmp.push_back(conn[2]);
+			tmp.push_back(conn[4]);
+		} else if(idx==3)
+		/// the fourth face
+		{
+			tmp.push_back(conn[2]);
+			tmp.push_back(conn[3]);
+			tmp.push_back(conn[4]);
+		} else if(idx==4)
+		{
+			tmp.push_back(conn[3]);
+			tmp.push_back(conn[0]);
+			tmp.push_back(conn[4]);
 		}
 	} else if(eleType==HEXA_8)
 	{
@@ -248,6 +281,33 @@ Array<label> Section::edgeNodesForEle(
 		{
 			tmp.push_back(conn[2]);	tmp.push_back(conn[3]);
 		}
+	} else if(eleType==PYRA_5)
+	{
+		if(idx==0)
+		{
+			tmp.push_back(conn[0]);	tmp.push_back(conn[1]);
+		} else if(idx==1)
+		{
+			tmp.push_back(conn[1]);	tmp.push_back(conn[2]);
+		} else if(idx==2)
+		{
+			tmp.push_back(conn[2]);	tmp.push_back(conn[3]);
+		} else if(idx==3)
+		{
+			tmp.push_back(conn[3]);	tmp.push_back(conn[0]);
+		} else if(idx==4)
+		{
+			tmp.push_back(conn[0]);	tmp.push_back(conn[4]);
+		} else if(idx==5)
+		{
+			tmp.push_back(conn[1]);	tmp.push_back(conn[4]);
+		} else if(idx==6)
+		{
+			tmp.push_back(conn[2]); tmp.push_back(conn[4]);
+		} else if(idx==7)
+		{
+			tmp.push_back(conn[3]); tmp.push_back(conn[4]);
+		}
 	} else if(eleType==HEXA_8)
 	{
 		if(idx==0)
@@ -343,6 +403,22 @@ Array<label> Section::edgeNodesForEle(
 		Terminate("find face nodes for Elements", "The element type is not supported");
 	}
 	return tmp;
+}
+
+char* Section::typeToWord(ElementType_t eleType)
+{
+    switch(eleType)
+    {
+        case HEXA_8 : return "HEXA_8";
+        case HEXA_27: return "HEXA_27";
+        case QUAD_4 : return "QUAD_4";
+        case TETRA_4 : return "TETRA_4";
+        case TRI_3: return "TRI_3";
+        case QUAD_9: return "QUAD_9";
+        case PYRA_5: return "PYRA_5";
+        // default: return "unknown type";
+        default: Terminate("transform type to string", "unknown type");
+    }
 }
 
 } // end namespace HSF

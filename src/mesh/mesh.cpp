@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-05 16:34:32
+* @last Modified time: 2020-01-07 10:37:06
 */
 #include <cstdio>
 #include <iostream>
@@ -30,7 +30,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 
 	int iFile, nBases=0, cellDim=0, physDim=0;
 	int iBase=1, iZone=1;
-	char basename[20];
+	char basename[CHAR_DIM];
 
 	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
@@ -49,7 +49,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     cg_precision(iFile, &precision);
     par_std_out_("precision: %d\n", precision);
 
-	char zoneName[20];
+	char zoneName[CHAR_DIM];
 	int nZones;
 	cgsize_t sizes[3];
 	ZoneType_t zoneType;
@@ -74,7 +74,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     Array<scalar*> coords;
     par_std_out_("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
 	DataType_t dataType;
-	char coordName[20];
+	char coordName[CHAR_DIM];
 	scalar* x = new scalar[nnodes];
 	if(cg_coord_info(iFile, iBase, iZone, 1, &dataType, coordName) ||
 		// sizeof(dataType)!=sizeof(scalar) ||
@@ -130,7 +130,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     par_std_out_("nSecs: %d\n", nSecs);
 	for (int iSec = 1; iSec <= nSecs; ++iSec)
 	{
-		char secName[20];
+		char secName[CHAR_DIM];
 		cgsize_t start, end;
 		ElementType_t type;
 		int nBnd, parentFlag;
@@ -142,7 +142,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
         par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
 
     	Section sec;
-    	sec.name = new char[20];
+    	sec.name = new char[CHAR_DIM];
     	strcpy(sec.name, secName);
     	sec.type   = type;
     	sec.nBnd   = nBnd;
@@ -222,7 +222,7 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
 	int iBase=1, iZone=1;
-	char basename[20];
+	char basename[CHAR_DIM];
 
 	cgsize_t sizes[3];
 	sizes[0] = nodeNum;
@@ -325,8 +325,8 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     int iSec;
     ElementType_t eleType = (ElementType_t)cellType[0];
     // par_std_out_("internal faces: %d, %d\n", 1, cellStartId[numProcs]);
-    if(cgp_section_write(iFile, iBase, iZone, typeToWord(eleType), eleType,
-        1, cellStartId[numProcs], 0, &iSec))
+    if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
+        eleType, 1, cellStartId[numProcs], 0, &iSec))
         Terminate("writeSecInfo", cg_get_error());
     // par_std_out_("%d, %d\n", start, end);
     cgsize_t *data = (cgsize_t*)conn.data;
@@ -361,7 +361,7 @@ void Mesh::initCGNSFilePar(const char* filePtr)
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
 	int iBase=1, iZone=1;
-	char basename[20];
+	char basename[CHAR_DIM];
 
 	cgsize_t sizes[3];
 	sizes[0] = nodeNum;
@@ -696,20 +696,7 @@ void Mesh::readCGNSFile(const char* filePtr)
  //    	Terminate("closeGridCGNS", cg_get_error());
 }
 
-char* Mesh::typeToWord(ElementType_t eleType)
-{
-    switch(eleType)
-    {
-        case HEXA_8 : return "HEXA_8";
-        case HEXA_27: return "HEXA_27";
-        case QUAD_4 : return "QUAD_4";
-        case TETRA_4 : return "TETRA_4";
-        case TRI_3: return "TRI_3";
-        case QUAD_9: return "QUAD_9";
-        // default: return "unknown type";
-        default: Terminate("transform type to string", "unknown type");
-    }
-}
+
 
 void Mesh::fetchNodes(Array<char*> fileArr)
 {
