@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2020-01-06 15:57:25
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 17:02:50
+* @last Modified time: 2020-01-08 15:21:12
 */
 
 #ifndef BLOCKTOPOLOGY_HPP
@@ -46,6 +46,8 @@ private:
 	
 	Array<label> faceType_; ///< type of faces
 
+	Array<label> BCType_; ///< type of boundary condition
+
 	Array<label> cellBlockStartIdx_; ///< the start index of each block in the overall cell topology
 
 	Array<label> faceBlockStartIdx_; ///< the start index of each block in the overall face topology
@@ -56,7 +58,9 @@ public:
 	/**
 	* @brief default constructor
 	*/
-	BlockTopology(Topology& topo);
+	BlockTopology();
+
+	void constructBlockTopology(Topology& topo);
 
 	/**
 	* @brief default deconstructor
@@ -72,6 +76,13 @@ public:
 	* @brief get the count of face types over the region
 	*/
 	Array<label> getFaceBlockStartIdx(){return this->faceBlockStartIdx_;};
+	/**
+	* @brief set the count of face types over the region
+	*/
+	void setFaceBlockStartIdx(Array<label> faceBlockStartIdx)
+	{
+		this->faceBlockStartIdx_ = faceBlockStartIdx;
+	};
 
 	/**
 	* @brief get the cell2node topology
@@ -79,9 +90,60 @@ public:
 	ArrayArray<label> getCell2Node(){return this->cell2Node_;};
 
 	/**
+	* @brief get the face2node topology
+	*/
+	ArrayArray<label> getFace2Node(){return this->face2Node_;};
+	/**
+	* @brief set the face2node topology
+	*/
+	void setFace2Node(Array<Array<label> > face2Node)
+	{
+		transformArray(face2Node, this->face2Node_);
+	};
+
+	/**
+	* @brief get the face2Cell topology
+	*/
+	ArrayArray<label> getFace2Cell(){return this->face2Cell_;};
+	/**
+	* @brief set the face2Cell topology
+	*/
+	void setFace2Cell(Array<Array<label> > face2Cell)
+	{
+		transformArray(face2Cell, this->face2Cell_);
+	};
+
+	/**
 	* @brief get the cell block type
 	*/
 	Array<label> getCellType(){return this->cellType_;};
+
+	/**
+	* @brief get the face block type
+	*/
+	Array<label> getFaceType(){return this->faceType_;};
+	/**
+	* @brief set the face block type
+	*/
+	void setFaceType(Array<label> faceType)
+	{
+		this->faceType_ = faceType;
+	};
+
+	/**
+	* @brief get the boundary condition block type
+	*/
+	Array<label> getBCType(){return this->BCType_;};
+	/**
+	* @brief set the boundary condition block type
+	*/
+	void setBCType(Array<label> BCType)
+	{
+		this->BCType_ = BCType;
+	};
+
+
+
 };
 
 }

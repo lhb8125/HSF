@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 17:10:06
+* @last Modified time: 2020-01-09 16:30:44
 */
 #include <cstdio>
 #include <iostream>
@@ -311,22 +311,31 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     for (int iSec = 0; iSec < cellBlockStartIdx.size()-1; ++iSec)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
+        // par_std_out_("%d\n", iSec);
         MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+        // par_std_out_("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
         }
         ElementType_t eleType = (ElementType_t)cellType[iSec];
+        // par_std_out_("writeSecInfo\n");
         int S;
         if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
-            eleType, 1, cellStartId[numProcs], 0, &S))
+            eleType, cellStartId[0]+1, cellStartId[numProcs], 0, &S))
             Terminate("writeSecInfo", cg_get_error());
+        // par_std_out_("writeSecInfo\n");
 
         cgsize_t *data = (cgsize_t*)&conn.data[conn.startIdx[cellBlockStartIdx[iSec]]];
         // conn.display();
+        // 如果该block内无网格单元，则令首末位置相同
+        if(num==0) cellStartId[rank+1] = cellStartId[rank]+1;
         if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1,
             cellStartId[rank+1], data))
             Terminate("writeSecConn", cg_get_error());
+        // par_std_out_("writeSecConn\n");
+
+        cellStartId[0] = cellStartId[numProcs];
     }
 
     // /// write connectivity

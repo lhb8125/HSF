@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-24 09:25:44
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 16:52:00
+* @last Modified time: 2020-01-09 11:20:48
 */
 #ifndef MESH_HPP
 #define MESH_HPP
@@ -28,7 +28,7 @@ class Mesh
 private:
 	Topology topo_; ///< topology
 
-	BlockTopology* blockTopo_;
+	BlockTopology blockTopo_;
 	
 	Nodes nodes_; ///< Coordinates of Nodes
 
@@ -119,7 +119,7 @@ public:
 	/**
 	* @brief get block topology
 	*/
-	BlockTopology& getBlockTopology() {return *this->blockTopo_;};
+	BlockTopology& getBlockTopology() {return this->blockTopo_;};
 
 	/**
 	* @brief get coordinates of Nodes without load balance
@@ -130,6 +130,11 @@ public:
 	* @brief get coordinates of nodes owned by this process
 	*/
 	Nodes& getOwnNodes() {return *this->ownNodes_;};
+
+	/**
+	* @brief get the count of elements of each file
+	*/
+	Array<label> getNodeNumGlobal() {return this->nodeNumGlobal_;};
 
 	/**
 	* @brief get the collections of section in CGNS file
@@ -165,7 +170,7 @@ public:
 	/**
 	* @brief generate the block topology
 	*/
-	void generateBlockTopo() {blockTopo_ = new BlockTopology(topo_);};
+	void generateBlockTopo() {blockTopo_.constructBlockTopology(topo_);};
 	
 };
 

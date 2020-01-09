@@ -83,8 +83,9 @@ public:
 	static char* typeToWord(ElementType_t eleType);
 };
 
-struct BCSection
+class BCSection
 {
+public:
 	char name[CHAR_DIM]; ///< section name
 
 	BCType_t type; ///< boundary condition type
@@ -96,6 +97,16 @@ struct BCSection
 	PointSetType_t ptsetType[1]; ///< the type of set of boundary elements
 
 	cgsize_t* BCElems; ///< list or range of boundary elements
+
+	/**
+	* @brief translate the boundary condition type to string
+	*/
+	static char* typeToWord(BCType_t BCType);
+
+	/**
+	* @brief find the BC type of specific element
+	*/
+	bool findBCType(label eleID);
 };
 
 } // end namespace HSF

@@ -33,9 +33,15 @@ extern "C" {
 
 #define Terminate(location, content) \
 { \
-	printf("Location: %s, error message: %s, file: %s, line: %d\n", \
+	printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[%d\033[0m\n", \
 		location, content, __FILE__, __LINE__); \
 	exit(-1); \
+}
+
+#define WARNING(location, content) \
+{ \
+	printf("Location: \33[%s], warning message: \33[%s], file: \33[%s], line: \33[%d]\n", \
+		location, content, __FILE__, __LINE__); \
 }
 
 #define ASSERT( expr ) \

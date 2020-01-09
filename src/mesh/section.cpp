@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:22:22
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 09:13:08
+* @last Modified time: 2020-01-08 10:54:39
 */
 #include <cstdio>
 #include <cstdlib>
@@ -419,6 +419,44 @@ char* Section::typeToWord(ElementType_t eleType)
         // default: return "unknown type";
         default: Terminate("transform type to string", "unknown type");
     }
+}
+
+char* BCSection::typeToWord(BCType_t BCType)
+{
+    switch(BCType)
+    {
+        case BCFarfield : return "BCFarfield";
+        case BCInflow: return "BCInflow";
+        case BCOutflow : return "BCOutflow";
+        case BCSymmetryPlane : return "BCSymmetryPlane";
+        case BCWall: return "BCWall";
+        case BCWallViscousHeatFlux: return "BCWallViscousHeatFlux";
+        case BCWallInviscid: return "BCWallInviscid";
+        case BCWallViscous: return "BCWallViscous";
+        case FamilySpecified: return "FamilySpecified";
+        // default: return "unknown type";
+        default: Terminate("transform BC type to string", "unknown type");
+    }
+}
+
+bool BCSection::findBCType(label eleID)
+{
+	if(ptsetType[0]==PointRange)
+	{
+		// printf("%d, %d, %d\n", eleID, );
+		if(eleID<=BCElems[1] && eleID>=BCElems[0]) return true;
+		else return false;
+	} else if(ptsetType[1]==PointList)
+	{
+		for (int i = 0; i < nBCElems; ++i)
+		{
+			if(eleID==BCElems[i]) return true;
+		}
+		return false;
+	} else
+	{
+		Terminate("findBCType", "unknown point set type");
+	}
 }
 
 } // end namespace HSF
