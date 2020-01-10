@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2020-01-06 15:57:25
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-08 15:21:12
+* @last Modified time: 2020-01-10 17:02:23
 */
 
 #ifndef BLOCKTOPOLOGY_HPP
@@ -40,7 +40,7 @@ private:
 	
 	ArrayArray<label> cell2Face_; ///< Connectivity between cells and faces (finish)
 	
-	ArrayArray<label> cell2Edge_; ///< Connectivity between cells and edges (finish)
+	ArrayArray<label> cell2Edge_; ///< Connectivity between cells and edges
 	
 	Array<label> cellType_; ///< type of cells
 	
@@ -53,6 +53,11 @@ private:
 	Array<label> faceBlockStartIdx_; ///< the start index of each block in the overall face topology
 
 	Array<label> reorderCellTopo(Topology& topo); ///< reorder the cell-related topology
+
+	Array<label> reorderFaceTopo(Topology& topo); ///< reorder the cell-related topology
+
+	void reorderOtherTopo(const Array<label>& map,
+		const ArrayArray<label>& oldTopo, ArrayArray<label>& newTopo);
 
 public:
 	/**

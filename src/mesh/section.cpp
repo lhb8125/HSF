@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:22:22
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-08 10:54:39
+* @last Modified time: 2020-01-10 16:26:06
 */
 #include <cstdio>
 #include <cstdlib>
@@ -456,6 +456,19 @@ bool BCSection::findBCType(label eleID)
 	} else
 	{
 		Terminate("findBCType", "unknown point set type");
+	}
+}
+
+label Section::getFaceType(int nodeNum)
+{
+	switch(nodeNum)
+	{
+		case 3 : return TRI_3;
+		case 4 : return QUAD_4;
+		case 6 : return TRI_6;
+		case 8 : return QUAD_8;
+		case 9 : return TRI_9;
+		default: Terminate("get the face type", "unknown type");
 	}
 }
 

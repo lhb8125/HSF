@@ -81,6 +81,11 @@ public:
 	* @brief translate the element type to string
 	*/
 	static char* typeToWord(ElementType_t eleType);
+
+	/**
+	* @brief get the type of element based on node count
+	*/
+	static label getFaceType(int nodeNum);
 };
 
 class BCSection

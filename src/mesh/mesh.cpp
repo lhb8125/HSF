@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-25 11:21:52
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-09 16:30:44
+* @last Modified time: 2020-01-10 16:02:03
 */
 #include <cstdio>
 #include <iostream>
@@ -264,7 +264,7 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     	x[i] = this->nodes_.getX()[i];
     	y[i] = this->nodes_.getY()[i];
     	z[i] = this->nodes_.getZ()[i];
-    	par_std_out_("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
+    	// par_std_out_("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
     }
 
     // printf("%d, %d, %d\n", start, end, this->nodes_.ize());
