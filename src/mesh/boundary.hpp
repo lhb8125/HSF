@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-09 08:03:25
+* @last Modified time: 2020-01-10 14:59:05
 */
 #ifndef BOUNDARY_HPP
 #define BOUNDARY_HPP
@@ -76,6 +76,7 @@ public:
 	void writeBC(const char* filePtr)
 	{
 		writeBoundaryCondition(filePtr);
+		par_std_out_("writeBC\n");
 	}
 };
 

@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
-* @last Modified time: 2020-01-09 17:30:11
+* @last Modified time: 2020-01-10 14:59:02
 */
 #include "mpi.h"
 #include "boundary.hpp"
@@ -196,13 +196,38 @@ void Boundary::writeBoundaryCondition(const char* filePtr)
                 
             }
         }
-        par_std_out_("The %dth BC has %dth elements.\n", iBC, pointListArr.size());
-        if(pointListArr.size()==0) {continue;}
-        this->BCSecs_[iBC].nBCElems = (cgsize_t)pointListArr.size();
-        this->BCSecs_[iBC].BCElems  = new cgsize_t[pointListArr.size()];
+
+        label* pointList = new label[pointListArr.size()];
+        int nBCElems = pointListArr.size();
         for (int i = 0; i < pointListArr.size(); ++i)
         {
-            this->BCSecs_[iBC].BCElems[i] = (cgsize_t)pointListArr[i];
+            pointList[i] = pointListArr[i];
+        }
+        // 获取各个进程在该边界条件下的边界单元数量
+        int *nBCElems_mpi = new int[nprocs];
+        int *disp = new int[nprocs+1];
+        MPI_Allgather(&nBCElems, 1, MPI_INT, nBCElems_mpi, 1, MPI_INT, MPI_COMM_WORLD);
+        int totBCElems;
+        label *BCElems;
+        totBCElems = 0;
+        disp[0] = 0;
+        for (int i = 0; i < nprocs; ++i)
+        {
+            par_std_out_("rank %d have %d elements\n", i, nBCElems_mpi[i]);
+            totBCElems += nBCElems_mpi[i];
+            disp[i+1] = disp[i] + nBCElems_mpi[i];
+        }
+        par_std_out_("rank %d now have %d elements\n", rank, totBCElems);
+        BCElems = new label[totBCElems];
+        MPI_Allgatherv(pointList, nBCElems, MPI_LABEL, BCElems, nBCElems_mpi,
+            disp, MPI_LABEL, MPI_COMM_WORLD);
+
+        // if(pointListArr.size()==0) {continue;}
+        this->BCSecs_[iBC].nBCElems = (cgsize_t)totBCElems;
+        this->BCSecs_[iBC].BCElems  = new cgsize_t[totBCElems];
+        for (int i = 0; i < totBCElems; ++i)
+        {
+            this->BCSecs_[iBC].BCElems[i] = (cgsize_t)BCElems[i];
         }
         par_std_out_("write Boundary condition with ElementRange type\n");
         Word str = BCSection::typeToWord(BCSecs_[iBC].type);
@@ -210,15 +235,16 @@ void Boundary::writeBoundaryCondition(const char* filePtr)
         // printf("%s\n", str.c_str());
         strcpy(this->BCSecs_[iBC].name, str.c_str());
         if(cg_boco_write(iFile, iBase, iZone, this->BCSecs_[iBC].name,
-            this->BCSecs_[iBC].type, ElementList, 
+            this->BCSecs_[iBC].type, PointList, 
             this->BCSecs_[iBC].nBCElems, this->BCSecs_[iBC].BCElems, &iBoco))
             Terminate("writeBC", cg_get_error());
-        par_std_out_("finish writeBC\n");
-        // if(cg_boco_gridlocation_write(iFile, iBase, iZone, iBoco, this->BCSecs_[iBC].location))
-        //     Terminate("writeGridLocation",cg_get_error());
+        par_std_out_("finish write the %dth BC\n", iBC);
+        if(cg_boco_gridlocation_write(iFile, iBase, iZone, iBoco,
+            this->BCSecs_[iBC].location))
+            Terminate("writeGridLocation",cg_get_error());
         pointListArr.clear();
+        MPI_Barrier(MPI_COMM_WORLD);
     }
-    par_std_out_("finish writeBC\n");
     if(cg_close(iFile))
         Terminate("closeCGNSFile", cg_get_error());
 }
