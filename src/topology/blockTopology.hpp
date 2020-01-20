@@ -95,6 +95,16 @@ public:
 	ArrayArray<label> getCell2Node(){return this->cell2Node_;};
 
 	/**
+	* @brief get the cell2cell topology
+	*/
+	ArrayArray<label> getCell2Cell(){return this->cell2Cell_;};
+
+	/**
+	* @brief get the cell2face topology
+	*/
+	ArrayArray<label> getCell2Face(){return this->cell2Face_;};
+
+	/**
 	* @brief get the face2node topology
 	*/
 	ArrayArray<label> getFace2Node(){return this->face2Node_;};

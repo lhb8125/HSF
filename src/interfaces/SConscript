@@ -4,7 +4,8 @@ import GLOVAR as gl
 cxxfile = ['topoInterfaces.cpp',
 			'fieldInterfaces.cpp',
 			'utilInterfaces.cpp',
-			'interface.cpp']
+			'interface.cpp',
+			'blkInterfaces.cpp']
 fortranfile = ['utilInterfaces_fort.f90']
 
 

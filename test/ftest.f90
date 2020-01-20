@@ -78,24 +78,24 @@ program main
     ! 获取控制参数
     nPara = 5
 
-    call get_string_para(mesh_file, str_len, nPara, &
-        & "domain1"//C_NULL_CHAR, &
-        & "region"//C_NULL_CHAR, &
-        & "0"//C_NULL_CHAR, &
-        & "path"//C_NULL_CHAR, &
-        & "1"//C_NULL_CHAR)
-    ! mesh_file = str_arr(5)
-    ! call par_std_out("mesh file: %s \n", mesh_file)
-    write(iobuf,*),"mesh file: ", mesh_file(1:str_len)
-    call flush2master()
-    nPara = 3
-    call get_label_para(write_interval, nPara, &
-        & "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "writeInterval"//C_NULL_CHAR)
-    ! call master_std_out("write internal: %d \n", write_interval)
-    write(iobuf,*),"write_interval: ", write_interval
-    call flush2master()
-    call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
-    write(*,*),"delta_t: ", delta_t
+    ! call get_string_para(mesh_file, str_len, nPara, &
+    !     & "domain1"//C_NULL_CHAR, &
+    !     & "region"//C_NULL_CHAR, &
+    !     & "0"//C_NULL_CHAR, &
+    !     & "path"//C_NULL_CHAR, &
+    !     & "1"//C_NULL_CHAR)
+    ! ! mesh_file = str_arr(5)
+    ! ! call par_std_out("mesh file: %s \n", mesh_file)
+    ! write(iobuf,*),"mesh file: ", mesh_file(1:str_len)
+    ! call flush2master()
+    ! nPara = 3
+    ! call get_label_para(write_interval, nPara, &
+    !     & "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "writeInterval"//C_NULL_CHAR)
+    ! ! call master_std_out("write internal: %d \n", write_interval)
+    ! write(iobuf,*),"write_interval: ", write_interval
+    ! call flush2master()
+    ! call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
+    ! write(*,*),"delta_t: ", delta_t
 
 
     ! ! 获取基本单元数目
@@ -244,6 +244,8 @@ subroutine calc_eles_vol(n_ele, e2n, e2n_pos, coord, ele_type, vol)
             call calc_HEXA_vol(nodes_coord, vol(iele))
             ! write(*,*), iele, vol(iele)
     	else if(ele_type(iele) .eq. 10) then
+            call calc_TETRA_vol(nodes_coord, vol(iele))
+        else if(ele_type(iele) .eq. 12) then
             call calc_TETRA_vol(nodes_coord, vol(iele))
         else
             write(*,*), "the element type is not supported"
