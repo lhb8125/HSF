@@ -5,11 +5,12 @@ import GLOVAR as gl
 gl._init()
 
 software_home = '/home/export/online1/amd_dev1/software'
-hdf5_path = software_home + '/HDF5/hdf5-1.10.5'
+#software_home = '/home/export/online1/amd_dev1/liuhb/hsf/library'
+hdf5_path = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
 cgns_path = software_home + '/CGNS/CGNS-3.4.0/src/SampleScripts'
 #yaml_path = software_home + '/yaml-cpp/yaml-cpp-0.6.2'
-yaml_path = '/home/export/online1/amd_dev1/software/yaml-cpp/yaml-cpp-yaml-cpp-0.5.3'
-parmetis_path = software_home + '/ParMETIS/parmetis-4.0.3/x86Install_64_64'
+yaml_path = software_home + '/yaml-cpp/yaml-cpp-yaml-cpp-0.5.3'
+parmetis_path = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
 
 # Set our required environment
 libraries 		= ['yaml-cpp', 'cgns', 'hdf5', 'parmetis', 'metis', 'stdc++', 'm', 'z', 'dl']
@@ -19,11 +20,11 @@ library_paths 	= [hdf5_path + '/lib',
 				   yaml_path + '/lib']
 cppDefines 		= {}
 #cppFlags 		= ['-fPIC', '-MMD', '-MP', '-DSCALAR_FLOAT64']
-cppFlags 		= ['-fPIC',  '-DSCALAR_FLOAT64']
+cppFlags 		= ['-fPIC',  '-DSCALAR_FLOAT64', '-Wno-write-strings']
 debugFlags      = ['-g', '-O0', '-DDEBUG', '-Wall', '-Wextra', '-Werror', '-fno-elide-constructors']
 #debugFlags      = ['-g']
 optFlags		= ['-O2']
-f90Flags		= ['-g']
+f90Flags		= ['-g', '-fcray-pointer']
 
 # define the attributes of the build environment
 env = Environment(ENV   = os.environ)
@@ -72,17 +73,18 @@ if gl.platform == 'sw':
 	env['LINK'] = 'swg++453'
 	env.Append(CPPPATH = ['/usr/sw-mpp/mpi2/include'])
 else:
-	env['CC']   = software_home + '/MPICH/bin/mpicc'
-	env['CXX']  = software_home + '/MPICH/bin/mpicxx'
-	env['F90']  = software_home + '/MPICH/bin//mpifort'
+	mpi_path = software_home + '/MPICH/gcc_build'
+	env['CC']   = mpi_path + '/bin/mpicc'
+	env['CXX']  = mpi_path + '/bin/mpicxx'
+	env['F90']  = mpi_path + '/bin/mpifort'
 	#env['AR']   = 'ar'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicc'
 	#env['LINK'] = software_home + '/MPICH/bin/mpicxx'
 	env.Append(CPPPATH = [cgns_path + '/include'])
-	env.Append(CPPPATH = [software_home + '/MPICH/include'])
+	env.Append(CPPPATH = [mpi_path + '/include'])
 	env.Append(CPPPATH = [parmetis_path + '/include'])
 	env.Append(CPPPATH = [yaml_path + '/include'])
-	env.Append(F90PATH = [software_home + '/MPICH/include'])
+	env.Append(F90PATH = [mpi_path + '/include'])
 
 # env['LINKFLAGS'] = '-lstdc++'
 

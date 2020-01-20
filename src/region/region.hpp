@@ -324,7 +324,7 @@ void Region::writeField(const char* resFile,
     }
    	if(nSols==0 || S==-1)
     {
-        printf("create new solution info, solName: %s, location: %d\n", solName, location);
+        // printf("create new solution info, solName: %s, location: %d\n", solName, location);
    		if(cg_sol_write(iFile, iBase, iZone, solName, location, &S))
             Terminate("writeSolution", cg_get_error());
     }

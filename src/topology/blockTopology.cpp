@@ -25,7 +25,7 @@ BlockTopology::~BlockTopology()
 
 void BlockTopology::constructBlockTopology(Topology& topo)
 {
-	printf("constructBlockTopology\n");
+	// printf("constructBlockTopology\n");
 	Array<label> cellMap = this->reorderCellTopo(topo);
 	Array<label> faceMap = this->reorderFaceTopo(topo);
 }
