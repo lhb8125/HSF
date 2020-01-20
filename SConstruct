@@ -10,9 +10,7 @@ hdf5_path = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
 cgns_path = software_home + '/CGNS/CGNS-3.4.0/src/SampleScripts'
 #yaml_path = software_home + '/yaml-cpp/yaml-cpp-0.6.2'
 yaml_path = software_home + '/yaml-cpp/yaml-cpp-yaml-cpp-0.5.3'
-
 parmetis_path = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
-
 
 # Set our required environment
 libraries 		= ['yaml-cpp', 'cgns', 'hdf5', 'parmetis', 'metis', 'stdc++', 'm', 'z', 'dl']
@@ -75,7 +73,6 @@ if gl.platform == 'sw':
 	env['LINK'] = 'swg++453'
 	env.Append(CPPPATH = ['/usr/sw-mpp/mpi2/include'])
 else:
-
 	mpi_path = software_home + '/MPICH/gcc_build'
 	env['CC']   = mpi_path + '/bin/mpicc'
 	env['CXX']  = mpi_path + '/bin/mpicxx'
@@ -88,9 +85,6 @@ else:
 	env.Append(CPPPATH = [parmetis_path + '/include'])
 	env.Append(CPPPATH = [yaml_path + '/include'])
 	env.Append(F90PATH = [mpi_path + '/include'])
-
-	# for unap
-	env.Append(CPPPATH = ['/home/export/online1/amd_dev1/guhf/unap/x86Install/include'])
 
 # env['LINKFLAGS'] = '-lstdc++'
 

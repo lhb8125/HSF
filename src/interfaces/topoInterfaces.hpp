@@ -66,7 +66,7 @@ void get_ele_2_face_pos_(label* pos);
 
 /**
 * @brief 获取网格单元与网格面的拓扑关系
-* @param[out]  ele2Face 网格单元与网格面的映射关系，AoS格式存储
+* @param[out]  ele2Face 网格单元与网格面的映射关系，AoS格式存储 
 */
 void get_ele_2_face_(label* ele2Face);
 
@@ -78,7 +78,7 @@ void get_ele_2_ele_pos_(label* pos);
 
 /**
 * @brief 获取网格单元之间的拓扑关系，只存储内部单元
-* @param[out]  ele2Ele 网格单元之间的映射关系，AoS格式存储
+* @param[out]  ele2Ele 网格单元之间的映射关系，AoS格式存储 
 */
 void get_ele_2_ele_(label* ele2Ele);
 
@@ -90,7 +90,7 @@ void get_ele_2_node_pos_(label* pos);
 
 /**
 * @brief 获取网格单元与格点的拓扑关系
-* @param[out]  ele2Node 网格单元与格点的映射关系，AoS格式存储
+* @param[out]  ele2Node 网格单元与格点的映射关系，AoS格式存储 
 */
 void get_ele_2_node_(label* ele2Node);
 
@@ -102,7 +102,7 @@ void get_inn_face_2_node_pos_(label* pos);
 
 /**
 * @brief 获取内部网格面与格点的拓扑关系
-* @param[out]  innFace2Node 内部网格面与格点的映射关系，AoS格式存储
+* @param[out]  innFace2Node 内部网格面与格点的映射关系，AoS格式存储 
 */
 void get_inn_face_2_node_(label* innFace2Node);
 
@@ -114,7 +114,7 @@ void get_bnd_face_2_node_pos_(label* pos);
 
 /**
 * @brief 获取边界网格面与格点的拓扑关系
-* @param[out]  bndFace2Node 边界网格面与格点的映射关系，AoS格式存储
+* @param[out]  bndFace2Node 边界网格面与格点的映射关系，AoS格式存储 
 */
 void get_bnd_face_2_node_(label* bndFace2Node);
 
@@ -138,7 +138,7 @@ void get_bnd_face_2_ele_pos_(label* pos);
 
 /**
 * @brief 获取边界网格面与网格单元的拓扑关系
-* @param[out]  bndFace2Ele 边界网格面与网格单元的映射关系，AoS格式存储
+* @param[out]  bndFace2Ele 边界网格面与网格单元的映射关系，AoS格式存储 
 */
 void get_bnd_face_2_ele_(label* bndFace2Ele);
 

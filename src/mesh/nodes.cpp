@@ -1,7 +1,7 @@
 /**
 * @file: nodes.cpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-10-14 16:47:22
 * @last Modified by:   lenovo
 * @last Modified time: 2019-12-18 10:45:02
@@ -39,7 +39,6 @@ label Nodes::size()
 // {
 // 	this->end_ = end;
 // }
-
 
 /**
 * @brief default constructor

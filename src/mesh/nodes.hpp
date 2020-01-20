@@ -1,7 +1,7 @@
 /**
 * @file: nodes.hpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-09-09 15:08:19
 * @last Modified by:   lenovo
 * @last Modified time: 2019-12-18 09:49:00
@@ -43,7 +43,6 @@ public:
 	* @param[in] xyz AoS layout of coordinates
 	*/
 	Nodes(ArrayArray<scalar>& xyz);
-  
 	/** 
 	* @brief constructor
 	* @param[in] x Coordinate X
@@ -51,7 +50,6 @@ public:
 	* @param[in] z Coordinate Z
 	*/
 	Nodes(Array<scalar>& x, Array<scalar>& y, Array<scalar>& z);
-
 	/** 
 	* @brief constructor
 	* @param[in] x Coordinate X
@@ -111,32 +109,25 @@ public:
 	* @brief get the global start index of nodes
 	* @return global start index of nodes
 	*/
-
 	// label getStart();
 
 	/**
 	* @brief get the global end index of nodes
 	* @return global end index of nodes
 	*/
-
 	// label getEnd();
-
 
 	/**
 	* @brief set the global start index of nodes
 	* @param[in] start global start index of nodes
 	*/
-
 	// void setStart(const label start);
-
 
 	/**
 	* @brief set the global end index of nodes
 	* @param[in] end global end index of nodes
 	*/
-
 	// void setEnd(const label end);
-
 };
 
 } // end namespace HSF

@@ -112,18 +112,16 @@ public:
     /**
      * @brief      Initializes the fields.
      *
-     * @param[in]  fieldName  The field name
+     * @param[in]   fieldName The field name
      */
-    template<typename T>
-    void initField(const Word, const Word);
+    void initFields(Word fieldName);
 
     /**
      * @brief      update the fields
      *
      * @param[in]  fieldName  The field name
      */
-    template<typename T>
-    void updateField(const Word, const Word);
+    void updateFields(Word fieldName);
 
     /**
      * @brief Gets the field from field table.
@@ -137,19 +135,19 @@ public:
 
     /**
      * @brief      Adds a field to region.
+     * @param[in]  setType  field setType: face, node, ...
      * @param[in]  name  field name
      * @param      f  field pointer
      * @tparam     T          label, scalar
      */
     template<typename T>
-    void addField(Word name, Field<T>* f);
+    void addField(Word setType, Word name, Field<T>* f);
 
     /**
      * @brief       delete a named field
      * @param[in]  Word  field setType: face, node, ...
      * @param[in]  Word  field name
      */
-    template<typename T>
     void deleteField(Word, Word);
 };
 

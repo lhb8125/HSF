@@ -7,15 +7,11 @@ env_local = env.Clone()
 env_local.Prepend(LIBS = ['hsf'])
 env_local.Append(LIBPATH = [gl.build_path + '/lib'])
 
-
 linker_bin_path = '/home/export/online1/amd_dev1/software/MPICH/gcc_build/bin'
 #linker_bin_path = '/home/export/online1/amd_dev1/software/MPICH/icc_build/bin'
 #linker_bin_path = '/home/export/online1/amd_dev1/software/../liuhb/hsf/library/MPICH/mpich-3.2.1/gcc_build/bin'
 
-env_local.Append(LIBS = ['unap'])
-env_local.Append(LIBPATH = ['/home/export/online1/amd_dev1/guhf/unap/x86Install/lib'])
-
-
+cxxfile = ['test.cpp',]
 
 # fortranfile = ['ftest.f90']
 
@@ -29,6 +25,5 @@ env_local.Program(gl.build_path + '/bin/blk_test', source = fortranfile, LINK=li
 # env_local.Program(gl.build_path + '/bin/ftest', source = fortranfile, LINK=linker_bin_path + '/mpifort')
 
 #env_local.Program(gl.build_path + '/bin/ftest', source = fortranfile, LINK='mpif90')
-
 
 

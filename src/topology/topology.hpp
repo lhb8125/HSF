@@ -1,7 +1,7 @@
 /**
 * @file: topology.hpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-09-09 15:08:19
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-06 16:36:38
@@ -167,7 +167,7 @@ public:
 	};
 
 	/**
-	* @brief set the cell type
+	* @brief set the cell type 
 	*/
 	void setCellType(Array<label>& cellType)
 	{

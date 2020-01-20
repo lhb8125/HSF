@@ -1,7 +1,7 @@
 /**
 * @file: boundary.cpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-09-26 09:25:10
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-10 14:59:05
@@ -22,13 +22,13 @@ class Boundary : public Mesh
 {
 private:
 	label meshType_; ///< Identification for mesh type
-
+	
 	Array<BCSection> BCSecs_; ///< Boundary condition section information for CGNS file
 
 	Array<label> BCType_;
-
+	
 	void readBoundaryCondition(const char* filePtr); ///< read mesh file with CGNS format
-
+	
 	void writeBoundaryCondition(const char* filePtr); ///< write mesh file with CGNS format
 
 	void initBoundaryConditionType();

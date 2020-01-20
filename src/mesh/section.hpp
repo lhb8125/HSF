@@ -2,8 +2,8 @@
 * @file: section.hpp
 * @author: Liu Hongbin
 * @Date:   2019-10-14 10:05:10
-* @Last Modified by:   Hanfeng
-* @Last Modified time: 2019-12-02 13:46:39
+* @Last Modified by:   lenovo
+* @Last Modified time: 2019-10-14 14:14:36
 */
 #ifndef SECTION_H
 #define SECTION_H
@@ -23,7 +23,7 @@ class Section
 {
 public:
 	char*  name; ///< section name
-
+	
 	ElementType_t  type; ///< element type of the section
 	
 	label  iStart; ///< global start index of the section
@@ -70,7 +70,7 @@ public:
 	*/
 	static Array<label> edgeNodesForEle(label* conn, const label eleType, const label idx);
 	/**
-	* @brief whether the section belongs to the entity through the elements type
+	* @brief whether the section belongs to the entity through the elements type 
 	* @param[in] secType section type
 	* @param[in] meshType_ mesh type
 	* @return whether the section belongs to the entity

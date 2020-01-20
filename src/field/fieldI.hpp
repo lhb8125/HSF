@@ -22,17 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/*
-* @File: fieldI.hpp
-* @Author: Hanfeng GU
+/**
+* @file: fieldI.hpp
+* @author: Hanfeng GU
 * @Email:  hanfenggu@gmail.com
 * @Date:   2019-09-18 16:04:01
-* @Last Modified by:   Hanfeng
-* @Last Modified time: 2019-11-28 14:11:47
-*/
-
-/*
-* @brief: Implementation of template functions in Field class
+* @Last Modified by:   Hanfeng GU
+* @Last Modified time: 2019-11-15 10:16:28
 */
 
 // using namespace HSF;

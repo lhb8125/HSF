@@ -1,7 +1,7 @@
 /**
 * @file: topology.cpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-10-14 16:27:19
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-09 16:55:39
@@ -45,9 +45,7 @@ void Topology::constructTopology()
 	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
 	ArrayArray<label> cell2Node = this->cell2Node_;
-
 	// printf("cell2Node_: %d, cellType_: %d\n", cell2Node_.size(), cellType_.size());
-
 	// if(rank==0)
 	// {
 	// for (int i = 0; i < cell2Node.num; ++i)
@@ -75,9 +73,7 @@ void Topology::constructTopology()
 	for (int i = 0; i < cellNum; ++i)
 	{
 		label faceNumTmp = Section::facesNumForEle(cellType_[i]);
-
 		// printf("%d, %d, %d\n", rank, i, cellType_[i]);
-
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
 			Array<label> face2NodeTmp = Section::faceNodesForEle(
@@ -111,7 +107,7 @@ void Topology::constructTopology()
 		// 默认两个面不相等
 		bool isEqual = false;
 		// par_std_out_("%d, ", i);
-		while(end<faces2NodesTmp.size() &&
+		while(end<faces2NodesTmp.size() && 
 			faces2NodesTmp[i][0] == faces2NodesTmp[end][0])
 		{
 			// 第一个node相等时，默认相等
@@ -134,9 +130,7 @@ void Topology::constructTopology()
 			if(isEqual)
 			{
 				// 本面对应cell编号为owner，相等面对应cell编号为neighbor
-
 				label ownerId 
-
 					= faces2NodesTmp[i][faces2NodesTmp[i].size()-1]-cellStartId_;
 				label neighborId
 					= faces2NodesTmp[end][faces2NodesTmp[end].size()-1]-cellStartId_;
@@ -200,7 +194,7 @@ void Topology::constructTopology()
 			}
 		}
 		if(!isExist)
-		{
+		{ 
 			faceNodeNum.push_back(face2NodeInn[i].size());
 		}
 	}
@@ -238,11 +232,9 @@ void Topology::constructTopology()
 	for (int i = 0; i < face2NodeInn.size(); ++i)
 	{
 		label cellIdx = face2CellInn[i][0];
-
 		// printf("2: %d, %d, %d\n", rank, cellIdx, cellType_[cellIdx]);
 		label faceNumTmp = Section::facesNumForEle(cellType_[cellIdx]);
 		// printf("2: %d, %d, %d\n", rank, cellIdx, cellType_[cellIdx]);
-
 		for (int j = 0; j < faceNumTmp; ++j)
 		{
 			Array<label> face2NodeTmp = Section::faceNodesForEle(
@@ -492,7 +484,7 @@ void Topology::constructTopology(Array<Section>& secs)
 					// if(rank==0) printf("The matching face index of element %d is %d\n", i, faceIdx);
 				}
 			}
-			if(!findFace)
+			if(!findFace) 
 			{
 				printf("%d\n", i);
 				Terminate("find faces of elements", "can not find the matching faces");
@@ -552,7 +544,7 @@ void Topology::constructTopology(Array<Section>& secs)
 	// delete[] bonus;
 
 	/// construct the topology array: node2Cell
-
+	
 }
 
 // label Topology::reorderFace2Node(Array<Array<label> >& face2NodeTmp, Array<Array<label> >& face2NodeBndTmp)
@@ -615,7 +607,7 @@ void Topology::genEdgeTopo()
 		edge2NodeTmp = edges2NodesTmp[i];
 		edge2NodeTmp.pop_back();
 
-		while(end<edges2NodesTmp.size() &&
+		while(end<edges2NodesTmp.size() && 
 			edges2NodesTmp[i][0] == edges2NodesTmp[end][0])
 		{
 			// 第一个node相等时，默认相等
@@ -691,7 +683,7 @@ void Topology::genEdgeTopo()
 			tmp.assign(edge2NodeTmp.begin(), edge2NodeTmp.end());
 			sort(edge2NodeTmp.begin(), edge2NodeTmp.end());
 			if(compareArray(edge2NodeTmp, edge2NodeArr[i]))
-				edge2NodeArr[i].swap(tmp);
+				edge2NodeArr[i].swap(tmp);			
 		}
 		/// 获取cell2edge
 		for (int j = 0; j < edge2CellArr[i].size(); ++j)

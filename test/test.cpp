@@ -1,7 +1,7 @@
 /**
 * @file: test.cpp
 * @author: Liu Hongbin
-* @brief:
+* @brief: 
 * @date:   2019-10-09 11:04:42
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-06 09:45:08
@@ -27,11 +27,11 @@ using namespace HSF;
 
 // #define DEBUG_YAML
 
-// void loadRegionTopologyFromYAML(String filePtr, Array<scalar> &s,
-// 	ArrayArray<label> &nei, label procNum);
-// void operator >> (const YAML::Node& node, Array<scalar>& s);
-// void operator >> (const YAML::Node& node, Array<Array<label> >& nei);
-// void operator >> (const YAML::Node& node, Array<label>& regionIdx);
+// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
+// 	ArrayArray<Label> &nei, Label procNum);
+// void operator >> (const YAML::Node& node, Array<Scalar>& s);
+// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei);
+// void operator >> (const YAML::Node& node, Array<Label>& regionIdx);
 // void hdf5ToAdf(char* filePtr, char* desFilePtr);
 
 int main(int argc, char** argv)
@@ -43,7 +43,6 @@ int main(int argc, char** argv)
 
 	/// initialize MPI environment
 	printf("initialize MPI environment ......\n");
-
 	// int numproces, rank;
 	// MPI_Init(&argc, &argv);
 	// MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -72,7 +71,6 @@ int main(int argc, char** argv)
 	nPara = 4;
 	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
 	printf("writing CGNS file: %s\n", resultFile);
-
 	/// read CGNS file
 	Array<Region> regs;
 	Region reg;
@@ -95,8 +93,8 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-// void loadRegionTopologyFromYAML(String filePtr, Array<scalar> &s,
-// 	ArrayArray<label> &nei, label procNum)
+// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
+// 	ArrayArray<Label> &nei, Label procNum)
 // {
 // 	OUT<<"reading YAML file: "<<filePtr<<" ......"<<ENDL;
 // 	std::ifstream fin(filePtr.c_str());
@@ -108,8 +106,8 @@ int main(int argc, char** argv)
 // 	{
 // 		measurement[i] >> s;
 // 	}
-// 	Array<Array<label> > neiTmp;
-// 	Array<label> regIdxTmp;
+// 	Array<Array<Label> > neiTmp;
+// 	Array<Label> regIdxTmp;
 // 	const YAML::Node& topology = doc["topology"];
 // 	for (int i = 0; i < topology.size(); ++i)
 // 	{
@@ -119,16 +117,16 @@ int main(int argc, char** argv)
 
 // 	/// transform the vector<vector<int> > to ArrayArray
 // 	nei.num = s.size();
-// 	nei.startIdx = new label[nei.num+1];
+// 	nei.startIdx = new Label[nei.num+1];
 // 	nei.startIdx[0] = 0;
 // 	for (int i = 0; i < nei.num; ++i)
 // 	{
 // 		nei.startIdx[i+1] = nei.startIdx[i]+neiTmp[regIdxTmp[i]].size();
 // 	}
-// 	nei.data = new label[nei.startIdx[nei.num]];
+// 	nei.data = new Label[nei.startIdx[nei.num]];
 // 	for (int i = 0; i < nei.num; ++i)
 // 	{
-// 		label k = 0;
+// 		Label k = 0;
 // 		for (int j = nei.startIdx[i]; j < nei.startIdx[i+1]; ++j)
 // 		{
 // 			nei.data[j] = neiTmp[regIdxTmp[i]][k];
@@ -148,7 +146,7 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<scalar>& s)
+// void operator >> (const YAML::Node& node, Array<Scalar>& s)
 // {
 // 	String mea;
 // 	node["mea"] >> mea;
@@ -162,11 +160,11 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<Array<label> >& nei)
+// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei)
 // {
 // 	// String neighbor;
 // 	// node["neighbor"].as<string>() >> neighbor;
-// 	Array<label> neiTmp;
+// 	Array<Label> neiTmp;
 // 	int tmp;
 // 	const YAML::Node& neighbor = node["neighbor"];
 // 	for (int i = 0; i < neighbor.size(); ++i)
@@ -190,9 +188,9 @@ int main(int argc, char** argv)
 // #endif
 // }
 
-// void operator >> (const YAML::Node& node, Array<label>& regionIdx)
+// void operator >> (const YAML::Node& node, Array<Label>& regionIdx)
 // {
-// 	label tmp;
+// 	Label tmp;
 // 	node["regionIdx"] >> tmp;
 // 	regionIdx.push_back(tmp);
 

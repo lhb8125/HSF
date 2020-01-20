@@ -67,12 +67,10 @@ void init_(char* configFile)
 
 }
 
-
 void clear_()
 {
 	regs.clear();
 }
-
 
 void get_elements_num_(label* eleNum)
 {
