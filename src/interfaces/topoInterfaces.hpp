@@ -25,6 +25,19 @@ extern "C"
 */
 void init_(char* configFile);
 
+/**
+* @brief 初始化配置文件
+* @param[in] configFile 参数配置文件
+*/
+void init_config_(char* configFile);
+
+/**
+* @brief 初始化网格信息
+* @param[in] meshFile 网格文件
+*/
+void init_mesh_(char* meshFile);
+
+
 void clear_();
 
 /**

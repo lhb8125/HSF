@@ -33,7 +33,7 @@ extern "C" {
 
 #define Terminate(location, content) \
 { \
-	printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[%d\033[0m\n", \
+	printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[31m%d\033[0m\n", \
 		location, content, __FILE__, __LINE__); \
 	exit(-1); \
 }

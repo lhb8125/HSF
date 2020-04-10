@@ -168,7 +168,7 @@ void get_label_para_(int* retVal, int* nPara, ...);
 * @param[out]  retVal 控制参数值
 * @param[in]  ... 控制参数树字符串
 */
-void get_scalar_para_(float* retVal, int* nPara, ...);
+void get_scalar_para_(scalar* retVal, int* nPara, ...);
  
 /**
 * @brief 获取字符串控制参数

@@ -116,15 +116,16 @@ void Topology::constructTopology()
 			if(faces2NodesTmp[i].size()!=faces2NodesTmp[end].size())
 			{
 				isEqual = false;
-				break;
-			}
-			// 比较各个维度，不相等则跳出，标记不相等
-			for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
+			} else
 			{
-				if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+				// 比较各个维度，不相等则跳出，标记不相等
+				for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
 				{
-					isEqual = false;
-					break;
+					if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+					{
+						isEqual = false;
+						break;
+					}
 				}
 			}
 			if(isEqual)
@@ -224,6 +225,7 @@ void Topology::constructTopology()
 		face2CellInn.insert(face2CellInn.end(), face2CellWithType[i].begin(), face2CellWithType[i].end());
 	}
 	transformArray(face2CellInn, this->face2Cell_);
+
 	this->faceNum_i_ = face2NodeInn.size();
 	this->faceNum_b_ = face2NodeBnd.size();
 	this->faceNum_   = this->faceNum_i_+this->faceNum_b_;

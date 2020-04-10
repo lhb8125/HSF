@@ -187,10 +187,10 @@ void Parameter::getPara(void* resVal, char** strList, const int strLen)
 		Terminate("loadYAMLFile", "please check the parameter string");
 	}
 
-	// printf("%d\n", len);
+	// printf("%d,%s\n", strLen,strList[0]);
 	for (int i = 0; i < strLen; ++i)
 	{
-		// printf("%s\n", strList[i]);
+// printf("%s\n", strList[i]);
 		config = config[strList[i]];
 		if(!config) 
 		{
@@ -199,6 +199,7 @@ void Parameter::getPara(void* resVal, char** strList, const int strLen)
 		}
 	}
 	Word res = config.as<Word>();
+// printf("%s\n", res.c_str());
 	// std::cout<<config.as<Word>()<<std::endl;
 	if(typeid(T)==typeid(int))
 	{
@@ -210,8 +211,8 @@ void Parameter::getPara(void* resVal, char** strList, const int strLen)
 		strcpy(tmp, res.c_str());
 	}else if(typeid(T)==typeid(float))
 	{
-		float* tmp = (float*)resVal;
-		tmp[0] = std::stof(res);
+		scalar* tmp = (scalar*)resVal;
+		tmp[0] = (scalar)std::stof(res);
 	}else 
 	{
 		Terminate("reading parameters", "the type must be the basic type");
@@ -222,6 +223,7 @@ template<typename T>
 void Parameter::getPara(void* resVal, int nPara, ...)
 {
 	Word configFile = paraFile_;
+// printf("%s\n", configFile);
 	YAML::Node config = YAML::LoadFile(configFile);
 	if(!config) 
 	{

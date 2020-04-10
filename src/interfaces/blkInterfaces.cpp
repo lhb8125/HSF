@@ -21,7 +21,7 @@ using namespace HSF;
 
 #define REGION regs[0]
 
-void get_ele_block_num_(label *ele_blk_num)
+void get_ele_blk_num_(label *ele_blk_num)
 {
 	ele_blk_num[0] = REGION.getMesh().getBlockTopology().getCellType().size();
 }
@@ -101,7 +101,7 @@ void get_ele_2_node_blk_(label *ele_2_node)
 	}	
 }
 
-void get_face_block_num_(label *face_blk_num)
+void get_face_blk_num_(label *face_blk_num)
 {
 	face_blk_num[0] = REGION.getMesh().getBlockTopology().getFaceType().size();
 }
@@ -145,4 +145,40 @@ void get_face_2_node_blk_(label *face_2_node)
 		}
 		// printf("\n");
 	}	
+}
+
+void get_inn_face_2_ele_blk_(label *face_2_ele)
+{
+	label* tmp
+		= REGION.getMesh().getBlockTopology().getFace2Cell().startIdx;
+	label* tmpData
+		= REGION.getMesh().getBlockTopology().getFace2Cell().data;
+	label eleNum
+		= REGION.getMesh().getBlockTopology().getFace2Cell().num;
+	for (int i = 0; i < eleNum; ++i)
+	{
+		// printf("The %dth element from %d to %d: ", i, tmp[i], tmp[i+1]);
+		for (int j = tmp[i]; j < tmp[i+1]; ++j)
+		{
+			face_2_ele[j] = tmpData[j]+1;
+			// printf("%d, ", face_2_ele[j]);
+		}
+		// printf("\n");
+	}
+}
+
+void get_bnd_face_blk_num_(label *bnd_face_blk_num)
+{
+	bnd_face_blk_num[0] = REGION.getBoundary().getBlockTopology().getFaceType().size();
+}
+
+void get_bnd_face_blk_pos_(label *bnd_face_blk_pos)
+{
+	Array<label> tmp
+		= REGION.getBoundary().getBlockTopology().getFaceBlockStartIdx();
+	for (int i = 0; i < tmp.size(); ++i)
+	{
+// printf("%d,%d\n", i,tmp[i]+1);
+		bnd_face_blk_pos[i] = tmp[i]+1;
+	}
 }

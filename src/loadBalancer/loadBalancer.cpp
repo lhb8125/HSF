@@ -373,26 +373,17 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 				if(faces2NodesTmp[i].size()!=faces2NodesTmp[end].size())
 				{
 					isEqual = false;
-					break;
-				}
-				// 比较各个维度，不相等则跳出，标记不相等
-				for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
+				}else
 				{
-					if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+					// 比较各个维度，不相等则跳出，标记不相等
+					for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
 					{
-						isEqual = false;
-						break;
+						if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+						{
+							isEqual = false;
+							break;
+						}
 					}
-					// const scalar* i_xyz   = nodes.getXYZ(faces2NodesTmp[i][j]-1-16*rank);
-					// const scalar* end_xyz = nodes.getXYZ(faces2NodesTmp[end][j]-1-16*rank);
-					// for (int k = 0; k < SOL_DIM; ++k)
-					// {
-					// 	if(i_xyz[k]!=end_xyz[k])
-					// 	{
-					// 		isEqual = false;
-					// 		break;
-					// 	}
-					// }
 				}
 				if(isEqual)
 				{

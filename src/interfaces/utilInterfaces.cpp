@@ -274,7 +274,7 @@ void get_label_para_(int* retVal, int* nPara, ...)
   para.getPara<int>(retVal, strList, *nPara);
 }
 
-void get_scalar_para_(float* retVal, int* nPara, ...)
+void get_scalar_para_(scalar* retVal, int* nPara, ...)
 {
   char* strList[*nPara];
 
@@ -296,7 +296,7 @@ void get_scalar_para_(float* retVal, int* nPara, ...)
 void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
 {
   char* strList[*nPara];
-  // printf("%s\n", retVal);
+  // printf("%d,%d\n", *nPara,*str_len);
 
   va_list args;
   va_start(args, nPara);
@@ -305,12 +305,13 @@ void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
   for (int i = 0; i < *nPara; ++i)
   {
     str = va_arg(args, char*);
+// printf("%s\n",str);
     strList[i] = str;
   }
 
   va_end(args);
 
-  str_len[0] = 0;
+  *str_len = 0;
   para.getPara<char>(retVal, strList, *nPara);
   while(*retVal++!='\0') str_len[0]++;
 }

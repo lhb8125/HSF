@@ -40,6 +40,7 @@ void Boundary::readBoundaryCondition(const char* filePtr)
     cgsize_t normalListSize;
     int nDataSet;
     DataType_t normDataType;
+// printf("BC num: %d\n", nBocos);
     for(int iBoco=1; iBoco<=nBocos; iBoco++)
     {
         BCSection BCSec;
@@ -48,12 +49,17 @@ void Boundary::readBoundaryCondition(const char* filePtr)
             BCSec.ptsetType, &BCSec.nBCElems, &normalIndex[0], &normalListSize, &normDataType,
             &nDataSet))
             Terminate("readBocoInfo", cg_get_error());
-        if(BCSec.ptsetType[0]!=PointRange || BCSec.ptsetType[0]!=PointList)
+        if(cg_boco_gridlocation_read(iFile, iBase, iZone, iBoco, &BCSec.location))
+            Terminate("readGridLocation", cg_get_error());
+        if(BCSec.ptsetType[0]!=PointRange && BCSec.ptsetType[0]!=PointList)
         {
             if(BCSec.ptsetType[0]==ElementRange) BCSec.ptsetType[0] = PointRange;
             else if(BCSec.ptsetType[0]==ElementList) BCSec.ptsetType[0] = PointList;
-            if(cg_boco_gridlocation_read(iFile, iBase, iZone, iBoco, &BCSec.location))
-                Terminate("readGridLocation", cg_get_error());
+            else
+            {
+            // printf("%d,%d,%d,%d,%d\n", BCSec.ptsetType[0],PointList,PointRange,ElementRange,ElementList); 
+                Terminate("readPointsetType", "The point set type is unknown");
+            }
             if(BCSec.location==CellCenter)
             {
                 par_std_out_("The boundary condition is defined on CellCenter\n");
@@ -97,6 +103,8 @@ void Boundary::readBoundaryCondition(const char* filePtr)
                 "nEles: %d\n", iBoco, BCSec.name,
                 BCSection::typeToWord(BCSec.type), BCSec.nBCElems);
         }
+        else 
+            Terminate("readPointsetType", "The point set type is unknown");
         this->BCSecs_.push_back(BCSec);
     }    
     if(cg_close(iFile))
@@ -671,20 +679,21 @@ void generateBlockTopo()
 
 void Boundary::initBoundaryConditionType()
 {
-
-    BCSecs_[0].type = BCWall;
-    BCSecs_[1].type = BCOutflow;
-    BCSecs_[2].type = BCInflow;
+    // BCSecs_[0].type = BCWall;
+    // BCSecs_[1].type = BCOutflow;
+    // BCSecs_[2].type = BCInflow;
 
     Array<Section> secs = this->getSections();
+// printf("BCSecNum: %d, SecNum: %d\n", BCSecs_.size(),secs.size());
     for (int i = 0; i < secs.size(); ++i)
     {
-        printf("%d, %d\n", secs[i].iStart, secs[i].iEnd);
+        // printf("%d, %d\n", secs[i].iStart, secs[i].iEnd);
         for (int j = 0; j < secs[i].num; ++j)
         {
             bool flag;
             for (int k = 0; k < BCSecs_.size(); ++k)
             {
+// printf("sec: %d, ele: %d, BCSec: %d, BCStart: %d, BCEnd: %d\n",i,j+secs[i].iStart,k,BCSecs_[k].BCElems[0], BCSecs_[k].BCElems[1]);
                 flag = BCSecs_[k].findBCType(j+secs[i].iStart);
                 if(flag)
                 {
@@ -693,7 +702,11 @@ void Boundary::initBoundaryConditionType()
                 }
             }
             if(!flag)
-                Terminate("findElementType", "the element type can not be found");
+            {
+                // printf("%d,%d,%d\n", j,secs[i].num,j+secs[i].iStart);
+                // Terminate("initBoundaryConditionType", "the boundary element need to define the boundary condition");
+                BCType_.push_back(-1);
+            }
         }
     }
     // for (int i = 0; i < BCType_.size(); ++i)

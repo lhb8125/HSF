@@ -28,6 +28,22 @@ void BlockTopology::constructBlockTopology(Topology& topo)
 	// printf("constructBlockTopology\n");
 	Array<label> cellMap = this->reorderCellTopo(topo);
 	Array<label> faceMap = this->reorderFaceTopo(topo);
+	for (int i = 0; i < this->face2Cell_.size(); ++i)
+	{
+		for (int j = this->face2Cell_.startIdx[i];
+			j < this->face2Cell_.startIdx[i+1]; ++j)
+		{
+			this->face2Cell_.data[j] = cellMap[this->face2Cell_.data[j]];
+		}
+	}
+	for (int i = 0; i < this->cell2Face_.size(); ++i)
+	{
+		for (int j = this->cell2Face_.startIdx[i];
+			j < this->cell2Face_.startIdx[i+1]; ++j)
+		{
+			this->cell2Face_.data[j] = faceMap[this->cell2Face_.data[j]];
+		}
+	}	
 }
 
 Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
@@ -167,7 +183,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 
 	// face2Cell
 	const ArrayArray<label> face2Cell = topo.getFace2Cell();
-
+	
 	reorderOtherTopo(faceMap, face2Cell, this->face2Cell_);
 
 	return faceMap;

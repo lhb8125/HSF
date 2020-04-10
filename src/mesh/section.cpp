@@ -44,6 +44,7 @@ label Section::nodesNumForEle(const label eleType)
 		case HEXA_8: return 8;
 		case HEXA_27: return 27;
 		default:
+			printf("%d\n", eleType);
 			Terminate("find nodes count for Elements", "element type is not supported");
 	}
 }
@@ -439,6 +440,7 @@ char* BCSection::typeToWord(BCType_t BCType)
     }
 }
 
+
 bool BCSection::findBCType(label eleID)
 {
 	if(ptsetType[0]==PointRange)
@@ -446,12 +448,15 @@ bool BCSection::findBCType(label eleID)
 		// printf("%d, %d, %d\n", eleID, );
 		if(eleID<=BCElems[1] && eleID>=BCElems[0]) return true;
 		else return false;
-	} else if(ptsetType[1]==PointList)
+	} else if(ptsetType[0]==PointList)
 	{
+// printf("%d\n", nBCElems);
 		for (int i = 0; i < nBCElems; ++i)
 		{
+// printf("%d,%d\n", eleID,BCElems[i]);
 			if(eleID==BCElems[i]) return true;
 		}
+// printf("%d\n", eleID);
 		return false;
 	} else
 	{

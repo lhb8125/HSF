@@ -42,7 +42,7 @@ program main
     integer(dpI),allocatable:: e2f(:),e2f_pos(:)
     integer(dpI),allocatable:: if2n(:),if2n_pos(:)
     integer(dpI),allocatable:: if2e(:),if2e_pos(:)
-    real(dpR),allocatable:: b(:),x(:)
+    real(dpR),allocatable:: b(:),x(:),A(:)
     real(dpR), allocatable:: vol(:), area(:), coord(:)
     real(dpR),allocatable:: pid(:)
     character(len=20):: field_name, field_type
@@ -66,14 +66,20 @@ program main
     call init(trim(config_file))
 
     ! 获取控制参数
-    nPara = 5
+    ! nPara = 5
+    ! call get_string_para(mesh_file, str_len, nPara, &
+    !     & "domain1"//C_NULL_CHAR, &
+    !     & "region"//C_NULL_CHAR, &
+    !     & "0"//C_NULL_CHAR, &
+    !     & "path"//C_NULL_CHAR, &
+    !     & "1"//C_NULL_CHAR)
 
     ! ! 获取基本单元数目
     call get_elements_num(n_ele)
     call get_inner_faces_num(n_face_i)
     call get_bnd_faces_num(n_face_b)
     call get_nodes_num(n_node)
-    call get_ele_block_num(n_blk)
+    call get_ele_blk_num(n_blk)
     write(*,*), "elements num: ", n_ele
     write(*,*), "internal faces num: ", n_face_i
     write(*,*), "boundary faces num: ", n_face_b
@@ -87,10 +93,10 @@ program main
     allocate(eblkS(n_blk), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkS'
     call get_ele_blk_pos(eblkS)
-    ! do iblk=1,n_blk
-    !     write(*,*), "The type of ", iblk, "th block: ", eblkt(iblk)
-    !     write(*,*), "start from ", eblkS(iblk), ", end at ", eblkS(iblk+1)-1
-    ! end do
+    do iblk=1,n_blk
+        write(*,*), "The type of ", iblk, "th block: ", eblkt(iblk)
+        write(*,*), "start from ", eblkS(iblk), ", end at ", eblkS(iblk+1)-1
+    end do
 
     ! 计算网格单元所含格点总数
     ele_nodes = 0
@@ -135,7 +141,8 @@ program main
     call get_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol_new2, &
         & ndim_new, n_ele_new)
 
-    call get_face_block_num(n_blk)
+    call get_face_blk_num(n_blk)
+    write(*,*), "face blocks num: ", n_blk
     ! 获取网格面类型数目及起始位置
     allocate(fblkt(n_blk), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkt'
@@ -161,22 +168,36 @@ program main
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, area'
     call calc_eles_vol(n_blk, fblkt, fblkS, if2n, coord, area)
 
-    ! 注册面积场
-    n_dim = 1
-    call add_scalar_field("face"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_face_i)
+    ! ! 注册面积场
+    ! n_dim = 1
+    ! call add_scalar_field("face"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_face_i)
 
-    ! ! 获取网格单元与网格面拓扑关系
-    ! allocate(e2f(e2f_pos(n_ele+1)), stat=err_mem)
-    ! if(err_mem .ne. 0) stop 'Error, fails to allocate memory, e2f'
-    ! call get_ele_2_face(e2f)
-    ! do iele=1,n_ele
-    !     write(*,"(9I5)"), e2f_pos(iele+1)-e2f_pos(iele),e2n(e2n_pos(iele)+0), e2n(e2n_pos(iele)+1), e2n(e2n_pos(iele)+2), e2n(e2n_pos(iele)+3), e2n(e2n_pos(iele)+4), e2n(e2n_pos(iele)+5), e2n(e2n_pos(iele)+6), e2n(e2n_pos(iele)+7)
-    ! end do
+    ! 获取内部网格面与网格单元拓扑关系
+    allocate(if2e(n_face_i*2), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, if2e'
+    call get_inn_face_2_ele_blk(if2e)
+
+    ! A,x,b
+    allocate(x(n_ele), b(n_ele), A(n_face_i))
+    x=1
+    b=0
+    A=1
+    call calc_spmv(n_face_i,if2e, A, x, b)
+    do iele=1,n_ele
+        ! write(*,*),b(iele)
+    end do
+    ! 注册b场
+    n_dim = 1
+    call add_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_ele)
 
     ! 输出网格到CGNS文件中
     call write_mesh()
     ! 输出体积场到CGNS文件中
     call write_scalar_field("vol"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    ! 输出b场到CGNS文件中
+    call write_scalar_field("b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    ! 输出pid场到CGNS文件中
+    call write_scalar_field("pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出面积场到CGNS文件中，目前非结构网格只能输出格点和格心的求解值
     ! call write_scalar_field("b"//C_NULL_CHAR, "face"//C_NULL_CHAR)
 

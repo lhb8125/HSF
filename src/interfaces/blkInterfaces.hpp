@@ -16,7 +16,7 @@
 extern "C"
 {
 
-void get_ele_block_num_(label *ele_blk_num);
+void get_ele_blk_num_(label *ele_blk_num);
 
 void get_ele_blk_pos_(label *ele_blk_pos);
 
@@ -30,13 +30,21 @@ void get_ele_2_node_blk_(label *ele_2_node);
 
 
 
-void get_face_block_num_(label *face_blk_num);
+void get_face_blk_num_(label *face_blk_num);
 
 void get_face_blk_pos_(label *face_blk_pos);
 
 void get_face_blk_type_(label *face_blk_type);
 
 void get_face_2_node_blk_(label *face_2_node);
+
+void get_inn_face_2_ele_blk_(label *face_2_ele);
+
+
+
+void get_bnd_face_blk_num_(label *bnd_face_blk_num);
+
+void get_bnd_face_blk_pos_(label *bnd_face_blk_pos);
 
 }
 
