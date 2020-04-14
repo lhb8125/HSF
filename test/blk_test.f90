@@ -90,7 +90,7 @@ program main
     allocate(eblkt(n_blk), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkt'
     call get_ele_blk_type(eblkt)
-    allocate(eblkS(n_blk), stat=err_mem)
+    allocate(eblkS(n_blk+1), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkS'
     call get_ele_blk_pos(eblkS)
     do iblk=1,n_blk
@@ -138,8 +138,8 @@ program main
     n_dim = 1
     call add_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol, &
         & n_dim, n_ele)
-    call get_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol_new2, &
-        & ndim_new, n_ele_new)
+    ! call get_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol_new2, &
+    !     & ndim_new, n_ele_new)
 
     call get_face_blk_num(n_blk)
     write(*,*), "face blocks num: ", n_blk
@@ -163,10 +163,10 @@ program main
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, if2n'
     call get_face_2_node_blk(if2n)
 
-    ! 计算网格单元体积
-    allocate(area(n_face_i), stat=err_mem)
-    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, area'
-    call calc_eles_vol(n_blk, fblkt, fblkS, if2n, coord, area)
+    ! ! 计算网格单元体积
+    ! allocate(area(n_face_i), stat=err_mem)
+    ! if(err_mem .ne. 0) stop 'Error, fails to allocate memory, area'
+    ! call calc_eles_vol(n_blk, fblkt, fblkS, if2n, coord, area)
 
     ! ! 注册面积场
     ! n_dim = 1
@@ -232,6 +232,7 @@ subroutine calc_eles_vol(n_blk, eblkt, eblkS, e2n, coord, vol)
                 end do
             end do
             node_idx = node_idx + n_node
+            ! write(*,*),iele
             call calc_vol(nodes_coord, eblkt(iblk), vol(iele))
             ! write(*,*), iblk, iele, vol(iele)
         end do
@@ -372,6 +373,11 @@ subroutine calc_PYRA_vol(coord, vol)
     real(dpR), intent(OUT):: vol
     real(dpR):: v1(dim), v2(dim), v3(dim)
 
+    ! write(*,*),"coord(1): ",coord(0*dim+1),coord(0*dim+2),coord(0*dim+3)
+    ! write(*,*),"coord(2): ",coord(1*dim+1),coord(1*dim+2),coord(1*dim+3)
+    ! write(*,*),"coord(3): ",coord(2*dim+1),coord(2*dim+2),coord(2*dim+3)
+    ! write(*,*),"coord(4): ",coord(3*dim+1),coord(3*dim+2),coord(3*dim+3)
+    ! write(*,*),"coord(5): ",coord(4*dim+1),coord(4*dim+2),coord(4*dim+3)
     ! v1 = coord(2)-coord(1)
     v1(1) = coord(1*dim+1)-coord(0*dim+1)
     v1(2) = coord(1*dim+2)-coord(0*dim+2)
@@ -392,6 +398,7 @@ subroutine calc_PYRA_vol(coord, vol)
     vol = vol+v3(2)*(v1(3)*v2(1)-v1(1)*v2(3))
     vol = vol+v3(3)*(v1(1)*v2(2)-v2(1)*v1(2))
     vol = abs(vol)/3
+    ! write(*,*),vol
     
 end subroutine calc_PYRA_vol
 

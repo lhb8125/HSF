@@ -38,7 +38,7 @@ private:
 
 	Array<label> nodeNumLocal_; ///< end index of nodes reading from CGNS file
 
-	Array<label> nodeNumGlobal_; ///< end index of nodes reading from CGNS file
+	Array<label> nodeNumGlobal_; ///< the count of overall nodes of CGNS file
 	
 	Nodes *ownNodes_; ///< Coordinates of nodes owned by this process
 	
@@ -55,6 +55,10 @@ private:
 	* @brief read mesh file with CGNS format
 	*/
 	void readCGNSFile(const char* filePtr);
+	/**
+	* @brief read only one zone of CGNS file
+	*/
+	void readOneZone(const int iFile, const int iBase, const int iZone);
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/

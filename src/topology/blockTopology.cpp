@@ -331,6 +331,7 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 	transformArray(cell2CellBlkNew, this->cell2Cell_);
 
 	this->cellBlockStartIdx_.assign(cellNumInBlk.begin(), cellNumInBlk.end());
+// printf("%d,%d,%d,%d\n", rank,cellBlockStartIdx_[0],cellBlockStartIdx_[1],cellBlockStartIdx_[2]);
 
 	// cell2node
 	const ArrayArray<label> cell2Node = topo.getCell2Node();

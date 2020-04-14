@@ -49,23 +49,47 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     cg_precision(iFile, &precision);
     par_std_out_("precision: %d\n", precision);
 
-	char zoneName[CHAR_DIM];
 	int nZones;
-	cgsize_t sizes[3];
-	ZoneType_t zoneType;
-	if(cg_nzones(iFile, iBase, &nZones) ||
-		cg_zone_read(iFile, iBase, iZone, zoneName, sizes) ||
-		cg_zone_type(iFile, iBase, iZone, &zoneType) ||
-		zoneType != Unstructured)
+	if(cg_nzones(iFile, iBase, &nZones))
 		Terminate("readZoneInfo", cg_get_error());
-	par_std_out_("nZones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", nZones, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
-	// this->nodeNum_ = sizes[0];
-	this->eleNum_  += sizes[1];
+	par_std_out_("nZones: %d\n", nZones);
 
-	int nCoords;
-	if(cg_ncoords(iFile, iBase, iZone, &nCoords) ||
-		nCoords != 3)
-		Terminate("readNCoords", cg_get_error());
+    this->nodeNumGlobal_.push_back(0);
+    for (int i = 0; i < nZones; ++i)
+    {
+        readOneZone(iFile, iBase, i+1);
+    }
+
+	if(cgp_close(iFile))
+		Terminate("closeCGNSFile",cg_get_error());
+
+    // DELETE_POINTER(node);
+
+}
+
+void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
+{
+    int rank, numProcs;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    par_std_out_("This is rank %d in %d processes\n", rank, numProcs);
+
+    cgsize_t sizes[3];
+    char zoneName[CHAR_DIM];
+    ZoneType_t zoneType;
+    if(cg_zone_read(iFile, iBase, iZone, zoneName, sizes) ||
+        cg_zone_type(iFile, iBase, iZone, &zoneType) ||
+        zoneType != Unstructured)
+        Terminate("readZoneInfo", cg_get_error());
+    par_std_out_("Zones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", iZone, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
+    this->eleNum_  += sizes[1];
+
+    int precision;
+    cg_precision(iFile, &precision);
+    int nCoords;
+    if(cg_ncoords(iFile, iBase, iZone, &nCoords) ||
+        nCoords != 3)
+        Terminate("readNCoords", cg_get_error());
     int nnodes = (sizes[0] + numProcs - 1) / numProcs;
     cgsize_t start  = nnodes * rank + 1;
     cgsize_t end    = nnodes * (rank + 1);
@@ -73,44 +97,48 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     nnodes = end - start + 1;
     Array<scalar*> coords;
     par_std_out_("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
-	DataType_t dataType;
-	char coordName[CHAR_DIM];
-	scalar* x = new scalar[nnodes];
-	if(cg_coord_info(iFile, iBase, iZone, 1, &dataType, coordName) ||
-		// sizeof(dataType)!=sizeof(scalar) ||
-		cgp_coord_read_data(iFile, iBase, iZone, 1, &start, &end, x))
-		Terminate("readCoords", cg_get_error());
+    DataType_t dataType;
+    char coordName[CHAR_DIM];
+    scalar* x = new scalar[nnodes];
+    if(cg_coord_info(iFile, iBase, iZone, 1, &dataType, coordName) ||
+        // sizeof(dataType)!=sizeof(scalar) ||
+        cgp_coord_read_data(iFile, iBase, iZone, 1, &start, &end, x))
+    {
+        printf("%d\n", iZone);
+        Terminate("readCoords", cg_get_error());
+    }
     if(dataType==RealSingle && sizeof(scalar)==8)
         Terminate("readCoords","The data type of scalar does not match");
     if(dataType==RealDouble && sizeof(scalar)==4)
         Terminate("readCoords","The data type of scalar does not match");
-	scalar* y = new scalar[nnodes];
-	if(cg_coord_info(iFile, iBase, iZone, 2, &dataType, coordName) ||
-		// sizeof(dataType)!=sizeof(scalar) ||
-		cgp_coord_read_data(iFile, iBase, iZone, 2, &start, &end, y))
-		Terminate("readCoords", cg_get_error());
-	scalar* z = new scalar[nnodes];
-	if(cg_coord_info(iFile, iBase, iZone, 3, &dataType, coordName) ||
-		// sizeof(dataType)!=sizeof(scalar) ||
-		cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
-		Terminate("readCoords", cg_get_error());
-	MPI_Barrier(MPI_COMM_WORLD);
+    scalar* y = new scalar[nnodes];
+    if(cg_coord_info(iFile, iBase, iZone, 2, &dataType, coordName) ||
+        // sizeof(dataType)!=sizeof(scalar) ||
+        cgp_coord_read_data(iFile, iBase, iZone, 2, &start, &end, y))
+        Terminate("readCoords", cg_get_error());
+    scalar* z = new scalar[nnodes];
+    if(cg_coord_info(iFile, iBase, iZone, 3, &dataType, coordName) ||
+        // sizeof(dataType)!=sizeof(scalar) ||
+        cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
+        Terminate("readCoords", cg_get_error());
+    MPI_Barrier(MPI_COMM_WORLD);
     // par_std_out_("%d\n", sizeof(dataType));
 
     // Nodes *node = new Nodes(x, y, z, nnodes);
     label nodeStartId;
-    if(fileIdx==0)  nodeStartId = 0;
-    else  nodeStartId = this->nodeNumGlobal_[fileIdx-1];
+    // if(iZone==1)  nodeStartId = 0;
+    nodeStartId = this->nodeNumGlobal_[iZone-1];
     Nodes node(x, y, z, nnodes);
-	this->nodes_.add(&node);
+    this->nodes_.add(&node);
     // this->nodes_.setStart(start);
     // this->nodes_.setEnd(end);
     this->nodeStartIdx_.push_back(start);
     this->nodeEndIdx_.push_back(end);
     this->nodeNumLocal_.push_back(end-start+1);
-    this->nodeNumGlobal_.push_back(sizes[0]);
-	// node.setStart(start);
-	// node.setEnd(end);
+    this->nodeNumGlobal_.push_back(this->nodeNumGlobal_.back()+sizes[0]);
+    // par_std_out_("Zone: %d, node start: %d, ")
+    // node.setStart(start);
+    // node.setEnd(end);
     // this->nodes.push_back(node);
     // int i,j,k,n,nn,ne;
     // nn = 0;
@@ -121,49 +149,49 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     //     par_std_out_("y: %f, ", y[i]);
     //     par_std_out_("z: %f\n", z[i]);
     // }
-    	
+        
     // }
-	int nSecs;
-	if(cg_nsections(iFile, iBase, iZone, &nSecs))
-		Terminate("readNSections", cg_get_error());
-	int iSec;
+    int nSecs;
+    if(cg_nsections(iFile, iBase, iZone, &nSecs))
+        Terminate("readNSections", cg_get_error());
+    int iSec;
     par_std_out_("nSecs: %d\n", nSecs);
-	for (int iSec = 1; iSec <= nSecs; ++iSec)
-	{
-		char secName[CHAR_DIM];
-		cgsize_t start, end;
-		ElementType_t type;
-		int nBnd, parentFlag;
-		if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
-			&type, &start, &end, &nBnd, &parentFlag))
-			Terminate("readSectionInfo", cg_get_error());
+    for (int iSec = 1; iSec <= nSecs; ++iSec)
+    {
+        char secName[CHAR_DIM];
+        cgsize_t start, end;
+        ElementType_t type;
+        int nBnd, parentFlag;
+        if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
+            &type, &start, &end, &nBnd, &parentFlag))
+            Terminate("readSectionInfo", cg_get_error());
         // par_std_out_("%d\n", this->meshType_);
         if(! Section::compareEleType(type, this->meshType_)) continue;
         par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
 
-    	Section sec;
-    	sec.name = new char[CHAR_DIM];
-    	strcpy(sec.name, secName);
-    	sec.type   = type;
-    	sec.nBnd   = nBnd;
-		/// if the section does not match the type of mesh, then ignore it.
-		label secStart = start-1;
-		label eleNum = end-start+1;
-    	int nEles = (eleNum + numProcs - 1) / numProcs;
-    	start  = nEles * rank + 1;
-    	end    = nEles * (rank + 1);
-    	if (end > eleNum) end = eleNum;
-    	par_std_out_("processor %d will read elements from %d to %d.\n", rank, start+secStart, end+secStart);
+        Section sec;
+        sec.name = new char[CHAR_DIM];
+        strcpy(sec.name, secName);
+        sec.type   = type;
+        sec.nBnd   = nBnd;
+        /// if the section does not match the type of mesh, then ignore it.
+        label secStart = start-1;
+        label eleNum = end-start+1;
+        int nEles = (eleNum + numProcs - 1) / numProcs;
+        start  = nEles * rank + 1;
+        end    = nEles * (rank + 1);
+        if (end > eleNum) end = eleNum;
+        par_std_out_("processor %d will read elements from %d to %d.\n", rank, start+secStart, end+secStart);
 
-    	cgsize_t* elements = new cgsize_t[nEles*Section::nodesNumForEle(type)];
-    	if(cgp_elements_read_data(iFile, iBase, iZone, iSec, start+secStart, end+secStart, elements))
-    		Terminate("readElements", cg_get_error());
-		MPI_Barrier(MPI_COMM_WORLD);
+        cgsize_t* elements = new cgsize_t[nEles*Section::nodesNumForEle(type)];
+        if(cgp_elements_read_data(iFile, iBase, iZone, iSec, start+secStart, end+secStart, elements))
+            Terminate("readElements", cg_get_error());
+        MPI_Barrier(MPI_COMM_WORLD);
 
         par_std_out_("%d\n", precision);
         sec.iStart = start+secStart;
         sec.iEnd   = end+secStart;
-    	sec.num    = end-start+1;
+        sec.num    = end-start+1;
         if(precision==64)
         {
             par_std_out_("This is 64 precision\n");
@@ -178,30 +206,22 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
             int *eles32 = (int*)&elements[0];
             label* eles64 = new label[nEles*Section::nodesNumForEle(type)];
             for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
-    	    {
+            {
                 eles64[i] = (label)eles32[i] + nodeStartId;
                 // eles64[i] = (label)eles32[i];
-        	}
+            }
             sec.conn = eles64;
             eles32 = NULL;
             eles64 = NULL;
             DELETE_POINTER(elements);
         }
         this->secs_.push_back(sec);
-	}
+    }
     MPI_Barrier(MPI_COMM_WORLD);
 
-    // readBoundaryCondition(iFile, iBase, iZone);
-    // MPI_Barrier(MPI_COMM_WORLD);
-
-	if(cgp_close(iFile))
-		Terminate("closeCGNSFile",cg_get_error());
-
-    // DELETE_POINTER(node);
     DELETE_POINTER(z);
     DELETE_POINTER(y);
     DELETE_POINTER(x);
-
 }
 
 void Mesh::writeCGNSFilePar(const char* filePtr)
@@ -209,10 +229,11 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     int idx = 0;
 	int nodesPerSide = 5;
 	int nodeNum = 0;
-    for (int i = 0; i < this->nodeNumGlobal_.size(); ++i)
-    {
-        nodeNum += this->nodeNumGlobal_[i];
-    }
+    // for (int i = 0; i < this->nodeNumGlobal_.size(); ++i)
+    // {
+    //     nodeNum += this->nodeNumGlobal_[i];
+    // }
+    nodeNum = this->nodeNumGlobal_.back();
 	int eleNum  = this->eleNum_;
 
 	int rank, numProcs;
@@ -273,13 +294,13 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     int coordIdx = 0;
     for (int i = 0; i < this->nodeStartIdx_.size(); ++i)
     {
-        cgsize_t start  = this->nodeStartIdx_[i];
-        cgsize_t end    = this->nodeEndIdx_[i];
-        if(i>0) 
-        {
-            start += this->nodeNumGlobal_[i-1];
-            end   += this->nodeNumGlobal_[i-1];
-        }
+        cgsize_t start  = this->nodeNumGlobal_[i]+this->nodeStartIdx_[i];
+        cgsize_t end    = this->nodeNumGlobal_[i]+this->nodeEndIdx_[i];
+        // if(i>0) 
+        // {
+        //     start += this->nodeNumGlobal_[i-1];
+        //     end   += this->nodeNumGlobal_[i-1];
+        // }
         scalar* tmpX = &x[coordIdx];
         scalar* tmpY = &y[coordIdx];
         scalar* tmpZ = &z[coordIdx];
@@ -832,13 +853,13 @@ void Mesh::fetchNodes(Array<char*> fileArr)
             // cgsize_t end = this->nodeEndIdx_[fileIdx];
             cgsize_t start = nodeStartId[iblock]+1;
             cgsize_t end   = nodeStartId[iblock+1];
-            int nFile = fileIdx;
-            while(nFile>0) 
-            {
-                start -= this->nodeNumGlobal_[nFile-1];
-                end   -= this->nodeNumGlobal_[nFile-1];
-                nFile--;
-            }
+            // int nFile = fileIdx;
+            // while(nFile>0) 
+            // {
+            //     start -= this->nodeNumGlobal_[nFile-1];
+            //     end   -= this->nodeNumGlobal_[nFile-1];
+            //     nFile--;
+            // }
             // printf("%d, %d, %d, %d\n", fileIdx, iblock, nodeStartId[iblock], nodeStartId[iblock+1]);
             if(cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 1, &start, &end, x) ||
                 cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 2, &start, &end, y) ||
@@ -871,92 +892,6 @@ void Mesh::fetchNodes(Array<char*> fileArr)
     }
     Nodes node(coordX, coordY, coordZ);
     this->ownNodes_ = new Nodes(coordX, coordY, coordZ);
-
-    // Table<label, label>::iterator it;
-    // for (it = coordMap_.begin(); it != coordMap_.end() ; ++it)
-    // {
-    //     if(rank==1) printf("%d, %d\n", it->first, it->second);
-    //     if(rank==1) printf("%f, %f, %f\n", coordX[it->second], coordY[it->second], coordZ[it->second]);
-    // }
-
-    // label *bonus = new label[nBlocks];
-    // bonus[0] = 0;
-    // for (int i = 1; i < nBlocks; ++i)
-    // {
-    //     bonus[i] = bonus[i-1]+nodeINeed[i-1].size();
-    // }
-    // Table<label, label> coordBonus;
-    // Table<label, label>::iterator it;
-    // for (int i = 0; i < cell2NodeArr.size(); ++i)
-    // {
-    //     for (int j = 0; j < cell2NodeArr[i].size(); ++j)
-    //     {
-    //         // it=localCellMap.find(cell2NodeArr[i][j]);
-    //         // if(it!=localCellMap.end()) 
-    //         // {
-    //         //     cell2NodeArr[i][j] = it->second;
-    //         //     continue;
-    //         // }
-    //         for (int k = 0; k < nBlocks; ++k)
-    //         {
-    //             if(cell2NodeArr[i][j]<=nodeStartId[k+1] && cell2NodeArr[i][j]>nodeStartId[k])
-    //             {
-    //                 label originId = cell2NodeArr[i][j]-1;
-    //                 it = coordMap_.find(originId);
-    //                 if(it!=coordMap_.end())
-    //                 {
-    //                     // cell2NodeArr[i][j] = it->second+bonus[k]+1;
-    //                     // it->second += bonus[k];
-    //                     coordMap_[originId] = it->second+bonus[k];
-    //                 } else
-    //                 {
-    //                     Terminate("rearrange cell2Node", "the relative index is miss");
-    //                 }
-    //                 // localCellMap.insert(pair<label, label>(cell2NodeArr[i][j], bonus[k]));
-    //                 // cell2NodeArr[i][j] = bonus[k]++;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // Table<label, label>::iterator it;
-    // for (int i = 0; i < cell2NodeArr.size(); ++i)
-    // {
-    //     for (int j = 0; j < cell2NodeArr[i].size(); ++j)
-    //     {
-    //         label originId = cell2NodeArr[i][j]-1;
-    //         it = coordMap_.find(originId);
-    //         if(it!=coordMap_.end())
-    //         {
-    //             cell2NodeArr[i][j] = it->second+1;
-    //         } else
-    //         {
-    //             Terminate("rearrange cell2Node", "the relative index is miss");
-    //         }
-    //     }
-    // }
-    // if(rank==1)
-    // {
-    //     for (int i = 0; i < coordX.size(); ++i)
-    //     {
-    //         printf("%d, %f, %f, %f\n", i, coordX[i], coordY[i], coordZ[i]);
-    //     }
-    // }
-    // if(rank==1)
-    // {
-    //     for (int i = 0; i < cell2NodeArr.size(); ++i)
-    //     {
-    //         printf("the %dth elements: ", i);
-    //         for (int j = 0; j < cell2NodeArr[i].size(); ++j)
-    //         {
-    //             printf("%d, ", cell2NodeArr[i][j]);
-    //         }
-    //         printf("\n");
-    //     }
-    // }
-
-    // ArrayArray<label> cell2Node = transformArray(cell2NodeArr);
-    // this->getTopology().setCell2Node(cell2Node);
 
     DELETE_POINTER(z);
     DELETE_POINTER(y);
