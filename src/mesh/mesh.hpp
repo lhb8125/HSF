@@ -39,6 +39,15 @@ private:
 	Array<label> nodeNumLocal_; ///< end index of nodes reading from CGNS file
 
 	Array<label> nodeNumGlobal_; ///< the count of overall nodes of CGNS file
+
+	/// map from real nodes in zone to nodes in CGNS
+	// Array<Array<label64> > node_local_2_global_; 
+
+	// map from nodes in CGNS to real nodes in zone
+	// Array<Array<label64> > node_global_2_local_;
+
+	// Array<Word> zoneName_;
+
 	
 	Nodes *ownNodes_; ///< Coordinates of nodes owned by this process
 	
@@ -59,6 +68,11 @@ private:
 	* @brief read only one zone of CGNS file
 	*/
 	void readOneZone(const int iFile, const int iBase, const int iZone);
+	/**
+	* @brief read one zone connectivity
+	*/
+	// void readZoneConnectivity(const int iFile, const int iBase, const int iZone,
+ //    	Array<label64*>& zc_pnts, Array<label64*>& zc_donor_pnts, Array<Word>& zc_name);
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/
@@ -164,7 +178,8 @@ public:
 	/**
 	* @brief fetch the coordinates of nodes owned by this process
 	*/
-	void fetchNodes(Array<char*> fileArr);
+	// void fetchNodes(Array<char*> fileArr);
+	void fetchNodes(char* filename);
 
 	/**
 	* @brief get the map between the absolute index and the local index

@@ -422,6 +422,38 @@ char* Section::typeToWord(ElementType_t eleType)
     }
 }
 
+char* Section::GridLocationToWord(GridLocation_t location)
+{
+	switch(location)
+	{
+		case Vertex: return "Vertex";
+		case CellCenter: return "CellCenter";
+		case FaceCenter: return "FaceCenter";
+		default: Terminate("transform grid location to string", "unknown type");
+	}
+}
+
+char* Section::PtSetToWord(PointSetType_t ptsetType)
+{
+	switch(ptsetType)
+	{
+		case PointRange: return "PointRange";
+		case PointList: return "PointList";
+		default: Terminate("transform point set to string", "unknown type");
+	}
+}
+
+char* Section::ConnTypeToWord(GridConnectivityType_t connType)
+{
+	switch(connType)
+	{
+		case Overset: return "Overset";
+		case Abutting: return "Abutting";
+		case Abutting1to1: return "Abutting1to1";
+		default: Terminate("transform GridConnectivityType_t to string", "unknown type");
+	}
+}
+
 char* BCSection::typeToWord(BCType_t BCType)
 {
     switch(BCType)

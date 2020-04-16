@@ -211,7 +211,8 @@ void Region::writeField(const char* resFile,
     int iBase=1, iZone=1;
     char basename[CHAR_DIM];
 
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     if(cgp_open(resFile, CG_MODE_MODIFY, &iFile))
         Terminate("writeBaseInfo", cg_get_error());
@@ -287,12 +288,14 @@ void Region::writeField(const char* resFile,
 
         cgsize_t *data = (cgsize_t*)&dataPtr[cellBlockStartIdx[iSec]];
         // 如果该block内无网格单元，则令首末位置相同
-        if(num<=0) cellStartId[rank+1] = cellStartId[rank]+1;
-        cgsize_t start = cellStartId[rank]+1;
-        cgsize_t end = cellStartId[rank+1];
-        if(cgp_field_write_data(iFile, iBase, iZone, S, Fs, &start,
-            &end, data))
-            Terminate("writeSolutionData", cg_get_error());
+        if(num>0)
+        {
+            cgsize_t start = cellStartId[rank]+1;
+            cgsize_t end = cellStartId[rank+1];
+            if(cgp_field_write_data(iFile, iBase, iZone, S, Fs, &start,
+                &end, data))
+                Terminate("writeSolutionData", cg_get_error());
+        }
         // par_std_out_("writeSecConn\n");
 
         cellStartId[0] = cellStartId[numProcs];

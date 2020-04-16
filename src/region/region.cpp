@@ -44,7 +44,8 @@ void Region::initBeforeBalance(Array<char*> meshFile)
 void Region::initAfterBalance()
 {
 	par_std_out_("start constructing topology ...\n");
-	this->getMesh().fetchNodes(this->meshFile_);
+	this->getMesh().fetchNodes(this->meshFile_[0]);
+    // this->getMesh().fetchNodes(this->meshFile_);
     // this->getMesh().fetchNodes(this->meshFile_[1]);
 	this->getMesh().getTopology().constructTopology();
 	par_std_out_("finish constructing topology ...\n");
@@ -84,12 +85,12 @@ void Region::writeMesh(char* meshFile)
     par_std_out_("start write inner mesh ...\n");
 	this->getMesh().writeMesh(meshFile);
     par_std_out_("finish write inner mesh ...\n");
-    par_std_out_("start write boundary mesh ...\n");
-	this->getBoundary().writeMesh(meshFile);
-    par_std_out_("finish write boundary mesh ...\n");
-    par_std_out_("start write boundary condition ...\n");
-    this->getBoundary().writeBC(meshFile);
-    par_std_out_("finish write boundary condition ...\n");
+ //    par_std_out_("start write boundary mesh ...\n");
+	// this->getBoundary().writeMesh(meshFile);
+ //    par_std_out_("finish write boundary mesh ...\n");
+ //    par_std_out_("start write boundary condition ...\n");
+ //    this->getBoundary().writeBC(meshFile);
+ //    par_std_out_("finish write boundary condition ...\n");
 }
 
 /// guhf

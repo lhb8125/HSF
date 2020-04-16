@@ -83,6 +83,8 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         Terminate("readZoneInfo", cg_get_error());
     par_std_out_("Zones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", iZone, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
     this->eleNum_  += sizes[1];
+    // Word tmpStr = zoneName;
+    // this->zoneName_.push_back(tmpStr);
 
     int precision;
     cg_precision(iFile, &precision);
@@ -99,7 +101,12 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     par_std_out_("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
     DataType_t dataType;
     char coordName[CHAR_DIM];
-    scalar* x = new scalar[nnodes];
+    vector<scalar> vecx(nnodes);
+    vector<scalar> vecy(nnodes);
+    vector<scalar> vecz(nnodes);
+    scalar* x = &vecx[0];
+    scalar* y = &vecy[0];
+    scalar* z = &vecz[0];
     if(cg_coord_info(iFile, iBase, iZone, 1, &dataType, coordName) ||
         // sizeof(dataType)!=sizeof(scalar) ||
         cgp_coord_read_data(iFile, iBase, iZone, 1, &start, &end, x))
@@ -111,12 +118,10 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         Terminate("readCoords","The data type of scalar does not match");
     if(dataType==RealDouble && sizeof(scalar)==4)
         Terminate("readCoords","The data type of scalar does not match");
-    scalar* y = new scalar[nnodes];
     if(cg_coord_info(iFile, iBase, iZone, 2, &dataType, coordName) ||
         // sizeof(dataType)!=sizeof(scalar) ||
         cgp_coord_read_data(iFile, iBase, iZone, 2, &start, &end, y))
         Terminate("readCoords", cg_get_error());
-    scalar* z = new scalar[nnodes];
     if(cg_coord_info(iFile, iBase, iZone, 3, &dataType, coordName) ||
         // sizeof(dataType)!=sizeof(scalar) ||
         cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
@@ -124,18 +129,73 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     MPI_Barrier(MPI_COMM_WORLD);
     // par_std_out_("%d\n", sizeof(dataType));
 
-    // Nodes *node = new Nodes(x, y, z, nnodes);
+    // Array<label64> local_2_global;
+    // Array<label64> global_2_local;
+    // vector<label64> realNode;
     label nodeStartId;
-    // if(iZone==1)  nodeStartId = 0;
     nodeStartId = this->nodeNumGlobal_[iZone-1];
+    // for (int i = 0; i < nnodes; ++i)
+    // {
+    //     local_2_global.push_back(i);
+    //     global_2_local.push_back(i);
+    //     realNode.push_back(i+nodeStartId+1);
+    // }
+    // Array<label64*> zc_pnts,zc_donor_pnts;
+    // Array<Word> zc_name;
+    // readZoneConnectivity(iFile,iBase,iZone,zc_pnts,zc_donor_pnts,zc_name);
+    // // 本zone所有与其他zone的连接面
+    // for (int i = 0; i < zc_name.size(); ++i)
+    // {
+    //     // 之前所记录的zone
+    //     for (int j = 0; j < this->zoneName_.size(); ++j)
+    //     {
+    //         // 如果名字相同，则这两个zone相连接
+    //         if(zc_name[i]==zoneName_[j])
+    //         {
+    //             // 如果某连接面上的点位于本进程中
+    //             for (int k = 0; k < zc_pnts.size(); ++k)
+    //             {
+    //                 if(zc_pnts[i][k]<end && zc_pnts[i][k]>=start)
+    //                 {
+    //                     local_2_global.erase(local_2_global.begin()+k);
+    //                     global_2_local[k] = -1;
+    //                     // vecx.erase(vecx.begin()+k);
+    //                     // vecy.erase(vecy.begin()+k);
+    //                     // vecz.erase(vecz.begin()+k);
+    //                     realNode[zc_pnts[i][k]-1]
+    //                         = nodeNumGlobal_[j]
+    //                         + node_global_2_local_[j][zc_donor_pnts[i][k]-1];
+    //                         + 1;
+    //                 } else
+    //                 {
+    //                     printf("%d,%d,%d,%d,%d\n", i,k,zc_pnts[i][k],start,end);
+    //                     Terminate("error","error");
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // int absentNodes=0;
+    // // 消除属于交界面上其他zone已存储的节点，记录映射
+    // for (int i = 0; i < nnodes; ++i)
+    // {
+    //     if(global_2_local[i]==-1) absentNodes++;
+    //     else global_2_local[i] -= absentNodes;
+    // }
+    // this->node_local_2_global_.push_back(local_2_global);
+    // this->node_global_2_local_.push_back(global_2_local);
+    nnodes = vecx.size();
+    // Nodes *node = new Nodes(x, y, z, nnodes);
     Nodes node(x, y, z, nnodes);
     this->nodes_.add(&node);
     // this->nodes_.setStart(start);
     // this->nodes_.setEnd(end);
     this->nodeStartIdx_.push_back(start);
-    this->nodeEndIdx_.push_back(end);
-    this->nodeNumLocal_.push_back(end-start+1);
+    this->nodeEndIdx_.push_back(start+nnodes-1);
+    this->nodeNumLocal_.push_back(nnodes);
     this->nodeNumGlobal_.push_back(this->nodeNumGlobal_.back()+sizes[0]);
+    par_std_out_("zone: %d, start: %d, nnodes: %d\n", iZone, this->nodeNumGlobal_.back(),this->nodes_.size());
+    // this->nodeNumPerZone_.push_back(sizes[0]);
     // par_std_out_("Zone: %d, node start: %d, ")
     // node.setStart(start);
     // node.setEnd(end);
@@ -143,12 +203,6 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     // int i,j,k,n,nn,ne;
     // nn = 0;
     // if(rank==0){
-    // for (int i = 0; i < nnodes; ++i)
-    // {
-    //     par_std_out_("%d, x: %f, ", i, x[i]);
-    //     par_std_out_("y: %f, ", y[i]);
-    //     par_std_out_("z: %f\n", z[i]);
-    // }
         
     // }
     int nSecs;
@@ -192,13 +246,21 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         sec.iStart = start+secStart;
         sec.iEnd   = end+secStart;
         sec.num    = end-start+1;
+        map<label64,label64>::iterator iter;
         if(precision==64)
         {
             par_std_out_("This is 64 precision\n");
             sec.conn   = (label*)elements;
             for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
             {
-                sec.conn[i] += nodeStartId;
+                // label64 tmp = sec.conn[i]+nodeStartId;
+                // sec.conn[i] = realNode[sec.conn[i]-1];
+                // printf("%d,%d,%d\n", i,tmp,sec.conn[i]);
+                // iter = realNode.find(sec.conn[i]);
+                // if(iter!=realNode.end())
+                    // sec.conn[i] = iter->second;
+                // else
+                    sec.conn[i] += nodeStartId;
                 // printf("%d, %d, %d\n", fileIdx, i, sec.conn[i]);
             }
         } else if(precision==32)
@@ -219,9 +281,9 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     }
     MPI_Barrier(MPI_COMM_WORLD);
 
-    DELETE_POINTER(z);
-    DELETE_POINTER(y);
-    DELETE_POINTER(x);
+    // DELETE_POINTER(z);
+    // DELETE_POINTER(y);
+    // DELETE_POINTER(x);
 }
 
 void Mesh::writeCGNSFilePar(const char* filePtr)
@@ -250,7 +312,8 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
 	sizes[1] = eleNum;
 	sizes[2] = 0;
 
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
 	if(cgp_open(filePtr, CG_MODE_WRITE, &iFile) ||
 		cg_base_write(iFile, "Base", 3, 3, &iBase) ||
@@ -294,8 +357,9 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     int coordIdx = 0;
     for (int i = 0; i < this->nodeStartIdx_.size(); ++i)
     {
-        cgsize_t start  = this->nodeNumGlobal_[i]+this->nodeStartIdx_[i];
-        cgsize_t end    = this->nodeNumGlobal_[i]+this->nodeEndIdx_[i];
+        // cgsize_t start  = this->nodeNumGlobal_[i]+this->nodeStartIdx_[i];
+        cgsize_t start  = this->nodeStartIdx_[i]+this->nodeNumGlobal_[i];
+        cgsize_t end    = this->nodeEndIdx_[i]+this->nodeNumGlobal_[i];
         // if(i>0) 
         // {
         //     start += this->nodeNumGlobal_[i-1];
@@ -304,7 +368,7 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
         scalar* tmpX = &x[coordIdx];
         scalar* tmpY = &y[coordIdx];
         scalar* tmpZ = &z[coordIdx];
-        // printf("file: %d, from %d to %d, startIdx: %d\n", i, start, end, coordIdx);
+        par_std_out_("from %d to %d, num: %d\n", start, end, nnodes);
         // for (int j= 0; j < end-start+1; ++j)
         // {
         //     printf("%f, %f, %f\n", tmpX[j], tmpY[j], tmpZ[j]);
@@ -332,9 +396,9 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
     for (int iSec = 0; iSec < cellBlockStartIdx.size()-1; ++iSec)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
-        // par_std_out_("%d\n", iSec);
+        par_std_out_("%d\n", iSec);
         MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
-        // par_std_out_("%d\n", num);
+        par_std_out_("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
@@ -345,48 +409,28 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
         if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
             eleType, cellStartId[0]+1, cellStartId[numProcs], 0, &S))
             Terminate("writeSecInfo", cg_get_error());
-        // par_std_out_("writeSecInfo\n");
+        par_std_out_("writeSecInfo\n");
 
         cgsize_t *data = (cgsize_t*)&conn.data[conn.startIdx[cellBlockStartIdx[iSec]]];
         // conn.display();
-        // 如果该block内无网格单元，则令首末位置相同
-        if(num==0) cellStartId[rank+1] = cellStartId[rank]+1;
-        if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1,
-            cellStartId[rank+1], data))
-            Terminate("writeSecConn", cg_get_error());
-        // par_std_out_("writeSecConn\n");
+        // 如果该block内无网格单元，则跳过
+        if(num==0)
+        {
+            // par_std_out_("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank]+1);
+            // if(cellStartId[rank]+1>=cellStartId[numProcs]) cellStartId[rank]=cellStartId[numProcs]-1;
+            // if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1, cellStartId[rank]+1, NULL))
+            //     Terminate("writeSecConn", cg_get_error());
+        }else 
+        {
+            par_std_out_("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank+1]);
+            if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1,
+                cellStartId[rank+1], data))
+                Terminate("writeSecConn", cg_get_error());
+        }
+        par_std_out_("writeSecConn\n");
 
         cellStartId[0] = cellStartId[numProcs];
     }
-
-    // /// write connectivity
-    // ArrayArray<label> conn = this->getTopology().getCell2Node();
-    // Array<label> cellType = this->getTopology().getCellType();
-    // label *cellStartId = new label[numProcs+1];
-    // // printf("cell num: %d\n", conn.num);
-    // MPI_Allgather(&conn.num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
-    // cellStartId[0] = 0;
-    // // if(rank==1)
-    // // {
-    //     for (int i = 0; i < numProcs; ++i)
-    //     {
-    //         cellStartId[i+1] += cellStartId[i];
-    //         // cellStartId[i]++;
-    //     }
-    //     // par_std_out_("\n");
-    // // }
-    // int iSec;
-    // ElementType_t eleType = (ElementType_t)cellType[0];
-    // // par_std_out_("internal faces: %d, %d\n", 1, cellStartId[numProcs]);
-    // if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
-    //     eleType, 1, cellStartId[numProcs], 0, &iSec))
-    //     Terminate("writeSecInfo", cg_get_error());
-    // // par_std_out_("%d, %d\n", start, end);
-    // cgsize_t *data = (cgsize_t*)conn.data;
-    // // conn.display();
-    // if(cgp_elements_write_data(iFile, iBase, iZone, iSec, cellStartId[rank]+1,
-    //     cellStartId[rank+1], data))
-    //     Terminate("writeSecConn", cg_get_error());
 
     DELETE_POINTER(cellStartId);
 
@@ -751,80 +795,57 @@ void Mesh::readCGNSFile(const char* filePtr)
 
 
 
-void Mesh::fetchNodes(Array<char*> fileArr)
+void Mesh::fetchNodes(char* filename)
 {
     int rank, nprocs;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
-    int* iFile = new int[fileArr.size()];
-    int iBase=1,iZone=1;
+    int nZones = this->nodeNumGlobal_.size()-1;
+    int iFile;
+    int iBase=1;
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
-    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
-    {
-        if(cgp_open(fileArr[fileIdx], CG_MODE_MODIFY, &iFile[fileIdx]))
-            Terminate("readBaseInfo", cg_get_error());
-    }
+    if(cgp_open(filename, CG_MODE_MODIFY, &iFile))
+        Terminate("openFile", cg_get_error());
 
 
     Array<Array<label> > cell2NodeArr;
     transformArray(this->getTopology().getCell2Node(), cell2NodeArr);
 
-    // char zoneName[20];
-    // int nZones;
-    // cgsize_t sizes[3];
-    // ZoneType_t zoneType;
-    // if(cg_nzones(iFile, iBase, &nZones) ||
-    //     cg_zone_read(iFile, iBase, iZone, zoneName, sizes) ||
-    //     cg_zone_type(iFile, iBase, iZone, &zoneType) ||
-    //     zoneType != Unstructured)
-    //     Terminate("readZoneInfo", cg_get_error());
-    // par_std_out_("nZones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", nZones, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
-
-    // int nCoords;
-    // if(cg_ncoords(iFile, iBase, iZone, &nCoords) ||
-    //     nCoords != 3)
-    //     Terminate("readNCoords", cg_get_error());
-    // int nnodes = (sizes[0] + nprocs - 1) / nprocs;
-    // cgsize_t start  = nnodes * rank + 1;
-    // cgsize_t end    = nnodes * (rank + 1);
-    // if (end > sizes[0]) end = sizes[0];
-    // nnodes = end - start + 1;
-
-    label* nodeStartId = new label[nprocs*fileArr.size()+1];
+    label* nodeStartId = new label[nprocs*nZones+1];
     label tmpIdx = 1;
     // 收集各进程node数量，并按照文件编号和进程编号顺序放置
-    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
+    for (int iZone = 0; iZone < nZones; ++iZone)
     {
-        label nodeNum = this->nodeNumLocal_[fileIdx];
+        label nodeNum = this->nodeNumLocal_[iZone];
         MPI_Allgather(&nodeNum, 1, MPI_LABEL, &nodeStartId[tmpIdx], 1, MPI_LABEL, MPI_COMM_WORLD);
         tmpIdx += nprocs;
     }
     // 递增方式对node数量进行编号
     nodeStartId[0] = 0;
     label maxNodeNum = 0;
-    for (int i = 1; i <= nprocs*fileArr.size(); ++i)
+    for (int i = 1; i <= nprocs*nZones; ++i)
     {
         maxNodeNum = maxNodeNum > nodeStartId[i] ? maxNodeNum : nodeStartId[i];
         nodeStartId[i] += nodeStartId[i-1];
-        // printf("%d, %d\n", i, nodeStartId[i-1]);
     }
 
-    int nBlocks = nprocs*fileArr.size();
+    int nBlocks = nprocs*nZones;
     // 找出本进程所需node局部编号
     Array<Array<label> > nodeINeed(nBlocks);
-    for (int i = 0; i < cell2NodeArr.size(); ++i)
+    for (int k = 0; k < nBlocks; ++k)
     {
-        // printf("cell: %d\n", i);
-        for (int j = 0; j < cell2NodeArr[i].size(); ++j)
+        for (int i = 0; i < cell2NodeArr.size(); ++i)
         {
-            for (int k = 0; k < nBlocks; ++k)
+            // printf("cell: %d\n", i);
+            for (int j = 0; j < cell2NodeArr[i].size(); ++j)
             {
                 // 如果网格单元的格点落在该分段内，则记录该格点编号在该分段内的相对位置
                 if(cell2NodeArr[i][j]<=nodeStartId[k+1] && cell2NodeArr[i][j]>nodeStartId[k])
                 {
-                    nodeINeed[k].push_back(cell2NodeArr[i][j]-nodeStartId[k]-1);
+                    nodeINeed[k].push_back(cell2NodeArr[i][j]-1-nodeStartId[k]);
+                    // nodeINeed[k].push_back(this->nodeNumPerZone_[cell2NodeArr[i][j]-1]);
                     // if(rank==0) printf("%d, %d, %d\n", i, k, cell2NodeArr[i][j]-nodeStartId[k]-1);
                 }
             }
@@ -844,15 +865,15 @@ void Mesh::fetchNodes(Array<char*> fileArr)
     Array<Array<scalar> > xarr(nBlocks), yarr(nBlocks), zarr(nBlocks);
     label idxStart[nBlocks];
     label id = 0;
-    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
+    for (int iZone = 1; iZone <= nZones; ++iZone)
     {
         for (int irank = 0; irank < nprocs; ++irank)
         {
-            int iblock = fileIdx*nprocs+irank;
+            int iblock = (iZone-1)*nprocs+irank;
             // cgsize_t start = this->nodeStartIdx_[fileIdx];
             // cgsize_t end = this->nodeEndIdx_[fileIdx];
-            cgsize_t start = nodeStartId[iblock]+1;
-            cgsize_t end   = nodeStartId[iblock+1];
+            cgsize_t start = nodeStartId[iblock]+1-this->nodeNumGlobal_[iZone-1];
+            cgsize_t end   = nodeStartId[iblock+1]-this->nodeNumGlobal_[iZone-1];
             // int nFile = fileIdx;
             // while(nFile>0) 
             // {
@@ -860,10 +881,10 @@ void Mesh::fetchNodes(Array<char*> fileArr)
             //     end   -= this->nodeNumGlobal_[nFile-1];
             //     nFile--;
             // }
-            // printf("%d, %d, %d, %d\n", fileIdx, iblock, nodeStartId[iblock], nodeStartId[iblock+1]);
-            if(cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 1, &start, &end, x) ||
-                cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 2, &start, &end, y) ||
-                cgp_coord_read_data(iFile[fileIdx], iBase, iZone, 3, &start, &end, z))
+            // printf("%d, %d, %d, %d\n", iZone, iblock, start, end);
+            if(cgp_coord_read_data(iFile, iBase, iZone, 1, &start, &end, x) ||
+                cgp_coord_read_data(iFile, iBase, iZone, 2, &start, &end, y) ||
+                cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
                 Terminate("readCoords", cg_get_error());
             for (int j = 0; j < nodeINeed[iblock].size(); ++j)
             {
@@ -898,13 +919,104 @@ void Mesh::fetchNodes(Array<char*> fileArr)
     DELETE_POINTER(x);
     DELETE_POINTER(nodeStartId);
 
-    for (int fileIdx = 0; fileIdx < fileArr.size(); ++fileIdx)
-    {
-        if(cgp_close(iFile[fileIdx]))
-            Terminate("closeCGNSFile",cg_get_error());
-    }
-
-    DELETE_POINTER(iFile);
+    if(cgp_close(iFile))
+        Terminate("closeCGNSFile",cg_get_error());
 }
+
+// void Mesh::readZoneConnectivity(const int iFile, const int iBase, const int iZone,
+//     Array<label64*>& zc_pnts, Array<label64*>& zc_donor_pnts, Array<Word>& zc_name,
+//     label rank_start, label rank_end)
+// {
+//     label32 nconn;
+//     if(cg_nconns(iFile,iBase,iZone,&nconn))
+//         Terminate("read1to1Conn",cg_get_error());
+//     printf("nconn: %d\n", nconn);
+//     char connectname[CHAR_DIM];
+//     GridLocation_t location;
+//     GridConnectivityType_t connect_type;
+//     PointSetType_t ptset_type;
+//     cgsize_t npnts;
+//     char donorname[CHAR_DIM];
+//     ZoneType_t donor_zonetype;
+//     PointSetType_t donor_ptset_type;
+//     DataType_t donor_datatype;
+//     cgsize_t ndata_donor;
+//     for (int iconn = 1; iconn <= nconn; ++iconn)
+//     {
+//         if(cg_conn_info(iFile,iBase,iZone,iconn,connectname,&location,
+//             &connect_type,&ptset_type,&npnts,donorname,&donor_zonetype,
+//             &donor_ptset_type,&donor_datatype,&ndata_donor))
+//             Terminate("readConnInfo",cg_get_error());
+//         printf("connectname: %s, location: %s, connect_type: %s\n",
+//             connectname,  Section::GridLocationToWord(location),
+//             Section::ConnTypeToWord(connect_type));
+//         printf("ptset_type: %s, donorname: %s, donor_zonetype: %d\n",
+//             Section::PtSetToWord(ptset_type), donorname, donor_zonetype);
+//         if(donor_zonetype!=Unstructured || ptset_type!=PointList 
+//             || donor_datatype!=LongInteger || npnts!=ndata_donor)
+//             Terminate("readConnInfo","The zone type is not supported");
+//         cgsize_t *pnts = new cgsize_t[npnts];
+//         cgsize_t *donor_pnts = new cgsize_t[ndata_donor];
+//         if(cg_conn_read(iFile,iBase,iZone,iconn,pnts, donor_datatype, donor_pnts))
+//             Terminate("readConn",cg_get_error());
+//         zc_pnts.push_back((label64*)pnts);
+//         zc_donor_pnts.push_back((label64*)donor_pnts);
+//         Word tmp = donorname;
+//         zc_name.push_back(tmp);
+//         label64* nodes = new label64[rank_end-rank_start+1];
+//         for (int i = 0; i < rank_end-rank_start+1; ++i)
+//         {
+//             nodes[i] = 0;
+//         }
+
+//         // 读取section信息
+//         int nSecs;
+//         if(cg_nsections(iFile, iBase, iZone, &nSecs))
+//             Terminate("readNSections", cg_get_error());
+//         int iSec;
+//         for (int iSec = 1; iSec <= nSecs; ++iSec)
+//         {
+//             char secName[CHAR_DIM];
+//             cgsize_t start, end;
+//             ElementType_t type;
+//             int nBnd, parentFlag;
+//             if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
+//                 &type, &start, &end, &nBnd, &parentFlag))
+//                 Terminate("readSectionInfo", cg_get_error());
+//             // par_std_out_("%d\n", this->meshType_);
+//             if(! Section::compareEleType(type, Boco)) continue;
+//             par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
+
+//             int nEles = end-start+1;
+//             int nodesNum = Section::nodesNumForEle(type)
+//             cgsize_t* elements = new cgsize_t[nEles*nodesNum];
+//             if(cgp_elements_read_data(iFile, iBase, iZone, iSec, start+secStart, end+secStart, elements))
+//                 Terminate("readElements", cg_get_error());
+//             // 对于所有的二维单元
+//             for (int iele = 0; iele < nEles; ++iele)
+//             {
+//                 // 对于所有的连接单元
+//                 for (int i = 0; i < npnts; ++i)
+//                 {
+//                     // 如果他们相等
+//                     if(pnts[i]==iele+start)
+//                     {
+//                         // 对于该二维单元的所有节点
+//                         for (int j = 0; j < nodesNum; ++j)
+//                         {
+//                             label tmp1 = elements[iele*nodesNum+j]-rank_start;
+//                             label tmp2 = elements[iele*nodesNum+j]-rank_end;
+//                             // 如果节点在本进程中
+//                             if(tmp1>=0 && tmp2<0)
+//                                 // 记录该节点为连接点
+//                                 nodes[tmp1]++;
+//                         }
+//                     }
+//                 }
+//             }
+
+//             vector<label64> connNodes;
+//         }
+// }
 
 } //end namespace HSF

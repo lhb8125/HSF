@@ -83,6 +83,21 @@ public:
 	static char* typeToWord(ElementType_t eleType);
 
 	/**
+	* @brief translate the element type to string
+	*/
+	static char* GridLocationToWord(GridLocation_t location);
+
+	/**
+	* @brief translate the element type to string
+	*/
+	static char* PtSetToWord(PointSetType_t ptsetType);
+
+	/**
+	* @brief translate the element type to string
+	*/
+	static char* ConnTypeToWord(GridConnectivityType_t connType);
+
+	/**
 	* @brief get the type of element based on node count
 	*/
 	static label getFaceType(int nodeNum);
