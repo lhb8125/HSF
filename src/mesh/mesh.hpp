@@ -46,7 +46,9 @@ private:
 	// map from nodes in CGNS to real nodes in zone
 	// Array<Array<label64> > node_global_2_local_;
 
-	// Array<Word> zoneName_;
+	Array<char*> zoneName_;
+
+	std::map<label64, label64> zc_node_map_;
 
 	
 	Nodes *ownNodes_; ///< Coordinates of nodes owned by this process
@@ -71,8 +73,19 @@ private:
 	/**
 	* @brief read one zone connectivity
 	*/
-	// void readZoneConnectivity(const int iFile, const int iBase, const int iZone,
- //    	Array<label64*>& zc_pnts, Array<label64*>& zc_donor_pnts, Array<Word>& zc_name);
+	void readZoneConnectivity(const char* filePtr,
+	    Array<Array<Array<label64> > >& zc_pnts,
+	    Array<Array<Array<label64> > >& zc_donor_pnts,
+	    Array<Array<char*> >& zc_name,
+	    Array<Array<Array<Array<label64> > > >& nodes);
+
+	void mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,
+	    Array<Array<Array<label64> > >& zc_donor_pnts,
+    	Array<Array<char*> >& zc_name,
+    	Array<Array<Array<Array<label64> > > >& nodes);
+
+	vector<label64>& findNeighborNodes(Array<Array<Array<label64> > >& zc_pnts,
+    	int iZone, label64 owner_pnt, Array<Array<Array<Array<label64> > > >& nodes);
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/
