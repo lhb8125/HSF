@@ -46,9 +46,10 @@ private:
 	// map from nodes in CGNS to real nodes in zone
 	// Array<Array<label64> > node_global_2_local_;
 
-	Array<char*> zoneName_;
+	Array<char*> zoneName_; ///< zone name in CGNS file
 
-	std::map<label64, label64> zc_node_map_;
+	/// map between the nodes at the interfaces of zones
+	std::map<label64, label64> zc_node_map_; 
 
 	
 	Nodes *ownNodes_; ///< Coordinates of nodes owned by this process
@@ -71,7 +72,12 @@ private:
 	*/
 	void readOneZone(const int iFile, const int iBase, const int iZone);
 	/**
-	* @brief read one zone connectivity
+	* @brief read zone connectivity
+	* @param[in] filePtr CGNS file
+	* @param[out] zc_pnts the nodes of own zone at the interfaces
+	* @param[out] zc_donor_pnts the nodes of neighbor zone at the interfaces
+	* @param[out] zc_name the name of neighbor zone at the interfaces
+	* @param[out] nodes the points of the nodes at the interfaces
 	*/
 	void readZoneConnectivity(const char* filePtr,
 	    Array<Array<Array<label64> > >& zc_pnts,
@@ -79,11 +85,17 @@ private:
 	    Array<Array<char*> >& zc_name,
 	    Array<Array<Array<Array<label64> > > >& nodes);
 
+	/**
+	* @brief merge the interfaces nodes, save the nodes of prior zone
+	*/
 	void mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,
 	    Array<Array<Array<label64> > >& zc_donor_pnts,
     	Array<Array<char*> >& zc_name,
     	Array<Array<Array<Array<label64> > > >& nodes);
 
+	/**
+	* @brief find the points of the corresponding node.
+	*/
 	vector<label64>& findNeighborNodes(Array<Array<Array<label64> > >& zc_pnts,
     	int iZone, label64 owner_pnt, Array<Array<Array<Array<label64> > > >& nodes);
 	/**

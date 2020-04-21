@@ -35,14 +35,11 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
-// par_std_out_("read CGNS info\n");
-// par_std_out_("read CGNS info\n");
 	if(cgp_open(filePtr, CG_MODE_READ, &iFile) ||
         cg_nbases(iFile, &nBases) ||
         cg_base_read(iFile, iBase, basename, &cellDim, &physDim))
 		Terminate("readBaseInfo", cg_get_error());
         // cgp_error_exit();
-// par_std_out_("finish read CGNS info\n");
 	par_std_out_("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
 	MPI_Barrier(MPI_COMM_WORLD);
 
@@ -68,7 +65,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
     Array<Array<char*> > zc_name(nZones);
     Array<Array<Array<Array<label64> > > > nodes(nZones);
     readZoneConnectivity(filePtr,zc_pnts,zc_donor_pnts,zc_name, nodes);
-    if(rank==0) mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
+    mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
     // DELETE_POINTER(node);
 
 }
@@ -254,7 +251,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         {
             par_std_out_("This is 64 precision\n");
             sec.conn   = (label*)elements;
-            for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
+            for (int i = 0; i < sec.num*Section::nodesNumForEle(type); ++i)
             {
                 // label64 tmp = sec.conn[i]+nodeStartId;
                 // sec.conn[i] = realNode[sec.conn[i]-1];
@@ -264,7 +261,6 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
                     // sec.conn[i] = iter->second;
                 // else
                 sec.conn[i] += nodeStartId;
-                // printf("%d, %d, %d\n", fileIdx, i, sec.conn[i]);
             }
         } else if(precision==32)
         {
@@ -972,11 +968,11 @@ void Mesh::readZoneConnectivity(const char* filePtr,
                 &connect_type,&ptset_type,&npnts,donorname,&donor_zonetype,
                 &donor_ptset_type,&donor_datatype,&ndata_donor))
                 Terminate("readConnInfo",cg_get_error());
-            if(rank==0) printf("connectname: %s, location: %s, connect_type: %s\n",
-                connectname,  Section::GridLocationToWord(location),
-                Section::ConnTypeToWord(connect_type));
-            if(rank==0) printf("ptset_type: %s, donorname: %s, donor_zonetype: %d\n",
-                Section::PtSetToWord(ptset_type), donorname, donor_zonetype);
+            // if(rank==0) printf("connectname: %s, location: %s, connect_type: %s\n",
+                // connectname,  Section::GridLocationToWord(location),
+                // Section::ConnTypeToWord(connect_type));
+            // if(rank==0) printf("ptset_type: %s, donorname: %s, donor_zonetype: %d\n",
+                // Section::PtSetToWord(ptset_type), donorname, donor_zonetype);
             if(donor_zonetype!=Unstructured || ptset_type!=PointList 
                 || donor_datatype!=LongInteger || npnts!=ndata_donor)
                 Terminate("readConnInfo","The zone type is not supported");
@@ -995,7 +991,7 @@ void Mesh::readZoneConnectivity(const char* filePtr,
             nodes[iZone-1].push_back(tmpNodes);
             vector<bool> tmpVisits(npnts, false);
             visits[iconn-1] = tmpVisits ;
-            if(rank==0) printf("iZone: %d, iconn: %d\n", iZone, iconn);
+            // if(rank==0) printf("iZone: %d, iconn: %d\n", iZone, iconn);
         }
 
         // 读取section信息
@@ -1053,30 +1049,44 @@ void Mesh::mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,
     Array<Array<char*> >& zc_name,
     Array<Array<Array<Array<label64> > > >& nodes)
 {
+    int rank, numProcs;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
     for (int iZone = 0; iZone < zc_pnts.size(); ++iZone)
     {
-        for (int iconn = 0; iconn < zc_pnts[iZone].size(); ++iconn)
+        for (int idonor = 0; idonor < iZone; ++idonor)
         {
-            for (int idonor = 0; idonor < iZone; ++idonor)
+            for (int iconn = 0; iconn < zc_pnts[iZone].size(); ++iconn)
             {
                 if(strcmp(zc_name[iZone][iconn],this->zoneName_[idonor])==0)
                 {
-                    printf("izone: %d, iconn: %d, idonor: %d, name: %s\n", iZone, iconn, idonor, zc_name[iZone][iconn]);
+                    // printf("izone: %d, iconn: %d, idonor: %d, name: %s\n", iZone, iconn, idonor, zc_name[iZone][iconn]);
                     for (int ipnt = 0; ipnt < zc_pnts[iZone][iconn].size(); ++ipnt)
                     {
                         vector<label64> localNodes =  nodes[iZone][iconn][ipnt];
                         vector<label64> neighborNodes
                             = findNeighborNodes(zc_pnts, idonor,
                             zc_donor_pnts[iZone][iconn][ipnt], nodes);
+                        // printf("izone: %d, iconn: %d, idonor: %d, owner_pnt: %d\n", iZone, iconn, idonor, zc_donor_pnts[iZone][iconn][ipnt]);
                         assert(localNodes.size()==neighborNodes.size());
                         for (int inode = 0; inode < localNodes.size(); ++inode)
                         {
                             // 如果本地的节点没有被记录过，则记录该节点对应的之前存储过的节点
                             label64 local_node_global_id 
                                 = this->nodeNumGlobal_[iZone]+localNodes[inode];
+                            // if(local_node_global_id==653) printf("%d,%d,%d\n", iZone,idonor,rank);
+                            // if(iZone==3 && idonor==0 && rank==0) printf("%d,%d,%d\n", inode,local_node_global_id,zc_node_map_.find(local_node_global_id)==zc_node_map_.end());
                             if(zc_node_map_.find(local_node_global_id)==zc_node_map_.end())
+                            {
+                                if(iZone==3 && idonor==0 && rank==0)
+                                {
+                                    // printf("The %d(%d) node in zone %d is replaced by the %d(%d) node in zone %d\n",
+                                    //     localNodes[inode],local_node_global_id, iZone,
+                                    //     neighborNodes[inode],this->nodeNumGlobal_[idonor]+neighborNodes[inode],idonor);
+                                }
                                 zc_node_map_[local_node_global_id]
                                     = this->nodeNumGlobal_[idonor]+neighborNodes[inode];
+                            }
                         }
                     }
                 }
@@ -1087,10 +1097,13 @@ void Mesh::mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,
     /// record the type of cells
     for (int i = 0; i < secNum; ++i)
     {
-        for (int j = 0; j < this->secs_[i].num; ++j)
+        for (int j = 0; j < secs_[i].num*Section::nodesNumForEle(secs_[i].type); ++j)
         {
             if(zc_node_map_.find(this->secs_[i].conn[j])!=zc_node_map_.end())
+            {
+                // printf("The %d node in section %d is replaced by the %d node\n", this->secs_[i].conn[j],i,zc_node_map_[this->secs_[i].conn[j]]);
                 this->secs_[i].conn[j] = zc_node_map_[this->secs_[i].conn[j]];
+            }
         }
     }
 }
@@ -1104,10 +1117,10 @@ vector<label64>& Mesh::findNeighborNodes(Array<Array<Array<label64> > >& zc_pnts
         // printf("iconn: %d\n", iconn);
         for (int ipnt = 0; ipnt < zc_pnts[iZone][iconn].size(); ++ipnt)
         {
-            // printf("%d,%d,%d,%d\n", ipnt, zc_pnts[iZone][iconn].size(), zc_pnts[iZone][iconn][ipnt],owner_pnt);
             // 如果本zone的交界面单元对应neighbor等于owner_pnt，则二者对应
             if(zc_pnts[iZone][iconn][ipnt]==owner_pnt)
             {
+                // printf("%d,%d,%d,%d\n", ipnt,iconn, zc_pnts[iZone][iconn][ipnt],owner_pnt);
                 // printf("%d,%d\n", iZone, iconn);
                 return nodes[iZone][iconn][ipnt];
             }
