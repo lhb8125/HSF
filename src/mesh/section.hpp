@@ -25,6 +25,8 @@ public:
 	char*  name; ///< section name
 	
 	ElementType_t  type; ///< element type of the section
+
+	label iZone; ///< zone idx of the section
 	
 	label  iStart; ///< global start index of the section
 	
@@ -117,6 +119,8 @@ public:
 	PointSetType_t ptsetType[1]; ///< the type of set of boundary elements
 
 	cgsize_t* BCElems; ///< list or range of boundary elements
+
+	label64 zoneStart; ///< start index of the first boundary element
 
 	/**
 	* @brief translate the boundary condition type to string

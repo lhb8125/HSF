@@ -10,6 +10,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <stdlib.h>
+#include <algorithm>
 #include <assert.h>
 #include "mpi.h"
 #include "pcgnslib.h"
@@ -53,6 +54,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 	par_std_out_("nZones: %d\n", nZones);
 
     this->nodeNumGlobal_.push_back(0);
+    this->eleNumGlobal_.push_back(0);
     for (int i = 0; i < nZones; ++i)
     {
         readOneZone(iFile, iBase, i+1);
@@ -61,11 +63,15 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 	if(cgp_close(iFile))
 		Terminate("closeCGNSFile",cg_get_error());
 
+    // if(this->meshType_==Boco) return;
     Array<Array<Array<label64> > > zc_pnts(nZones),zc_donor_pnts(nZones);
     Array<Array<char*> > zc_name(nZones);
     Array<Array<Array<Array<label64> > > > nodes(nZones);
     readZoneConnectivity(filePtr,zc_pnts,zc_donor_pnts,zc_name, nodes);
-    mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
+    // if(this->meshType_==Inner) 
+        mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
+    if(this->meshType_==Boco)
+        removeInterfaceNodes(zc_pnts);
     // DELETE_POINTER(node);
 
 }
@@ -194,6 +200,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     this->nodeEndIdx_.push_back(start+nnodes-1);
     this->nodeNumLocal_.push_back(nnodes);
     this->nodeNumGlobal_.push_back(this->nodeNumGlobal_.back()+sizes[0]);
+    label zoneEleNum = sizes[1];
     par_std_out_("zone: %d, start: %d, nnodes: %d\n", iZone, this->nodeNumGlobal_.back(),this->nodes_.size());
     // this->nodeNumPerZone_.push_back(sizes[0]);
     // par_std_out_("Zone: %d, node start: %d, ")
@@ -220,6 +227,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
             &type, &start, &end, &nBnd, &parentFlag))
             Terminate("readSectionInfo", cg_get_error());
         // par_std_out_("%d\n", this->meshType_);
+        zoneEleNum += end-start+1;
         if(! Section::compareEleType(type, this->meshType_)) continue;
         par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
 
@@ -246,6 +254,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         sec.iStart = start+secStart;
         sec.iEnd   = end+secStart;
         sec.num    = end-start+1;
+        sec.iZone  = iZone-1;
         map<label64,label64>::iterator iter;
         if(precision==64)
         {
@@ -279,6 +288,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         this->secs_.push_back(sec);
     }
     MPI_Barrier(MPI_COMM_WORLD);
+    this->eleNumGlobal_.push_back(this->eleNumGlobal_.back()+zoneEleNum);
 
     // DELETE_POINTER(z);
     // DELETE_POINTER(y);
@@ -1042,6 +1052,48 @@ void Mesh::readZoneConnectivity(const char* filePtr,
     }
     if(cgp_close(iFile))
         Terminate("closeCGNSFile",cg_get_error());
+}
+
+void Mesh::removeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts)
+{
+    Array<label64> removeList;
+    for (int iZone = 0; iZone < zc_pnts.size(); ++iZone)
+    {
+        for (int iconn = 0; iconn < zc_pnts[iZone].size(); ++iconn)
+        {
+            for (int ipnt = 0; ipnt < zc_pnts[iZone][iconn].size(); ++ipnt)
+            {
+                removeList.push_back(zc_pnts[iZone][iconn][ipnt]
+                    + this->eleNumGlobal_[iZone]);
+            }
+        }
+    }
+    label secNum = this->secs_.size();
+    /// record the type of cells
+    for (int i = 0; i < secNum; ++i)
+    {
+        int nodeNum = Section::nodesNumForEle(secs_[i].type);
+        label* newConn = new label[secs_[i].num*nodeNum];
+        label newSecNum = 0;
+        for (int j = 0; j < secs_[i].num; ++j)
+        {
+            Array<label64>::iterator result
+                = find(removeList.begin(),removeList.end(),
+                    this->eleNumGlobal_[secs_[i].iZone]+secs_[i].iStart+j);
+            // 如果该单元不在交界面上
+            if(result==removeList.end())
+            {
+                for (int k = 0; k < nodeNum; ++k)
+                {
+                    newConn[newSecNum*nodeNum+k] = secs_[i].conn[k+j*nodeNum];
+                }
+                newSecNum++;
+            }
+        }
+        DELETE_POINTER(secs_[i].conn);
+        secs_[i].conn = newConn;
+        secs_[i].num = newSecNum;
+    }
 }
 
 void Mesh::mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,

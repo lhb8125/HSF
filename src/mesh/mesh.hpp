@@ -40,6 +40,8 @@ private:
 
 	Array<label> nodeNumGlobal_; ///< the count of overall nodes of CGNS file
 
+	Array<label> eleNumGlobal_; ///< the count of overall elements of CGNS file
+
 	/// map from real nodes in zone to nodes in CGNS
 	// Array<Array<label64> > node_local_2_global_; 
 
@@ -98,6 +100,8 @@ private:
 	*/
 	vector<label64>& findNeighborNodes(Array<Array<Array<label64> > >& zc_pnts,
     	int iZone, label64 owner_pnt, Array<Array<Array<Array<label64> > > >& nodes);
+
+	void removeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts);
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/
@@ -185,6 +189,17 @@ public:
 	Array<Section>& getSections() {return this->secs_; };
 
 	/**
+	* @brief erase some sections in CGNS file
+	*/
+	void eraseSections(Array<bool>& erase)
+	{
+    	for (int i = 0; i < this->secs_.size(); ++i)
+	    {
+    	    if(erase[i]) this->secs_.erase(this->secs_.begin()+i);
+    	}
+	};
+
+	/**
 	* @brief set the load balance result to topology
 	* @param[in] cell2Node the topology between elements and nodes
 	* @param[in] cellType the elements type
@@ -215,7 +230,10 @@ public:
 	* @brief generate the block topology
 	*/
 	void generateBlockTopo() {blockTopo_.constructBlockTopology(topo_);};
-	
+
+	Array<label64>& getEleNumGlobal(){return this->eleNumGlobal_;};
+
+
 };
 
 } // end namespace HSF

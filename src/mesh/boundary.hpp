@@ -27,7 +27,9 @@ private:
 
 	Array<label> BCType_;
 	
-	void readBoundaryCondition(const char* filePtr); ///< read mesh file with CGNS format
+	void readBoundaryCondition(const char* filePtr); ///< read boundary condition
+
+	void readFamilyBC(const char* filePtr); ///< read family boundary condition
 	
 	void writeBoundaryCondition(const char* filePtr); ///< write mesh file with CGNS format
 
@@ -66,6 +68,7 @@ public:
 		for (int i = 0; i < filePtr.size(); ++i)
 		{
 			readBoundaryCondition(filePtr[i]);
+			readFamilyBC(filePtr[i]);
 		}
 		initBoundaryConditionType();
 	};

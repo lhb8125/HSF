@@ -478,7 +478,7 @@ bool BCSection::findBCType(label eleID)
 	if(ptsetType[0]==PointRange)
 	{
 		// printf("%d, %d, %d\n", eleID, );
-		if(eleID<=BCElems[1] && eleID>=BCElems[0]) return true;
+		if(eleID<=BCElems[1]+zoneStart && eleID>=BCElems[0]+zoneStart) return true;
 		else return false;
 	} else if(ptsetType[0]==PointList)
 	{
@@ -486,7 +486,7 @@ bool BCSection::findBCType(label eleID)
 		for (int i = 0; i < nBCElems; ++i)
 		{
 // printf("%d,%d\n", eleID,BCElems[i]);
-			if(eleID==BCElems[i]) return true;
+			if(eleID==BCElems[i]+zoneStart) return true;
 		}
 // printf("%d\n", eleID);
 		return false;

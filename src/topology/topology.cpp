@@ -227,6 +227,7 @@ void Topology::constructTopology()
 	transformArray(face2CellInn, this->face2Cell_);
 
 	this->faceNum_i_ = face2NodeInn.size();
+	// 这个不是边界面数目，是进程边界面和物理边界面之和
 	this->faceNum_b_ = face2NodeBnd.size();
 	this->faceNum_   = this->faceNum_i_+this->faceNum_b_;
 

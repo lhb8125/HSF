@@ -115,7 +115,8 @@ void get_inner_faces_num_(label* innFaceNum)
 
 void get_bnd_faces_num_(label* bndFaceNum)
 {
-	bndFaceNum[0] = REGION.getMesh().getTopology().getBndFacesNum();
+	bndFaceNum[0] = REGION.getBoundary().getTopology().getFacesNum();
+	// bndFaceNum[0] = REGION.getMesh().getTopology().getBndFacesNum();
 }
 
 
