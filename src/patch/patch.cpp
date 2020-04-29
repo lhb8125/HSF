@@ -23,36 +23,38 @@ THE SOFTWARE.
 */
 
 /**
-* @file: patch.cpp
-* @author: Hanfeng GU
-* @Email:
-* @Date:   2019-10-11 10:09:42
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-08 14:14:25
-*/
-
+ * @file: patch.cpp
+ * @author: Hanfeng GU
+ * @Email:
+ * @Date:   2019-10-11 10:09:42
+ * @Last Modified by:   Hanfeng GU
+ * @Last Modified time: 2019-11-08 14:14:25
+ */
 
 #include "patch.hpp"
+#include "utilities.hpp"
 
-HSF::Patch::Patch
-(
-	label  size,
-	label* IDs,
-	label  nbrID
-)
-:
-	size_(size),
-	nbrID_(nbrID)
+HSF::Patch::Patch(label size, label *IDs, label nbrProcID)
+    : size_(size),
+      addressing_(NULL),
+      nbrProcID_(nbrProcID),
+      sendSize_(size),
+      recvSize_(size)
 {
-	addressing_ = new label[size_];
-	for(label i=0; i<size_; ++i)
-	{
-		addressing_[i] = IDs[i];
-	}
+  addressing_ = new label[size];
+  memcpy(addressing_, IDs, size * sizeof(label));
 }
 
-HSF::Patch::~Patch()
-{
-	DELETE_POINTER(addressing_);
-}
+HSF::Patch::~Patch() { DELETE_POINTER(addressing_); }
 
+void HSF::Patch::setSendRecvCompressed(label sendSize,
+                                       label recvSize,
+                                       label *sendMap)
+{
+  sendSize_ = sendSize;
+  recvSize_ = recvSize;
+
+  DELETE_POINTER(addressing_);
+  addressing_ = new label[sendSize];
+  memcpy(addressing_, sendMap, sendSize * sizeof(label));
+}

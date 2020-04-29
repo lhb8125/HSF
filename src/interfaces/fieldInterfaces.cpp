@@ -22,161 +22,101 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-/**
-* @file: fieldInterfaces.cpp
-* @author: Hanfeng
-* @Email:
-* @Date:   2019-11-9 10:52:48
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-15 09:56:19
-*/
+/*
+ * @File: fieldInterfaces.cpp
+ * @Author: Hanfeng
+ * @Email:
+ * @Date:   2019-11-9 10:52:48
+ * @Last Modified by:   Hanfeng
+ * @Last Modified time: 2019-11-30 15:22:43
+ */
+
+/*
+ * @brief:
+ */
+
+#include "fieldInterfaces.hpp"
 
 #include "interface.hpp"
-#include "fieldInterfaces.hpp"
 
 using namespace HSF;
 
-
 #define REGION regs[0]
 
-void get_label_field_
-(
-	const char* setType,
-	const char* fieldName,
-	void* fPtrPtr,
-	label* ndim,
-	label* nCells
-)
+struct struct_labelField HSF::get_label_field_(const char *setType,
+                                               const char *fieldName)
 {
-	Field<label>& fieldI = REGION.getField<label>(setType, fieldName);
-	*(label**)fPtrPtr = fieldI.getLocalData();
-	*ndim = fieldI.getDim();
-	*nCells = fieldI.getSize();
+  struct struct_labelField tmp;
+
+  Field<label> &fieldI = REGION.getField<label>(setType, fieldName);
+  tmp.data = fieldI.getLocalData();
+  tmp.ndim = fieldI.getDim();
+  tmp.locSize = fieldI.getSize();
+  tmp.nbrSize = fieldI.getNbrSize();
+
+  return tmp;
 }
 
-
-void get_scalar_field_
-(
-	const char* setType,
-	const char* fieldName,
-	void* fPtrPtr,
-	label* ndim,
-	label* nCells
-)
+struct struct_scalarField HSF::get_scalar_field_(const char *setType,
+                                                 const char *fieldName)
 {
-	Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
-	*(scalar**)fPtrPtr = fieldI.getLocalData();
-	*ndim = fieldI.getDim();
-	*nCells = fieldI.getSize();
+  struct struct_scalarField tmp;
+
+  Field<scalar> &fieldI = REGION.getField<scalar>(setType, fieldName);
+  tmp.data = fieldI.getLocalData();
+  tmp.ndim = fieldI.getDim();
+  tmp.locSize = fieldI.getSize();
+  tmp.nbrSize = fieldI.getNbrSize();
+
+  return tmp;
 }
 
-
-void add_label_field_
-(
-	const char* setType,
-	const char* fieldName,
-	label* fPtr,
-	label* ndim,
-	label* n
-)
+void HSF::add_label_field_(const char *setType,
+                           const char *fieldName,
+                           label *fPtr,
+                           label *ndim)
 {
-	Field<label>* fnew = new Field<label>(setType, *ndim, *n, fPtr);
-	REGION.addField<label>(fieldName, fnew);
-	// REGION.addField<label>(setType, fieldName, fnew);
+  label size = REGION.getMesh().getTopology().getSize(setType);
+  Table<Word, Table<Word, Patch *> *> &patchTab = REGION.getPatchTab();
+  Field<label> *fnew = new Field<label>(setType, *ndim, size, fPtr, patchTab);
+  REGION.addField<label>(fieldName, fnew);
 }
 
-
-void add_scalar_field_
-(
-	const char* setType,
-	const char* fieldName,
-	scalar* fPtr,
-	label* ndim,
-	label* n
-)
+void HSF::add_scalar_field_(const char *setType,
+                            const char *fieldName,
+                            scalar *fPtr,
+                            label *ndim)
 {
-	Field<scalar>* fnew = new Field<scalar>(setType, *ndim, *n, fPtr);
-	REGION.addField<scalar>(fieldName, fnew);
-	// REGION.addField<scalar>(setType, fieldName, fnew);
+  label size = REGION.getMesh().getTopology().getSize(setType);
+  Table<Word, Table<Word, Patch *> *> &patchTab = REGION.getPatchTab();
+  Field<scalar> *fnew = new Field<scalar>(setType, *ndim, size, fPtr, patchTab);
+  REGION.addField<scalar>(fieldName, fnew);
 }
 
-
-void start_exchange_label_field_
-(
-	const char* setType,
-	const char* fieldName
-)
+void HSF::start_exchange_label_field_(const char *setType,
+                                      const char *fieldName)
 {
-	Field<label>& fieldI = REGION.getField<label>(setType, fieldName);
-	fieldI.initSend();
+  Field<label> &fieldI = REGION.getField<label>(setType, fieldName);
+  fieldI.initSend();
 }
 
-
-void finish_exchange_label_field_
-(
-	const char* setType,
-	const char* fieldName
-)
+void HSF::finish_exchange_label_field_(const char *setType,
+                                       const char *fieldName)
 {
-	Field<label>& fieldI = REGION.getField<label>(setType, fieldName);
-	fieldI.checkSendStatus();
+  Field<label> &fieldI = REGION.getField<label>(setType, fieldName);
+  fieldI.checkSendStatus();
 }
 
-
-void start_exchange_scalar_field_
-(
-	const char* setType,
-	const char* fieldName
-)
+void HSF::start_exchange_scalar_field_(const char *setType,
+                                       const char *fieldName)
 {
-	Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
-	fieldI.initSend();
+  Field<scalar> &fieldI = REGION.getField<scalar>(setType, fieldName);
+  fieldI.initSend();
 }
 
-
-void finish_exchange_scalar_field_
-(
-	const char* setType,
-	const char* fieldName
-)
+void HSF::finish_exchange_scalar_field_(const char *setType,
+                                        const char *fieldName)
 {
-	Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
-	fieldI.checkSendStatus();
-}
-
-void get_scalar_field_neighbor_data_
-(
-	const char* setType,
-	const char* fieldName,
-	void* fPtrPtr,
-	label* ndim,
-	label* n
-)
-{
-	// Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
-	// Table<Word, scalar*>* nbrDataPtr = fieldI.getNbrData();
-	// Table<Word, scalar*>& nbrData = *nbrDataPtr;
-	// Table<Word, scalar*>::iterator it = nbrData.begin();
-	// Table<Word, Patch*>& patches = fieldI.getPatchTab();
-
-
-
-}
-
-
-void get_scalar_field_neighbor_addressing_
-(
-	const char* setType,
-	const char* fieldName,
-	void* fPtrPtr,
-	label* n
-)
-{
-	// Field<scalar>& fieldI = REGION.getField<scalar>(setType, fieldName);
-	// Table<Word, scalar*>* nbrDataPtr = fieldI.getNbrData();
-	// Table<Word, scalar*>& nbrData = *nbrDataPtr;
-	// Table<Word, scalar*>::iterator it = nbrData.begin();
-	// Table<Word, Patch*>& patches = fieldI.getPatchTab();
-
-
+  Field<scalar> &fieldI = REGION.getField<scalar>(setType, fieldName);
+  fieldI.checkSendStatus();
 }

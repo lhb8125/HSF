@@ -23,141 +23,142 @@ THE SOFTWARE.
 */
 
 /**
-* @file: field.hpp
-* @author: Hanfeng GU
-* @Email:  hanfenggu@gmail.com
-* @Date:   2019-09-18 16:03:45
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-14 09:16:47
-*/
+ * @file: field.hpp
+ * @author: Hanfeng GU
+ * @Email:  hanfenggu@gmail.com
+ * @Date:   2019-09-18 16:03:45
+ * @Last Modified by:   Hanfeng GU
+ * @Last Modified time: 2019-11-14 09:16:47
+ */
 
 #ifndef Field_hpp
 #define Field_hpp
 
 #include "patch.hpp"
+#include "utilities.hpp"
 
 namespace HSF
 {
-
 /**
  * @brief      场
  * @tparam     T     label scalar
  */
-template<typename T>
+template <typename T>
 class Field
 {
 private:
-	label ndim_; ///< 结构体维度
-	label localSize_; ///< 存储在本地单元上的场维度
-	T*    localData_; ///< 本地场数据
-	Table<Word, T*>* sendBufferPtr_; ///< 进程间通信发送buffer
-	Table<Word, T*>* recvBufferPtr_; ///< 进程间通信接收buffer
-	MPI_Request* sendRecvRequests_; ///< mpi非阻塞通信句柄
-	Word  setType_; ///< 场所在数据集类型
-	Table<Word, Patch*>* patchTabPtr_; ///< 通信拓扑
+  label ndim_;                         ///< 结构体维度
+  label locSize_;                      ///< 本地单元的场维度
+  label nbrSize_;                      ///< 与本地单元相邻的场维度
+  T *data_;                            ///< 场数据
+  Table<Word, T *> *sendBufferPtr_;    ///< 进程间通信发送buffer
+  MPI_Request *sendRecvRequests_;      ///< mpi非阻塞通信句柄
+  Word setType_;                       ///< 场所在数据集类型
+  Table<Word, Patch *> *patchTabPtr_;  ///< 通信拓扑
 
 public:
-	/**
-	 * @brief 构造函数
-	 */
-	Field()
-	:
-		setType_(NULL),
-		ndim_(-1),
-		localSize_(-1),
-		localData_(NULL),
-		sendBufferPtr_(NULL),
-		recvBufferPtr_(NULL),
-		sendRecvRequests_(NULL),
-		patchTabPtr_(NULL)
-	{}
+  /**
+   * @brief 构造函数
+   */
+  Field();
 
-	Field(Word setType, label ndim, label n, T* dataPtr)
-	:
-		setType_(setType),
-		ndim_(ndim),
-		localSize_(n),
-		localData_(dataPtr),
-		sendBufferPtr_(NULL),
-		recvBufferPtr_(NULL),
-		sendRecvRequests_(NULL),
-		patchTabPtr_(NULL)
-	{}
+  /**
+   * @brief 构造函数，已知类型、维度、大小、数组指针
+   * @param[in] setType 数据类型，可能是cell、face、node等
+   * @param[in] ndim 数据维度，一维、二维、三维
+   * @param[in] n 数据段（结构体）个数，所以真实数据个数是 n*ndim
+   * @param[in] dataPtr 数组的起始地址
+   */
+  Field(Word setType, label ndim, label n, T *dataPtr);
 
-	/**
-	 * @brief 析构函数
-	 */
-	~Field();
+  /**
+   * @brief 构造函数，已知类型、维度、大小、数组指针、进程分块信息
+   * @param[in] setType 数据类型，可能是cell、face、node等
+   *@param[in] ndim 数据维度，一维、二维、三维
+   *@param[in] n 数据段（结构体）个数，所以真实数据个数是 n*ndim
+   *@param[in] dataPtr 数组的起始地址
+   *@param[in] patchTab，region下存的patch信息
+   */
+  Field(Word setType,
+        label ndim,
+        label n,
+        T *dataPtr,
+        Table<Word, Table<Word, Patch *> *> &patchTab);
 
-	/**
-	 * @brief 获取本地单元场维度
-	 * @return  本地单元场维度
-	 */
-	inline label  getSize(){return localSize_;}
+  /**
+   * @brief 析构函数
+   */
+  ~Field();
 
-	/**
-	 * @brief 获取本地单元场结构体维度
-	 * @return  本地单元场结构体维度
-	 */
-	inline label getDim(){return ndim_;}
+  /**
+   * @brief 获取本地单元场维度
+   * @return  本地单元场维度
+   */
+  inline label getSize() { return locSize_; }
 
-	/**
-	 * @brief      Gets the data.
-	 * @return     The local data.
-	 */
-	inline T*     getLocalData(){return localData_;}
+  /**
+   * @brief 获取本地单元场结构体维度
+   * @return  本地单元场结构体维度
+   */
+  inline label getDim() { return ndim_; }
 
-	/**
-	 * @brief      Gets the neighbor processor data.
-	 * @return     The neighbor processor data.
-	 */
-	Table<Word, T*>* getNbrData();
+  /**
+   * @brief      Gets the data.
+   * @return     The local data.
+   */
+  inline T *getLocalData() { return data_; }
 
-	/**
-	 * @brief      Gets the type.
-	 * @return     The type.
-	 */
-	inline Word   getType(){return setType_;}
+  /**
+   * @brief      Gets the neighbor processor data.
+   * @return     The neighbor processor data.
+   */
+  inline T *getNbrData() { return &(data_[locSize_ * ndim_]); }
 
-	/**
-	 * @brief 赋值进程通信拓扑
-	 * @param[in] ptr 本进程通信拓扑
-	 */
-	inline void setPatchTab(Table<Word, Patch*>* ptr)
-	{
-		patchTabPtr_ = ptr;
-	}
+  /**
+   * @brief 获取ghost单元场维度
+   * @return ghost单元场维度
+   */
+  inline label getNbrSize() { return nbrSize_; }
 
-	/**
-	 * @brief 获取进程通信拓扑
-	 * @return 本进程通信拓扑
-	 */
-	inline Table<Word, Patch*>* getPatchTab()
-	{
-		return patchTabPtr_;
-	}
+  /**
+   * @brief      Gets the type.
+   * @return     The type.
+   */
+  inline Word getType() { return setType_; }
 
-	/**
-	 * @brief      Initializes the send buffer and start iSend and iRecv.
-	 */
-	void initSend();
+  /**
+   * @brief 赋值进程通信拓扑
+   * @param[in] ptr 本进程通信拓扑
+   */
+  inline void setPatchTab(Table<Word, Patch *> *ptr) { patchTabPtr_ = ptr; }
 
-	/**
-	 * @brief      check if we have receive the data from neighbor processors
-	 * @return     if finished, return 1, else return 0
-	 */
-	label checkSendStatus();
+  /**
+   * @brief 获取进程通信拓扑
+   * @return 本进程通信拓扑
+   */
+  inline Table<Word, Patch *> *getPatchTab() { return patchTabPtr_; }
 
-	/**
-	 * @brief      free the memory of communication
-	 */
-	void freeSendRecvBuffer();
+  /**
+   * @brief      Initializes the send buffer and start iSend and iRecv.
+   */
+  void initSend();
+
+  /**
+   * @brief      check if we have receive the data from neighbor processors
+   * @return     if finished, return 1, else return 0
+   */
+  label checkSendStatus();
+
+  /**
+   * @brief      free the memory of communication
+   */
+  void freeSendRecvBuffer();
 };
 
 #define scalarField Field<scalar>
-#define labelField  Field<label>
+#define labelField Field<label>
 
 #include "fieldI.hpp"
 
-} //- end namespace HSF
-#endif //- end Field_hpp
+}  // namespace HSF
+#endif  //- end Field_hpp

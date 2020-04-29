@@ -983,9 +983,10 @@ void Mesh::readZoneConnectivity(const char* filePtr,
                 // Section::ConnTypeToWord(connect_type));
             // if(rank==0) printf("ptset_type: %s, donorname: %s, donor_zonetype: %d\n",
                 // Section::PtSetToWord(ptset_type), donorname, donor_zonetype);
-            if(donor_zonetype!=Unstructured || ptset_type!=PointList 
-                || donor_datatype!=LongInteger || npnts!=ndata_donor)
-                Terminate("readConnInfo","The zone type is not supported");
+            // 周期性边界会触发此报警，待处理
+            // if(donor_zonetype!=Unstructured || ptset_type!=PointList 
+            //     || donor_datatype!=LongInteger || npnts!=ndata_donor)
+            //     Terminate("readConnInfo","The zone type is not supported");
             Array<label64> pnts(npnts);
             Array<label64> donor_pnts(ndata_donor);
             // cgsize_t *pnts = new cgsize_t[npnts];

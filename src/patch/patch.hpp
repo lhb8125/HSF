@@ -23,98 +23,115 @@ THE SOFTWARE.
 */
 
 /**
-* @File: patch.hpp
-* @author: Hanfeng GU
-* @Email:
-* @Date:   2019-10-11 10:09:18
-* @Last Modified by:   Hanfeng GU
-* @Last Modified time: 2019-11-08 11:26:39
-*/
-
+ * @File: patch.hpp
+ * @author: Hanfeng GU
+ * @Email:
+ * @Date:   2019-10-11 10:09:18
+ * @Last Modified by:   Hanfeng GU
+ * @Last Modified time: 2019-11-08 11:26:39
+ */
 
 #ifndef PATCH_HPP
 #define PATCH_HPP
 
-#include "container.hpp"
 #include "base.hpp"
+#include "container.hpp"
 
 namespace HSF
 {
-
 /**
  * @brief      This class describes a patch.
  */
 class Patch
 {
 private:
-	/**
-	 * @param faces size.
-	 */
-	label size_;
+  /**
+   * @param 边界（face/node）大小
+   */
+  label size_;
 
-	/**
-	 * @param addressing.
-	 */
-	label* addressing_;
+  /**
+   * @param 发送大小，如果压缩发送，则sendSize_ <=
+   * size_，如果不是，则两者大小一样
+   */
+  label sendSize_;
 
-	/**
-	 * @param patch type.
-	 */
-	Word setType_;
+  /**
+   * @param 接收大小，如果压缩发送，则recvSize_ <=
+   * size_，如果不是，则两者大小一样
+   */
+  label recvSize_;
 
-	/**
-	 * @param the neighbor processor ID.
-	 */
-	label nbrID_;
+  /**
+   * @param send addressing to topo array.
+   */
+  label *addressing_;
+
+  /**
+   * @param patch type.
+   */
+  Word setType_;
+
+  /**
+   * @param the neighbor processor ID.
+   */
+  label nbrProcID_;
 
 public:
-	/**
-	 * @brief      Constructs a new instance.
-	 */
-	Patch();
+  /**
+   * @brief      Constructs a new instance.
+   */
+  Patch();
 
-	/**
-	 * @brief      Constructs a new instance.
-	 */
-	Patch
-	(
-		label  size,
-		label* addressing,
-		label  nbrID
-	);
+  /**
+   * @brief      Constructs a new instance.
+   */
+  Patch(label size, label *addressing, label nbrProcID);
 
-	/**
-	 * @brief      Destroys the object.
-	 */
-	~Patch();
+  /**
+   * @brief      Destroys the object.
+   */
+  ~Patch();
 
+  /**
+   * @brief      获得发送个数
+   * @return     压缩过的发送个数
+   */
+  inline label getSendSize() { return sendSize_; }
 
-	/**
-	 * @brief      Gets the patch size.
-	 * @return     The patch IDs's and data_'s size.
-	 */
-	inline label getSize(){return size_;}
+  /**
+   * @brief      获得接收个数
+   * @return     压缩过的接收个数
+   */
+  inline label getRecvSize() { return recvSize_; }
 
-	/**
-	 * @brief      Gets IDs_ address.
-	 * @return     IDs_ address.
-	 */
-	inline label* getAddressing(){return addressing_;}
+  /**
+   * @brief      Gets IDs_ address.
+   * @return     IDs_ address.
+   */
+  inline label *getAddressing()
+  {
+    return addressing_;
+  }
 
-	/**
-	 * @brief      Gets the patch type.
-	 * @return     The type.
-	 */
-	inline Word getType(){return setType_;}
+  /**
+   * @brief      Gets the patch type.
+   * @return     The type.
+   */
+  inline Word getType() { return setType_; }
 
+  /**
+   * @brief      Gets the neighbor processor id.
+   * @return     The neighbor processor ID.
+   */
+  inline label getNbrProcID() { return nbrProcID_; }
 
-	/**
-	 * @brief      Gets the neighbor processor id.
-	 * @return     The neighbor processor ID.
-	 */
-	inline label getNbrID(){return nbrID_;}
+  /**
+   * @brief      设定压缩发送和接收信息
+   */
+  void setSendRecvCompressed(label sendSize, label recvSize, label *sendMap);
 };
 
-} //- end namespace HSF
+}  // namespace HSF
 
-#endif //- end Patch_hpp
+#endif  //- end Patch_hpp

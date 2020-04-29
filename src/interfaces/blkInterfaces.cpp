@@ -161,7 +161,6 @@ void get_inn_face_2_ele_blk_(label *face_2_ele)
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
 		{
 			face_2_ele[j] = tmpData[j]+1;
-			// printf("%d, ", face_2_ele[j]);
 		}
 		// printf("\n");
 	}

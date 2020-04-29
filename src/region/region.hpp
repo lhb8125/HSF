@@ -109,6 +109,8 @@ public:
         label cellNum
     );
 
+    Table<Word, Table<Word, Patch *> *> &getPatchTab() { return *patchTabPtr_; }
+
     /**
      * @brief      Initializes the fields.
      *

@@ -33,7 +33,9 @@ void BlockTopology::constructBlockTopology(Topology& topo)
 		for (int j = this->face2Cell_.startIdx[i];
 			j < this->face2Cell_.startIdx[i+1]; ++j)
 		{
-			this->face2Cell_.data[j] = cellMap[this->face2Cell_.data[j]];
+			// ghost单元不进行映射
+			if(this->face2Cell_.data[j] < cellMap.size())
+				this->face2Cell_.data[j] = cellMap[this->face2Cell_.data[j]];
 		}
 	}
 	for (int i = 0; i < this->cell2Face_.size(); ++i)
@@ -53,8 +55,10 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
 
 	const ArrayArray<label> face2Node = topo.getFace2Node();
+	label n_face_i = topo.getInnFacesNum();
+	par_std_out_("face2Node_ size: %d",face2Node.size());
 	Array<label> faceType;
-	for (int i = 0; i < face2Node.size(); ++i)
+	for (int i = 0; i < n_face_i; ++i)
 	{
 		int nodeNum = face2Node.startIdx[i+1]-face2Node.startIdx[i];
 		faceType.push_back(Section::getFaceType(nodeNum));
@@ -166,6 +170,11 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 			faceMap.push_back(face2NodeBlk[blockIdx].size()+faceNumInBlk[blockIdx]);
 			face2NodeBlk[blockIdx].push_back(tmp);
 		}
+	}
+	// 边界面单独赋值
+	for (int i = faceType.size(); i < face2Node.size(); ++i)
+	{
+		faceMap.push_back(i);
 	}
 
 	// 将不同类型网格合并到一起

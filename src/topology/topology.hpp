@@ -53,6 +53,8 @@ private:
 	
 	Array<Array<label> > face2CellPatch_; ///< Connectivity between faces and cells at the process boundary (finish)
 	
+	Array<Array<label> > face2NodePatch_; ///< Connectivity between faces and cells at the process boundary (finish)
+
 	Array<Array<label> > face2CellBnd_; ///< Connectivity between faces and cells at the boundary (finish)
 	
 	ArrayArray<label> face2Edge_; ///< Connectivity between faces and edges
@@ -78,9 +80,9 @@ private:
 	* @param[in] face2CellInn face-to-cell topology, one-to-one corresponding to the face above
 	* @param[in] face2CellBnd face-to-cell boundary topology, one-to-one corresponding to the face above
 	*/
-	void setPatchInfo(Array<Array<label> > face2NodeInn,
-		Array<Array<label> > face2NodeBnd, Array<Array<label> > face2CellInn,
-		Array<Array<label> > face2CellBnd);
+	void setPatchInfo(Array<Array<label> >& face2NodeInn,
+		Array<Array<label> >& face2NodeBnd, Array<Array<label> >& face2CellInn,
+		Array<Array<label> >& face2CellBnd);
 	/**
 	* @brief generate the edge-based topology
 	*/
@@ -103,6 +105,8 @@ public:
 	* @brief deconstructor
 	*/
 	~Topology();
+
+	label getSize(const Word setType);
 	/**
 	* @brief get the count of nodes
 	* @return the count of nodes
@@ -203,6 +207,8 @@ public:
 	* @brief get the topology between face and cell on the processor boundary
 	*/
 	const Array<Array<label> > getFace2CellPatch() {return this->face2CellPatch_;};
+
+	const Array<Array<label> > getFace2NodePatch() {return this->face2NodePatch_;};
 
 	/**
 	* @brief get the start index of cells in this processor

@@ -76,7 +76,7 @@ public:
 };
 
 
-template<class T> bool compareArray(Array<T>& a, Array<T>& b);
+template<class T> bool compareArray(const Array<T>& a, const Array<T>& b);
 
 template <class T>
 class ArrayArray : public RefCounted
@@ -271,7 +271,7 @@ label* filterArray(Array<Array<T> >& arr)
 * @return equal or not
 */
 template<class T>
-bool compareArray(Array<T>& a, Array<T>& b)
+bool compareArray(const Array<T>& a, const Array<T>& b)
 {
   int num_a = a.size();
   int num_b = b.size();

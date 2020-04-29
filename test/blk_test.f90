@@ -16,7 +16,7 @@ module var_global
     integer, parameter:: dim = 3
     integer, parameter:: max_n_node = 50
     integer(dpI):: err_mem = 0
-    integer:: my_id
+    integer:: my_id, ierr
 
 end module var_global
 
@@ -34,18 +34,39 @@ program main
     use var_global
     use utility
     use var_c_string
+    use iso_c_binding
+
     implicit none
+
+    type,bind(c)::struct_scalarField
+      integer(c_long):: locSize
+      integer(c_long):: nbrSize
+      integer(c_long):: ndim
+      type(c_ptr):: data
+    end type
+
+    interface
+      type(struct_scalarField) function get_scalar_field(name1, name2) bind(c,name='get_scalar_field_')
+        import !! Make iso_c_binding and struct_scalarField visible here
+        ! character(len=20):: name1, name2
+        character (kind=c_char, len=1), dimension (*), intent (in) :: name1, name2
+      end function
+    end interface
+
     character(len=strlen):: config_file = './config.yaml'
     integer(dpI):: iele, iface, inode
-    integer(dpI):: n_ele, n_face_i, n_face_b, n_node
+    integer(dpI):: n_ele, n_face_i, n_face, n_face_b, n_node, face_start, face_end, n_nbr_ele
     integer(dpI),allocatable:: e2n(:),e2n_pos(:),ele_type(:)
     integer(dpI),allocatable:: e2f(:),e2f_pos(:)
     integer(dpI),allocatable:: if2n(:),if2n_pos(:)
     integer(dpI),allocatable:: if2e(:),if2e_pos(:)
     real(dpR),allocatable:: b(:),x(:),A(:)
     real(dpR), allocatable:: vol(:), area(:), coord(:)
-    real(dpR),allocatable:: pid(:)
+    real(dpR),allocatable:: pid(:), id(:)
     character(len=20):: field_name, field_type
+    real(c_double), pointer:: b_new(:), x_new(:), A_new(:)
+    ! type(c_ptr)::b_new_tmp, x_new_tmp, A_new_tmp
+    type(struct_scalarField):: b_tmp, x_tmp, A_tmp
 
     real(dpR) :: vol_new(1)
     POINTER(vol_new2, vol_new)
@@ -77,11 +98,13 @@ program main
     ! ! 获取基本单元数目
     call get_elements_num(n_ele)
     call get_inner_faces_num(n_face_i)
+    call get_faces_num(n_face)
     call get_bnd_faces_num(n_face_b)
     call get_nodes_num(n_node)
     call get_ele_blk_num(n_blk)
     write(*,*), "elements num: ", n_ele
     write(*,*), "internal faces num: ", n_face_i
+    write(*,*), "processors faces num: ", n_face - n_face_i
     write(*,*), "boundary faces num: ", n_face_b
     write(*,*), "nodes num: ", n_node
     write(*,*), "cell blocks num: ", n_blk
@@ -114,7 +137,7 @@ program main
     end do
     ! 注册进程号场
     n_dim = 1
-    call add_scalar_field("cell"//C_NULL_CHAR, "pid"//C_NULL_CHAR, pid, n_dim, n_ele)
+    call add_scalar_field("cell"//C_NULL_CHAR, "pid"//C_NULL_CHAR, pid, n_dim)
 
     ! 获取单元与格点拓扑关系
     allocate(e2n(ele_nodes), stat=err_mem)
@@ -129,6 +152,15 @@ program main
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, coord'
     call get_coords(coord)
 
+    ! 生成网格单元本地ID
+    allocate(id(n_ele), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, id'
+    do iele=1,n_ele
+        id(iele) = iele
+    end do
+    n_dim = 1
+    call add_scalar_field("cell"//C_NULL_CHAR, "id"//C_NULL_CHAR, id, n_dim)
+
     ! 计算网格单元体积
     allocate(vol(n_ele), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, vol'
@@ -136,8 +168,7 @@ program main
 
     ! 注册体积场
     n_dim = 1
-    call add_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol, &
-        & n_dim, n_ele)
+    call add_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol, n_dim)
     ! call get_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol_new2, &
     !     & ndim_new, n_ele_new)
 
@@ -173,22 +204,53 @@ program main
     ! call add_scalar_field("face"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_face_i)
 
     ! 获取内部网格面与网格单元拓扑关系
-    allocate(if2e(n_face_i*2), stat=err_mem)
+    allocate(if2e(n_face*2), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, if2e'
     call get_inn_face_2_ele_blk(if2e)
+    ! do iface=1,n_face
+    !     if(my_id .eq. 1) write(*,*),iface, if2e((iface-1)*2+1), if2e((iface-1)*2+2)
+    ! end do
+    ! SpMV test
+    ! b = A*x
+    allocate(x(n_ele), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory x'
 
-    ! A,x,b
-    allocate(x(n_ele), b(n_ele), A(n_face_i))
+    allocate(b(n_ele), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory b'
+
+    allocate(A(n_face), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory a'
+
     x=1
     b=0
     A=1
-    call calc_spmv(n_face_i,if2e, A, x, b)
-    do iele=1,n_ele
-        ! write(*,*),b(iele)
-    end do
-    ! 注册b场
-    n_dim = 1
-    call add_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_ele)
+
+    call add_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim)
+    call add_scalar_field("cell"//C_NULL_CHAR, "x"//C_NULL_CHAR, x, n_dim)
+    call add_scalar_field("face"//C_NULL_CHAR, "A"//C_NULL_CHAR, A, n_dim)
+
+    b_tmp = get_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR)
+    call c_f_pointer(b_tmp%data, b_new, [n_ele+b_tmp%nbrSize])
+
+    x_tmp = get_scalar_field("cell"//C_NULL_CHAR, "x"//C_NULL_CHAR)
+    call c_f_pointer(x_tmp%data, x_new, [n_ele+b_tmp%nbrSize])
+
+    A_tmp = get_scalar_field("face"//C_NULL_CHAR, "A"//C_NULL_CHAR)
+    call c_f_pointer(A_tmp%data, A_new, [n_face])
+
+    ! compute internal part
+    call start_exchange_scalar_field("cell"//C_NULL_CHAR, "x"//C_NULL_CHAR)
+    face_start = 1
+    face_end = n_face_i
+    call calc_spmv_gu(face_start, face_end, if2e, A_new, x_new, b_new, n_dim)
+
+    ! compute processor boundary part
+    call finish_exchange_scalar_field("cell"//C_NULL_CHAR, "x"//C_NULL_CHAR)
+    face_start = n_face_i+1
+    face_end = n_face
+
+    call calc_spmv_gu(face_start, face_end, if2e, A_new, x_new, b_new, n_dim)
+
 
     ! 输出网格到CGNS文件中
     call write_mesh()
@@ -198,6 +260,8 @@ program main
     call write_scalar_field("b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出pid场到CGNS文件中
     call write_scalar_field("pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    ! 输出ID场到CGNS文件中
+    call write_scalar_field("id"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出面积场到CGNS文件中，目前非结构网格只能输出格点和格心的求解值
     ! call write_scalar_field("b"//C_NULL_CHAR, "face"//C_NULL_CHAR)
 
@@ -458,17 +522,17 @@ subroutine calc_TRI_area(coord, area)
 
 end subroutine calc_TRI_area
 
-subroutine calc_spmv(n_face, f2c, A, x, b)
+subroutine calc_spmv(index_start, index_end, f2c, A, x, b)
     use var_kind_def
     use var_global
     implicit none
     integer(dpI), intent(IN):: f2c(*)
     real(dpR), intent(IN):: A(*), x(*)
     real(dpR), intent(INOUT):: b(*)
-    integer(dpI), intent(IN):: n_face
+    integer(dpI), intent(IN):: index_start, index_end
     integer:: iface, row, col
 
-    do iface=1,n_face
+    do iface=index_start,index_end
         row    = f2c((iface-1)*2+1)
         col    = f2c((iface-1)*2+2)
         b(row) = b(row)+A(iface)*x(col)
@@ -476,6 +540,30 @@ subroutine calc_spmv(n_face, f2c, A, x, b)
     end do
     
 end subroutine calc_spmv
+
+subroutine calc_spmv_gu(index_start, index_end, f2c, A, x, b, ndim)
+  use var_kind_def
+  use var_global
+  use iso_c_binding
+  implicit none
+  integer(dpI), intent(IN):: f2c(*)
+  real(dpR), intent(IN):: A(*), x(*)
+  real(dpR), intent(INOUT):: b(*)
+  integer(dpI), intent(IN):: index_start, index_end, ndim
+  integer:: iface, row, col, idim, tmp1, tmp2
+
+  ! call MPI_Barrier(MPI_COMM_WORLD,ierr)
+
+  do iface=index_start, index_end
+      row    = f2c((iface-1)*2+1)
+      col    = f2c((iface-1)*2+2)
+      do idim = 0, ndim-1
+        b(row*ndim+idim) = b(row*ndim+idim)+A(iface)*x(col*ndim+idim)
+        ! this routine is not essential for processor boundary part computing
+        b(col*ndim+idim) = b(col*ndim+idim)+A(iface)*x(row*ndim+idim)
+      end do
+  end do
+end subroutine calc_spmv_gu
 
 function nodes_num_for_ele(ele_type)
     use var_kind_def
