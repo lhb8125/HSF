@@ -134,9 +134,9 @@ void fort_sout_(const int* pid, const char* str, const int* len);
 void write_restart_(); // 写出结果文件，用于重启计算
 
 /**
-* @brief 写出网格到CGNS文件中，结果文件名由config文件中resPath关键字指定
+* @brief 写出网格到CGNS文件中，结果文件名由输入字符串指定
 */
-void write_mesh_();
+void write_mesh_(char* resFile);
 
 
 /**
@@ -144,14 +144,14 @@ void write_mesh_();
 * @param[in]  fieldName 场名
 * @param[in]  fieldType 场类型
 */
-void write_label_field_(const char* fieldName, const char* fieldType);
+void write_label_field_(const char* resFile, const char* fieldName, const char* fieldType);
 
 /**
 * @brief 输出浮点场到CGNS文件，结果文件名由config文件中resPath关键字指定
 * @param[in]  fieldName 场名
 * @param[in]  fieldType 场类型
 */
-void write_scalar_field_(const char* fieldName, const char* fieldType);
+void write_scalar_field_(const char* resFile, const char* fieldName, const char* fieldType);
 
 /****************************************控制参数输出*******************************/
 /**

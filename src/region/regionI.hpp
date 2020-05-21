@@ -235,6 +235,7 @@ void Region::writeField(const char* resFile,
         if(sizeof(scalar)==8) dataType = RealDouble;
         else dataType = RealSingle;
     }
+    int S, Fs, A, nSols;
     GridLocation_t location;
     char* solName;
     if(strcmp(fieldType, "cell")==0)
@@ -253,7 +254,6 @@ void Region::writeField(const char* resFile,
         Terminate("writeField", "unknown field type, it must be cell, face or node");
 
     /// 流场变量
-    int S, Fs, A, nSols;
     if(cg_nsols(iFile, iBase, iZone, &nSols))
         Terminate("readSolutionInfo", cg_get_error());
     S=-1;
@@ -269,6 +269,8 @@ void Region::writeField(const char* resFile,
     // cg_field_write(iFile, iBase, iZone, S, dataType, fieldName, dataPtr, &Fs);
     if(cgp_field_write(iFile, iBase, iZone, S, dataType, fieldName, &Fs))
         Terminate("writeSolutionInfo", cg_get_error());
+    printf("%d,%d,%s,%d\n", S, dataType, fieldName, Fs);
+    Fs = 1;
 
     // 按照单元类型分块输出场信息
     Array<label> cellBlockStartIdx = this->getMesh().getBlockTopology().getCellBlockStartIdx();

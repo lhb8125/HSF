@@ -197,14 +197,11 @@ void write_restart_()
 
 //
 // @brief 写出网格到CGNS文件中
-// @param meshFile [in] CGNS文件名
+// @param resFile [in] CGNS文件名
 //
-void write_mesh_()
+void write_mesh_(char* resFile)
 {
-  char resultFile[CHAR_DIM];
-  int nPara = 4;
-  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
-  REGION.writeMesh(resultFile);
+  REGION.writeMesh(resFile);
 }
 
 // // para1 [in] 场变量名，输出指定场信息到结果文件中，不定参数个数
@@ -238,20 +235,15 @@ void write_mesh_()
 //   //  globalRegion.writeField(paras[ifield]);
 // }
 
-void write_label_field_(const char* fieldName, const char* fieldType)
+void write_label_field_(const char* resFile, const char* fieldName, const char* fieldType)
 {
-  char resultFile[CHAR_DIM];
-  int nPara = 4;
-  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
-  REGION.writeField<label>(resultFile, fieldName, fieldType); 
+  REGION.writeField<label>(resFile, fieldName, fieldType); 
 }
 
-void write_scalar_field_(const char* fieldName, const char* fieldType)
+void write_scalar_field_(const char* resFile, const char* fieldName, const char* fieldType)
 {
-  char resultFile[CHAR_DIM];
-  int nPara = 4;
-  para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
-  REGION.writeField<scalar>(resultFile, fieldName, fieldType); 
+  REGION.writeField<scalar>(resFile, fieldName, fieldType); 
+  REGION.writeField<scalar>(resFile, fieldName, fieldType); 
 }
 
 

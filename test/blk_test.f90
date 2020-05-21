@@ -65,7 +65,6 @@ program main
     real(dpR),allocatable:: pid(:), id(:)
     character(len=20):: field_name, field_type
     real(c_double), pointer:: b_new(:), x_new(:), A_new(:)
-    ! type(c_ptr)::b_new_tmp, x_new_tmp, A_new_tmp
     type(struct_scalarField):: b_tmp, x_tmp, A_tmp
 
     real(dpR) :: vol_new(1)
@@ -86,14 +85,13 @@ program main
     call init_utility_fort()
     call init(trim(config_file))
 
-    ! 获取控制参数
-    ! nPara = 5
-    ! call get_string_para(mesh_file, str_len, nPara, &
-    !     & "domain1"//C_NULL_CHAR, &
-    !     & "region"//C_NULL_CHAR, &
-    !     & "0"//C_NULL_CHAR, &
-    !     & "path"//C_NULL_CHAR, &
-    !     & "1"//C_NULL_CHAR)
+    ! 获取网格文件名
+    nPara = 4
+    call get_string_para(mesh_file, str_len, nPara, &
+        & "domain1"//C_NULL_CHAR, &
+        & "region"//C_NULL_CHAR, &
+        & "0"//C_NULL_CHAR, &
+        & "path"//C_NULL_CHAR)
 
     ! ! 获取基本单元数目
     call get_elements_num(n_ele)
@@ -174,9 +172,9 @@ program main
 
     call get_face_blk_num(n_blk)
     write(*,*), "face blocks num: ", n_blk
-    ! 获取网格面类型数目及起始位置
     allocate(fblkt(n_blk), stat=err_mem)
-    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkt'
+    ! if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblk
+    ! 获取网格面类型数目及起始位置'
     call get_face_blk_type(fblkt)
     allocate(fblkS(n_blk), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkS'
@@ -252,16 +250,24 @@ program main
     call calc_spmv_gu(face_start, face_end, if2e, A_new, x_new, b_new, n_dim)
 
 
+    ! 获取结果网格文件名
+    nPara = 4
+    call get_string_para(result_file, str_len, nPara, &
+        & "domain1"//C_NULL_CHAR, &
+        & "region"//C_NULL_CHAR, &
+        & "0"//C_NULL_CHAR, &
+        & "resPath"//C_NULL_CHAR)
+
     ! 输出网格到CGNS文件中
-    call write_mesh()
+    call write_mesh(result_file)
     ! 输出体积场到CGNS文件中
-    call write_scalar_field("vol"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    call write_scalar_field(result_file, "vol"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出b场到CGNS文件中
-    call write_scalar_field("b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    call write_scalar_field(result_file, "b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出pid场到CGNS文件中
-    call write_scalar_field("pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    call write_scalar_field(result_file, "pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出ID场到CGNS文件中
-    call write_scalar_field("id"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+    call write_scalar_field(result_file, "id"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出面积场到CGNS文件中，目前非结构网格只能输出格点和格心的求解值
     ! call write_scalar_field("b"//C_NULL_CHAR, "face"//C_NULL_CHAR)
 
