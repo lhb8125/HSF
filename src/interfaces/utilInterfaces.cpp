@@ -121,6 +121,70 @@ void gather_scalars_(scalar* sdata, scalar* rdata, const label* count)
   gComm.finishTask("gather_scalars_");
 }
 
+void extreme_labels_in_procs_(const char* flag, label* data, label* result,
+  const label* count)
+{
+  int pid  = COMM::getGlobalId();
+  int commSize = COMM::getGlobalSize();
+  int num = *count*COMM::getGlobalSize();
+  label *rdata;
+  // printf("%s\n", flag);
+  rdata = new label[num];
+  // gather_labels_(data, rdata, count);
+  MPI_Gather(data, *count, MPI_LABEL, rdata, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  if(pid==0)
+  {
+    // printf("%d\n", *count);
+    for (int i = 0; i < *count; ++i)
+    {
+      result[i] = rdata[i*commSize];
+      for (int j = 1; j < commSize; ++j)
+      {
+        // printf("%d,%d,%d,%d\n", i,j,result[i],rdata[i*commSize+j]);
+        if(strcmp(flag,"MAX")==0) result[i] = MAX(result[i],rdata[i*commSize+j]);
+        else if(strcmp(flag,"MIN")==0) result[i] = MIN(result[i],rdata[i*commSize+j]);
+        else
+          Terminate("extreme_labels_in_procs_","unknown flag");
+      }
+    }
+  }
+  MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  // bcast_labels_(result, count);
+  DELETE_POINTER(rdata);
+}
+
+void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
+  const label* count)
+{
+  int pid  = COMM::getGlobalId();
+  int commSize = COMM::getGlobalSize();
+  int num = *count*COMM::getGlobalSize();
+  scalar *rdata;
+  rdata = new scalar[num];
+  // gather_labels_(data, rdata, count);
+  MPI_Gather(data, *count, MPI_SCALAR, rdata, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  if(pid==0)
+  {
+    // printf("%d\n", *count);
+    for (int i = 0; i < *count; ++i)
+    {
+      result[i] = rdata[i*commSize];
+      for (int j = 1; j < commSize; ++j)
+      {
+        if(strcmp(flag,"MAX")==0) result[i] = MAX(result[i],rdata[i*commSize+j]);
+        else if(strcmp(flag,"MIN")==0) result[i] = MIN(result[i],rdata[i*commSize+j]);
+        else
+          Terminate("extreme_labels_in_procs_","unknown flag");
+      }
+    }
+  }
+  MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  // bcast_labels_(result, count);
+  DELETE_POINTER(rdata);
+}
+
 /*******************************************标准输出*******************************************/
 // #include "stdarg.h"
 // 所有进程输出到特定文件
@@ -242,7 +306,6 @@ void write_label_field_(const char* resFile, const char* fieldName, const char* 
 
 void write_scalar_field_(const char* resFile, const char* fieldName, const char* fieldType)
 {
-  REGION.writeField<scalar>(resFile, fieldName, fieldType); 
   REGION.writeField<scalar>(resFile, fieldName, fieldType); 
 }
 

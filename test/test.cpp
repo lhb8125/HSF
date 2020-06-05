@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: 
 * @date:   2019-10-09 11:04:42
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-06 09:45:08
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-02-23 15:42:43
 */
 #include <iostream>
 #include <fstream>
@@ -18,10 +18,17 @@
 #include "loadBalancer.hpp"
 #include "parameter.hpp"
 #include "cgnslib.h"
+// #include "fieldInterfaces.hpp"
 #define OUT std::cout
 #define IN std::cin
 #define ENDL std::endl
 #define String std::string
+
+void spMV_data(Region& reg, label n_face, label n_cell);
+void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
+	label n_face_i, label n_face_b, label n_face, label n_cell);
+void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
+	label n_face_b);
 
 using namespace HSF;
 
@@ -37,7 +44,6 @@ using namespace HSF;
 int main(int argc, char** argv)
 {
 	LoadBalancer *lb = new LoadBalancer();
-	OUT<<"hello world!"<<ENDL;
 
 	Parameter para("./config.yaml");
 
@@ -84,130 +90,77 @@ int main(int argc, char** argv)
 
 	regs[0].initAfterBalance();
 
-	regs[0].writeMesh(resultFile);
+	ArrayArray<label> face_2_cell = regs[0].getMesh().getTopology().getFace2Cell();
+	label n_face_i = regs[0].getMesh().getTopology().getInnFacesNum();
+	label n_face_b = regs[0].getBoundary().getTopology().getFacesNum();
+	label n_face   = regs[0].getMesh().getTopology().getFacesNum();
+	label n_cell   = regs[0].getMesh().getTopology().getCellsNum();
 
-	// regs[0].getMesh().initMesh(resultFile);
+	spMV_data(regs[0], n_face, n_cell);
+	spMV_test(regs[0], face_2_cell, n_face_i, n_face_b, n_face, n_cell);
+
+	face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
+	spMV_bnd(regs[0], face_2_cell, n_face_b);
+
+	regs[0].writeMesh(resultFile);
+	regs[0].writeField<scalar>(resultFile, "b", "cell");
 
 	// MPI_Finalize();
 	
 	return 0;
 }
 
-// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
-// 	ArrayArray<Label> &nei, Label procNum)
-// {
-// 	OUT<<"reading YAML file: "<<filePtr<<" ......"<<ENDL;
-// 	std::ifstream fin(filePtr.c_str());
-// 	YAML::Parser parse(fin);
-// 	YAML::Node doc;
-// 	parse.GetNextDocument(doc);
-// 	const YAML::Node& measurement = doc["measurement"];
-// 	for (int i = 0; i < measurement.size(); ++i)
-// 	{
-// 		measurement[i] >> s;
-// 	}
-// 	Array<Array<Label> > neiTmp;
-// 	Array<Label> regIdxTmp;
-// 	const YAML::Node& topology = doc["topology"];
-// 	for (int i = 0; i < topology.size(); ++i)
-// 	{
-// 		topology[i] >> neiTmp;
-// 		topology[i] >> regIdxTmp;
-// 	}
+void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
+	label n_face_i, label n_face_b, label n_face, label n_cell)
+{
+	Field<scalar> &A = reg.getField<scalar>("face", "A");
+	Field<scalar> &x = reg.getField<scalar>("cell", "x");
+	Field<scalar> &b = reg.getField<scalar>("cell", "b");
+    // printf("n_face: %d, n_face_i: %d, n_face_b: %d, n_cell: %d\n",
+    	// n_face, n_face_i, n_face_b, n_cell);
+    for (int i = 0; i < n_face_i; ++i)
+    {
+    	label row = face_2_cell[i][0];
+    	label col = face_2_cell[i][1];
+        b[col][0] += A[i][0]*x[row][0];
+        b[row][0] += A[i][0]*x[col][0];
+    }
+}
 
-// 	/// transform the vector<vector<int> > to ArrayArray
-// 	nei.num = s.size();
-// 	nei.startIdx = new Label[nei.num+1];
-// 	nei.startIdx[0] = 0;
-// 	for (int i = 0; i < nei.num; ++i)
-// 	{
-// 		nei.startIdx[i+1] = nei.startIdx[i]+neiTmp[regIdxTmp[i]].size();
-// 	}
-// 	nei.data = new Label[nei.startIdx[nei.num]];
-// 	for (int i = 0; i < nei.num; ++i)
-// 	{
-// 		Label k = 0;
-// 		for (int j = nei.startIdx[i]; j < nei.startIdx[i+1]; ++j)
-// 		{
-// 			nei.data[j] = neiTmp[regIdxTmp[i]][k];
-// 			k++;
-// 		}
-// 	}
-// #ifdef DEBUG_YAML
-// 	/// check
-// 	for (int i = 0; i < nei.num; ++i)
-// 	{
-// 		for (int j = nei.startIdx[i]; j < nei.startIdx[i+1]; ++j)
-// 		{
-// 			OUT<<nei.data[j]<<", ";
-// 		}
-// 	}
-// 	OUT<<ENDL;
-// #endif
-// }
+void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
+	label n_face_b)
+{
+	Field<scalar> &A = reg.getField<scalar>("face", "A");
+	Field<scalar> &b = reg.getField<scalar>("cell", "b");
+    // 边界计算部分
+    for (int i = 0; i < n_face_b; ++i)
+    {
+    	label row = face_2_cell[i][0];
+        b[row][0] += A[i][0];
+    }
+}
 
-// void operator >> (const YAML::Node& node, Array<Scalar>& s)
-// {
-// 	String mea;
-// 	node["mea"] >> mea;
-// 	s.push_back(std::atof(mea.c_str()));
-// #ifdef DEBUG_YAML
-// 	for (int i = 0; i < s.size(); ++i)
-// 	{
-// 		OUT<<s[i]<<", ";
-// 	}
-// 	OUT<<ENDL;
-// #endif
-// }
+void spMV_data(Region& reg, label n_face, label n_cell)
+{
+	scalar *A_arr = new scalar[n_face];
+	scalar *x_arr = new scalar[n_cell];
+	scalar *b_arr = new scalar[n_cell];
 
-// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei)
-// {
-// 	// String neighbor;
-// 	// node["neighbor"].as<string>() >> neighbor;
-// 	Array<Label> neiTmp;
-// 	int tmp;
-// 	const YAML::Node& neighbor = node["neighbor"];
-// 	for (int i = 0; i < neighbor.size(); ++i)
-// 	{
-// 		neighbor[i] >> tmp;
-// 		neiTmp.push_back(tmp);
-// 	}
-// 	nei.push_back(neiTmp);
+	for (int i = 0; i < n_face; ++i)
+	{
+		A_arr[i] = 1.0;
+	}
+	for (int i = 0; i < n_cell; ++i)
+	{
+		x_arr[i] = 1.0;
+		b_arr[i] = 0.0;
+	}
 
-// #ifdef DEBUG_YAML
-// 	for (int i = 0; i < nei.size(); ++i)
-// 	{
-// 		OUT<<"(";
-// 		for (int j = 0; j < nei[i].size(); ++j)
-// 		{
-// 			OUT<<nei[i][j]<<", ";
-// 		}
-// 		OUT<<")";
-// 	}
-// 	OUT<<ENDL;
-// #endif
-// }
-
-// void operator >> (const YAML::Node& node, Array<Label>& regionIdx)
-// {
-// 	Label tmp;
-// 	node["regionIdx"] >> tmp;
-// 	regionIdx.push_back(tmp);
-
-// #ifdef DEBUG_YAML
-// 	for (int i = 0; i < regionIdx.size(); ++i)
-// 	{
-// 		OUT<<regionIdx[i]<<", ";
-// 	}
-// 	OUT<<ENDL;
-// #endif
-// }
-
-// void hdf5ToAdf(char* filePtr, char* desFilePtr)
-// {
-// 	int iFile;
-// 	if(cg_open(filePtr, CG_MODE_MODIFY, &iFile))
-// 		Terminate("readCGNSFile", cg_get_error());
-// 	if(cg_save_as(iFile,  desFilePtr, CG_FILE_ADF2, 0))
-// 		Terminate("transformToADF", cg_get_error());
-// }
+	Table<Word, Table<Word, Patch *> *> &patchTab = reg.getPatchTab();
+	Field<scalar> *fA = new Field<scalar>("face", 1, n_face, A_arr, patchTab);
+	Field<scalar> *fx = new Field<scalar>("cell", 1, n_cell, x_arr, patchTab);
+	Field<scalar> *fb = new Field<scalar>("cell", 1, n_cell, b_arr, patchTab);
+	reg.addField<scalar>("A", fA);
+	reg.addField<scalar>("x", fx);
+	reg.addField<scalar>("b", fb);
+}

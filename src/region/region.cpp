@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief:
 * @date:   2019-10-14 09:17:17
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-09 17:17:46
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-26 21:11:48
 */
 #include <algorithm>
 #include "region.hpp"
@@ -56,7 +56,16 @@ void Region::initAfterBalance()
     label cellNum = this->getMesh().getTopology().getCellsNum();
     Array<Array<label> > faceCells
         = this->getMesh().getTopology().getFace2CellPatch();
-
+  // const ArrayArray<label> &face2Cell_0 = mesh_.getTopology().getFace2Cell();
+  // for (int i = 0; i < face2Cell_0.size(); ++i)
+  // {
+  //   printf("the %dth face: ", i);
+  //   for (int j = face2Cell_0.startIdx[i]; j < face2Cell_0.startIdx[i+1]; ++j)
+  //   {
+  //     printf("%d, ", face2Cell_0.data[j]);
+  //   }
+  //   printf("\n");
+  // }
     createInterFaces(faceCells, cellNum);
 
 	par_std_out_("finish creating interfaces ...\n");
@@ -65,19 +74,21 @@ void Region::initAfterBalance()
 	this->getBoundary().readMesh(this->meshFile_);
     this->getBoundary().readBC(this->meshFile_);
 	par_std_out_("finish reading boundary mesh ...\n");
-	Topology innerTopo = this->getMesh().getTopology();
-	par_std_out_("start constructing boundary topology ...\n");
-	this->getBoundary().exchangeBoundaryElements(innerTopo);
-	par_std_out_("finish constructing boundary topology ...\n");
 
-    par_std_out_("start initialize mesh information ...\n");
-    this->meshInfo_.init(mesh_);
-    par_std_out_("finish initialize mesh information ...\n");
+  par_std_out_("start initialize mesh information ...\n");
+  this->meshInfo_.init(mesh_);
+  par_std_out_("finish initialize mesh information ...\n");
 
-    par_std_out_("start generate block topology ...\n");
-    this->getMesh().generateBlockTopo();
-    // this->getBoundary().generateBlockTopo();
-    par_std_out_("finish generate block topology ...\n");
+  par_std_out_("start generate block topology ...\n");
+  this->getMesh().generateBlockTopo();
+  // this->getBoundary().generateBlockTopo();
+  par_std_out_("finish generate block topology ...\n");
+
+  par_std_out_("start constructing boundary topology ...\n");
+  Topology innerTopo = this->getMesh().getTopology();
+  this->getBoundary().exchangeBoundaryElements(innerTopo);
+  par_std_out_("finish constructing boundary topology ...\n");
+
 
 }
 

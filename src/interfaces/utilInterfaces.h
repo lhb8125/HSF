@@ -99,6 +99,26 @@ void gather_labels_(label* sdata, label* rdata, const label* count );
 */
 void gather_scalars_(scalar* sdata, scalar* rdata, const label* count);
 
+/**
+* @brief 主进程收集整数，计算最大值或最小值
+* @param[in] flag 可选参数 MAX，MIN
+* @param[in]  data 本进程值
+* @param[in][out]  result 所有进程最大值或最小值
+* @param[in]  count 变量个数
+*/
+void extreme_labels_in_procs_(const char* flag, label* data, label* result,
+	const label* count);
+
+/**
+* @brief 主进程收集浮点数，计算最大值或最小值
+* @param[in] flag 可选参数 MAX，MIN
+* @param[in]  data 本进程值
+* @param[in][out]  result 所有进程最大值或最小值
+* @param[in]  count 变量个数
+*/
+void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
+	const label* count);
+
 /*******************************************标准输出*******************************************/
 /**
 * @brief 所有进程输出到特定文件

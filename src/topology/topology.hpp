@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: 
 * @date:   2019-09-09 15:08:19
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-06 16:36:38
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-26 21:41:48
 */
 #ifndef TOPOLOGY_HPP
 #define TOPOLOGY_HPP
@@ -117,7 +117,7 @@ public:
 	*/
 	label getCellsNum(){return this->cellNum_;};
 	/**
-	* @brief get the count of faces
+	* @brief get the count of faces, with process boundary face
 	*/
 	label getFacesNum(){return this->faceNum_;};
 	/**
@@ -127,7 +127,7 @@ public:
 	/**
 	* @brief get the count of boundary faces
 	*/
-	label getBndFacesNum(){return this->faceNum_b_;};
+	// label getBndFacesNum(){return this->faceNum_b_;};
 	/**
 	* @brief get the count of edges
 	*/
@@ -168,6 +168,15 @@ public:
 	{
 		transformArray(face2Cell, this->face2Cell_);
 		this->faceNum_ = face2Cell.size();
+	};
+
+	/**
+	* @brief set the topology between cell and boundary face
+	*/
+	void setFace2CellBnd(Array<Array<label> >& face2CellBnd)
+	{
+		this->face2CellBnd_ = face2CellBnd;
+		this->faceNum_b_ = face2CellBnd.size();
 	};
 
 	/**

@@ -75,6 +75,26 @@ public:
   int DecRefCount() {return --count_;}
 };
 
+template <class T>
+class BasicElement
+{
+public:
+  label num;
+  T *data;
+  BasicElement()
+  {
+    data = NULL;
+    num = 0;
+  };
+  ~BasicElement()
+  {
+    num = 0;
+    data = NULL;
+  }
+  label size(){return num;}
+  T& operator[](const int i){return data[i];}
+};
+
 
 template<class T> bool compareArray(const Array<T>& a, const Array<T>& b);
 
@@ -86,6 +106,7 @@ public:
   label* startIdx; ///< start index of structs
   T*     data; ///< structs
   RefCounted* refCount; /// count of reference pointers
+  BasicElement<T>* basicEle; /// basic elements
   /**
   * @brief constructor
   */
@@ -93,6 +114,7 @@ public:
   {
     refCount = new RefCounted();
     startIdx = NULL;
+    basicEle = NULL;
     data = NULL;
     num = 0;
     // par_std_out_("constructor: %d\n", refCount->GetRefCount());
@@ -106,6 +128,7 @@ public:
     this->startIdx = arr.startIdx;
     this->data = arr.data;
     this->refCount = arr.refCount;
+    this->basicEle = arr.basicEle;
     refCount->incRefCount();
     // par_std_out_("copy constructor: %d\n", refCount->GetRefCount());
   };
@@ -117,6 +140,7 @@ public:
     // ArrayArray<T> tmp;
     this->num = arr.num;
     this->startIdx = arr.startIdx;
+    this->basicEle = arr.basicEle;
     this->data = arr.data;
     this->refCount = arr.refCount;
     this->refCount->incRefCount();
@@ -136,11 +160,13 @@ public:
       DELETE_POINTER(data);
       DELETE_POINTER(startIdx);
       DELETE_POINTER(refCount);
+      DELETE_POINTER(basicEle);
     } else
     {
       startIdx = NULL;
       data = NULL;
       refCount = NULL;
+      basicEle = NULL;
     }
   };
   /**
@@ -163,6 +189,22 @@ public:
       }
       std::cout<<")"<<std::endl;
     }
+  }
+  /**
+  * @brief overload function of []
+  */
+  BasicElement<T>& operator[](const int i)
+  {
+    if(!basicEle)
+    {
+      basicEle = new BasicElement<T>[num];
+      for (int i = 0; i < num; ++i)
+      {
+        basicEle[i].num = startIdx[i+1]-startIdx[i];
+        basicEle[i].data = &data[startIdx[i]];
+      }
+    }
+    return basicEle[i];
   }
 
 };

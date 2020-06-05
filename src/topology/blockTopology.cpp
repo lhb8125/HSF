@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: 
 * @date:   2020-01-06 16:12:11
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-10 17:14:43
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-27 10:39:26
 */
 
 #include <algorithm>
@@ -28,6 +28,12 @@ void BlockTopology::constructBlockTopology(Topology& topo)
 	// printf("constructBlockTopology\n");
 	Array<label> cellMap = this->reorderCellTopo(topo);
 	Array<label> faceMap = this->reorderFaceTopo(topo);
+    Array<Array<label> > face2CellBnd = topo.getFace2CellBnd();
+    for (int i = 0; i < face2CellBnd.size(); ++i)
+    {
+    	face2CellBnd[i][0] = cellMap[face2CellBnd[i][0]];
+    }
+    topo.setFace2CellBnd(face2CellBnd);
 	for (int i = 0; i < this->face2Cell_.size(); ++i)
 	{
 		for (int j = this->face2Cell_.startIdx[i];
@@ -37,6 +43,9 @@ void BlockTopology::constructBlockTopology(Topology& topo)
 			if(this->face2Cell_.data[j] < cellMap.size())
 				this->face2Cell_.data[j] = cellMap[this->face2Cell_.data[j]];
 		}
+		// if(face2CellBnd[i][0]>cellMap.size())
+			// printf("%d,%d\n", face2CellBnd[i][0],cellMap.size());
+		// face2CellBnd[i][0] = cellMap[face2CellBnd[i][0]];
 	}
 	for (int i = 0; i < this->cell2Face_.size(); ++i)
 	{

@@ -58,8 +58,8 @@ program main
     integer(dpI):: n_ele, n_face_i, n_face, n_face_b, n_node, face_start, face_end, n_nbr_ele
     integer(dpI),allocatable:: e2n(:),e2n_pos(:),ele_type(:)
     integer(dpI),allocatable:: e2f(:),e2f_pos(:)
-    integer(dpI),allocatable:: if2n(:),if2n_pos(:)
-    integer(dpI),allocatable:: if2e(:),if2e_pos(:)
+    integer(dpI),allocatable:: if2n(:),if2n_pos(:),bf2n(:)
+    integer(dpI),allocatable:: if2e(:),if2e_pos(:),bf2e(:)
     real(dpR),allocatable:: b(:),x(:),A(:)
     real(dpR), allocatable:: vol(:), area(:), coord(:)
     real(dpR),allocatable:: pid(:), id(:)
@@ -77,7 +77,10 @@ program main
 
     integer(dpI):: n_blk, iblk, ele_nodes, nodes_num_for_ele
     integer(dpI):: faces_num_for_ele, ele_faces, face_nodes
-    integer(dpI),allocatable:: eblkt(:), fblkt(:), eblkS(:), fblkS(:)
+    integer(dpI),allocatable:: eblkt(:), fblkt(:), eblkS(:), fblkS(:), bnd_type(:)
+
+    integer(dpI):: local_val, max_val, min_val, count
+    real(dpR):: local_real, min_real
 
     ! procedure(func),pointer:: f_ptr => null()
 
@@ -170,15 +173,15 @@ program main
     ! call get_scalar_field("cell"//C_NULL_CHAR, "vol"//C_NULL_CHAR, vol_new2, &
     !     & ndim_new, n_ele_new)
 
-    call get_face_blk_num(n_blk)
+    call get_inn_face_blk_num(n_blk)
     write(*,*), "face blocks num: ", n_blk
     allocate(fblkt(n_blk), stat=err_mem)
     ! if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblk
     ! 获取网格面类型数目及起始位置'
-    call get_face_blk_type(fblkt)
+    call get_inn_face_blk_type(fblkt)
     allocate(fblkS(n_blk), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkS'
-    call get_face_blk_pos(fblkS)
+    call get_inn_face_blk_pos(fblkS)
 
     ! 计算网格面所含格点总数
     face_nodes = 0
@@ -190,23 +193,14 @@ program main
     ! 获取网格面与格点拓扑关系
     allocate(if2n(face_nodes), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, if2n'
-    call get_face_2_node_blk(if2n)
-
-    ! ! 计算网格单元体积
-    ! allocate(area(n_face_i), stat=err_mem)
-    ! if(err_mem .ne. 0) stop 'Error, fails to allocate memory, area'
-    ! call calc_eles_vol(n_blk, fblkt, fblkS, if2n, coord, area)
-
-    ! ! 注册面积场
-    ! n_dim = 1
-    ! call add_scalar_field("face"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_face_i)
+    call get_inn_face_2_node_blk(if2n)
 
     ! 获取内部网格面与网格单元拓扑关系
     allocate(if2e(n_face*2), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, if2e'
     call get_inn_face_2_ele_blk(if2e)
     ! do iface=1,n_face
-    !     if(my_id .eq. 1) write(*,*),iface, if2e((iface-1)*2+1), if2e((iface-1)*2+2)
+    !     write(*,*),iface, if2e((iface-1)*2+1), if2e((iface-1)*2+2)
     ! end do
     ! SpMV test
     ! b = A*x
@@ -241,12 +235,10 @@ program main
     face_start = 1
     face_end = n_face_i
     call calc_spmv_gu(face_start, face_end, if2e, A_new, x_new, b_new, n_dim)
-
     ! compute processor boundary part
     call finish_exchange_scalar_field("cell"//C_NULL_CHAR, "x"//C_NULL_CHAR)
     face_start = n_face_i+1
     face_end = n_face
-
     call calc_spmv_gu(face_start, face_end, if2e, A_new, x_new, b_new, n_dim)
 
 
@@ -270,6 +262,62 @@ program main
     call write_scalar_field(result_file, "id"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出面积场到CGNS文件中，目前非结构网格只能输出格点和格心的求解值
     ! call write_scalar_field("b"//C_NULL_CHAR, "face"//C_NULL_CHAR)
+
+    ! 获取边界网格面类型数目
+    call get_bnd_face_blk_num(n_blk)
+    write(*,*), "boundary face block num: ",n_blk
+    ! 获取边界网格面类型
+    if(allocated(fblkt)) deallocate(fblkt)
+    allocate(fblkt(n_blk), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, fblkt'
+    call get_bnd_face_blk_type(fblkt)
+    ! 获取边界网格面起始位置
+    if(allocated(fblkS)) deallocate(fblkS)
+    allocate(fblkS(n_blk), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, eblkS'
+    call get_bnd_face_blk_pos(fblkS)
+
+    ! 计算边界网格面所含格点总数
+    face_nodes = 0
+    do iblk=1,n_blk
+        face_nodes = face_nodes + nodes_num_for_ele(fblkt(iblk))*(fblkS(iblk+1)-fblkS(iblk))
+    end do
+    ! 获取边界网格面与格点拓扑关系
+    allocate(bf2n(face_nodes), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, bf2n'
+    call get_bnd_face_2_node_blk(bf2n)
+
+    ! 获取边界网格面与网格单元拓扑关系
+    allocate(bf2e(n_face_b), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, bf2e'
+    call get_bnd_face_2_ele_blk(bf2e)
+    ! 计算边界面上的spmv
+    call calc_spmv_gu_bnd(1, n_face_b, bf2e, b_new)
+
+    ! 再次输出b场到CGNS文件中
+    call write_scalar_field(result_file, "b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
+
+    ! 获取进程间极值
+    local_val = my_id
+    max_val = -1
+    min_val = 200
+    count = 1
+    ! 最大值
+    call extreme_labels_in_procs("MAX"//C_NULL_CHAR, local_val, max_val, count)
+    ! write(*,*),my_id,max_val
+    local_real = 1/real(my_id+1)
+    min_real = 100.0
+    ! 最小值
+    call extreme_scalars_in_procs("MIN"//C_NULL_CHAR, local_real, min_real, count)
+    ! write(*,*),my_id,min_real
+
+    ! 获取边界网格面边界类型
+    allocate(bnd_type(n_face_b), stat=err_mem)
+    if(err_mem .ne. 0) stop 'Error, fails to allocate memory, bnd_type'
+    call get_bnd_type(bnd_type)
+    ! do iface=1,n_face_b
+    !     if(my_id .eq. 1) write(*,*),iface,bnd_type(iface)
+    ! end do
 
     call clear()
     ! f_ptr => test_f
@@ -570,6 +618,25 @@ subroutine calc_spmv_gu(index_start, index_end, f2c, A, x, b, ndim)
       end do
   end do
 end subroutine calc_spmv_gu
+
+subroutine calc_spmv_gu_bnd(index_start, index_end, f2c, b)
+  use var_kind_def
+  use var_global
+  use iso_c_binding
+  implicit none
+  integer(dpI), intent(IN):: f2c(*)
+  real(dpR), intent(INOUT):: b(*)
+  integer(dpI), intent(IN):: index_start, index_end
+  integer:: iface, row, col
+
+  ! call MPI_Barrier(MPI_COMM_WORLD,ierr)
+
+  do iface=index_start, index_end
+      row    = f2c(iface)
+      b(row) = b(row)+1
+      ! write(*,*), iface,row,b(row)
+  end do
+end subroutine calc_spmv_gu_bnd
 
 function nodes_num_for_ele(ele_type)
     use var_kind_def

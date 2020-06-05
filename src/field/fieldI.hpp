@@ -44,7 +44,8 @@ Field<T>::Field()
       data_(NULL),
       sendBufferPtr_(NULL),
       sendRecvRequests_(NULL),
-      patchTabPtr_(NULL)
+      patchTabPtr_(NULL),
+      basicEle_(NULL)
 {
 }
 
@@ -61,6 +62,13 @@ Field<T>::Field(Word setType, label ndim, label n, T *dataPtr)
 {
   data_ = new T[n * ndim];
   memcpy(data_, dataPtr, n * ndim * sizeof(T));
+  // 初始化结构体指针，不包含ghost
+  basicEle_ = new BasicElement<T>[n];
+  for (int i = 0; i < n; ++i)
+  {
+    basicEle_[i].num = ndim;
+    basicEle_[i].data = &data_[i*ndim];
+  }
 }
 
 template <typename T>
@@ -106,6 +114,13 @@ Field<T>::Field(Word setType,
       data_[(n + i) * ndim + j] = 0;
     }
   }
+  // 初始化结构体指针，包含ghost
+  basicEle_ = new BasicElement<T>[sizeAll];
+  for (int i = 0; i < sizeAll; ++i)
+  {
+    basicEle_[i].num = ndim;
+    basicEle_[i].data = &data_[i*ndim];
+  }
 }
 
 template <typename T>
@@ -133,7 +148,9 @@ void Field<T>::initSend()
     Table<Word, Patch *>::iterator it = patches.begin();
 
     //- if nbrdata not created
-    if (nbrSize_ <= 0)
+    // printf("%d\n", COMM::getGlobalSize());
+    // if (nbrSize_ <= 0)
+    if (nbrSize_ <= 0 && COMM::getGlobalSize() > 1)
     {
       nbrSize_ = 0;
       for (it = patches.begin(); it != patches.end(); ++it)

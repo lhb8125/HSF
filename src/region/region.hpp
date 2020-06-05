@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief:
 * @date:   2019-10-14 09:17:17
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 10:40:09
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-21 14:48:47
 */
 #ifndef REGION_HPP
 #define REGION_HPP
@@ -42,6 +42,9 @@ private:
     Table<Word, Table<Word, scalarField*>*>* scalarFieldTabPtr_; ///< scalar field
 
     Table<Word, Table<Word, labelField*>*>* labelFieldTabPtr_; ///< label field
+
+    // liuhb
+    Table<Word, label> fieldToFs_;
 
 	Word setType_; ///< data set type
 public:

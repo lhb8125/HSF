@@ -56,6 +56,8 @@ private:
   Word setType_;                       ///< 场所在数据集类型
   Table<Word, Patch *> *patchTabPtr_;  ///< 通信拓扑
 
+  BasicElement<T> *basicEle_; ///< 结构体数组中的结构体
+
 public:
   /**
    * @brief 构造函数
@@ -137,6 +139,11 @@ public:
    * @return 本进程通信拓扑
    */
   inline Table<Word, Patch *> *getPatchTab() { return patchTabPtr_; }
+
+  /**
+  * @brief 重载[]
+  */
+  inline BasicElement<T>& operator[](const int i){ return basicEle_[i]; }
 
   /**
    * @brief      Initializes the send buffer and start iSend and iRecv.

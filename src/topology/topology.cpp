@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: 
 * @date:   2019-10-14 16:27:19
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-09 16:55:39
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-26 21:36:05
 */
 #include <cstdio>
 #include <assert.h>
@@ -178,6 +178,10 @@ void Topology::constructTopology()
 		{
 			face2CellInn[i][j] -= cellStartId_;
 		}
+	}
+	for (int i = 0; i < face2CellBnd.size(); ++i)
+	{
+		face2CellBnd[i][0] -= cellStartId_;
 	}
 
 	// 根据节点个数确定网格面类型，并将网格面分开

@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: block topology interfaces
 * @date:   2019-11-11 10:56:28
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-07 10:31:19
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-27 10:52:57
 */
 #include <iostream>
 #include <fstream>
@@ -101,12 +101,12 @@ void get_ele_2_node_blk_(label *ele_2_node)
 	}	
 }
 
-void get_face_blk_num_(label *face_blk_num)
+void get_inn_face_blk_num_(label *face_blk_num)
 {
 	face_blk_num[0] = REGION.getMesh().getBlockTopology().getFaceType().size();
 }
 
-void get_face_blk_pos_(label *face_blk_pos)
+void get_inn_face_blk_pos_(label *face_blk_pos)
 {
 	Array<label> tmp
 		= REGION.getMesh().getBlockTopology().getFaceBlockStartIdx();
@@ -116,7 +116,7 @@ void get_face_blk_pos_(label *face_blk_pos)
 	}
 }
 
-void get_face_blk_type_(label *face_blk_type)
+void get_inn_face_blk_type_(label *face_blk_type)
 {
 	Array<label> tmp
 		= REGION.getMesh().getBlockTopology().getFaceType();
@@ -126,7 +126,7 @@ void get_face_blk_type_(label *face_blk_type)
 	}
 }
 
-void get_face_2_node_blk_(label *face_2_node)
+void get_inn_face_2_node_blk_(label *face_2_node)
 {
 	label* tmp
 		= REGION.getMesh().getBlockTopology().getFace2Node().startIdx;
@@ -179,5 +179,66 @@ void get_bnd_face_blk_pos_(label *bnd_face_blk_pos)
 	{
 // printf("%d,%d\n", i,tmp[i]+1);
 		bnd_face_blk_pos[i] = tmp[i]+1;
+	}
+}
+
+void get_bnd_face_blk_type_(label *bnd_face_blk_type)
+{
+	Array<label> tmp
+		= REGION.getBoundary().getBlockTopology().getFaceType();
+	for (int i = 0; i < tmp.size(); ++i)
+	{
+		bnd_face_blk_type[i] = tmp[i];
+	}
+}
+
+void get_bnd_face_2_node_blk_(label *bnd_face_2_node)
+{
+	label* tmp
+		= REGION.getBoundary().getBlockTopology().getFace2Node().startIdx;
+	label* tmpData
+		= REGION.getBoundary().getBlockTopology().getFace2Node().data;
+	label eleNum
+		= REGION.getBoundary().getBlockTopology().getFace2Node().num;
+	Table<label, label> coordMap = REGION.getMesh().getCoordMap();
+	for (int i = 0; i < eleNum; ++i)
+	{
+		// printf("The %dth element from %d to %d: ", i, tmp[i], tmp[i+1]);
+		for (int j = tmp[i]; j < tmp[i+1]; ++j)
+		{
+			bnd_face_2_node[j] = coordMap[tmpData[j]-1]+1;
+			// printf("%d, ", j);
+		}
+		// printf("\n");
+	}	
+}
+
+void get_bnd_face_2_ele_blk_(label *bnd_face_2_ele)
+{
+	label* tmp
+		= REGION.getBoundary().getBlockTopology().getFace2Cell().startIdx;
+	label* tmpData
+		= REGION.getBoundary().getBlockTopology().getFace2Cell().data;
+	label eleNum
+		= REGION.getBoundary().getBlockTopology().getFace2Cell().num;
+	for (int i = 0; i < eleNum; ++i)
+	{
+		// printf("The %dth element from %d to %d: ", i, tmp[i], tmp[i+1]);
+		for (int j = tmp[i]; j < tmp[i+1]; ++j)
+		{
+			// printf("%d,", tmpData[j]);
+			bnd_face_2_ele[j] = tmpData[j]+1;
+		}
+		// printf("\n");
+	}
+}
+
+void get_bnd_type_(label *bnd_type)
+{
+	Array<label> tmp
+		= REGION.getBoundary().getBlockTopology().getBCType();
+	for (int i = 0; i < tmp.size(); ++i)
+	{
+		bnd_type[i] = tmp[i];
 	}
 }

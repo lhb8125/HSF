@@ -3,8 +3,8 @@
 * @author: Liu Hongbin
 * @brief: 
 * @date:   2019-09-26 09:25:10
-* @last Modified by:   lenovo
-* @last Modified time: 2020-01-10 14:59:02
+* @last Modified by:   lhb8125
+* @last Modified time: 2020-05-27 10:40:20
 */
 #include "mpi.h"
 #include <assert.h>
@@ -45,7 +45,6 @@ void Boundary::readBoundaryCondition(const char* filePtr)
         cgsize_t normalListSize;
         int nDataSet;
         DataType_t normDataType;
-// p    rintf("BC num: %d\n", nBocos);
         for(int iBoco=1; iBoco<=nBocos; iBoco++)
         {
             BCSection BCSec;
@@ -277,6 +276,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
 
 
     ArrayArray<label> cell2Node = innerTopo.getCell2Node();
+    ArrayArray<label> face2NodeInn = innerTopo.getFace2Node();
     Array<label> cellType = innerTopo.getCellType();
     // std::map<label64, label64> nodeMap = this->zc_node_map_; 
 
@@ -304,7 +304,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
                 &cell2Node.data[cell2Node.startIdx[i]], cellType[i], j);
             sort(face2NodeTmp.begin(), face2NodeTmp.end());
             // 局部编号
-            face2NodeTmp.push_back(i+cellStartId);
+            face2NodeTmp.push_back(i);
             faces2NodesTmp.push_back(face2NodeTmp);
         }
     }
@@ -327,16 +327,54 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     Array<label> BCTypeTmp, faceTypeTmp;
     BCTypeTmp.swap(BCType_);
     faceTypeTmp.swap(faceType);
-    for (int i = 0; i < face2NodeBndArr.size(); ++i)
+    // for (int i = 0; i < face2NodeBndArr.size(); ++i)
+    // {
+    //     Array<label> tmp;
+    //     tmp.assign(face2NodeBndArr[i].begin(), face2NodeBndArr[i].end());
+    //     sort(tmp.begin(), tmp.end());
+    //     // if(isInner[i]) continue;
+    //     // int end = 0;
+    //     int end = findSortedArray(faces2NodesTmp, tmp, 1, faces2NodesTmp.size()-1);
+    //     // printf("%d, %d\n", i, end);
+    //     if(end==-1)
+    //     {
+    //         // 将边界条件类型添加到cell2node数组后面准备发送
+    //         // 将边界单元类型添加到cell2node数组后面准备发送
+    //         face2NodeBndArr[i].push_back(BCTypeTmp[i]);
+    //         face2NodeBndArr[i].push_back(faceTypeTmp[i]);
+    //         face2NodeNei.push_back(face2NodeBndArr[i]);
+    //     } else
+    //     {
+    //         label ownerId 
+    //             = faces2NodesTmp[end][faces2NodesTmp[end].size()-1];
+    //         // 局部编号
+    //         face2CellOwn.push_back(ownerId);
+    //         // 本地存储原始face2node顺序关系
+    //         face2NodeOwn.push_back(face2NodeBndArr[i]); 
+    //         // 将本地边界条件添加到边界条件数组中
+    //         // 将本地边界类型添加到边界类型数组中
+    //         BCType_.push_back(BCTypeTmp[i]);           
+    //         faceType.push_back(faceTypeTmp[i]);
+    //     }
+    // }
+
+
+    // par_std_out_("rank: %d, owner face: %d, neighbor face: %d\n", rank, face2NodeOwn.size(), face2NodeNei.size());
+
+
+    Array<Array<label> > face2NodeBndOwn = innerTopo.getFace2NodeBnd();
+    Array<Array<label> > face2CellBndOwn = innerTopo.getFace2CellBnd();
+
+    for (int i = 0; i < face2NodeBnd.size(); ++i)
     {
         Array<label> tmp;
         tmp.assign(face2NodeBndArr[i].begin(), face2NodeBndArr[i].end());
         sort(tmp.begin(), tmp.end());
         // if(isInner[i]) continue;
         // int end = 0;
-        int end = findSortedArray(faces2NodesTmp, tmp, 1, faces2NodesTmp.size()-1);
+        label idx = findSortedArray(face2NodeBndOwn, tmp, 1, face2NodeBndOwn.size()-1);
         // printf("%d, %d\n", i, end);
-        if(end==-1)
+        if(idx==-1)
         {
             // 将边界条件类型添加到cell2node数组后面准备发送
             // 将边界单元类型添加到cell2node数组后面准备发送
@@ -345,10 +383,8 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             face2NodeNei.push_back(face2NodeBndArr[i]);
         } else
         {
-            label ownerId 
-                = faces2NodesTmp[end][faces2NodesTmp[end].size()-1];
             // 局部编号
-            face2CellOwn.push_back(ownerId);
+            face2CellOwn.push_back(face2CellBndOwn[idx][0]);
             // 本地存储原始face2node顺序关系
             face2NodeOwn.push_back(face2NodeBndArr[i]); 
             // 将本地边界条件添加到边界条件数组中
@@ -358,14 +394,9 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         }
     }
 
-
-    // par_std_out_("rank: %d, owner face: %d, neighbor face: %d\n", rank, face2NodeOwn.size(), face2NodeNei.size());
-
     Array<label> face2CellNew;
     ArrayArray<label> face2NodeNeiTmp;
     transformArray(face2NodeNei, face2NodeNeiTmp);
-    Array<Array<label> > face2NodeBndOwn = innerTopo.getFace2NodeBnd();
-    Array<Array<label> > face2CellBndOwn = innerTopo.getFace2CellBnd();
     Array<label> face2CellBndOwnTmp;
     // par_std_out_("rank: %d, boundary face: %d\n", rank, face2NodeBndOwn.size());
     for (int i = 0; i < face2CellBndOwn.size(); ++i)
