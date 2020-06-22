@@ -46,19 +46,20 @@ typedef long int  label64;
 typedef int       label32;
 typedef short int label16;
 
+// 默认使用长整型
 #if defined(LABEL_INT32)
 	typedef int label;
 	#define MPI_LABEL MPI_INT
-#elif defined(LABEL_INT64)
+#else
 	typedef long int label;
 	#define MPI_LABEL MPI_LONG
 #endif
 
-
+// 默认使用double精度
 #if defined(SCALAR_FLOAT32)
 	typedef float scalar;
 	#define MPI_SCALAR MPI_FLOAT
-#elif defined(SCALAR_FLOAT64)
+#else
 	typedef double scalar;
 	#define MPI_SCALAR MPI_DOUBLE
 #endif
