@@ -1,14 +1,22 @@
-domain1:
+# 求解器相关参数配置文件
+# domain配置参数
+domain:
+  # domain名称
   name: dom
+  # 线性方程组配置参数
   equation:
+    # P方程
     - name: P
       solver: PCG
       preconditioner: DIC
+    # U方程
     - name: U
       solver: PBiCG
       preconditioner: DILU
+  # region配置参数
   region:
     - name: region1
+      # 网格文件路径
       path: "./data/tetra_4_pyra_5.cgns"
       #path: "./data/hdf5_1.cgns"
       #path: "./data/SC10_steady.cgns"
@@ -16,28 +24,24 @@ domain1:
       #  - "./data/hdf5_1.cgns" 
       #  - "./data/hdf5_2.cgns" 
       #resPath: "./data/SC10_result.cgns"
+      # 结果文件保存路径
       resPath: "./data/mixed_result.cgns"
       #resPath: "./data/result.cgns"
+      # 离散参数
       scheme:
+        # 时间离散
         - name: ddt
           format: steadyState
+        # 梯度计算
         - name: grad
           format: Gauss
-    - name: region2
-      path: "./data/result.cgns"
-      resPath: "./data/result.cgns"
-      scheme:
-        - name: ddt
-          format:
-          - steadyState
-        - name: grad
-          format:
-          - Gauss
-          - linear
+  # 湍流相关参数
   turbulent:
+    # 湍流模型
     model: LES
   solve:
     deltaT: 1e-6
     startT: 0
     endT: 100
     writeInterval: 20
+

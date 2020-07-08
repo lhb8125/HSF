@@ -15,14 +15,14 @@
 namespace HSF
 {
     
-void Boundary::readBoundaryCondition(const char* filePtr)
+void Boundary::readBoundaryCondition(const Word filePtr)
 {
 	int iFile;
 
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
 	// open cgns file
-    if(cgp_open(filePtr, CG_MODE_READ, &iFile))
+    if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile))
     	Terminate("readGridCGNS", cg_get_error());
     label iBase = 1;
     label iZone = 1;
@@ -117,7 +117,7 @@ void Boundary::readBoundaryCondition(const char* filePtr)
         Terminate("closeCGNSFile", cg_get_error());
 }
 
-void Boundary::writeBoundaryCondition(const char* filePtr)
+void Boundary::writeBoundaryCondition(const Word filePtr)
 {
     int iFile;
     int rank,nprocs;
@@ -128,7 +128,7 @@ void Boundary::writeBoundaryCondition(const char* filePtr)
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     // open cgns file
-    if(cgp_open(filePtr, CG_MODE_MODIFY, &iFile))
+    if(cgp_open(filePtr.c_str(), CG_MODE_MODIFY, &iFile))
         Terminate("readGridCGNS", cg_get_error());
     label iBase = 1;
     label iZone = 1;
@@ -639,7 +639,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     DELETE_POINTER(isInner);
 }
 
-void Boundary::writeMesh(const char* filePtr)
+void Boundary::writeMesh(const Word filePtr)
 {
     // par_std_out_("This is boundary!!!!!\n");
     int rank, numProcs;
@@ -652,7 +652,7 @@ void Boundary::writeMesh(const char* filePtr)
 
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
-    if(cgp_open(filePtr, CG_MODE_MODIFY, &iFile))
+    if(cgp_open(filePtr.c_str(), CG_MODE_MODIFY, &iFile))
         Terminate("readBaseInfo", cg_get_error())
 
     // 读取已有Section网格单元编号
@@ -767,13 +767,13 @@ void Boundary::initBoundaryConditionType()
 }
 
 
-void Boundary::readFamilyBC(const char* filePtr)
+void Boundary::readFamilyBC(const Word filePtr)
 {
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     label32 iFile;
     // open cgns file
-    if(cgp_open(filePtr, CG_MODE_READ, &iFile))
+    if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile))
         Terminate("readGridCGNS", cg_get_error());
     label32 iBase = 1;
     label32 iZone;

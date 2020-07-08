@@ -27,11 +27,11 @@ private:
 
 	Array<label> BCType_;
 	
-	void readBoundaryCondition(const char* filePtr); ///< read boundary condition
+	void readBoundaryCondition(const Word filePtr); ///< read boundary condition
 
-	void readFamilyBC(const char* filePtr); ///< read family boundary condition
+	void readFamilyBC(const Word filePtr); ///< read family boundary condition
 	
-	void writeBoundaryCondition(const char* filePtr); ///< write mesh file with CGNS format
+	void writeBoundaryCondition(const Word filePtr); ///< write mesh file with CGNS format
 
 	void initBoundaryConditionType();
 public:
@@ -55,7 +55,7 @@ public:
 	* @brief write mesh and construct topology
 	* @param[in] filePtr CGNS file name
 	*/
-	void writeMesh(const char* filePtr);
+	void writeMesh(const Word filePtr);
 	/**
 	* @brief generate the block topology
 	*/
@@ -63,7 +63,7 @@ public:
 	/**
 	* @brief read boundary condition
 	*/
-	void readBC(const Array<char*> filePtr)
+	void readBC(const Array<Word> filePtr)
 	{
 		for (int i = 0; i < filePtr.size(); ++i)
 		{
@@ -76,7 +76,7 @@ public:
 	/**
 	* @brief write boundary condition
 	*/
-	void writeBC(const char* filePtr)
+	void writeBC(const Word filePtr)
 	{
 		writeBoundaryCondition(filePtr);
 		par_std_out_("writeBC\n");

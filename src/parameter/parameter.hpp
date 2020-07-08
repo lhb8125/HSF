@@ -29,87 +29,93 @@
 namespace HSF
 {
 
-// class paraEquation {
-//   public:
-// 	Word name;
-// 	Word solver;
-// 	Word preconditioner;
+/**
+* @brief Parameter control module
+*/
+class ControlPara {
+private: 
+	char paraFile_[CHAR_DIM];
+	YAML::Node config_;
+public:
+	/**
+	* @brief Constructor with paramter file
+	*/
+	ControlPara(const Word paraFile) {
+		strcpy(paraFile_, paraFile.c_str());
+		config_ = YAML::LoadFile(paraFile);
+	};
+	ControlPara(YAML::Node &config)
+	{
+		config_ = config;
+	};
+	/**
+	* @brief deconstructor
+	*/
+	~ControlPara() {};
 
-// 	Word getSolver() {return solver;}
-// 	Word getPreconditioner() {return preconditioner;}
-// };
+	/**
+	* @brief overide [] operator
+	*/
+	ControlPara& operator[](const Word str)
+	{
+		// printf("%s\n", str.c_str());
+		if(config_[str].Type()==YAML::NodeType::Null
+			|| config_[str].Type()==YAML::NodeType::Undefined)
+		{
+			printf("%s\n", str.c_str());
+			Terminate("get Parameter","The string tree is not correct!\n");
+		} else
+		{
+			config_ = config_[str];
+			return *this;
+		}
+	}
+	/**
+	* @brief read paramter
+	*/
+	template<typename T>
+	void read(T& res)
+	{
+		if(config_.Type()!=YAML::NodeType::Scalar)
+			Terminate("read","The node is not a leaf node");
+		res = config_.as<T>();
+		config_ = YAML::LoadFile(paraFile_);
+	}
+	/**
+	* @brief transform paramter to result
+	*/
+	template<typename T>
+	T to()
+	{
+		if(config_.Type()!=YAML::NodeType::Scalar)
+			Terminate("to","The node is not a leaf node");
+		T res = config_.as<T>();
+		config_ = YAML::LoadFile(paraFile_);
+		return res;
+	}
+	/**
+	* @brief get the size of a sequence node
+	*/
+	label32 size()
+	{
+		if(config_.Type()!=YAML::NodeType::Sequence)
+			Terminate("get Size","The node is not a sequence node");
+		config_ = YAML::LoadFile(paraFile_);
+		return config_.size();
+	}
 
-// class paraScheme {
-//   public:
-// 	Word name;
-// 	Array<Word> format;
-// 	Array<Word>& getFormat() {return format;}	
-// };
+	void getNodeType(YAML::Node node) {
+		switch (node.Type()) {
+		  case YAML::NodeType::Null: printf("Null\n"); break;
+		  case YAML::NodeType::Scalar: printf("Scalar\n"); break;
+		  case YAML::NodeType::Sequence: printf("Sequence\n"); break;
+		  case YAML::NodeType::Map: printf("Map\n"); break;
+		  case YAML::NodeType::Undefined: printf("Undefined\n"); break;
+		  default: printf("unknown\n"); break;
+		}
+	}
 
-// class paraRegion {
-//   public:
-// 	Word name;
-// 	Word path;
-// 	Array<paraScheme> scheme;
-
-// 	Word getPath() {return path;}
-// 	paraScheme& getScheme(char* name)
-// 	{
-// 		for (int i = 0; i < scheme.size(); ++i)
-// 		{
-// 			if(strcmp(scheme[i].name.c_str(),name)==0) return scheme[i];
-// 		}
-// 		Terminate("getScheme", "failed to find scheme");		
-// 	}
-// };
-
-// class paraTurbulent {
-//   public:
-// 	Word model;
-// 	Word getModel() {return model;}
-// };
-
-// class paraSolve {
-//   public:
-// 	float deltaT;
-// 	float startT;
-// 	float endT;
-// 	int writeInterval;
-// 	float getDeltaT() {return deltaT;}
-// 	float getStartT() {return startT;}
-// 	float getEndT() {return endT;}
-// 	int getWriteInterval() {return writeInterval;}
-// };
-
-// class paraDomain {
-//   public:
-// 	Word name;
-// 	Array<paraEquation> equ;
-// 	Array<paraRegion> reg;
-// 	paraTurbulent turb;
-// 	paraSolve sol;
-
-// 	paraEquation& getEquation(char* name)
-// 	{
-// 		for (int i = 0; i < equ.size(); ++i)
-// 		{
-// 			if(strcmp(equ[i].name.c_str(),name)==0) return equ[i];
-// 		}
-// 		Terminate("getEquation", "failed to find equation");
-// 	}
-
-// 	paraRegion& getRegion(char* name)
-// 	{
-// 		for (int i = 0; i < reg.size(); ++i)
-// 		{
-// 			if(strcmp(reg[i].name.c_str(),name)==0) return reg[i];
-// 		}
-// 		Terminate("getRegion", "failed to find region");
-// 	}
-
-// 	paraTurbulent& getTurbulent() {return turb;}
-// 	paraSolve& getSolve() {return sol;}
-// };
+};
 /**
 * @brief Control parameter
 */
@@ -336,34 +342,6 @@ void Parameter::getPara(Array<T*>& resVal, int nPara, ...)
 		}			
 	}	
 }
-// void Parameter::readPara(const char* paraFile) {
-// 	strcpy(paraFile_, paraFile);
-// }
-
-// /**
-// * @brief operator overloading to struct Equation
-// */
-// void operator >> (const YAML::Node& node, paraEquation& equ);
-// /**
-// * @brief operator overloading to struct Scheme
-// */
-// void operator >> (const YAML::Node& node, paraScheme& scheme);
-// /**
-// * @brief operator overloading to struct Turbulent
-// */
-// void operator >> (const YAML::Node& node, paraTurbulent& turb);
-// /**
-// * @brief operator overloading to struct Solve
-// */
-// void operator >> (const YAML::Node& node, paraSolve& slv);
-// /**
-// * @brief operator overloading to struct Region
-// */
-// void operator >> (const YAML::Node& node, paraRegion& reg);
-// /**
-// * @brief operator overloading to struct Domain
-// */
-// void operator >> (const YAML::Node& node, paraDomain& dom);
 
 } // end namespace HSF
 

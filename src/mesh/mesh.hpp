@@ -81,7 +81,7 @@ private:
 	* @param[out] zc_name the name of neighbor zone at the interfaces
 	* @param[out] nodes the points of the nodes at the interfaces
 	*/
-	void readZoneConnectivity(const char* filePtr,
+	void readZoneConnectivity(const Word filePtr,
 	    Array<Array<Array<label64> > >& zc_pnts,
 	    Array<Array<Array<label64> > >& zc_donor_pnts,
 	    Array<Array<char*> >& zc_name,
@@ -105,11 +105,11 @@ private:
 	/**
 	* @brief read mesh file with CGNS format, parallel version
 	*/
-	void readCGNSFilePar(const char* filePtr, int fileIdx);
+	void readCGNSFilePar(const Word filePtr, int fileIdx);
 	/**
 	* @brief write mesh file with CGNS format, parallel version
 	*/
-	void writeCGNSFilePar(const char* filePtr);
+	void writeCGNSFilePar(const Word filePtr);
 	/**
 	* @brief initialize mesh file with CGNS format, parallel version
 	*/
@@ -130,7 +130,7 @@ public:
 	/**
 	* @brief read mesh and construct topology
 	*/
-	void readMesh(const Array<char*> filePtr)
+	void readMesh(const Array<Word> filePtr)
 	{
 		// readCGNSFilePar(filePtr[0], 0);
 		// readCGNSFilePar(filePtr[1], 1);
@@ -152,7 +152,7 @@ public:
 	/**
 	* @brief write mesh and construct topology
 	*/
-	void writeMesh(const char* filePtr)
+	void writeMesh(const Word filePtr)
 	{
 		// writeCGNSFile(filePtr);
 		writeCGNSFilePar(filePtr);
@@ -219,7 +219,7 @@ public:
 	* @brief fetch the coordinates of nodes owned by this process
 	*/
 	// void fetchNodes(Array<char*> fileArr);
-	void fetchNodes(char* filename);
+	void fetchNodes(Word filename);
 
 	/**
 	* @brief get the map between the absolute index and the local index

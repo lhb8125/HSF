@@ -22,7 +22,7 @@
 namespace HSF
 {
 
-void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
+void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 {
 	int rank, numProcs;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -36,7 +36,7 @@ void Mesh::readCGNSFilePar(const char* filePtr, int fileIdx)
 	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
-	if(cgp_open(filePtr, CG_MODE_READ, &iFile) ||
+	if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile) ||
         cg_nbases(iFile, &nBases) ||
         cg_base_read(iFile, iBase, basename, &cellDim, &physDim))
 		Terminate("readBaseInfo", cg_get_error());
@@ -295,7 +295,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     // DELETE_POINTER(x);
 }
 
-void Mesh::writeCGNSFilePar(const char* filePtr)
+void Mesh::writeCGNSFilePar(const Word filePtr)
 {
     int idx = 0;
 	int nodesPerSide = 5;
@@ -324,14 +324,14 @@ void Mesh::writeCGNSFilePar(const char* filePtr)
 	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
-	if(cgp_open(filePtr, CG_MODE_WRITE, &iFile) ||
+	if(cgp_open(filePtr.c_str(), CG_MODE_WRITE, &iFile) ||
 		cg_base_write(iFile, "Base", 3, 3, &iBase) ||
         cg_zone_write(iFile, iBase, "Zone", sizes, Unstructured, &iZone))
 		Terminate("writeBaseInfo", cg_get_error());
     /* print info */
     if (rank == 0) {
         par_std_out_("writing %d coordinates and %d hex elements to %s\n",
-            nodeNum, eleNum, filePtr);
+            nodeNum, eleNum, filePtr.c_str());
     }
     MPI_Barrier(MPI_COMM_WORLD);
     DataType_t dataType;
@@ -804,7 +804,7 @@ void Mesh::readCGNSFile(const char* filePtr)
 
 
 
-void Mesh::fetchNodes(char* filename)
+void Mesh::fetchNodes(Word filename)
 {
     int rank, nprocs;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -815,7 +815,7 @@ void Mesh::fetchNodes(char* filename)
     int iBase=1;
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
-    if(cgp_open(filename, CG_MODE_MODIFY, &iFile))
+    if(cgp_open(filename.c_str(), CG_MODE_MODIFY, &iFile))
         Terminate("openFile", cg_get_error());
 
 
@@ -932,7 +932,7 @@ void Mesh::fetchNodes(char* filename)
         Terminate("closeCGNSFile",cg_get_error());
 }
 
-void Mesh::readZoneConnectivity(const char* filePtr,
+void Mesh::readZoneConnectivity(const Word filePtr,
     Array<Array<Array<label64> > >& zc_pnts,
     Array<Array<Array<label64> > >& zc_donor_pnts,
     Array<Array<char*> >& zc_name,
@@ -947,7 +947,7 @@ void Mesh::readZoneConnectivity(const char* filePtr,
         Terminate("initCGNSMPI", cg_get_error());
     int iFile, iBase=1, iZone;
     int nBases;
-    if(cgp_open(filePtr, CG_MODE_READ, &iFile))
+    if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile))
         Terminate("readBaseInfo", cg_get_error());
     int nZones;
     if(cg_nzones(iFile, iBase, &nZones))

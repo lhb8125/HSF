@@ -30,11 +30,11 @@ bool compare(pair<label, pair<label, label> > a, pair<label, pair<label, label> 
 }
 
 
-void Region::initBeforeBalance(Array<char*> meshFile)
+void Region::initBeforeBalance(Array<Word> meshFile)
 {
 	// strncpy(meshFile_, meshFile, sizeof(meshFile_));
 	// this->meshFile_[sizeof(meshFile)-1]='/0';
-    meshFile_.assign(meshFile.begin(), meshFile.end());
+  meshFile_.assign(meshFile.begin(), meshFile.end());
 	par_std_out_("start reading mesh ...\n");
 	this->getMesh().readMesh(meshFile);
 	par_std_out_("finish reading mesh ...\n");
@@ -92,7 +92,7 @@ void Region::initAfterBalance()
 
 }
 
-void Region::writeMesh(char* meshFile)
+void Region::writeMesh(Word meshFile)
 {
     par_std_out_("start write inner mesh ...\n");
 	this->getMesh().writeMesh(meshFile);

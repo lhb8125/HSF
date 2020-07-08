@@ -43,13 +43,12 @@ void init_(char* configFile)
 
 	int nPara = 4;
 	// char meshFile[100];
-	Array<char*> mesh_file(10);
-	for (int i = 0; i < mesh_file.size(); ++i)
-	{
-		mesh_file[i] = new char[CHAR_DIM];
-	}
-	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
-	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
+	ControlPara newPara("./config.yaml");
+	Array<Word> mesh_files;
+	Word meshFile;
+	newPara["domain"]["region"]["0"]["path"].read(meshFile);
+	mesh_files.push_back(meshFile);
+
 	char resultFile[CHAR_DIM];
 	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
 
@@ -57,7 +56,7 @@ void init_(char* configFile)
 	Region reg;
 	// regs.resize(1);
 	regs.push_back(reg);
-	REGION.initBeforeBalance(mesh_file);
+	REGION.initBeforeBalance(mesh_files);
 
 	/// load balance in region
 	lb->LoadBalancer_3(regs);
@@ -74,7 +73,7 @@ void init_config_(char* configFile)
 
 void init_mesh_(char* meshFile)
 {
-	Array<char*> mesh_file;
+	Array<Word> mesh_file;
 	mesh_file.push_back(meshFile);
 	/// initialization before load balance
 	Region reg;

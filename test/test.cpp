@@ -46,6 +46,14 @@ int main(int argc, char** argv)
 	LoadBalancer *lb = new LoadBalancer();
 
 	Parameter para("./config.yaml");
+	ControlPara newPara("./config.yaml");
+	// Word path = newPara["domain"]["region"]["0"]["path"].to<Word>();
+	// // printf("%s\n", path.c_str());
+	// scalar deltaT;
+	// newPara["domain"]["solve"]["deltaT"].read(deltaT);
+	// // printf("%f\n", deltaT);
+	// label32 equNum;
+	// equNum = newPara["domain"]["equation"].size();
 
 	/// initialize MPI environment
 	printf("initialize MPI environment ......\n");
@@ -58,31 +66,27 @@ int main(int argc, char** argv)
 
 	int nPara = 4;
 	// char meshFile[100];
-	Array<char*> mesh_file(10);
-	for (int i = 0; i < mesh_file.size(); ++i)
-	{
-		mesh_file[i] = new char[100];
-	}
-	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
-	para.getPara<char>(mesh_file, nPara, "domain1", "region", "0", "path");
+	Array<Word> mesh_files;
+	Word meshFile;
+	newPara["domain"]["region"]["0"]["path"].read(meshFile);
+	mesh_files.push_back(meshFile);
 	
 	printf("reading CGNS file: ");
-	for (int i = 0; i < mesh_file.size(); ++i)
+	for (int i = 0; i < mesh_files.size(); ++i)
 	{
-		printf("%s, ", mesh_file[i]);
+		printf("%s, ", mesh_files[i].c_str());
 	}
 	printf("\n");
 
-	char resultFile[100];
-	nPara = 4;
-	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
-	printf("writing CGNS file: %s\n", resultFile);
+	Word resultFile;
+	newPara["domain"]["region"]["0"]["resPath"].read(resultFile);
+	printf("writing CGNS file: %s\n", resultFile.c_str());
 	/// read CGNS file
 	Array<Region> regs;
 	Region reg;
 	regs.push_back(reg);
 
-	regs[0].initBeforeBalance(mesh_file);
+	regs[0].initBeforeBalance(mesh_files);
 
 	
 	/// load balance in region
@@ -103,7 +107,7 @@ int main(int argc, char** argv)
 	spMV_bnd(regs[0], face_2_cell, n_face_b);
 
 	regs[0].writeMesh(resultFile);
-	regs[0].writeField<scalar>(resultFile, "b", "cell");
+	regs[0].writeField<scalar>(resultFile.c_str(), "b", "cell");
 
 	// MPI_Finalize();
 	

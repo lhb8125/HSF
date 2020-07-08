@@ -28,7 +28,7 @@ namespace HSF
 class Region
 {
 private:
-	Array<char*> meshFile_; ///< mesh file name
+	Array<Word> meshFile_; ///< mesh file name
 
 	Mesh mesh_; ///< internal mesh
 
@@ -76,7 +76,7 @@ public:
     /**
     * @brief initialization before load balance
     */
-	void initBeforeBalance(Array<char*> meshFile);
+	void initBeforeBalance(Array<Word> meshFile);
 
     /**
     * @brief initialization after load balance
@@ -87,7 +87,7 @@ public:
     * @brief      write mesh to CGNS file
     * @param[in]       meshFile  The mesh file
     */
-    void writeMesh(char* meshFile);
+    void writeMesh(Word meshFile);
 
     /**
     * @brief      write field to CGNS file
@@ -156,6 +156,37 @@ public:
      */
     template<typename T>
     void deleteField(Word, Word);
+
+    /**************************************************************
+    ***********************interface*******************************
+    **************************************************************/
+    /**
+     TODO
+     * @brief Gets the field from field table.
+     * @param[in]  fieldName field name
+     * @tparam T label, scalar
+     * @return The field.
+     */
+    template<typename T>
+    Field<T>& getField(const Word fieldName);
+
+    /**
+     TODO
+     * @brief Gets the topology according to the fields
+     * @param[in]  fieldName field name
+     * @tparam T label, scalar
+     * @return The topology
+     */
+    template<typename T>
+    ArrayArray<T>& getTopology(label32 nPara, ...);
+
+    /**
+     TODO
+     * @brief Gets the size of basic elements.
+     * @param[in]  fieldName field name
+     * @return The size
+     */
+    label getSize(label32 nPara, ...);
 };
 
 #include "regionI.hpp"

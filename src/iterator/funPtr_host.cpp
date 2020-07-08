@@ -8,41 +8,43 @@
 */
 
 #include "funPtr_host.hpp"
-void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
-    label n_face_i, label n_face_b, label n_face, label n_cell)
+void spMV(Region& reg, Word A, Word x, Word b,
+    const label pi, const S s, const label32* arr)
 {
-    Field<scalar> &A = reg.getField<scalar>("face", "A");
-    Field<scalar> &x = reg.getField<scalar>("cell", "x");
-    Field<scalar> &b = reg.getField<scalar>("cell", "b");
-    // printf("n_face: %d, n_face_i: %d, n_face_b: %d, n_cell: %d\n",
-        // n_face, n_face_i, n_face_b, n_cell);
+#pragma message("getField")
+    Field<scalar> &fieldA = reg.getField<scalar>(A);
+    Field<scalar> &fieldx = reg.getField<scalar>(x);
+    Field<scalar> &fieldb = reg.getField<scalar>(b);
+#pragma message("getTopology")
+    ArrayArray<label> &topo = reg.getTopology<label>(3, &A, &x, &b);
+    label n = reg.getSize(3, &A, &x, &b);
 
-    for (int i = 0; i < n_face_i; ++i)
+#pragma message("compute")
+#pragma message("arr[10]")
+    for (int i = 0; i < n; ++i)
     {
-        label row = face_2_cell[i][0];
-        label col = face_2_cell[i][1];
-        b[col][0] += A[i][0]*x[row][0];
-        b[row][0] = A[i][0]*x[col][0];
+        label row = topo[i][0];
+        label col = topo[i][1];
+        fieldb[col][0] += pi*fieldA[i][0]*fieldx[row][0]+s.b/arr[3];
+        fieldb[row][0] -= pi*fieldA[i][0]*fieldx[col][0]+s.c/arr[2];
     }
 }
 
-// void integration_test(Region& reg, ArrayArray<label>& face_2_cell,
-//     label n_face_i, label n_face_b, label n_face, label n_cell)
-// {
-//     Field<scalar> &flux = reg.getField<scalar>("face", "flux");
-//     Field<scalar> &U    = reg.getField<scalar>("cell", "U");
-//     // printf("n_face: %d, n_face_i: %d, n_face_b: %d, n_cell: %d\n",
-//         // n_face, n_face_i, n_face_b, n_cell);
+void integration(Region& reg, Word flux, Word U)
+{
+#pragma message("getField")
+    Field<scalar> &fieldFlux = reg.getField<scalar>(flux);
+    Field<scalar> &fieldU    = reg.getField<scalar>(U);
+#pragma message("getTopology")
+    ArrayArray<label> &tp = reg.getTopology<label>(3, &flux, &U);
+    label nn = reg.getSize(3, &flux, &U);
 
-//     for (int i = 0; i < n_face_i; ++i)
-//     {
-//         label row = face_2_cell[i][0];
-//         label col = face_2_cell[i][1];
-//         U[row][0] += flux[i][0];
-//         U[row][1] += flux[i][1];
-//         U[row][2] += flux[i][2];
-//         U[col][0] -= flux[i][0];
-//         U[col][1] -= flux[i][1];
-//         U[col][2] -= flux[i][2];
-//     }
-// }
+#pragma message("compute")
+    for (int i = 0; i < nn; ++i)
+    {
+        label row = tp[i][0];
+        fieldU[row][0] += fieldFlux[i][0];
+        fieldU[row][1] += fieldFlux[i][1];
+        fieldU[row][2] += fieldFlux[i][2];
+    }
+}
