@@ -2,8 +2,8 @@
 #include "field.hpp"
 #include "utilities.hpp"
 #include "funPtr_host.hpp"
-extern void prepareField(label32* inoutList, char* funcName, int nPara, ...);
-extern void prepareConst(int nPara, ...);
+#include "resource.hpp"
+extern e2v_slaveFunPtr spMV_kernel;
 void spMV_pre(Region& reg, Word A, Word x, Word b, long pi, S s, const int * arr){
 
 	Field<scalar>& pre_fieldA = reg.getField<scalar>(A);
@@ -15,7 +15,7 @@ void spMV_pre(Region& reg, Word A, Word x, Word b, long pi, S s, const int * arr
 	inoutList.push_back(1);
 	inoutList.push_back(3);
 
-	prepareField(&inoutList[0], "spMV", 3, &pre_fieldA, &pre_fieldx, &pre_fieldb);
-	prepareConst(6, &pi, sizeof(pi), &s, sizeof(s), arr, sizeof(*arr));
+    prepareConst(6, &pi, sizeof(pi), &s, sizeof(s), arr, sizeof(*arr));
+	prepareField(reg, &inoutList[0], spMV_kernel, 3, &pre_fieldA, &pre_fieldx, &pre_fieldb);
 }
 

@@ -182,6 +182,16 @@ public:
 
     /**
      TODO
+     * @brief Gets the topology according to the fields
+     * @param[in]  setTypeList set type of fields
+     * @tparam T label, scalar
+     * @return The topology
+     */
+    template<typename T>
+    ArrayArray<T>& getTopology(Array<Word> setTypeList);
+
+    /**
+     TODO
      * @brief Gets the size of basic elements.
      * @param[in]  fieldName field name
      * @return The size
