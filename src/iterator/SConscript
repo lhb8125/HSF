@@ -1,0 +1,8 @@
+import GLOVAR as gl
+
+
+cxxfile = ['funPtr_host.cpp',
+		   'funPtr_pre_slave.cpp',
+           'resource.cpp']
+
+gl.add_files(cxxfile)

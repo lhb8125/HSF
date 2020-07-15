@@ -1,0 +1,29 @@
+# 拓扑相关信息
+domain:
+  region:
+    # region名
+    - name: region1
+      # 网格文件名
+      path: "./data/tetra_4_pyra_5.cgns"
+      # 结果文件名
+      resPath: "./data/mixed_result.cgns"
+    - name: region2
+      path: "./data/hdf5_1.cgns"
+      resPath: "./data/mixed_result.cgns"
+    - name: region3
+      path: "./data/SC10_steady.cgns"
+      resPath: "./data/mixed_result.cgns"
+  # region之间的连接关系/交界面
+  link:
+    # 交界面起始region
+    - source: region1
+      # 交界面目标region
+      destination: region2
+      # 交界面信息
+      interface: "interface_1_2.dat"
+    # 交界面起始region
+    - source: region1
+      # 交界面目标region
+      destination: region3
+      # 交界面信息
+      interface: "interface_1_3.dat"

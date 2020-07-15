@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-10-14 16:47:22
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 10:54:30
+* @last Modified time: 2019-12-18 10:45:02
 */
 #include <cstdio>
 #include "nodes.hpp"
@@ -15,37 +15,42 @@ namespace HSF
 /*
 * @brief get the count of nodes
 */
-Label Nodes::size()
+label Nodes::size()
 {
 	return this->x_.size();
 }
 
-Label Nodes::getStart()
-{
-	return this->start_;
-}
+// label Nodes::getStart()
+// {
+// 	return this->start_;
+// }
 
-Label Nodes::getEnd()
-{
-	return this->end_;
-}
+// label Nodes::getEnd()
+// {
+// 	return this->end_;
+// }
 
-void Nodes::setStart(const Label start)
-{
-	this->start_ = start;
-}
+// void Nodes::setStart(const label start)
+// {
+// 	this->start_ = start;
+// }
 
-void Nodes::setEnd(const Label end)
-{
-	this->end_ = end;
-}
+// void Nodes::setEnd(const label end)
+// {
+// 	this->end_ = end;
+// }
 
 /**
 * @brief default constructor
 */
-Nodes::Nodes()
+Nodes::Nodes() : xyz_()
 {
 	refCount_ = new RefCounted();
+	x_.clear();
+	y_.clear();
+	z_.clear();
+	start_ = 0;
+	end_   = 0;
 }
 
 /**
@@ -66,11 +71,13 @@ Nodes::~Nodes()
 Nodes::Nodes(const Nodes& node)
 {
 	this->refCount_ = node.refCount_;
-	this->xyz_ = node.xyz_;
-	this->x_   = node.x_;
-	this->y_   = node.y_;
-	this->z_   = node.z_;
+	this->xyz_   = node.xyz_;
+	this->x_     = node.x_;
+	this->y_     = node.y_;
+	this->z_     = node.z_;
 	this->refCount_->incRefCount();
+	this->start_ = node.start_;
+	this->end_   = node.end_;
 }
 
 /*
@@ -78,10 +85,10 @@ Nodes::Nodes(const Nodes& node)
 * @param y Coordinate Y
 * @param z Coordinate Z
 */
-Nodes::Nodes(Array<Scalar>& x, Array<Scalar>& y, Array<Scalar>& z)
+Nodes::Nodes(Array<scalar>& x, Array<scalar>& y, Array<scalar>& z)
 {
 	refCount_ = new RefCounted();
-	Label num = x.size();
+	label num = x.size();
 	for (int i = 0; i < num; ++i)
 	{
 		x_.push_back(x[i]);
@@ -89,9 +96,9 @@ Nodes::Nodes(Array<Scalar>& x, Array<Scalar>& y, Array<Scalar>& z)
 		z_.push_back(z[i]);
 	}
 	xyz_.num = num;
-	xyz_.startIdx = new Label[num+1];
+	xyz_.startIdx = new label[num+1];
 	xyz_.startIdx[0] = 0;
-	xyz_.data = new Scalar[num*3];
+	xyz_.data = new scalar[num*3];
 	for (int i = 0; i < num; ++i)
 	{
 		xyz_.startIdx[i+1] = xyz_.startIdx[i]+3;
@@ -105,7 +112,7 @@ Nodes::Nodes(Array<Scalar>& x, Array<Scalar>& y, Array<Scalar>& z)
 * @param y Coordinate Y
 * @param z Coordinate Z
 */
-Nodes::Nodes(Scalar* x, Scalar* y, Scalar* z, Label num)
+Nodes::Nodes(scalar* x, scalar* y, scalar* z, label num)
 {
 	refCount_ = new RefCounted();
 	for (int i = 0; i < num; ++i)
@@ -115,9 +122,9 @@ Nodes::Nodes(Scalar* x, Scalar* y, Scalar* z, Label num)
 		z_.push_back(z[i]);
 	}
 	xyz_.num = num;
-	xyz_.startIdx = new Label[num+1];
+	xyz_.startIdx = new label[num+1];
 	xyz_.startIdx[0] = 0;
-	xyz_.data = new Scalar[num*3];
+	xyz_.data = new scalar[num*3];
 	for (int i = 0; i < num; ++i)
 	{
 		xyz_.startIdx[i+1] = xyz_.startIdx[i]+3;
@@ -125,14 +132,16 @@ Nodes::Nodes(Scalar* x, Scalar* y, Scalar* z, Label num)
 		xyz_.data[i*3+1] = y_[i];
 		xyz_.data[i*3+2] = z_[i];
 	}
+	start_ = 0;
+	end_ = 0;
 }
 
 void Nodes::copy(Nodes* nodes)
 {
 	int num = nodes->size();
-	Array<Scalar> x = nodes->getX();
-	Array<Scalar> y = nodes->getY();
-	Array<Scalar> z = nodes->getZ();
+	Array<scalar> x = nodes->getX();
+	Array<scalar> y = nodes->getY();
+	Array<scalar> z = nodes->getZ();
 	for (int i = 0; i < num; ++i)
 	{
 		x_.push_back(x[i]);
@@ -141,9 +150,9 @@ void Nodes::copy(Nodes* nodes)
 
 	}
 	xyz_.num = num;
-	xyz_.startIdx = new Label[num+1];
+	xyz_.startIdx = new label[num+1];
 	xyz_.startIdx[0] = 0;
-	xyz_.data = new Scalar[num*3];
+	xyz_.data = new scalar[num*3];
 	for (int i = 0; i < num; ++i)
 	{
 		xyz_.startIdx[i+1] = xyz_.startIdx[i]+3;
@@ -151,28 +160,72 @@ void Nodes::copy(Nodes* nodes)
 		xyz_.data[i*3+1] = y_[i];
 		xyz_.data[i*3+2] = z_[i];
 	}
-	this->refCount_ = nodes->refCount_;
-	this->refCount_->incRefCount();
+	// this->refCount_ = nodes->refCount_;
+	// this->refCount_->incRefCount();
 }
 
-const Array<Scalar>& Nodes::getX()
+void Nodes::add(Nodes* nodes)
+{
+	int num = nodes->size();
+	Array<scalar> x = nodes->getX();
+	Array<scalar> y = nodes->getY();
+	Array<scalar> z = nodes->getZ();
+	for (int i = 0; i < num; ++i)
+	{
+		x_.push_back(x[i]);
+		y_.push_back(y[i]);
+		z_.push_back(z[i]);
+
+	}
+	xyz_.num += num;
+	label* tmp = xyz_.startIdx;
+	xyz_.startIdx = new label[xyz_.num+1];
+	for (int i = 0; i < xyz_.num-num; ++i)
+	{
+		xyz_.startIdx[i] = tmp[i];
+	}
+	if(tmp)
+	{
+		DELETE_POINTER(tmp);
+	}
+	else 
+	{
+		xyz_.startIdx[0] = 0;
+	}
+	xyz_.data = new scalar[xyz_.num*SOL_DIM];
+	for (int i = xyz_.num-num; i < xyz_.num; ++i)
+	{
+		xyz_.startIdx[i+1] = xyz_.startIdx[i]+SOL_DIM;
+		xyz_.data[i*SOL_DIM+0] = x_[i];
+		xyz_.data[i*SOL_DIM+1] = y_[i];
+		xyz_.data[i*SOL_DIM+2] = z_[i];
+	}
+}
+
+const Array<scalar>& Nodes::getX()
 {
 	return this->x_;
 }
 
-const Array<Scalar>& Nodes::getY()
+const Array<scalar>& Nodes::getY()
 {
 	return this->y_;
 }
 
-const Array<Scalar>& Nodes::getZ()
+const Array<scalar>& Nodes::getZ()
 {
 	return this->z_;
 }
 
-const ArrayArray<Scalar>& Nodes::getXYZ()
+const ArrayArray<scalar>& Nodes::getXYZ()
 {
 	return this->xyz_;
 }
+
+const scalar* Nodes::getXYZ(label idx)
+{
+	return &this->xyz_.data[this->xyz_.startIdx[idx]];
+}
+
 
 } // end namespace HSF

@@ -4,7 +4,7 @@
 * @brief:
 * @date:   2019-09-20 14:17:19
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-26 17:21:42
+* @last Modified time: 2019-11-29 17:26:14
 */
 #include "parameter.hpp"
 
@@ -36,7 +36,7 @@ namespace HSF
 // 	// node["scheme"] >> scheme.format;
 // 	for (int i = 0; i < format.size(); ++i)
 // 	{
-// 		String tmp;
+// 		Word tmp;
 // 		format[i] >> tmp;
 // 		scheme.format.push_back(tmp);
 // 		// std::cout<<" "<<tmp;
@@ -115,11 +115,11 @@ namespace HSF
 	// YAML::Parser parser(fin);
 	// YAML::Node doc;
 	// parser.GetNextDocument(doc);
-	// std::cout<<config["domain1"]["equation"]["0"]["name"].as<String>()<<std::endl;
+	// std::cout<<config["domain1"]["equation"]["0"]["name"].as<Word>()<<std::endl;
 	// // printf("domain num: %d, %d\n", test.size(),doc.size());
 	// for (int i = 0; i < doc.size(); i++) {
 	// 	const YAML::Node& domain = doc["domain1"];
-	// 	// String tmp;
+	// 	// Word tmp;
 	// 	// doc["domain"]["name"] >> tmp;
 	// 	// std::cout<<tmp<<std::endl;
 	// 	paraDomain tmpDom;
@@ -151,11 +151,11 @@ namespace HSF
 
 // void Parameter::getPara(const int* nPara, void* resVal, const char* type, ...)
 // {
-// 	// String configFile(paraFile_, paraFile_+strlen(paraFile_));
+// 	// Word configFile(paraFile_, paraFile_+strlen(paraFile_));
 // 	// std::ifstream fin(configFile.c_str());
 // 	// if(!fin) printf("wrong file: %s\n", configFile.c_str());
 // 	// printf("%s\n", configFile.c_str());
-// 	String configFile = "./config.yaml";
+// 	Word configFile = "./config.yaml";
 // 	YAML::Node config = YAML::LoadFile(configFile);
 // 	va_list args;
 // 	va_start(args, type);
@@ -172,8 +172,8 @@ namespace HSF
 // 	}
 
 // 	va_end(args);
-// 	String res = config.as<String>();
-// 	// std::cout<<config.as<String>()<<std::endl;
+// 	Word res = config.as<Word>();
+// 	// std::cout<<config.as<Word>()<<std::endl;
 // 	if(strcmp(type, "int")==0)
 // 	{
 // 		int* tmp = (int*)resVal;

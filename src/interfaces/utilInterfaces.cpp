@@ -121,6 +121,70 @@ void gather_scalars_(scalar* sdata, scalar* rdata, const label* count)
   gComm.finishTask("gather_scalars_");
 }
 
+void extreme_labels_in_procs_(const char* flag, label* data, label* result,
+  const label* count)
+{
+  int pid  = COMM::getGlobalId();
+  int commSize = COMM::getGlobalSize();
+  int num = *count*COMM::getGlobalSize();
+  label *rdata;
+  // printf("%s\n", flag);
+  rdata = new label[num];
+  // gather_labels_(data, rdata, count);
+  MPI_Gather(data, *count, MPI_LABEL, rdata, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  if(pid==0)
+  {
+    // printf("%d\n", *count);
+    for (int i = 0; i < *count; ++i)
+    {
+      result[i] = rdata[i*commSize];
+      for (int j = 1; j < commSize; ++j)
+      {
+        // printf("%d,%d,%d,%d\n", i,j,result[i],rdata[i*commSize+j]);
+        if(strcmp(flag,"MAX")==0) result[i] = MAX(result[i],rdata[i*commSize+j]);
+        else if(strcmp(flag,"MIN")==0) result[i] = MIN(result[i],rdata[i*commSize+j]);
+        else
+          Terminate("extreme_labels_in_procs_","unknown flag");
+      }
+    }
+  }
+  MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  // bcast_labels_(result, count);
+  DELETE_POINTER(rdata);
+}
+
+void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
+  const label* count)
+{
+  int pid  = COMM::getGlobalId();
+  int commSize = COMM::getGlobalSize();
+  int num = *count*COMM::getGlobalSize();
+  scalar *rdata;
+  rdata = new scalar[num];
+  // gather_labels_(data, rdata, count);
+  MPI_Gather(data, *count, MPI_SCALAR, rdata, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  if(pid==0)
+  {
+    // printf("%d\n", *count);
+    for (int i = 0; i < *count; ++i)
+    {
+      result[i] = rdata[i*commSize];
+      for (int j = 1; j < commSize; ++j)
+      {
+        if(strcmp(flag,"MAX")==0) result[i] = MAX(result[i],rdata[i*commSize+j]);
+        else if(strcmp(flag,"MIN")==0) result[i] = MIN(result[i],rdata[i*commSize+j]);
+        else
+          Terminate("extreme_labels_in_procs_","unknown flag");
+      }
+    }
+  }
+  MPI_Barrier(MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  // bcast_labels_(result, count);
+  DELETE_POINTER(rdata);
+}
+
 /*******************************************标准输出*******************************************/
 // #include "stdarg.h"
 // 所有进程输出到特定文件
@@ -197,14 +261,11 @@ void write_restart_()
 
 //
 // @brief 写出网格到CGNS文件中
-// @param meshFile [in] CGNS文件名
+// @param resFile [in] CGNS文件名
 //
-void write_mesh_()
+void write_mesh_(char* resFile)
 {
-  char resultFile[100];
-  int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
-  REGION.writeMesh(resultFile);
+  REGION.writeMesh(resFile);
 }
 
 // // para1 [in] 场变量名，输出指定场信息到结果文件中，不定参数个数
@@ -238,89 +299,74 @@ void write_mesh_()
 //   //  globalRegion.writeField(paras[ifield]);
 // }
 
-void write_label_field_(const char* fieldName, const char* fieldType)
+void write_label_field_(const char* resFile, const char* fieldName, const char* fieldType)
 {
-  char resultFile[100];
-  int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
-  REGION.writeField<label>(resultFile, fieldName, fieldType); 
+  REGION.writeField<label>(resFile, fieldName, fieldType); 
 }
 
-void write_scalar_field_(const char* fieldName, const char* fieldType)
+void write_scalar_field_(const char* resFile, const char* fieldName, const char* fieldType)
 {
-  char resultFile[100];
-  int nPara = 4;
-  para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
-  REGION.writeField<scalar>(resultFile, fieldName, fieldType); 
+  REGION.writeField<scalar>(resFile, fieldName, fieldType); 
 }
 
 
-void get_label_para_(const int* nPara, int* retVal, ...)
+void get_label_para_(int* retVal, int* nPara, ...)
 {
-  String configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
+  char* strList[*nPara];
+
   va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  va_start(args, nPara);
 
-  char* para;
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+    strList[i] = str;
   }
 
   va_end(args);
-  retVal[0] = config.as<int>();
-  // retVal[0] = std::stoi(res);
+
+  para.getPara<int>(retVal, strList, *nPara);
 }
 
-void get_scalar_para_(const int* nPara, float* retVal, ...)
+void get_scalar_para_(scalar* retVal, int* nPara, ...)
 {
-  String configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
-  va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  char* strList[*nPara];
 
-  char* para;
+  va_list args;
+  va_start(args, nPara);
+
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+    strList[i] = str;
   }
 
   va_end(args);
-  String res = config.as<String>();
-  retVal[0] = std::stof(res);
+
+  para.getPara<float>(retVal, strList, *nPara);
 }
 
-void get_string_para_(const int* nPara, char* retVal, ...)
+void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
 {
-  String configFile = "./config.yaml";
-  YAML::Node config = YAML::LoadFile(configFile);
-  va_list args;
-  va_start(args, retVal);
-  // printf("parameter num: %d, return type: %s\n", *nPara, type);
+  char* strList[*nPara];
+  // printf("%d,%d\n", *nPara,*str_len);
 
-  char* para;
+  va_list args;
+  va_start(args, nPara);
+
+  char* str;
   for (int i = 0; i < *nPara; ++i)
   {
-    // printf("%s, \n", va_arg(args, char*));
-    para = va_arg(args, char*);
-    // printf("%s\n", para);
-    config = config[para];
-    // paras.push_back(Word(para));
+    str = va_arg(args, char*);
+// printf("%s\n",str);
+    strList[i] = str;
   }
 
   va_end(args);
-  // retVal[0] = config.as<string>();
-  String res = config.as<String>();
-  strcpy(retVal, res.c_str());
+
+  *str_len = 0;
+  para.getPara<char>(retVal, strList, *nPara);
+  while(*retVal++!='\0') str_len[0]++;
 }

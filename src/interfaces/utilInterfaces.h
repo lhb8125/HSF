@@ -9,18 +9,18 @@
 #ifndef UTILINTERFACES_H
 #define UTILINTERFACES_H
 
-#include "base.hpp"
-#include "basicFunction.h"
-#include "usingCpp.hpp"
-#include "basicFunction.hpp"
-#include "container.hpp"
-#include "OStream.hpp"
-#include "multiOStream.hpp"
-#include "dummyOStream.hpp"
-#include "communicator.hpp"
-#include "communicationManager.hpp"
-#include "mpiWrapper.hpp"
-// #include "interface.hpp"
+// #include "base.hpp"
+// #include "basicFunction.h"
+// #include "usingCpp.hpp"
+// #include "basicFunction.hpp"
+// #include "container.hpp"
+// #include "OStream.hpp"
+// #include "multiOStream.hpp"
+// #include "dummyOStream.hpp"
+// #include "communicator.hpp"
+// #include "communicationManager.hpp"
+// #include "mpiWrapper.hpp"
+#include "utilities.hpp"
 
 using namespace HSF;
 
@@ -99,6 +99,26 @@ void gather_labels_(label* sdata, label* rdata, const label* count );
 */
 void gather_scalars_(scalar* sdata, scalar* rdata, const label* count);
 
+/**
+* @brief 主进程收集整数，计算最大值或最小值
+* @param[in] flag 可选参数 MAX，MIN
+* @param[in]  data 本进程值
+* @param[in][out]  result 所有进程最大值或最小值
+* @param[in]  count 变量个数
+*/
+void extreme_labels_in_procs_(const char* flag, label* data, label* result,
+	const label* count);
+
+/**
+* @brief 主进程收集浮点数，计算最大值或最小值
+* @param[in] flag 可选参数 MAX，MIN
+* @param[in]  data 本进程值
+* @param[in][out]  result 所有进程最大值或最小值
+* @param[in]  count 变量个数
+*/
+void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
+	const label* count);
+
 /*******************************************标准输出*******************************************/
 /**
 * @brief 所有进程输出到特定文件
@@ -134,9 +154,9 @@ void fort_sout_(const int* pid, const char* str, const int* len);
 void write_restart_(); // 写出结果文件，用于重启计算
 
 /**
-* @brief 写出网格到CGNS文件中，结果文件名由config文件中resPath关键字指定
+* @brief 写出网格到CGNS文件中，结果文件名由输入字符串指定
 */
-void write_mesh_();
+void write_mesh_(char* resFile);
 
 
 /**
@@ -144,14 +164,14 @@ void write_mesh_();
 * @param[in]  fieldName 场名
 * @param[in]  fieldType 场类型
 */
-void write_label_field_(const char* fieldName, const char* fieldType);
+void write_label_field_(const char* resFile, const char* fieldName, const char* fieldType);
 
 /**
 * @brief 输出浮点场到CGNS文件，结果文件名由config文件中resPath关键字指定
 * @param[in]  fieldName 场名
 * @param[in]  fieldType 场类型
 */
-void write_scalar_field_(const char* fieldName, const char* fieldType);
+void write_scalar_field_(const char* resFile, const char* fieldName, const char* fieldType);
 
 /****************************************控制参数输出*******************************/
 /**
@@ -160,7 +180,7 @@ void write_scalar_field_(const char* fieldName, const char* fieldType);
 * @param[out]  retVal 控制参数值
 * @param[in] ...  控制参数树字符串
 */
-void get_label_para_(const int* nPara, int* retVal, ...);
+void get_label_para_(int* retVal, int* nPara, ...);
 
 /**
 * @brief 获取浮点型控制参数
@@ -168,7 +188,7 @@ void get_label_para_(const int* nPara, int* retVal, ...);
 * @param[out]  retVal 控制参数值
 * @param[in]  ... 控制参数树字符串
 */
-void get_scalar_para_(const int* nPara, float* retVal, ...);
+void get_scalar_para_(scalar* retVal, int* nPara, ...);
  
 /**
 * @brief 获取字符串控制参数
@@ -176,7 +196,10 @@ void get_scalar_para_(const int* nPara, float* retVal, ...);
 * @param[out]  retVal 控制参数值
 * @param[in]  ... 控制参数树字符串
 */
-void get_string_para_(const int* nPara, char* retVal, ...);
+void get_string_para_(char* retVal, int* str_len, int* nPara, ...);
+
+
+
 
 #ifdef __cplusplus
 }

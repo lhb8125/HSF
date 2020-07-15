@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-09-23 15:26:27
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 10:58:44
+* @last Modified time: 2019-12-17 15:20:20
 */
 #include <cstdio>
 #include "mpi.h"
@@ -248,6 +248,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 	for (int iReg = 0; iReg < regNum; ++iReg)
 	{
 		Array<Section> secs = regs[iReg].getMesh().getSections();
+		Nodes& nodes = regs[iReg].getMesh().getNodes();
 		label secNum = secs.size();
 		// if this region is private for the process
 		// then it need not to be partitioned
@@ -310,7 +311,9 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 		Array<Array<label> > cell2Cell(cellNum);
 		for (int i = 0; i < cellNum; ++i)
 		{
+			// printf("before: %d, %d, %d\n", rank, i, cellType[i]);
 			label faceNumTmp = Section::facesNumForEle(cellType[i]);
+			// printf("after: %d, %d, %d\n", rank, i, cellType[i]);
 			for (int j = 0; j < faceNumTmp; ++j)
 			{
 				Array<label> face2NodeTmp = Section::faceNodesForEle(
@@ -370,15 +373,16 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 				if(faces2NodesTmp[i].size()!=faces2NodesTmp[end].size())
 				{
 					isEqual = false;
-					break;
-				}
-				// 比较各个维度，不相等则跳出，标记不相等
-				for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
+				}else
 				{
-					if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+					// 比较各个维度，不相等则跳出，标记不相等
+					for (int j = 0; j < faces2NodesTmp[i].size()-1; ++j)
 					{
-						isEqual = false;
-						break;
+						if(faces2NodesTmp[i][j]!=faces2NodesTmp[end][j])
+						{
+							isEqual = false;
+							break;
+						}
 					}
 				}
 				if(isEqual)
@@ -546,7 +550,8 @@ par_std_out_("boundary faces num: %d\n", bndFaces);
 		for (int j = 0; j < nparts; ++j)
 		{
 			// tpwgts[j] = procLoad_.data[j+procId_.startIdx[regIdx]];
-			tpwgts[j] = (real_t)1/nparts;
+			tpwgts[j] = (real_t)1/(real_t)nparts;
+			// tpwgts[j] = 1.0/3.0;
 		}
 		real_t  ubvec = 1.05;
 		label  options[3] = {0, 0, 0};

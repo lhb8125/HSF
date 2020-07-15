@@ -1,0 +1,10 @@
+# 运行时系统参数
+domain:
+  # 并行模式：serial, sunway, openmp
+  parallel: sunway
+  # 进程数
+  processnum: 128
+  # 线程数
+  threadnum: 64
+  # 众核加速算法
+  scheme: RSS

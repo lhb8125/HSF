@@ -166,7 +166,7 @@ CommunicationManager::~CommunicationManager()
 int CommunicationManager::duplicate(const Communicator& refComm, 
     Communicator& newComm )
 { 
-  if( newComm.comm_ != NULL )
+  if( newComm.comm_)
   {
     cerr<<__FILE__<<" + "<<__LINE__<<": "<<endl
       <<__FUNCTION__<<": "<<endl
@@ -197,7 +197,7 @@ int CommunicationManager::split(const Communicator& refComm,
     Communicator& newComm, const int color, const int nPart, 
     const int priority)
 {
-  if( newComm.comm_ != NULL )
+  if( newComm.comm_)
   {
     cerr<<__FILE__<<" + "<<__LINE__<<": "<<endl
       <<__FUNCTION__<<": "<<endl
@@ -243,7 +243,7 @@ int CommunicationManager::split(const Communicator& refComm,
 int CommunicationManager::extract(const Communicator& refComm, 
     Communicator& newComm, const bool color, int priority)
 {
-  if( newComm.comm_ != NULL )
+  if( newComm.comm_)
   {
     cerr<<__FILE__<<" + "<<__LINE__<<": "<<endl
       <<__FUNCTION__<<": "<<endl
