@@ -14,6 +14,7 @@
 #include "section.hpp"
 #include "cgnslib.h"
 #include "topology.hpp"
+#include "utilInterfaces.h"
 
 namespace HSF
 {

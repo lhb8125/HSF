@@ -26,8 +26,11 @@
  */
 
 #include "communicator.hpp"
-#include "usingCpp.hpp"
-#include "container.hpp"
+#include "utilityUsingCpp.hpp"
+#include "utilityContainer.hpp"
+#include "utilityBasicFunction.h"
+
+using namespace UTILITY;
 
 #ifndef HSF_COMMUNICATIONMAGAGER_HPP
 #define HSF_COMMUNICATIONMAGAGER_HPP

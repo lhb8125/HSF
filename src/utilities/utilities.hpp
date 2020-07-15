@@ -9,23 +9,27 @@
 #ifndef UTILITIES_HPP
 #define UTILITIES_HPP
 
+#include "utilityType.h"
+#include "utilityBasicFunction.h"
+#include "utilityUsingCpp.hpp"
+#include "utilityContainer.hpp"
 
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include "mpi.h"
-#include "base.hpp"
-#include "container.hpp"
-#include "basicFunction.h"
-#include "basicFunction.hpp"
-#include "usingCpp.hpp"
+// #include "base.hpp"
+// #include "container.hpp"
+// #include "basicFunction.h"
+// #include "basicFunction.hpp"
+// #include "usingCpp.hpp"
 #include "OStream.hpp"
 #include "multiOStream.hpp"
 #include "dummyOStream.hpp"
 #include "communicator.hpp"
 #include "communicationManager.hpp"
 #include "mpiWrapper.hpp"
-#include "utilInterfaces.h"
+// #include "utilInterfaces.h"
 #include "exceptions.h"
 
 

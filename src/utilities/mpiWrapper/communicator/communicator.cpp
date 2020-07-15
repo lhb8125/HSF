@@ -23,7 +23,7 @@
  * @date 2019-08-11
  */
 
-#include "basicFunction.hpp"
+// #include "basicFunction.hpp"
 #include "communicator.hpp"
 
 namespace HSF

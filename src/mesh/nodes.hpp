@@ -8,6 +8,7 @@
 */
 #ifndef NODES_HPP
 #define NODES_HPP
+#include "hsfMacro.h"
 #include "utilities.hpp"
 
 namespace HSF

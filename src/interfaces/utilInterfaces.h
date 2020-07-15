@@ -9,18 +9,18 @@
 #ifndef UTILINTERFACES_H
 #define UTILINTERFACES_H
 
-#include "base.hpp"
-#include "basicFunction.h"
-#include "usingCpp.hpp"
-#include "basicFunction.hpp"
-#include "container.hpp"
-#include "OStream.hpp"
-#include "multiOStream.hpp"
-#include "dummyOStream.hpp"
-#include "communicator.hpp"
-#include "communicationManager.hpp"
-#include "mpiWrapper.hpp"
-// #include "interface.hpp"
+// #include "base.hpp"
+// #include "basicFunction.h"
+// #include "usingCpp.hpp"
+// #include "basicFunction.hpp"
+// #include "container.hpp"
+// #include "OStream.hpp"
+// #include "multiOStream.hpp"
+// #include "dummyOStream.hpp"
+// #include "communicator.hpp"
+// #include "communicationManager.hpp"
+// #include "mpiWrapper.hpp"
+#include "utilities.hpp"
 
 using namespace HSF;
 

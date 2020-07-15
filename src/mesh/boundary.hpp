@@ -9,8 +9,10 @@
 #ifndef BOUNDARY_HPP
 #define BOUNDARY_HPP
 
+#include "utilInterfaces.h"
 #include "utilities.hpp"
 #include "mesh.hpp"
+
 
 namespace HSF
 {

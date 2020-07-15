@@ -113,8 +113,7 @@ void MeshInfo::addField
     }
     else
     {
-        cout << "No this type field yet!" << endl;
-        ERROR_EXIT;
+        Terminate("addField", "No this type field yet!");
     }
 
     #define FIELDTABPTR (*(Table<Word, Table<Word, Field<T>*>*>**)fieldTabPtrPtr)

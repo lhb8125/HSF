@@ -25,11 +25,13 @@
  */
 
 #include "mpi.h"
-#include "usingCpp.hpp"
-#include "basicFunction.hpp"
+#include "utilityUsingCpp.hpp"
+#include "utilityBasicFunction.h"
 #include "OStream.hpp"
 #include "multiOStream.hpp"
 #include "dummyOStream.hpp"
+
+using namespace UTILITY;
 
 #ifndef HSF_COMMUNICATOR_HPP
 #define HSF_COMMUNICATOR_HPP

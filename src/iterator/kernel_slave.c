@@ -1,30 +1,32 @@
 #include "kernel_slave.h"
+
 label** topo;
-void spMV_kernel(scalar** fieldA, scalar** fieldx, scalar** fieldb, label n, 
+label** tp;
+void spMV_kernel(scalar* fieldA, scalar* fieldx, scalar* fieldb, label n, 
 	label dim_fieldA, label dim_fieldx, label dim_fieldb, 
 	long pi, S s, const int * arr, 
 	label *owner, label *neighbor)
 {
 	for (int i = 0; i < n; ++i)
     {
-        label row = topo[i][0];
-        label col = topo[i][1];
-        fieldb[col][0] += pi*fieldA[i][0]*fieldx[row][0]+s.b/arr[3];
-        fieldb[row][0] -= pi*fieldA[i][0]*fieldx[col][0]+s.c/arr[2];
+        label row = owner[i];
+        label col = neighbor[i];
+        fieldb[col*dim_fieldb+0] += pi*fieldA[i*dim_fieldA+0]*fieldx[row*dim_fieldx+0]+s.b/arr[3];
+        fieldb[row*dim_fieldb+0] -= pi*fieldA[i*dim_fieldA+0]*fieldx[col*dim_fieldx+0]+s.c/arr[2];
     }
 }
-label** tp;
-void integration_kernel(scalar** fieldFlux, scalar** fieldU, label nn, 
+
+void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn, 
 	label dim_fieldFlux, label dim_fieldU, 
 	
 	label *owner, label *neighbor)
 {
 	for (int i = 0; i < nn; ++i)
     {
-        label row = tp[i][0];
-        fieldU[row][0] += fieldFlux[i][0];
-        fieldU[row][1] += fieldFlux[i][1];
-        fieldU[row][2] += fieldFlux[i][2];
+        label row = owner[i];
+        fieldU[row*dim_fieldU+0] += fieldFlux[i*dim_fieldFlux+0];
+        fieldU[row*dim_fieldU+1] += fieldFlux[i*dim_fieldFlux+1];
+        fieldU[row*dim_fieldU+2] += fieldFlux[i*dim_fieldFlux+2];
     }
 }
 

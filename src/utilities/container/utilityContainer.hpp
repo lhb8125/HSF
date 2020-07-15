@@ -1,3 +1,4 @@
+
 /* Copyright (C) 
  * 2019 - Hu Ren, rh890127a@163.com
  * This program is free software; you can redistribute it and/or
@@ -16,20 +17,30 @@
  * 
  */
 /**
- * @file container.hpp
+ * @file utilityContainer.hpp
  * @brief, basic container warrper and useful array manipulations
  * @author Hu Ren, rh890127a@163.com
  * @version v0.1
  * @date 2019-08-16
  */
 
-#ifndef HSF_CONTAINER_HPP
-#define HSF_CONTAINER_HPP
+#ifndef UTILITY_UTILITYCONTAINER_HPP
+#define UTILITY_UTILITYCONTAINER_HPP
 
-#include "usingCpp.hpp"
-#include "base.hpp"
+#if(__cplusplus >= 201103L)
+#include <unordered_map>
+#include <unordered_set>
+#else
+#include <tr1/unordered_map>
+#include <tr1/unordered_set>
+#endif
 
-namespace HSF
+#include "utilityType.h"
+#include "utilityUsingCpp.hpp"
+#include "utilityBasicFunction.h"
+
+
+namespace UTILITY
 {
 // wrap container to HSF
 #define Word string
@@ -38,6 +49,7 @@ namespace HSF
 #define Table map
 #define MultiList multiset
 #define MultiTable multimap
+#define HASHMAP unordered_map
 
 // conversion for Word
 #define toWord to_string
@@ -557,6 +569,8 @@ size_t biSearch( const Array<W>& data , W value, ComparePtr comp = ascend<W>)
 }
 
 
-} // namespace HSF
+} // namespace UTILITY
 
-#endif //HSF_CONTAINER_HPP
+#endif //UTILITY_CONTAINER_HPP
+
+

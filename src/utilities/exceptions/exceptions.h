@@ -55,6 +55,9 @@ if( ! (expr) ) \
   abort();\
 }
 
+#define EXIT exit(0)
+#define ERROR_EXIT exit(1)
+
 // if( ! (expr) )
 // {
 //   // some code

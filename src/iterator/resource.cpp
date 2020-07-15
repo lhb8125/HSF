@@ -1,7 +1,7 @@
 #include "resource.hpp"
 
 template<typename T>
-UNAT::ArrayArray<T>& transformArrayFromHSFToUNAT(const HSF::ArrayArray<T> &src)
+UNAT::ArrayArray<T>& transformArrayFromHSFToUNAT(const UTILITY::ArrayArray<T> &src)
 {
     UNAT::ArrayArray<T> *unat_arr = new UNAT::ArrayArray<T>();
     unat_arr->num = src.num;
@@ -70,7 +70,7 @@ void prepareField(Region& reg, label32* inoutList, e2v_slaveFunPtr funcPtr, int 
         setTypeList.push_back(setType);
         if(setType=="cell")
         {
-            vertexWeight++;
+          vertexWeight++;
           addSingleArray(dataSet_vertex, dim, size, inoutList[i], var);
         }
         else if(setType=="face")
@@ -84,7 +84,7 @@ void prepareField(Region& reg, label32* inoutList, e2v_slaveFunPtr funcPtr, int 
         }
     }
     // 根据数据集类型选择拓扑
-    HSF::ArrayArray<label>& topo = reg.getTopology<label>(setTypeList);
+    UTILITY::ArrayArray<label>& topo = reg.getTopology<label>(setTypeList);
     UNAT::ArrayArray<label> UNATTopo = transformArrayFromHSFToUNAT(topo);
     label n = topo.size();
     // 创建UNAT拓扑

@@ -23,69 +23,39 @@ THE SOFTWARE.
 */
 
 /**
-* @file: base.hpp
-* @author: Hanfeng GU
+* @file: utilityBase.h
+* @author: Hongbin Liu
 * @email:
 * @Date:   2019-10-06 10:07:59
-* @Last Modified by:   Hanfeng GU
+* @Last Modified by:   Hongbin Liu
 * @Last Modified time: 2019-11-14 09:50:18
 */
 
-/*
-* @brief:
-*/
+#ifndef UTILITY_UTILITYBASE_HPP
+#define UTILITY_UTILITYBASE_HPP
 
-#ifndef BASE_HPP
-#define BASE_HPP
 
-#include <mpi.h>
-
-namespace HSF
-{
 typedef long int  label64;
 typedef int       label32;
 typedef short int label16;
 
+typedef float scalar32;
+typedef double scalar64;
+
 // 默认使用长整型
 #if defined(LABEL_INT32)
-	typedef int label;
-	#define MPI_LABEL MPI_INT
+    typedef int label;
 #else
-	typedef long int label;
-	#define MPI_LABEL MPI_LONG
+    typedef long int label;
 #endif
 
 // 默认使用double精度
 #if defined(SCALAR_FLOAT32)
-	typedef float scalar;
-	#define MPI_SCALAR MPI_FLOAT
+    typedef float scalar;
 #else
-	typedef double scalar;
-	#define MPI_SCALAR MPI_DOUBLE
+    typedef double scalar;
 #endif
 
-#define DELETE_POINTER(ptr) if(ptr) \
-{ \
-    delete [] (ptr); \
-    ptr = NULL; \
-}
-
-#define DELETE_OBJECT_POINTER(ptr) if(ptr) \
-{ \
-    delete ptr; \
-    ptr = NULL; \
-}
-
-#define EXIT exit(0)
-#define ERROR_EXIT exit(1)
-
-#define SOL_DIM 3
-
-#define CHAR_DIM 200
-
-#define forAll(i, length) for (label i = 0; i < length; ++i)
 
 
-}
-
-#endif //- Base_hpp
+#endif

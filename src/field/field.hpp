@@ -36,6 +36,7 @@ THE SOFTWARE.
 
 #include "patch.hpp"
 #include "utilities.hpp"
+#include "utilInterfaces.h"
 
 namespace HSF
 {
