@@ -16,19 +16,19 @@
  * 
  */
 /**
- * @file basicFunction.c
+ * @file utilityBasicFunction.c
  * @brief basic functionalities that would be used universally
  * @author Hu Ren, rh890127a@163.com
  * @version v0.1
  * @date 2019-08-09
  */
-#include "basicFunction.h"
+#include "utilityBasicFunction.h"
 #include "stdio.h"
 
 //--------------------------------------------------------------
 // file and directory operations
 //--------------------------------------------------------------
-/**
+/*
 * @brief Remove a directory recursively 
 */
 
@@ -87,7 +87,7 @@ void rmtree(const char path[])
     // remove a file object
     if (unlink(full_path) == 0)
       //printf("Removed a file: %s\n", full_path);
-  	  printf("");
+      printf("");
     else
       printf("Can`t remove a file: %s\n", full_path);
   }
@@ -99,7 +99,7 @@ void rmtree(const char path[])
   closedir(dir);
 }
 
-/**
+/*
  * @brief create a new directory and move the older one to xxx.old
  *        path should be no longer than 1024-6 byte
  */
@@ -111,12 +111,12 @@ int remakeDir(const char* path)
   // Creat newPath and oldPath from input char pointer
   //for(iter = 0; path[iter] != '\0'; iter++)
   //{
-  //	if(iter == 1024-6) {
-  //	  printf("**Fatal Error: too long path name!\n");
-  //	  printf("\t*path is %s \n", path);
-  //	  exit(-1);
-  //	}
-  //	newPath[iter] = path[iter];
+  //    if(iter == 1024-6) {
+  //      printf("**Fatal Error: too long path name!\n");
+  //      printf("\t*path is %s \n", path);
+  //      exit(-1);
+  //    }
+  //    newPath[iter] = path[iter];
   //}
   //newPath[iter] = '\0';
   memcpy(oldPath, (char*) path, strlen((char*) path)+1 );
@@ -128,11 +128,11 @@ int remakeDir(const char* path)
   // Save new path to old one, and creat the new
   if( access(oldPath,F_OK) == 0 )
   {
-  	rmtree(oldPath);
-  	flag = access(oldPath,F_OK);
+    rmtree(oldPath);
+    flag = access(oldPath,F_OK);
   }
   if( access(path,F_OK) == 0 ){
-  	flag = rename( path, oldPath);
+    flag = rename( path, oldPath);
   }
   
   flag = mkdir( path, S_IRWXU);

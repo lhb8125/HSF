@@ -26,8 +26,11 @@
  */
 
 #include "communicator.hpp"
-#include "usingCpp.hpp"
-#include "container.hpp"
+#include "utilityUsingCpp.hpp"
+#include "utilityContainer.hpp"
+#include "utilityBasicFunction.h"
+
+using namespace UTILITY;
 
 #ifndef HSF_COMMUNICATIONMAGAGER_HPP
 #define HSF_COMMUNICATIONMAGAGER_HPP
@@ -215,9 +218,9 @@ public:
    */
   virtual int destroy(Communicator& comm)
   {
-    if(comm.comm_ != NULL )
+    if(comm.comm_)
       MPI_Comm_free(&(comm.comm_) );
-    if(comm.log_ != NULL )
+    if(comm.log_)
       delete comm.log_;
   }
 

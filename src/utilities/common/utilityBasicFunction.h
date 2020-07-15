@@ -28,17 +28,49 @@
 
 #ifdef __cplusplus
 #include <cstring>
+#include "utilityUsingCpp.hpp"
 #else
 #include <string.h>
 #endif
 
-#ifndef HSF_BASICFUNCTION_H
-#define HSF_BASICFUNCTION_H
+#ifndef UTILITY_BASICFUNCTION_H
+#define UTILITY_BASICFUNCTION_H
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
+/**
+* @brief delete pointer
+*/
+#ifdef __cplusplus
+
+#define DELETE_POINTER(ptr) if(ptr) \
+{ \
+    delete [] (ptr); \
+    ptr = NULL; \
+}
+
+#else
+#define DELETE_POINTER(ptr) if(ptr) \
+{ \
+    delete (ptr); \
+    ptr = NULL; \
+}
+#endif
+
+#define DELETE_OBJECT_POINTER(ptr) if(ptr) \
+{ \
+    delete ptr; \
+    ptr = NULL; \
+}
+
+// #define SOL_DIM 3
+
+#define CHAR_DIM 200
+
+#define forAll(i, length) for (label i = 0; i < length; ++i)
 
 //--------------------------------------------------------------
 // algorithm macros
@@ -60,6 +92,8 @@ typedef uint32_t Hash32;
          some simple optimizations to the algorithm in order to speed up its hashing 
          process.
          Reference "http://www.partow.net/programming/hashfunctions"
+* @param[in] str input string
+* @return Hash value of string.
 */
 inline Hash str2Hash( const char* str)
 {
@@ -84,6 +118,8 @@ inline Hash str2Hash( const char* str)
          some simple optimizations to the algorithm in order to speed up its hashing 
          process.
          Reference "http://www.partow.net/programming/hashfunctions"
+* @param[in] str input string
+* @return Hash value of string.
 */
 inline Hash32 str2Hash32( const char * str)
 {
@@ -112,20 +148,23 @@ inline Hash32 str2Hash32( const char * str)
 #include "unistd.h"
 #include "dirent.h"
 
-/*
- * Check file status
- * In file "unistd.h", there are
- * #define R_OK 4, readable or not
- * #define W_OK 2, writable or not
- * #define X_OK 1, excutable or not   
- * #define F_OK 0, exit or not
+/**
+ * @brief Check file status
+ * @param[in] _Filename file name
+ * @param[in] _AccessMode access mode
+          In file "unistd.h", there are
+          #define R_OK 4, readable or not
+          #define W_OK 2, writable or not
+          #define X_OK 1, excutable or not   
+          #define F_OK 0, exit or not
+  * @return error code
  */
 int access(const char* _Filename, int _AccessMode);
 
 /*
  * Creat directory
  * in file "sys/types.h"
- * #define	S_IRWXU	0000700, RWX mask for owner
+ * #define  S_IRWXU 0000700, RWX mask for owner
  */
 int mkdir(const char* _path, mode_t mode);
 
@@ -141,18 +180,49 @@ int rmdir(const char *_Path);
  */
 int rename ( const char * oldname, const char * newname ) __THROW;
 
-/*
- * Remove a directory recursively 
+/**
+ * @brief Remove a directory recursively
+ * @param[in] path absolute directory path
  */
 void rmtree(const char path[]);
 
-/*
- * create a new directory and move the older one to xxx.old
+/**
+ * @brief create a new directory and move the older one to xxx.old
+ * @param[in] path absolute directory path
+ * @return error code
  */
 int remakeDir(const char* path);
 
 #ifdef __cplusplus
 }
+#endif
+
+// c++ overload hash
+#ifdef __cplusplus
+
+namespace UTILITY
+{
+
+  // convert string to Hash (int64_t)
+  inline Hash strToHash(const string& str)
+  {
+    return str2Hash(str.c_str() );
+  }
+  
+  // convert string to Hash32 (int32_t)
+  inline Hash32 strToHash32(const string& str)
+  {
+    return str2Hash32(str.c_str() );
+  }
+  
+  // remake an directory and move the older one to xx.old
+  inline int remakeDirectory(const string& name)
+  {
+    return remakeDir(name.c_str());
+  }
+
+} // namespace UTILITY
+
 #endif
 
 #endif // HSF_BASICFUNCTION_H

@@ -31,6 +31,19 @@
 extern "C" {
 #endif 
 
+#define Terminate(location, content) \
+{ \
+	printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[31m%d\033[0m\n", \
+		location, content, __FILE__, __LINE__); \
+	exit(-1); \
+}
+
+#define WARNING(location, content) \
+{ \
+	printf("Location: \33[%s], warning message: \33[%s], file: \33[%s], line: \33[%d]\n", \
+		location, content, __FILE__, __LINE__); \
+}
+
 #define ASSERT( expr ) \
 if( ! (expr) ) \
 
@@ -42,14 +55,17 @@ if( ! (expr) ) \
   abort();\
 }
 
-if( ! (expr) )
-{
-  // some code
-  // abort
-  hsf_print_stack_();
-  hsf_stop_mpi_();
-  abort();
-}
+#define EXIT exit(0)
+#define ERROR_EXIT exit(1)
+
+// if( ! (expr) )
+// {
+//   // some code
+//   // abort
+//   hsf_print_stack_();
+//   hsf_stop_mpi_();
+//   abort();
+// }
 
 /**
  * @brief hsf_printStack 

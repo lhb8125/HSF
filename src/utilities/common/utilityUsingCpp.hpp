@@ -16,12 +16,15 @@
  * 
  */
 /**
- * @file usingCpp.hpp
+ * @file utilityUsingCpp.hpp
  * @brief Declare some c++ standard feathers
  * @author Hu Ren, rh890127a@163.com
  * @version v0.1
  * @date 2019-08-16
  */
+
+#ifndef UTILITY_USINGCPP_HPP
+#define UTILITY_USINGCPP_HPP
 
 #include "stdlib.h"
 #include <iostream>
@@ -32,10 +35,8 @@
 #include <map>
 #include <string>
 
-#ifndef HSF_USINGCPP_HPP
-#define HSF_USINGCPP_HPP
 
-namespace HSF
+namespace UTILITY
 {
 
 // IO stream
@@ -107,7 +108,7 @@ using std::stoll;
 
 #endif
 
-}
+} // end namespace utility
 
 #endif // HSF_USINGCPP_HPP
  
