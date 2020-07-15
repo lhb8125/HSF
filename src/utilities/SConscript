@@ -4,7 +4,8 @@ cxxfile = ['mpiWrapper/mpiWrapper.cpp',
 			'mpiWrapper/communicationManager/communicationManager.cpp',
 			'mpiWrapper/communicator/communicator.cpp']
 
-cfile = ['common/utilityBasicFunction.c']
+cfile = ['common/utilityBasicFunction.c',
+            'exceptions/utilityExceptions.c']
 
 gl.add_files(cxxfile)
 gl.add_files(cfile)

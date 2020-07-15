@@ -15,6 +15,7 @@ using namespace HSF;
 void init_utility_()
 {
   COMM::init(NULL, NULL, "MPI");
+  signal(SIGSEGV, handler);   // install our handler
 }
 
 /*****************************************进程间数据交换****************************************/

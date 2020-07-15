@@ -13,6 +13,7 @@
 #include "utilityBasicFunction.h"
 #include "utilityUsingCpp.hpp"
 #include "utilityContainer.hpp"
+#include "utilityExceptions.h"
 
 #include <iostream>
 #include <vector>
@@ -30,7 +31,7 @@
 #include "communicationManager.hpp"
 #include "mpiWrapper.hpp"
 // #include "utilInterfaces.h"
-#include "exceptions.h"
+// #include "exceptions.h"
 
 
 // } // end namespace HSF

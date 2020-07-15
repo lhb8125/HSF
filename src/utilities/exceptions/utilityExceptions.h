@@ -76,6 +76,13 @@ if( ! (expr) ) \
 #define EXIT exit(0)
 #define ERROR_EXIT exit(1)
 
+
+/**
+* @brief print function stack
+* @param[in] sig error signal
+*/
+void handler(int sig);
+
 // if( ! (expr) )
 // {
 //   // some code

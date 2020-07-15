@@ -41,8 +41,14 @@ using namespace HSF;
 // void operator >> (const YAML::Node& node, Array<Label>& regionIdx);
 // void hdf5ToAdf(char* filePtr, char* desFilePtr);
 
+// int main(int argc, char **argv) {
+//   signal(SIGSEGV, handler);   // install our handler
+//   foo(); // this will call foo, bar, and baz.  baz segfaults.
+// }
+
 int main(int argc, char** argv)
 {
+
 	LoadBalancer *lb = new LoadBalancer();
 
 	Parameter para("./config.yaml");
@@ -63,6 +69,7 @@ int main(int argc, char** argv)
 	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
 	// printf("This is process %d, %d processes are launched\n", rank, numproces);
 	init_utility_();
+
 
 	int nPara = 4;
 	// char meshFile[100];
