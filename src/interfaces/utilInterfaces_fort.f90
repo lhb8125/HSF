@@ -42,7 +42,7 @@ contains
    
    call MPI_INITIALIZED(flag, ierr)
   
-   if( flag == .false. ) call MPI_INIT(ierr)
+   if( flag .eqv. .false. ) call MPI_INIT(ierr)
    
    call init_utility()
   

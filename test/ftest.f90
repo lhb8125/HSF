@@ -34,10 +34,20 @@ module var_global
     ! end function test_f
 end module var_global
 
+module var_c_string
+    use var_kind_def
+    use iso_c_binding
+    implicit none
+    ! integer, parameter:: str_num = 10
+    character(len=30):: str_arr(1)
+    POINTER(str_ptr, str_arr)
+end module
+
 program main
     use var_kind_def
     use var_global
     use utility
+    use var_c_string
     implicit none
     character(len=strlen):: config_file = './config.yaml'
     integer(dpI):: iele, iface, inode
@@ -49,12 +59,13 @@ program main
     real(dpR),allocatable:: b(:),x(:)
     real(dpR), allocatable:: vol(:), area(:), coord(:)
     real(dpR),allocatable:: pid(:)
+    character(len=20):: field_name, field_type
 
     real(dpR) :: vol_new(1)
     POINTER(vol_new2, vol_new)
-    integer(dpI):: ndim_new, n_ele_new, ndim
+    integer(dpI):: ndim_new, n_ele_new, n_dim
 
-    integer:: nPara, write_interval
+    integer:: nPara, write_interval, str_len
     character(20):: mesh_file, result_file
     real:: delta_t
 
@@ -62,25 +73,32 @@ program main
 
     ! 初始化
     call init_utility_fort()
-    call init(config_file, len_trim(config_file))
+    call init(trim(config_file))
 
     ! 获取控制参数
-    nPara = 4
-    call get_string_para(nPara, mesh_file, "domain1", "region", "0", "path")
-    ! call par_std_out("mesh file: %s \n", mesh_file)
-    write(iobuf,*),"mesh file: ", mesh_file
-    call flush2master()
-    nPara = 3
-    call get_label_para(nPara, write_interval, "domain1", "solve", "writeInterval")
-    ! call master_std_out("write internal: %d \n", write_interval)
-    write(iobuf,*),"write_interval: ", write_interval
-    call flush2master()
-    call get_scalar_para(nPara, delta_t, "domain1", "solve", "deltaT")
-    write(*,*),"delta_t: ", delta_t
-    ! call master_std_out("delta t: %f \n", delta_t)
+    nPara = 5
+
+    ! call get_string_para(mesh_file, str_len, nPara, &
+    !     & "domain1"//C_NULL_CHAR, &
+    !     & "region"//C_NULL_CHAR, &
+    !     & "0"//C_NULL_CHAR, &
+    !     & "path"//C_NULL_CHAR, &
+    !     & "1"//C_NULL_CHAR)
+    ! ! mesh_file = str_arr(5)
+    ! ! call par_std_out("mesh file: %s \n", mesh_file)
+    ! write(iobuf,*),"mesh file: ", mesh_file(1:str_len)
+    ! call flush2master()
+    ! nPara = 3
+    ! call get_label_para(write_interval, nPara, &
+    !     & "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "writeInterval"//C_NULL_CHAR)
+    ! ! call master_std_out("write internal: %d \n", write_interval)
+    ! write(iobuf,*),"write_interval: ", write_interval
+    ! call flush2master()
+    ! call get_scalar_para(delta_t, nPara, "domain1"//C_NULL_CHAR, "solve"//C_NULL_CHAR, "deltaT"//C_NULL_CHAR)
+    ! write(*,*),"delta_t: ", delta_t
 
 
-    ! 获取基本单元数目
+    ! ! 获取基本单元数目
     call get_elements_num(n_ele)
     call get_inner_faces_num(n_face_i)
     call get_bnd_faces_num(n_face_b)
@@ -98,7 +116,8 @@ program main
         pid(iele) = my_id
     end do
     ! 注册进程号场
-    call add_scalar_field("cell", "pid", pid, 1, n_ele)
+    n_dim = 1
+    call add_scalar_field("cell"//C_NULL_CHAR, "pid"//C_NULL_CHAR, pid, n_dim, n_ele)
 
     ! 获取单元与格点拓扑关系
     allocate(e2n_pos(n_ele+1), stat=err_mem)
@@ -162,9 +181,11 @@ program main
     call calc_faces_area(n_face_i, if2n, if2n_pos, coord, area)
 
     ! 注册vol场
-    ndim = 1
-    call add_scalar_field("cell", "VOL", vol, ndim, n_ele)
-    call get_scalar_field("cell", "VOL", vol_new2, ndim_new, n_ele_new)
+    n_dim = 1
+    call add_scalar_field("cell"//C_NULL_CHAR, "VOL"//C_NULL_CHAR, vol, &
+        & n_dim, n_ele)
+    call get_scalar_field("cell"//C_NULL_CHAR, "VOL"//C_NULL_CHAR, vol_new2, &
+        & ndim_new, n_ele_new)
 
     ! b=A*x
     allocate(b(n_ele), stat=err_mem)
@@ -177,18 +198,20 @@ program main
     end do
     call calc_spmv(n_face_i, if2e, area, x, b)
     ! 注册b场
-    call add_scalar_field("cell", "b", b, 1, n_ele)
+    n_dim = 1
+    call add_scalar_field("cell"//C_NULL_CHAR, "b"//C_NULL_CHAR, b, n_dim, n_ele)
 
 
     ! 输出网格到CGNS文件中
     call write_mesh()
     ! 输出体积场到CGNS文件中
-    call write_scalar_field("VOL", "cell")
+    call write_scalar_field("VOL"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出b场到CGNS文件中
-    call write_scalar_field("b", "cell")
+    call write_scalar_field("b"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
     ! 输出进程号场到CGNS文件中
-    call write_scalar_field("pid", "cell")
+    call write_scalar_field("pid"//C_NULL_CHAR, "cell"//C_NULL_CHAR)
 
+    call clear()
     ! f_ptr => test_f
     ! ndim = f_ptr()
 
@@ -221,6 +244,8 @@ subroutine calc_eles_vol(n_ele, e2n, e2n_pos, coord, ele_type, vol)
             call calc_HEXA_vol(nodes_coord, vol(iele))
             ! write(*,*), iele, vol(iele)
     	else if(ele_type(iele) .eq. 10) then
+            call calc_TETRA_vol(nodes_coord, vol(iele))
+        else if(ele_type(iele) .eq. 12) then
             call calc_TETRA_vol(nodes_coord, vol(iele))
         else
             write(*,*), "the element type is not supported"

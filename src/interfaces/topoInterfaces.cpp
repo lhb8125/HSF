@@ -4,7 +4,7 @@
 * @brief: fortran function interfaces
 * @date:   2019-11-11 10:56:28
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-29 14:35:28
+* @last Modified time: 2020-01-07 10:31:19
 */
 #include <iostream>
 #include <fstream>
@@ -27,12 +27,12 @@ using namespace HSF;
 */
 /*****************************************************************************/
 
-void init_(char* configFile, int* length)
+void init_(char* configFile)
 {
 	LoadBalancer *lb = new LoadBalancer();
 	// std::cout<<"start initializing ......"<<std::endl;
 
-	para.setParaFile(configFile, *length);
+	para.setParaFile(configFile);
 
 	// printf("%s\n", configFile);
 
@@ -42,17 +42,21 @@ void init_(char* configFile, int* length)
 	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
 
 	int nPara = 4;
-	char meshFile[100];
-	// para.getPara(&nPara, meshFile, "char*", "domain1", "region", "0", "path");
-	para.getPara<char>(&nPara, meshFile, "domain1", "region", "0", "path");
-	char resultFile[100];
-	para.getPara<char>(&nPara, resultFile, "domain1", "region", "0", "resPath");
+	// char meshFile[100];
+	ControlPara newPara("./config.yaml");
+	Array<Word> mesh_files;
+	Word meshFile;
+	newPara["domain"]["region"]["0"]["path"].read(meshFile);
+	mesh_files.push_back(meshFile);
+
+	char resultFile[CHAR_DIM];
+	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
 
 	/// initialization before load balance
 	Region reg;
 	// regs.resize(1);
 	regs.push_back(reg);
-	REGION.initBeforeBalance(meshFile);
+	REGION.initBeforeBalance(mesh_files);
 
 	/// load balance in region
 	lb->LoadBalancer_3(regs);
@@ -60,54 +64,82 @@ void init_(char* configFile, int* length)
 	/// initialization after load balance
 	REGION.initAfterBalance();
 
-	// DELETE_POINTER(lb);
 }
 
-void get_elements_num_(Label* eleNum)
+void init_config_(char* configFile)
+{
+	para.setParaFile(configFile);
+}
+
+void init_mesh_(char* meshFile)
+{
+	Array<Word> mesh_file;
+	mesh_file.push_back(meshFile);
+	/// initialization before load balance
+	Region reg;
+	// regs.resize(1);
+	regs.push_back(reg);
+	REGION.initBeforeBalance(mesh_file);
+
+	/// load balance in region
+	LoadBalancer *lb = new LoadBalancer();
+	lb->LoadBalancer_3(regs);
+
+	/// initialization after load balance
+	REGION.initAfterBalance();
+}
+
+void clear_()
+{
+	regs.clear();
+}
+
+void get_elements_num_(label* eleNum)
 {
 	eleNum[0] = REGION.getMesh().getTopology().getCellsNum();
 }
 
 
-void get_faces_num_(Label* faceNum)
+void get_faces_num_(label* faceNum)
 {
 	faceNum[0] = REGION.getMesh().getTopology().getFacesNum();
 }
 
 
-void get_inner_faces_num_(Label* innFaceNum)
+void get_inner_faces_num_(label* innFaceNum)
 {
 	innFaceNum[0] = REGION.getMesh().getTopology().getInnFacesNum();
 }
 
 
-void get_bnd_faces_num_(Label* bndFaceNum)
+void get_bnd_faces_num_(label* bndFaceNum)
 {
-	bndFaceNum[0] = REGION.getMesh().getTopology().getBndFacesNum();
+	bndFaceNum[0] = REGION.getBoundary().getTopology().getFacesNum();
+	// bndFaceNum[0] = REGION.getMesh().getTopology().getBndFacesNum();
 }
 
 
-void get_nodes_num_(Label* nodeNum)
+void get_nodes_num_(label* nodeNum)
 {
 	nodeNum[0] = REGION.getMesh().getOwnNodes().size();
 }
 
 /*****************************************************************************/
 
-void get_ele_2_face_pos_(Label* pos)
+void get_ele_2_face_pos_(label* pos)
 {
-	Label* tmp = REGION.getMesh().getTopology().getCell2Face().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	label* tmp = REGION.getMesh().getTopology().getCell2Face().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
 	for (int i = 0; i < eleNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_ele_2_face_(Label* ele2Face)
+void get_ele_2_face_(label* ele2Face)
 {
-	Label* tmpData = REGION.getMesh().getTopology().getCell2Face().data;
-	Label* tmp = REGION.getMesh().getTopology().getCell2Face().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	label* tmpData = REGION.getMesh().getTopology().getCell2Face().data;
+	label* tmp = REGION.getMesh().getTopology().getCell2Face().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
 	for (int i = 0; i < eleNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -118,20 +150,20 @@ void get_ele_2_face_(Label* ele2Face)
 }
 
 
-void get_ele_2_ele_pos_(Label* pos)
+void get_ele_2_ele_pos_(label* pos)
 {
-	Label* tmp = REGION.getMesh().getTopology().getCell2Cell().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	label* tmp = REGION.getMesh().getTopology().getCell2Cell().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
 	for (int i = 0; i < eleNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_ele_2_ele_(Label* ele2Ele)
+void get_ele_2_ele_(label* ele2Ele)
 {
-	Label* tmpData = REGION.getMesh().getTopology().getCell2Cell().data;
-	Label* tmp = REGION.getMesh().getTopology().getCell2Cell().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	label* tmpData = REGION.getMesh().getTopology().getCell2Cell().data;
+	label* tmp = REGION.getMesh().getTopology().getCell2Cell().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
 	for (int i = 0; i < eleNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -142,21 +174,21 @@ void get_ele_2_ele_(Label* ele2Ele)
 }
 
 
-void get_ele_2_node_pos_(Label* pos)
+void get_ele_2_node_pos_(label* pos)
 {
-	Label* tmp = REGION.getMesh().getTopology().getCell2Node().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	label* tmp = REGION.getMesh().getTopology().getCell2Node().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
 	for (int i = 0; i < eleNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_ele_2_node_(Label* ele2Node)
+void get_ele_2_node_(label* ele2Node)
 {
-	Label* tmpData = REGION.getMesh().getTopology().getCell2Node().data;
-	Label* tmp = REGION.getMesh().getTopology().getCell2Node().startIdx;
-	Label eleNum = REGION.getMesh().getTopology().getCellsNum();
-	Table<Label, Label> coordMap = REGION.getMesh().getCoordMap();
+	label* tmpData = REGION.getMesh().getTopology().getCell2Node().data;
+	label* tmp = REGION.getMesh().getTopology().getCell2Node().startIdx;
+	label eleNum = REGION.getMesh().getTopology().getCellsNum();
+	Table<label, label> coordMap = REGION.getMesh().getCoordMap();
 	for (int i = 0; i < eleNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -167,21 +199,21 @@ void get_ele_2_node_(Label* ele2Node)
 }
 
 
-void get_inn_face_2_node_pos_(Label* pos)
+void get_inn_face_2_node_pos_(label* pos)
 {
-	Label* tmp = REGION.getMesh().getTopology().getFace2Node().startIdx;
-	Label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
+	label* tmp = REGION.getMesh().getTopology().getFace2Node().startIdx;
+	label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
 	for (int i = 0; i < faceNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_inn_face_2_node_(Label* face2Node)
+void get_inn_face_2_node_(label* face2Node)
 {
-	Label* tmpData = REGION.getMesh().getTopology().getFace2Node().data;
-	Label* tmp = REGION.getMesh().getTopology().getFace2Node().startIdx;
-	Label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
-	Table<Label, Label> coordMap = REGION.getMesh().getCoordMap();
+	label* tmpData = REGION.getMesh().getTopology().getFace2Node().data;
+	label* tmp = REGION.getMesh().getTopology().getFace2Node().startIdx;
+	label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
+	Table<label, label> coordMap = REGION.getMesh().getCoordMap();
 	for (int i = 0; i < faceNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -192,20 +224,20 @@ void get_inn_face_2_node_(Label* face2Node)
 }
 
 
-void get_bnd_face_2_node_pos_(Label* pos)
+void get_bnd_face_2_node_pos_(label* pos)
 {
-	Label* tmp = REGION.getBoundary().getTopology().getFace2Node().startIdx;
-	Label faceNum = REGION.getBoundary().getTopology().getFacesNum();
+	label* tmp = REGION.getBoundary().getTopology().getFace2Node().startIdx;
+	label faceNum = REGION.getBoundary().getTopology().getFacesNum();
 	for (int i = 0; i < faceNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_bnd_face_2_node_(Label* face2Node)
+void get_bnd_face_2_node_(label* face2Node)
 {
-	Label* tmpData = REGION.getBoundary().getTopology().getFace2Node().data;
-	Label* tmp = REGION.getBoundary().getTopology().getFace2Node().startIdx;
-	Label faceNum = REGION.getBoundary().getTopology().getFacesNum();
+	label* tmpData = REGION.getBoundary().getTopology().getFace2Node().data;
+	label* tmp = REGION.getBoundary().getTopology().getFace2Node().startIdx;
+	label faceNum = REGION.getBoundary().getTopology().getFacesNum();
 	for (int i = 0; i < faceNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -216,20 +248,20 @@ void get_bnd_face_2_node_(Label* face2Node)
 }
 
 
-void get_inn_face_2_ele_pos_(Label* pos)
+void get_inn_face_2_ele_pos_(label* pos)
 {
-	Label* tmp = REGION.getMesh().getTopology().getFace2Cell().startIdx;
-	Label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
+	label* tmp = REGION.getMesh().getTopology().getFace2Cell().startIdx;
+	label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
 	for (int i = 0; i < faceNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_inn_face_2_ele_(Label* face2Ele)
+void get_inn_face_2_ele_(label* face2Ele)
 {
-	Label* tmpData = REGION.getMesh().getTopology().getFace2Cell().data;
-	Label* tmp = REGION.getMesh().getTopology().getFace2Cell().startIdx;
-	Label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
+	label* tmpData = REGION.getMesh().getTopology().getFace2Cell().data;
+	label* tmp = REGION.getMesh().getTopology().getFace2Cell().startIdx;
+	label faceNum = REGION.getMesh().getTopology().getInnFacesNum();
 	for (int i = 0; i < faceNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -240,20 +272,20 @@ void get_inn_face_2_ele_(Label* face2Ele)
 }
 
 
-void get_bnd_face_2_ele_pos_(Label* pos)
+void get_bnd_face_2_ele_pos_(label* pos)
 {
-	Label* tmp = REGION.getBoundary().getTopology().getFace2Cell().startIdx;
-	Label faceNum = REGION.getBoundary().getTopology().getFacesNum();
+	label* tmp = REGION.getBoundary().getTopology().getFace2Cell().startIdx;
+	label faceNum = REGION.getBoundary().getTopology().getFacesNum();
 	for (int i = 0; i < faceNum+1; ++i)
 	{
 		pos[i] = tmp[i]+1;
 	}
 }
-void get_bnd_face_2_ele_(Label* face2Ele)
+void get_bnd_face_2_ele_(label* face2Ele)
 {
-	Label* tmpData = REGION.getBoundary().getTopology().getFace2Cell().data;
-	Label* tmp = REGION.getBoundary().getTopology().getFace2Cell().startIdx;
-	Label faceNum = REGION.getBoundary().getTopology().getFacesNum();
+	label* tmpData = REGION.getBoundary().getTopology().getFace2Cell().data;
+	label* tmp = REGION.getBoundary().getTopology().getFace2Cell().startIdx;
+	label faceNum = REGION.getBoundary().getTopology().getFacesNum();
 	for (int i = 0; i < faceNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)
@@ -264,20 +296,20 @@ void get_bnd_face_2_ele_(Label* face2Ele)
 }
 
 /******************************************************************************/
-void get_ele_type_(Label* eleType)
+void get_ele_type_(label* eleType)
 {
-	Array<Label> tmp = REGION.getMesh().getTopology().getCellType();
+	Array<label> tmp = REGION.getMesh().getTopology().getCellType();
 	for (int i = 0; i < tmp.size(); ++i)
 	{
 		eleType[i] = tmp[i];
 	}
 }
 
-void get_coords_(Scalar* coords)
+void get_coords_(scalar* coords)
 {
-	Scalar* tmpData = REGION.getMesh().getOwnNodes().getXYZ().data;
-	Label* tmp     = REGION.getMesh().getOwnNodes().getXYZ().startIdx;
-	Label nodeNum = REGION.getMesh().getOwnNodes().size();
+	scalar* tmpData = REGION.getMesh().getOwnNodes().getXYZ().data;
+	label* tmp     = REGION.getMesh().getOwnNodes().getXYZ().startIdx;
+	label nodeNum = REGION.getMesh().getOwnNodes().size();
 	for (int i = 0; i < nodeNum; ++i)
 	{
 		for (int j = tmp[i]; j < tmp[i+1]; ++j)

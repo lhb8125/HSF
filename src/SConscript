@@ -18,7 +18,8 @@ env_local.SConscript('parameter/SConscript', duplicate = 0, exports = 'env')
 env_local.SConscript('utilities/SConscript', duplicate = 0, exports = 'env')
 env_local.SConscript('interfaces/SConscript', duplicate = 0, exports = 'env')
 env_local.SConscript('patch/SConscript', duplicate = 0, exports = 'env')
-#env_local.SConscript('Field/SConscript', duplicate = 0, exports = 'env')
+env_local.SConscript('vector/SConscript', duplicate = 0, exports = 'env')
+env_local.SConscript('iterator/SConscript', duplicate = 0, exports = 'env')
 
 #if gl.platform == 'sw':
 #	# build a static library

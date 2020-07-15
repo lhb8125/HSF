@@ -4,7 +4,7 @@
 * @brief: 
 * @date:   2019-11-28 10:39:09
 * @last Modified by:   lenovo
-* @last Modified time: 2019-11-28 16:13:43
+* @last Modified time: 2019-12-13 17:06:43
 */
 #ifndef GEOMETRY_HPP
 #define GEOMETRY_HPP
@@ -29,6 +29,9 @@ scalar calculateFaceArea(const Array<scalar>& x, const Array<scalar>& y,
 void calculateQUADNormVec(const Array<scalar>& x, const Array<scalar>& y,
 	const Array<scalar>& z, scalar* normVec);
 
+void calculateTRINormVec(const Array<scalar>& x, const Array<scalar>& y,
+	const Array<scalar>& z, scalar* normVec);
+
 void calculateFaceNormVec(const Array<scalar>& x, const Array<scalar>& y,
 	const Array<scalar>& z, label nnodes, scalar* normVec);
 
@@ -41,6 +44,9 @@ scalar calculateCellVol(const Array<scalar>& x, const Array<scalar>& y,
 	const Array<scalar>& z, label nnodes);
 
 scalar calculateHEXAVol(const Array<scalar>& x, const Array<scalar>& y,
+	const Array<scalar>& z);
+
+scalar calculateTETRAVol(const Array<scalar>& x, const Array<scalar>& y,
 	const Array<scalar>& z);
 
 // cell center coordinate

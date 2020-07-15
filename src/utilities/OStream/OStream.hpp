@@ -24,7 +24,9 @@
  */
 
 #include <stdint.h>
-#include "usingCpp.hpp"
+#include "utilityUsingCpp.hpp"
+
+using namespace UTILITY;
 
 #ifndef HSF_OSTREAM_HPP
 #define HSF_OSTREAM_HPP
