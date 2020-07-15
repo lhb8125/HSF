@@ -66,16 +66,18 @@ extern "C"
     ptr = NULL; \
 }
 
-// #define SOL_DIM 3
-
-#define CHAR_DIM 200
-
+/**
+* define for-all macro to replace the for-loop code
+*/
 #define forAll(i, length) for (label i = 0; i < length; ++i)
 
 //--------------------------------------------------------------
 // algorithm macros
 //--------------------------------------------------------------
 
+/**
+* define the maximum value and minimum value between two variables
+*/
 #define MAX(a, b) ( ( (a) > (b) ) ? (a) : (b) )
 #define MIN(a, b) ( ( (a) < (b) ) ? (a) : (b) )
 
@@ -84,6 +86,9 @@ extern "C"
 // Hash conversion
 //--------------------------------------------------------------
 
+/**
+* define the hash type
+*/
 typedef uint64_t Hash;
 typedef uint32_t Hash32;
 
@@ -166,19 +171,19 @@ int access(const char* _Filename, int _AccessMode);
  * in file "sys/types.h"
  * #define  S_IRWXU 0000700, RWX mask for owner
  */
-int mkdir(const char* _path, mode_t mode);
+// int mkdir(const char* _path, mode_t mode);
 
 /*
  * Delete directory
  * in file "dirent.h"
  */
-int rmdir(const char *_Path);
+// int rmdir(const char *_Path);
 
 /*
  * Rename directory
  * in file "stdlib.h"
  */
-int rename ( const char * oldname, const char * newname ) __THROW;
+// int rename ( const char * oldname, const char * newname ) __THROW;
 
 /**
  * @brief Remove a directory recursively
@@ -203,19 +208,25 @@ int remakeDir(const char* path);
 namespace UTILITY
 {
 
-  // convert string to Hash (int64_t)
+  /**
+  * @brief convert string to Hash (int64_t)
+  */
   inline Hash strToHash(const string& str)
   {
     return str2Hash(str.c_str() );
   }
   
-  // convert string to Hash32 (int32_t)
+  /**
+  * @brief convert string to Hash32 (int32_t)
+  */
   inline Hash32 strToHash32(const string& str)
   {
     return str2Hash32(str.c_str() );
   }
   
-  // remake an directory and move the older one to xx.old
+  /**
+  * @brief remake an directory and move the older one to xx.old
+  */
   inline int remakeDirectory(const string& name)
   {
     return remakeDir(name.c_str());

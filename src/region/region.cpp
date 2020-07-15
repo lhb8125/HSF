@@ -117,7 +117,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
 
   partitionInfo[0] = 0;
   MPI_Allgather(
-      &cellNum, 1, MPI_LABEL, &partitionInfo[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+      &cellNum, 1, COMM_LABEL, &partitionInfo[1], 1, COMM_LABEL, MPI_COMM_WORLD);
 
   for (int i = 0; i < nProcs; ++i)
   {

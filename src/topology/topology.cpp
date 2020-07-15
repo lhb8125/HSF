@@ -61,7 +61,7 @@ void Topology::constructTopology()
 	label cellNum = cell2Node.size();
 	this->cellNum_ = cell2Node.size();
 	label *cellStartIdTmp = new label[nprocs+1];
-	MPI_Allgather(&cellNum, 1, MPI_LABEL, &cellStartIdTmp[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+	MPI_Allgather(&cellNum, 1, COMM_LABEL, &cellStartIdTmp[1], 1, COMM_LABEL, MPI_COMM_WORLD);
 	cellStartIdTmp[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
 	{

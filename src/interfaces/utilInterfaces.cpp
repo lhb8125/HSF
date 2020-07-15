@@ -132,7 +132,7 @@ void extreme_labels_in_procs_(const char* flag, label* data, label* result,
   // printf("%s\n", flag);
   rdata = new label[num];
   // gather_labels_(data, rdata, count);
-  MPI_Gather(data, *count, MPI_LABEL, rdata, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  MPI_Gather(data, *count, COMM_LABEL, rdata, *count, COMM_LABEL, 0, MPI_COMM_WORLD);
   if(pid==0)
   {
     // printf("%d\n", *count);
@@ -150,7 +150,7 @@ void extreme_labels_in_procs_(const char* flag, label* data, label* result,
     }
   }
   MPI_Barrier(MPI_COMM_WORLD);
-  MPI_Bcast(result, *count, MPI_LABEL, 0, MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, COMM_LABEL, 0, MPI_COMM_WORLD);
   // bcast_labels_(result, count);
   DELETE_POINTER(rdata);
 }
@@ -164,7 +164,7 @@ void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
   scalar *rdata;
   rdata = new scalar[num];
   // gather_labels_(data, rdata, count);
-  MPI_Gather(data, *count, MPI_SCALAR, rdata, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  MPI_Gather(data, *count, COMM_SCALAR, rdata, *count, COMM_SCALAR, 0, MPI_COMM_WORLD);
   if(pid==0)
   {
     // printf("%d\n", *count);
@@ -181,7 +181,7 @@ void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
     }
   }
   MPI_Barrier(MPI_COMM_WORLD);
-  MPI_Bcast(result, *count, MPI_SCALAR, 0, MPI_COMM_WORLD);
+  MPI_Bcast(result, *count, COMM_SCALAR, 0, MPI_COMM_WORLD);
   // bcast_labels_(result, count);
   DELETE_POINTER(rdata);
 }

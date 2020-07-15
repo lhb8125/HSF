@@ -8,6 +8,7 @@
 #ifndef SECTION_H
 #define SECTION_H
 #include "cgnslib.h"
+#include "hsfMacro.h"
 #include "utilities.hpp"
 
 #define Inner 0

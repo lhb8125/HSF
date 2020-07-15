@@ -79,6 +79,8 @@ class CommunicationManager;
 #define COMM_LONG_LONG   MPI_LONG_LONG
 #define COMM_FLOAT   MPI_FLOAT
 #define COMM_DOUBLE   MPI_DOUBLE
+#define COMM_SCALAR   MPI_DOUBLE
+#define COMM_LABEL   MPI_LONG
 #define COMM_LONG_DOUBLE   MPI_LONG_DOUBLE
 #define COMM_BYTE   MPI_BYTE
 #define COMM_WCHAR   MPI_WCHAR

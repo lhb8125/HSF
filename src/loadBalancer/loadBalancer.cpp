@@ -267,7 +267,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 
 		cellStartId_ = new label[nprocs+1];
 		// printf("rank: %d, %d\n", rank, cellNum);
-		MPI_Allgather(&cellNum, 1, MPI_LABEL, &cellStartId_[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+		MPI_Allgather(&cellNum, 1, COMM_LABEL, &cellStartId_[1], 1, COMM_LABEL, MPI_COMM_WORLD);
 		cellStartId_[0] = 0;
 		for (int i = 1; i <= nprocs; ++i)
 		{
@@ -632,7 +632,7 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 	}
 	label* startIdx_mpi = new label[bndFacesSum+nprocs];
 #if 1
-	MPI_Allgatherv(bndFaceList.startIdx, bndFaces+1, MPI_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, MPI_LABEL, MPI_COMM_WORLD);
+	MPI_Allgatherv(bndFaceList.startIdx, bndFaces+1, COMM_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, MPI_COMM_WORLD);
 	int bndNodesSum = 0;
 	int countData_r[nprocs], dispData_r[nprocs];
 	for (int i = 0; i < nprocs; ++i)
@@ -644,7 +644,7 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 	}
 	label* data_mpi = new label[bndNodesSum];
 	MPI_Allgatherv(bndFaceList.data, bndFaceList.startIdx[bndFaces],
-		MPI_LABEL, data_mpi, countData_r, dispData_r, MPI_LABEL, MPI_COMM_WORLD);
+		COMM_LABEL, data_mpi, countData_r, dispData_r, COMM_LABEL, MPI_COMM_WORLD);
 	label* neighborCellIdx_mpi = new label[bndFacesSum+nprocs];
 #endif
 	for (int i = 0; i < bndFacesSum+nprocs; ++i) { neighborCellIdx_mpi[i] = -1; }
@@ -685,8 +685,8 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 		countCellIdx_r[i] = bndFaces+1;
 		dispCellIdx_r[i] = i*(bndFaces+1);
 	}
-	MPI_Alltoallv(neighborCellIdx_mpi, countIdx_r, dispIdx_r, MPI_LABEL, 
-		neighborCellIdx_local, countCellIdx_r, dispCellIdx_r, MPI_LABEL,
+	MPI_Alltoallv(neighborCellIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, 
+		neighborCellIdx_local, countCellIdx_r, dispCellIdx_r, COMM_LABEL,
 		MPI_COMM_WORLD);
 	Array<label> face2CellNew;
 	// if(rank==1)
@@ -802,7 +802,7 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	}
 
 	label* recvCount = new label[nprocs+1];
-	MPI_Alltoall(sendCount, 1, MPI_LABEL, &recvCount[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+	MPI_Alltoall(sendCount, 1, COMM_LABEL, &recvCount[1], 1, COMM_LABEL, MPI_COMM_WORLD);
 	label recvSum = 0;
 	recvCount[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
@@ -818,7 +818,7 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	{
 		if(rank==i) continue;
 		MPI_Isend(sendBuff[i].startIdx, sendCount[i]+1,
-			MPI_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 
 	// Array<ArrayArray<label> > recvBuff(nprocs);
@@ -836,7 +836,7 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 		}
 		MPI_Irecv(&recvBuff.startIdx[recvCount[i]+i],
 			recvCount[i+1]-recvCount[i]+1,
-			MPI_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 	MPI_Waitall(iRequest, request, status);
 	label* recvDataCount = new label[nprocs];
@@ -873,7 +873,7 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	{
 		if (rank==i) continue;
 		MPI_Isend(sendBuff[i].data, sendBuff[i].startIdx[sendBuff[i].size()],
-			MPI_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 	for (int i = 0; i < nprocs; ++i)
 	{
@@ -884,7 +884,7 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 			continue;
 		}
 		MPI_Irecv(&cell2NodeNew.data[recvDataDisp[i]], recvDataCount[i],
-			MPI_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 	MPI_Waitall(iRequest, request, status);
 
@@ -940,7 +940,7 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 	}
 
 	label* recvCount = new label[nprocs+1];
-	MPI_Alltoall(sendCount, 1, MPI_LABEL, &recvCount[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+	MPI_Alltoall(sendCount, 1, COMM_LABEL, &recvCount[1], 1, COMM_LABEL, MPI_COMM_WORLD);
 	label recvSum = 0;
 	recvCount[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
@@ -957,7 +957,7 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 	{
 		if(rank==i) continue;
 		MPI_Isend(sendBuffTmp[i], sendCount[i],
-			MPI_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 
 	// Array<ArrayArray<label> > recvBuff(nprocs);
@@ -973,7 +973,7 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 		}
 		MPI_Irecv(&recvBuff[recvCount[i]],
 			recvCount[i+1]-recvCount[i],
-			MPI_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
 	}
 	MPI_Waitall(iRequest, request, status);
 

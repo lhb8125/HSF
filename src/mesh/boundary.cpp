@@ -180,8 +180,8 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
             allFaceBlockStartIdx[i*nprocs+1] = eleNumInBlk;
         } else
         {
-            MPI_Allgather(&eleNumInBlk, 1, MPI_LABEL,
-                &allFaceBlockStartIdx[i*nprocs+1], 1, MPI_LABEL,
+            MPI_Allgather(&eleNumInBlk, 1, COMM_LABEL,
+                &allFaceBlockStartIdx[i*nprocs+1], 1, COMM_LABEL,
                 MPI_COMM_WORLD);
         }
     }
@@ -234,8 +234,8 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
         }
         par_std_out_("rank %d now have %d elements\n", rank, totBCElems);
         BCElems = new label[totBCElems];
-        MPI_Allgatherv(pointList, nBCElems, MPI_LABEL, BCElems, nBCElems_mpi,
-            disp, MPI_LABEL, MPI_COMM_WORLD);
+        MPI_Allgatherv(pointList, nBCElems, COMM_LABEL, BCElems, nBCElems_mpi,
+            disp, COMM_LABEL, MPI_COMM_WORLD);
 
         // if(pointListArr.size()==0) {continue;}
         this->BCSecs_[iBC].nBCElems = (cgsize_t)totBCElems;
@@ -272,7 +272,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
 
     label BCSecStart;
     if(rank==0) BCSecStart = this->getSections()[0].iStart;
-    MPI_Bcast(&BCSecStart, 1, MPI_LABEL, 0, MPI_COMM_WORLD);
+    MPI_Bcast(&BCSecStart, 1, COMM_LABEL, 0, MPI_COMM_WORLD);
 
 
     ArrayArray<label> cell2Node = innerTopo.getCell2Node();
@@ -422,7 +422,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     }
     label* startIdx_mpi = new label[bndFacesSum+nprocs];
 #if 1
-    MPI_Allgatherv(face2NodeNeiTmp.startIdx, bndFaces+1, MPI_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, MPI_LABEL, MPI_COMM_WORLD);
+    MPI_Allgatherv(face2NodeNeiTmp.startIdx, bndFaces+1, COMM_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, MPI_COMM_WORLD);
     int bndNodesSum = 0;
     int countData_r[nprocs], dispData_r[nprocs];
     for (int i = 0; i < nprocs; ++i)
@@ -434,7 +434,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     }
     label* data_mpi = new label[bndNodesSum];
     MPI_Allgatherv(face2NodeNeiTmp.data, face2NodeNeiTmp.startIdx[bndFaces],
-        MPI_LABEL, data_mpi, countData_r, dispData_r, MPI_LABEL, MPI_COMM_WORLD);
+        COMM_LABEL, data_mpi, countData_r, dispData_r, COMM_LABEL, MPI_COMM_WORLD);
     label* neighborCellIdx_mpi = new label[bndFacesSum+nprocs];
 #endif
     for (int i = 0; i < bndFacesSum+nprocs; ++i) { neighborCellIdx_mpi[i] = -1; }
@@ -565,7 +565,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             buffer[i] = FaceTypeWithType[i];
         }
     }
-    MPI_Bcast(buffer, maxBlockNum, MPI_LABEL, irank, MPI_COMM_WORLD);
+    MPI_Bcast(buffer, maxBlockNum, COMM_LABEL, irank, MPI_COMM_WORLD);
 
     // 按照最大进程网格单元排布重排本进程block
     Array<Array<label> > face2NodeBlk;
@@ -625,7 +625,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     // label* cellNum_mpi = new label[nprocs];
     // label cellNum_local = face2NodeOwn.size();
     // par_std_out_("rank: %d, cellNum: %d\n", rank, cellNum_local);
-    // MPI_Allgather(&cellNum_local, 1, MPI_INT, cellNum_mpi, 1, MPI_LABEL, MPI_COMM_WORLD);
+    // MPI_Allgather(&cellNum_local, 1, MPI_INT, cellNum_mpi, 1, COMM_LABEL, MPI_COMM_WORLD);
     // for (int i = 0; i < nprocs-1; ++i)
     // {
     //     if(rank==0) par_std_out_("%d\n", cellNum_mpi[i]);
@@ -686,8 +686,8 @@ void Boundary::writeMesh(const Word filePtr)
         label num = faceBlockStartIdx[iBlk+1]-faceBlockStartIdx[iBlk];
         par_std_out_("%d\n", iBlk);
         ElementType_t eleType = (ElementType_t)faceType[iBlk];
-        MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1,
-            MPI_LABEL, MPI_COMM_WORLD);
+        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1,
+            COMM_LABEL, MPI_COMM_WORLD);
         par_std_out_("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {

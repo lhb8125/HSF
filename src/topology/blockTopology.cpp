@@ -124,7 +124,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 			buffer[i] = this->faceType_[i];
 		}
 	}
-	MPI_Bcast(buffer, maxBlockNum, MPI_LABEL, irank, MPI_COMM_WORLD);
+	MPI_Bcast(buffer, maxBlockNum, COMM_LABEL, irank, MPI_COMM_WORLD);
 
 	// 按照最大进程网格单元排布重排本进程block
 	Array<label> newFaceType, newFaceNumInBlk;
@@ -266,7 +266,7 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 			buffer[i] = this->cellType_[i];
 		}
 	}
-	MPI_Bcast(buffer, maxBlockNum, MPI_LABEL, irank, MPI_COMM_WORLD);
+	MPI_Bcast(buffer, maxBlockNum, COMM_LABEL, irank, MPI_COMM_WORLD);
 
 	// 按照最大进程网格单元排布重排本进程block
 	Array<label> newCellType, newCellNumInBlk;

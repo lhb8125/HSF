@@ -406,7 +406,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
         par_std_out_("%d\n", iSec);
-        MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
         par_std_out_("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
@@ -828,7 +828,7 @@ void Mesh::fetchNodes(Word filename)
     for (int iZone = 0; iZone < nZones; ++iZone)
     {
         label nodeNum = this->nodeNumLocal_[iZone];
-        MPI_Allgather(&nodeNum, 1, MPI_LABEL, &nodeStartId[tmpIdx], 1, MPI_LABEL, MPI_COMM_WORLD);
+        MPI_Allgather(&nodeNum, 1, COMM_LABEL, &nodeStartId[tmpIdx], 1, COMM_LABEL, MPI_COMM_WORLD);
         tmpIdx += nprocs;
     }
     // 递增方式对node数量进行编号

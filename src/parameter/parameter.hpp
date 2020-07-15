@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include "cstdlib"
 #include "utilities.hpp"
+#include "hsfMacro.h"
 
 #define Gauss 1
 #define linear 2

@@ -283,7 +283,7 @@ void Region::writeField(const char* resFile,
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
         // par_std_out_("%d\n", iSec);
-        MPI_Allgather(&num, 1, MPI_LABEL, &cellStartId[1], 1, MPI_LABEL, MPI_COMM_WORLD);
+        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
         // par_std_out_("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
