@@ -152,24 +152,37 @@ Field<T>& MeshInfo::getField(const Word fieldType, const Word fieldName)
     {
         fieldTabPtr = scalarFieldTabPtr_;
     }
-
-    if(fieldTabPtr)
+    else
     {
-        Table<Word, Table<Word, Field<T>*>*>* ft = static_cast<Table<Word, Table<Word, Field<T>*>*>*>(fieldTabPtr);
+        cout << "No this type field yet!" << endl;
+        ERROR_EXIT;
+    }
 
-        it1 = (*ft).find(fieldType);
-        it2 = (*ft).end();
+    Table<Word, Table<Word, Field<T>*>*>* ft = static_cast<Table<Word, Table<Word, Field<T>*>*>*>(fieldTabPtr);
 
-        if(it1 != it2)
+    it1 = (*ft).find(fieldType);
+    it2 = (*ft).end();
+
+    if(it1 == it2)
+    {
+        cout << "There is no this type in field table: " << fieldType << endl;
+        ERROR_EXIT;
+    }
+    else
+    {
+        Table<Word, Field<T>*>& fields = *(it1->second);
+
+        typename Table<Word, Field<T>*>::iterator it3 = fields.find(fieldName);
+
+        if(it3 == fields.end())
         {
-            Table<Word, Field<T>*>& fields = *(it1->second);
-
-            typename Table<Word, Field<T>*>::iterator it3 = fields.find(fieldName);
-
-            if(it3 != fields.end())
-            {
-                fields.erase(fieldName);
-            }
+            cout << "There is no this type in field table: " << fieldName << endl;
+            ERROR_EXIT;
+        }
+        else
+        {
+            Field<T>& fieldI = *(fields[fieldName]);
+            return fieldI;
         }
     }
 }

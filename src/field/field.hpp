@@ -109,7 +109,10 @@ public:
    * @brief      Gets the data.
    * @return     The local data.
    */
-  inline T *getLocalData() { return data_; }
+  inline T *getLocalData() {
+    // printf("pointer: %p\n", data_);
+      return data_; 
+  }
 
   /**
    * @brief      Gets the neighbor processor data.
