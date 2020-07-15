@@ -211,7 +211,6 @@ public:
 
   /**
    * @brief operator<<, interface accept OsOp type parameters 
-   * @param[in] opt, represent parameter like "ENDL" and "FLUSH".
    * @return 
    */
   virtual OStream & operator<<(OsOp opt)

@@ -262,7 +262,7 @@ int partition(Array<Array<T> >& arr, int l , int r)
 
 /**
 * @brief quick sort algorithm for Array<Array<T>>
-* @param[in][out] arr unsorted array
+* @param[in,out] arr unsorted array
 * @param[in] l the lower bound
 * @param[in] r the upper bound
 */
@@ -280,7 +280,7 @@ void quicksortArray(Array<Array<T> >& arr, int l, int r)
 /**
 * @brief eliminate the duplicate elements
 *        and pick the unique ones and divide them into two parts
-* @param[in][out] original array
+* @param[in,out] arr original array
 * @return label[0]: size of the unique one
 *         label[1]: size of the duplicate one
 */
@@ -484,7 +484,7 @@ label findSortedArray(Array<Array<T> >& arr, Array<T>& value, label l, label r)
 /**
  * @brief sort, Sort an single array that contains data can be compared
  * @tparam D data type that can be compared with "<"
- * @param[inout] data the data array
+ * @param[in,out] data the data array
  * @return 
  */
 template<class D>
@@ -515,7 +515,7 @@ int sort(Array<D>& data )
  * corresponding weights.
  * @tparam D data type
  * @tparam W weight type that can be compared with "<"
- * @param[inout] data the data array
+ * @param[in,out] data the data array
  * @param[in] weights the weight array
  * @return 
  */
@@ -578,6 +578,7 @@ typedef int ComparePtr(const void* , const void* );
  * @tparam W the data type that can be compared with "<"
  * @param[in] data data array sorted in ascending order
  * @param[in] value the target value to search for
+ * @param[in] comp the rule of bi-search
  * @return the position target value located; return data.size() if not found.
  */
 template<class W>
