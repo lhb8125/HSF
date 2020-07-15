@@ -39,7 +39,9 @@
 namespace UTILITY
 {
 
-// IO stream
+/**
+* IO stream
+*/
 using std::cerr;
 using std::cout;
 using std::endl;
@@ -49,7 +51,9 @@ using std::ostream;
 using std::streambuf;
 using std::stringstream;
 
-// std container
+/**
+* std container
+*/
 using std::vector;
 using std::pair;
 using std::map;
@@ -57,11 +61,15 @@ using std::set;
 using std::multimap;
 using std::multiset;
 
-// std string
+/**
+* std string
+*/
 using std::string;
-// using this to replace std::to_string that add extra ZEROs 
-// in float number conversion ( noticed in icc 2018 );
-// ZEROs before effective figure will be neglected
+/**
+* @brief using this to replace std::to_string that add extra ZEROs 
+         in float number conversion ( noticed in icc 2018 );
+         ZEROs before effective figure will be neglected
+*/
 template<class U> 
 inline string to_string( const U data )
 {
@@ -73,7 +81,9 @@ inline string to_string( const U data )
   return sstrm.str();
 }
 
-// specilization for float 
+/**
+* @brief specilization for float 
+*/
 template<> 
 inline string to_string< float > ( const float data )
 {
@@ -85,6 +95,9 @@ inline string to_string< float > ( const float data )
   return sstrm.str();
 }
 
+/**
+* transform string to other variable types
+*/
 #if __cplusplus < 201103L
 
 // To preserve presicion, atof is actually returning double

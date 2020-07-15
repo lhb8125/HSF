@@ -35,6 +35,8 @@
 #include <tr1/unordered_set>
 #endif
 
+#include <typeinfo>
+
 #include "utilityType.h"
 #include "utilityUsingCpp.hpp"
 #include "utilityBasicFunction.h"
@@ -42,7 +44,9 @@
 
 namespace UTILITY
 {
-// wrap container to HSF
+/**
+* wrap some containers to UTILITY
+*/
 #define Word string
 #define Array vector
 #define List set
@@ -51,7 +55,9 @@ namespace UTILITY
 #define MultiTable multimap
 #define HASHMAP unordered_map
 
-// conversion for Word
+/**
+* conversion from string to Word
+*/
 #define toWord to_string
 #define w2f stof
 #define w2d stod
@@ -87,7 +93,11 @@ public:
   int DecRefCount() {return --count_;}
 };
 
-template <class T>
+/**
+* @brief basic struct of AoS data struct
+* @tparam T label or scalar
+*/
+template <typename T>
 class BasicElement
 {
 public:
@@ -110,7 +120,11 @@ public:
 
 template<class T> bool compareArray(const Array<T>& a, const Array<T>& b);
 
-template <class T>
+/**
+* @brief AoS data struct
+* @tparam T label or scalar
+*/
+template <typename T>
 class ArrayArray : public RefCounted
 {
 public:
@@ -531,6 +545,11 @@ int sort(Array<D>& data, const Array<W>& weights = Array<W>(0) )
   }
 }
 
+/**
+* @brief compare the two value
+* @tparam W
+* @return 1: a<b; -1: a>b; 0:a=b;
+*/
 template<class W>
 int ascend(const void* a, const void* b)
 {
@@ -539,6 +558,12 @@ int ascend(const void* a, const void* b)
   else if( * (W*) b < * (W*) a ) return 1;
   else return 0;
 }
+
+/**
+* @brief compare the two value
+* @tparam W
+* @return 1: a>b; -1: a<b; 0:a=b;
+*/
 template<class W>
 int descend(const void* a, const void* b)
 {

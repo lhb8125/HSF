@@ -56,14 +56,25 @@ extern "C" {
     exit(-1); \
 }
 
+/**
+* please use this macro,
+* if user need to print some warning message
+* under some condition
+*/
 #define WARNING(location, content) \
 { \
     printf("Location: \33[%s], warning message: \33[%s], file: \33[%s], line: \33[%d]\n", \
         location, content, __FILE__, __LINE__); \
 }
 
+/**
+* assert some expression is true
+*/
 #define ASSERT( expr ) \
-if( ! (expr) ) \
+{ \
+    if( ! (expr) ) \
+        exit(-1); \
+}
 
 
 #define ABORT() \
