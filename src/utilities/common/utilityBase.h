@@ -34,15 +34,32 @@ THE SOFTWARE.
 #ifndef UTILITY_UTILITYBASE_HPP
 #define UTILITY_UTILITYBASE_HPP
 
-
+/**
+* define long integer type
+*/
 typedef long int  label64;
+/**
+* define integer type
+*/
 typedef int       label32;
+/**
+* define short integer type
+*/
 typedef short int label16;
 
+/**
+* define short float type
+*/
 typedef float scalar32;
+/**
+* define long float type
+*/
 typedef double scalar64;
 
 // 默认使用长整型
+/**
+* define integer type according to compiling macro
+*/
 #if defined(LABEL_INT32)
     typedef int label;
 #else
