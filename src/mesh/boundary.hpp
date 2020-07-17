@@ -10,7 +10,7 @@
 #define BOUNDARY_HPP
 
 #include "utilInterfaces.h"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "mesh.hpp"
 
 
@@ -81,7 +81,7 @@ public:
 	void writeBC(const Word filePtr)
 	{
 		writeBoundaryCondition(filePtr);
-		par_std_out_("writeBC\n");
+		par_std_out("writeBC\n");
 	}
 };
 

@@ -1,16 +1,17 @@
 !-------------------------------------------------------------------------------
 !   module defines precisions of logical, integer and real.
 !-------------------------------------------------------------------------------
-module var_kind_def
-    implicit none
+! module var_kind_def
+!     implicit none
 
-    integer(kind=4),parameter:: dpL =  kind(.true.)
-    integer(kind=4),parameter:: dpI =  8
-    integer(kind=4),parameter:: dpR =  8
-end module var_kind_def
+!     integer(kind=4),parameter:: dpL =  kind(.true.)
+!     integer(kind=4),parameter:: dpI =  8
+!     integer(kind=4),parameter:: dpR =  8
+! end module var_kind_def
 
 module var_global
-    use var_kind_def
+    ! use var_kind_def
+    use utility
     implicit none
     integer, parameter:: strlen = 100
     integer, parameter:: dim = 3
@@ -21,7 +22,7 @@ module var_global
 end module var_global
 
 module var_c_string
-    use var_kind_def
+    ! use var_kind_def
     use iso_c_binding
     implicit none
     ! integer, parameter:: str_num = 10
@@ -30,7 +31,7 @@ module var_c_string
 end module
 
 program main
-    use var_kind_def
+    ! use var_kind_def
     use var_global
     use utility
     use var_c_string
@@ -85,13 +86,13 @@ program main
     ! procedure(func),pointer:: f_ptr => null()
 
     ! 初始化
-    call init_utility_fort()
+    call init_utility()
     call init(trim(config_file))
 
     ! 获取网格文件名
     nPara = 4
     call get_string_para(mesh_file, str_len, nPara, &
-        & "domain1"//C_NULL_CHAR, &
+        & "domain"//C_NULL_CHAR, &
         & "region"//C_NULL_CHAR, &
         & "0"//C_NULL_CHAR, &
         & "path"//C_NULL_CHAR)
@@ -136,6 +137,7 @@ program main
     do iele=1,n_ele
         pid(iele) = my_id
     end do
+    call par_std_out("%d\n",my_id)
     ! 注册进程号场
     n_dim = 1
     call add_scalar_field("cell"//C_NULL_CHAR, "pid"//C_NULL_CHAR, pid, n_dim)
@@ -245,7 +247,7 @@ program main
     ! 获取结果网格文件名
     nPara = 4
     call get_string_para(result_file, str_len, nPara, &
-        & "domain1"//C_NULL_CHAR, &
+        & "domain"//C_NULL_CHAR, &
         & "region"//C_NULL_CHAR, &
         & "0"//C_NULL_CHAR, &
         & "resPath"//C_NULL_CHAR)
@@ -326,7 +328,8 @@ program main
 end program main
 
 subroutine calc_eles_vol(n_blk, eblkt, eblkS, e2n, coord, vol)
-    use var_kind_def
+    ! use var_kind_def
+    use utility
     use var_global
     implicit none
     integer(dpI), intent(IN) :: n_blk
@@ -360,7 +363,8 @@ subroutine calc_eles_vol(n_blk, eblkt, eblkS, e2n, coord, vol)
 end subroutine calc_eles_vol
 
 subroutine calc_vol(nodes_coord, ele_type, vol)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     integer(dpI),intent(IN):: ele_type
@@ -382,7 +386,8 @@ subroutine calc_vol(nodes_coord, ele_type, vol)
 end subroutine calc_vol
 
 subroutine calc_faces_area(n_blk, fblkt, fblkS, f2n, coord, area)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     integer(dpI), intent(IN) :: n_blk
@@ -416,7 +421,8 @@ subroutine calc_faces_area(n_blk, fblkt, fblkS, f2n, coord, area)
 end subroutine calc_faces_area
 
 subroutine calc_HEXA_vol(coord, vol)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     real(dpR), intent(IN):: coord(*)
@@ -453,7 +459,8 @@ subroutine calc_HEXA_vol(coord, vol)
 end subroutine calc_HEXA_vol
 
 subroutine calc_TETRA_vol(coord, vol)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     real(dpR), intent(IN):: coord(*)
@@ -484,7 +491,8 @@ subroutine calc_TETRA_vol(coord, vol)
 end subroutine calc_TETRA_vol
 
 subroutine calc_PYRA_vol(coord, vol)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     real(dpR), intent(IN):: coord(*)
@@ -521,7 +529,8 @@ subroutine calc_PYRA_vol(coord, vol)
 end subroutine calc_PYRA_vol
 
 subroutine calc_QUAD_area(coord, area)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     real(dpR), intent(IN):: coord(*)
@@ -550,7 +559,8 @@ subroutine calc_QUAD_area(coord, area)
 end subroutine calc_QUAD_area
 
 subroutine calc_TRI_area(coord, area)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     real(dpR), intent(IN):: coord(*)
@@ -577,7 +587,8 @@ subroutine calc_TRI_area(coord, area)
 end subroutine calc_TRI_area
 
 subroutine calc_spmv(index_start, index_end, f2c, A, x, b)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     integer(dpI), intent(IN):: f2c(*)
@@ -596,7 +607,8 @@ subroutine calc_spmv(index_start, index_end, f2c, A, x, b)
 end subroutine calc_spmv
 
 subroutine calc_spmv_gu(index_start, index_end, f2c, A, x, b, ndim)
-  use var_kind_def
+    use utility
+  ! use var_kind_def
   use var_global
   use iso_c_binding
   implicit none
@@ -620,7 +632,8 @@ subroutine calc_spmv_gu(index_start, index_end, f2c, A, x, b, ndim)
 end subroutine calc_spmv_gu
 
 subroutine calc_spmv_gu_bnd(index_start, index_end, f2c, b)
-  use var_kind_def
+    use utility
+  ! use var_kind_def
   use var_global
   use iso_c_binding
   implicit none
@@ -639,7 +652,8 @@ subroutine calc_spmv_gu_bnd(index_start, index_end, f2c, b)
 end subroutine calc_spmv_gu_bnd
 
 function nodes_num_for_ele(ele_type)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     integer(dpI),intent(IN):: ele_type
@@ -663,7 +677,8 @@ function nodes_num_for_ele(ele_type)
 end function nodes_num_for_ele
 
 function faces_num_for_ele(ele_type)
-    use var_kind_def
+    use utility
+    ! use var_kind_def
     use var_global
     implicit none
     integer(dpI),intent(IN):: ele_type

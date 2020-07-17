@@ -229,8 +229,9 @@ public:
 #define POUT COMM::pOut()
 
 // macro for error output to file linked with the failed process and stdout, 
+#define PERR COMM::pErr()
 // eg. "PERR<<" 
-#define PERR COMM::pErr()<<"!Proc["<<COMM::getGlobalId()<<"] Error: "<<"\n\t"\
+// #define PERR COMM::pErr()<<"!Proc["<<COMM::getGlobalId()<<"] Error: "<<"\n\t"\
 <<"at "<<__FILE__<<" +"<<__LINE__<<" in function \""<<__FUNCTION__<<"\": "\
 <<"\n\t"
 

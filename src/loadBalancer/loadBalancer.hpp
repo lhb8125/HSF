@@ -12,7 +12,7 @@
 #include <math.h>
 #include <assert.h>
 #include <limits.h>
-#include "utilities.hpp"
+#include "utilities.h"
 #include "region.hpp"
 
 namespace HSF

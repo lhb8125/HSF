@@ -222,7 +222,7 @@ void Region::writeField(const char* resFile,
     T* dataPtr = fieldI.getLocalData();
     label ndim = fieldI.getDim();
     label nCells = fieldI.getSize();
-    par_std_out_("resFile: %s, fieldName: %s, fieldType: %s, dim: %d, num: %d\n", resFile, fieldName, fieldType, ndim, nCells);
+    par_std_out("resFile: %s, fieldName: %s, fieldType: %s, dim: %d, num: %d\n", resFile, fieldName, fieldType, ndim, nCells);
 
     DataType_t dataType;
     if(typeid(T) == typeid(label))
@@ -282,9 +282,9 @@ void Region::writeField(const char* resFile,
     for (int iSec = 0; iSec < cellBlockStartIdx.size()-1; ++iSec)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
-        // par_std_out_("%d\n", iSec);
+        // par_std_out("%d\n", iSec);
         MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
-        // par_std_out_("%d\n", num);
+        // par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
@@ -300,7 +300,7 @@ void Region::writeField(const char* resFile,
                 &end, data))
                 Terminate("writeSolutionData", cg_get_error());
         }
-        // par_std_out_("writeSecConn\n");
+        // par_std_out("writeSecConn\n");
 
         cellStartId[0] = cellStartId[numProcs];
     }

@@ -10,7 +10,7 @@
 #define BLKINTERFACES_HPP
 
 #include "interface.hpp"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "mesh.hpp"
 
 extern "C"

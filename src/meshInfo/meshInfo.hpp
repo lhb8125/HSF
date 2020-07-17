@@ -10,7 +10,7 @@
 #define MESHINFO_HPP
 
 #include <typeinfo>
-#include "utilities.hpp"
+#include "utilities.h"
 #include "field.hpp"
 #include "mesh.hpp"
 

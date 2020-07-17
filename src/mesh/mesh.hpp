@@ -9,7 +9,7 @@
 #ifndef MESH_HPP
 #define MESH_HPP
 
-#include "utilities.hpp"
+#include "utilities.h"
 #include "section.hpp"
 #include "topology.hpp"
 #include "blockTopology.hpp"

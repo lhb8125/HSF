@@ -72,7 +72,7 @@ program main
     ! procedure(func),pointer:: f_ptr => null()
 
     ! 初始化
-    call init_utility_fort()
+    call init_utility()
     call init(trim(config_file))
 
     ! 获取控制参数

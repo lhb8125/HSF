@@ -143,7 +143,7 @@ public:
     basicEle = NULL;
     data = NULL;
     num = 0;
-    // par_std_out_("constructor: %d\n", refCount->GetRefCount());
+    // par_std_out("constructor: %d\n", refCount->GetRefCount());
   };
   /**
   * @brief copy constructor
@@ -156,7 +156,7 @@ public:
     this->refCount = arr.refCount;
     this->basicEle = arr.basicEle;
     refCount->incRefCount();
-    // par_std_out_("copy constructor: %d\n", refCount->GetRefCount());
+    // par_std_out("copy constructor: %d\n", refCount->GetRefCount());
   };
   /**
   * @brief operator overload: =
@@ -178,7 +178,7 @@ public:
   ~ArrayArray()
   {
     // std::cout<<this->GetRefCount()<<std::endl;
-    // par_std_out_("deconstructor: %d\n", refCount->GetRefCount());
+    // par_std_out("deconstructor: %d\n", refCount->GetRefCount());
     if(refCount->DecRefCount()<=0)
     {
       // if(startIdx) delete[] startIdx;

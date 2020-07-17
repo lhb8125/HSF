@@ -9,7 +9,7 @@
 #ifndef TOPOLOGY_HPP
 #define TOPOLOGY_HPP
 #include <string.h>
-#include "utilities.hpp"
+#include "utilities.h"
 #include "section.hpp"
 #include "cgnslib.h"
 

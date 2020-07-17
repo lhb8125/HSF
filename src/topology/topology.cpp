@@ -106,7 +106,7 @@ void Topology::constructTopology()
 		int end = i+1;
 		// 默认两个面不相等
 		bool isEqual = false;
-		// par_std_out_("%d, ", i);
+		// par_std_out("%d, ", i);
 		while(end<faces2NodesTmp.size() && 
 			faces2NodesTmp[i][0] == faces2NodesTmp[end][0])
 		{
@@ -167,9 +167,9 @@ void Topology::constructTopology()
 	}
 
 	this->faceNum_i_ = face2NodeInn.size();
-	// par_std_out_("start setting patch infomation ...\n");
+	// par_std_out("start setting patch infomation ...\n");
 	setPatchInfo(face2NodeInn, face2NodeBnd, face2CellInn, face2CellBnd);
-	// par_std_out_("finish setting patch infomation ...\n");
+	// par_std_out("finish setting patch infomation ...\n");
 
 	// localization of cell index
 	for (int i = 0; i < face2CellInn.size(); ++i)
@@ -350,7 +350,7 @@ void Topology::setPatchInfo(Array<Array<label> >& face2NodeInn,
 		{
 			Array<label> face2CellPatchTmp;
 			face2CellPatchTmp.push_back(face2CellArr[i][0]);
-			// par_std_out_("iface: %d, cell: %d,cell: %d\n", i, face2CellArr[i][0], face2CellNew[i]);
+			// par_std_out("iface: %d, cell: %d,cell: %d\n", i, face2CellArr[i][0], face2CellNew[i]);
 			face2CellPatchTmp.push_back(face2CellNew[i]);
 			face2CellPatch_.push_back(face2CellPatchTmp);
 			face2NodePatch_.push_back(face2NodeBnd[i]);
@@ -658,7 +658,7 @@ void Topology::genEdgeTopo()
 			edge2NodeBnd.push_back(edge2NodeTmp);
 		}
 	}
-	// par_std_out_("inner edge num: %d, boundary edge num: %d\n", edge2NodeInn.size(), edge2CellBnd.size());
+	// par_std_out("inner edge num: %d, boundary edge num: %d\n", edge2NodeInn.size(), edge2CellBnd.size());
 
 	Array<Array<label> > edge2NodeArr;
 	edge2NodeArr.insert(edge2NodeArr.end(), edge2NodeInn.begin(), edge2NodeInn.end());
@@ -735,7 +735,7 @@ label Topology::getSize(const Word setType)
   }
   else
   {
-    par_std_out_("Error: Invalid setType: %s, valid names are \n", setType.c_str());
+    par_std_out("Error: Invalid setType: %s, valid names are \n", setType.c_str());
     ERROR_EXIT;
     return 0;
   }

@@ -1,7 +1,7 @@
 #ifndef INTERFACE_HPP
 #define INTERFACE_HPP
 
-#include "utilities.hpp"
+#include "utilities.h"
 #include "region.hpp"
 #include "parameter.hpp"
 

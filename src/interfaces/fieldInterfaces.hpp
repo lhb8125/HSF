@@ -34,7 +34,7 @@ THE SOFTWARE.
 #ifndef FIELDINTERFACES_HPP
 #define FIELDINTERFACES_HPP
 
-#include "utilities.hpp"
+#include "utilities.h"
 
 namespace HSF
 {

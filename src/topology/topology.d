@@ -3,7 +3,7 @@ src/topology/topology.o: src/topology/topology.cpp \
  /home/export/online1/amd_dev1/software/MPICH/include/mpio.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpicxx.h \
- src/topology/topology.hpp ./src/utilities.hpp ./src/mesh/section.hpp \
+ src/topology/topology.hpp ./src/utilities.h ./src/mesh/section.hpp \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/cgnslib.h \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/cgnstypes.h \
  ./src/loadBalancer/loadBalancer.hpp ./src/region/region.hpp ./src/mesh/mesh.hpp \
@@ -63,7 +63,7 @@ src/topology/topology.hpp:
 
 /usr/include/xlocale.h:
 
-./src/utilities.hpp:
+./src/utilities.h:
 
 /home/export/online1/amd_dev1/software/gcc-5.4.0/objdir/bin/../include/c++/5.4.0/iostream:
 

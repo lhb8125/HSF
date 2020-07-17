@@ -65,7 +65,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 
 	const ArrayArray<label> face2Node = topo.getFace2Node();
 	label n_face_i = topo.getInnFacesNum();
-	par_std_out_("face2Node_ size: %d",face2Node.size());
+	par_std_out("face2Node_ size: %d",face2Node.size());
 	Array<label> faceType;
 	for (int i = 0; i < n_face_i; ++i)
 	{
@@ -79,7 +79,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 	faceNumInBlk.push_back(0);
 
 	// 确定网格类型数目
-	par_std_out_("确定网格类型数目\n");
+	par_std_out("确定网格类型数目\n");
 	for (int i = 0; i < faceType.size(); ++i)
 	{
 		it = find(this->faceType_.begin(), this->faceType_.end(), faceType[i]);
@@ -92,7 +92,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 			this->faceType_.push_back(faceType[i]);
 			faceNumInBlk.push_back(1);
 			ElementType_t type = (ElementType_t)faceType[i];
-			par_std_out_("add cell type: %s\n", Section::typeToWord(type));
+			par_std_out("add cell type: %s\n", Section::typeToWord(type));
 			blockNum++;
 		}
 	}
@@ -112,7 +112,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 	}
 	MPI_Bcast(&maxBlockNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
 	MPI_Bcast(&irank, 1, MPI_INT, 0, MPI_COMM_WORLD);
-	par_std_out_("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
+	par_std_out("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
 
 	// 将最大进程的网格单元类型排布广播到所有进程
 	label *buffer;
@@ -150,7 +150,7 @@ Array<label> BlockTopology::reorderFaceTopo(Topology& topo)
 			newFaceNumInBlk.push_back(0);
 		}
 	}
-	par_std_out_("Now I have %d blocks\n", newFaceType.size());
+	par_std_out("Now I have %d blocks\n", newFaceType.size());
 
 	this->faceType_.swap(newFaceType);
 	faceNumInBlk.swap(newFaceNumInBlk);
@@ -234,7 +234,7 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 			this->cellType_.push_back(cellType[i]);
 			cellNumInBlk.push_back(1);
 			ElementType_t type = (ElementType_t)cellType[i];
-			par_std_out_("add cell type: %s\n", Section::typeToWord(type));
+			par_std_out("add cell type: %s\n", Section::typeToWord(type));
 			blockNum++;
 		}
 	}
@@ -254,7 +254,7 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 	}
 	MPI_Bcast(&maxBlockNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
 	MPI_Bcast(&irank, 1, MPI_INT, 0, MPI_COMM_WORLD);
-	par_std_out_("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
+	par_std_out("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
 
 	// 将最大进程的网格单元类型排布广播到所有进程
 	label *buffer;
@@ -292,7 +292,7 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 			newCellNumInBlk.push_back(0);
 		}
 	}
-	par_std_out_("Now I have %d blocks\n", newCellType.size());
+	par_std_out("Now I have %d blocks\n", newCellType.size());
 
 	this->cellType_.swap(newCellType);
 	cellNumInBlk.swap(newCellNumInBlk);
@@ -335,17 +335,17 @@ Array<label> BlockTopology::reorderCellTopo(Topology& topo)
 	// 根据重排前后的映射调整cell2cell的值
 	for (int i = 0; i < cell2CellBlkNew.size(); ++i)
 	{
-		// par_std_out_("The %dth element: ", i);
+		// par_std_out("The %dth element: ", i);
 		for (int j = 0; j < cell2CellBlkNew[i].size(); ++j)
 		{
 			cell2CellBlkNew[i][j] = cellMap[cell2CellBlkNew[i][j]];
-			// par_std_out_("%d, ", cell2CellBlkNew[i][j]);
+			// par_std_out("%d, ", cell2CellBlkNew[i][j]);
 		}
-		// par_std_out_("\n");
+		// par_std_out("\n");
 	}
 
 	// cell2cell
-	par_std_out_("cell2cell\n");
+	par_std_out("cell2cell\n");
 	transformArray(cell2CellBlkNew, this->cell2Cell_);
 
 	this->cellBlockStartIdx_.assign(cellNumInBlk.begin(), cellNumInBlk.end());

@@ -49,23 +49,25 @@ extern "C" {
 * if user need to abort the program and print some error message
 * under some condition
 */
-#define Terminate(location, content) \
-{ \
-    printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[31m%d\033[0m\n", \
-        location, content, __FILE__, __LINE__); \
-    exit(-1); \
-}
+void Terminate(const char* location, const char* content);
+// #define Terminate(location, content) \
+// { \
+//     printf("Location: \033[31m%s\033[0m, error message: \033[31m%s\033[0m, file: \033[31m%s\033[0m, line: \033[31m%d\033[0m\n", \
+//         location, content, __FILE__, __LINE__); \
+//     exit(-1); \
+// }
 
 /**
 * please use this macro,
 * if user need to print some warning message
 * under some condition
 */
-#define WARNING(location, content) \
-{ \
-    printf("Location: \33[%s], warning message: \33[%s], file: \33[%s], line: \33[%d]\n", \
-        location, content, __FILE__, __LINE__); \
-}
+void Warning(const char* location, const char* content);
+// #define WARNING(location, content) \
+// { \
+//     printf("Location: \33[%s], warning message: \33[%s], file: \33[%s], line: \33[%d]\n", \
+//         location, content, __FILE__, __LINE__); \
+// }
 
 /**
 * assert some expression is true

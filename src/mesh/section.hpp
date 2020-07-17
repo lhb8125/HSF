@@ -9,7 +9,7 @@
 #define SECTION_H
 #include "cgnslib.h"
 #include "hsfMacro.h"
-#include "utilities.hpp"
+#include "utilities.h"
 
 #define Inner 0
 #define Boco 1

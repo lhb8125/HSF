@@ -9,7 +9,7 @@
 #include "hsf_vector.hpp"
 #include <typeinfo>
 #include <math.h>
-#include "utilities.hpp"
+#include "utilities.h"
 
 namespace HSF
 {

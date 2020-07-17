@@ -1,6 +1,6 @@
 #include "region.hpp"
 #include "field.hpp"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "funPtr_host.hpp"
 #include "resource.hpp"
 extern e2v_slaveFunPtr spMV_kernel;

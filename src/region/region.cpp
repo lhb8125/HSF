@@ -35,24 +35,24 @@ void Region::initBeforeBalance(Array<Word> meshFile)
 	// strncpy(meshFile_, meshFile, sizeof(meshFile_));
 	// this->meshFile_[sizeof(meshFile)-1]='/0';
   meshFile_.assign(meshFile.begin(), meshFile.end());
-	par_std_out_("start reading mesh ...\n");
+	par_std_out("start reading mesh ...\n");
 	this->getMesh().readMesh(meshFile);
-	par_std_out_("finish reading mesh ...\n");
+	par_std_out("finish reading mesh ...\n");
 	MPI_Barrier(MPI_COMM_WORLD);
 }
 
 void Region::initAfterBalance()
 {
-	par_std_out_("start constructing topology ...\n");
+	par_std_out("start constructing topology ...\n");
 	this->getMesh().fetchNodes(this->meshFile_[0]);
     // this->getMesh().fetchNodes(this->meshFile_);
     // this->getMesh().fetchNodes(this->meshFile_[1]);
 	this->getMesh().getTopology().constructTopology();
-	par_std_out_("finish constructing topology ...\n");
+	par_std_out("finish constructing topology ...\n");
 	MPI_Barrier(MPI_COMM_WORLD);
 
     /// 创建通信对
-	par_std_out_("start creating interfaces ...\n");
+	par_std_out("start creating interfaces ...\n");
     label cellNum = this->getMesh().getTopology().getCellsNum();
     Array<Array<label> > faceCells
         = this->getMesh().getTopology().getFace2CellPatch();
@@ -68,41 +68,41 @@ void Region::initAfterBalance()
   // }
     createInterFaces(faceCells, cellNum);
 
-	par_std_out_("finish creating interfaces ...\n");
+	par_std_out("finish creating interfaces ...\n");
 
-	par_std_out_("start reading boundary mesh ...\n");
+	par_std_out("start reading boundary mesh ...\n");
 	this->getBoundary().readMesh(this->meshFile_);
     this->getBoundary().readBC(this->meshFile_);
-	par_std_out_("finish reading boundary mesh ...\n");
+	par_std_out("finish reading boundary mesh ...\n");
 
-  par_std_out_("start initialize mesh information ...\n");
+  par_std_out("start initialize mesh information ...\n");
   this->meshInfo_.init(mesh_);
-  par_std_out_("finish initialize mesh information ...\n");
+  par_std_out("finish initialize mesh information ...\n");
 
-  par_std_out_("start generate block topology ...\n");
+  par_std_out("start generate block topology ...\n");
   this->getMesh().generateBlockTopo();
   // this->getBoundary().generateBlockTopo();
-  par_std_out_("finish generate block topology ...\n");
+  par_std_out("finish generate block topology ...\n");
 
-  par_std_out_("start constructing boundary topology ...\n");
+  par_std_out("start constructing boundary topology ...\n");
   Topology innerTopo = this->getMesh().getTopology();
   this->getBoundary().exchangeBoundaryElements(innerTopo);
-  par_std_out_("finish constructing boundary topology ...\n");
+  par_std_out("finish constructing boundary topology ...\n");
 
 
 }
 
 void Region::writeMesh(Word meshFile)
 {
-    par_std_out_("start write inner mesh ...\n");
+    par_std_out("start write inner mesh ...\n");
 	this->getMesh().writeMesh(meshFile);
-    par_std_out_("finish write inner mesh ...\n");
-    par_std_out_("start write boundary mesh ...\n");
+    par_std_out("finish write inner mesh ...\n");
+    par_std_out("start write boundary mesh ...\n");
 	this->getBoundary().writeMesh(meshFile);
-    par_std_out_("finish write boundary mesh ...\n");
-    par_std_out_("start write boundary condition ...\n");
+    par_std_out("finish write boundary mesh ...\n");
+    par_std_out("start write boundary condition ...\n");
     this->getBoundary().writeBC(meshFile);
-    par_std_out_("finish write boundary condition ...\n");
+    par_std_out("finish write boundary condition ...\n");
 }
 
 //- TODO: for face only by now
@@ -175,7 +175,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
     }
     else
     {
-      par_std_out_(
+      par_std_out(
           "Error: cell ID exceeds the total cell number: cell ID = %d, total "
           "number = %d!\n",
           IDOut,
@@ -232,7 +232,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
     }
     else
     {
-      par_std_out_(
+      par_std_out(
           "Error: cell is not in the target Processor, please check! At proc = "
           "%d, elements from %d to %d, cell1 = %d, cell2 = %d\n",
           myProcNo,
@@ -368,7 +368,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
       // if(!flag)
       //   Terminate("createInterFaces","the cell index is not correct");
 
-      // par_std_out_("%d,%d,%d\n",cell1,cell2,cell2Node_0.size());
+      // par_std_out("%d,%d,%d\n",cell1,cell2,cell2Node_0.size());
       if(cell1>cell2Node_1.size())
         Terminate("createInterFaces","the cell in the interfaces exceed the cell num");
       int found = 0;
@@ -388,7 +388,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
             && face2CellIDsGlobal[j].second==faceCells[iface][1])
           {
             found++;
-            // par_std_out_("%d,%d\n", face2CellIDsGlobal[j].second,faceCells[iface][1]);
+            // par_std_out("%d,%d\n", face2CellIDsGlobal[j].second,faceCells[iface][1]);
             face2Node_1.push_back(tmp);
           }
         }
@@ -397,17 +397,17 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
       {
         for (int inode = 0; inode < cell2Node_1[cell1].size(); ++inode)
         {
-          par_std_out_("%d,", cell2Node_1[cell1][inode]);
+          par_std_out("%d,", cell2Node_1[cell1][inode]);
         }
-        par_std_out_("\n");
+        par_std_out("\n");
         for (int iface = 0; iface < face2NodePatch_1.size(); ++iface)
         {
-          par_std_out_("The %dth face:\n", iface);
+          par_std_out("The %dth face:\n", iface);
           for (int inode = 0; inode < face2NodePatch_1[iface].size(); ++inode)
           {
-            par_std_out_("%d,", face2NodePatch_1[iface][inode]);
+            par_std_out("%d,", face2NodePatch_1[iface][inode]);
           }
-          par_std_out_("\n");
+          par_std_out("\n");
         }
         Terminate("createInterFaces","can not find the corresponding face2node");
       }

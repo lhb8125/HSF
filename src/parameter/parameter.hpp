@@ -17,7 +17,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include "cstdlib"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "hsfMacro.h"
 
 #define Gauss 1

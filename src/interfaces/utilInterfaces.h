@@ -20,7 +20,7 @@
 // #include "communicator.hpp"
 // #include "communicationManager.hpp"
 // #include "mpiWrapper.hpp"
-#include "utilities.hpp"
+#include "utilities.h"
 
 using namespace HSF;
 
@@ -36,7 +36,7 @@ extern "C"
 /**
 * @brief 初始化utility
 */
-void init_utility_(); 
+// void init_utility(); 
 
 /*****************************************进程间数据交换****************************************/
 
@@ -44,13 +44,13 @@ void init_utility_();
 * @brief 获取进程号
 * @param[out]  pid 进程ID
 */
-void get_pid_( int * pid );
+// void get_pid_( int * pid );
 
 /**
 * @brief 获取进程规模
 * @param[out]  commSize 进程总数
 */
-void get_commsize_( int * commSize );
+// void get_commsize_( int * commSize );
 
 
 /**
@@ -59,7 +59,7 @@ void get_commsize_( int * commSize );
 * @param[in]  count 变量个数
 * @param[in]  op 操作类型
 */
-void all_reduce_labels_(label* data, const label* count , unsigned int* op);
+// void all_reduce_labels_(label* data, const label* count , unsigned int* op);
 
 /**
 * @brief 规约浮点变量序列
@@ -67,21 +67,21 @@ void all_reduce_labels_(label* data, const label* count , unsigned int* op);
 * @param[in]  count 变量个数
 * @param[in]  op 操作类型
 */
-void all_reduce_scalars_(scalar* data, const label* count, unsigned int* op);
+// void all_reduce_scalars_(scalar* data, const label* count, unsigned int* op);
 
 /**
 * @brief 主进程广播整形序列
 * @param[in][out]  data 变量序列
 * @param[in]  count 变量个数
 */
-void bcast_labels_(label* data, const label* count);
+// void bcast_labels_(label* data, const label* count);
 
 /**
 * @brief 主进程广播浮点型序列
 * @param[in][out]  data 变量序列
 * @param[in]  count 变量个数
 */
-void bcast_scalars_(scalar* data, const label* count);
+// void bcast_scalars_(scalar* data, const label* count);
 
 /**
 * @brief 主进程收集整形序列
@@ -89,7 +89,7 @@ void bcast_scalars_(scalar* data, const label* count);
 * @param[in][out]  rdata 接收序列
 * @param[in]  count 变量个数
 */
-void gather_labels_(label* sdata, label* rdata, const label* count );
+// void gather_labels_(label* sdata, label* rdata, const label* count );
 
 /**
 * @brief 主进程收集浮点序列
@@ -97,7 +97,7 @@ void gather_labels_(label* sdata, label* rdata, const label* count );
 * @param[in][out]  rdata 接收序列
 * @param[in]  count 变量个数
 */
-void gather_scalars_(scalar* sdata, scalar* rdata, const label* count);
+// void gather_scalars_(scalar* sdata, scalar* rdata, const label* count);
 
 /**
 * @brief 主进程收集整数，计算最大值或最小值
@@ -106,8 +106,8 @@ void gather_scalars_(scalar* sdata, scalar* rdata, const label* count);
 * @param[in][out]  result 所有进程最大值或最小值
 * @param[in]  count 变量个数
 */
-void extreme_labels_in_procs_(const char* flag, label* data, label* result,
-	const label* count);
+// void extreme_labels_in_procs_(const char* flag, label* data, label* result,
+// 	const label* count);
 
 /**
 * @brief 主进程收集浮点数，计算最大值或最小值
@@ -116,8 +116,8 @@ void extreme_labels_in_procs_(const char* flag, label* data, label* result,
 * @param[in][out]  result 所有进程最大值或最小值
 * @param[in]  count 变量个数
 */
-void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
-	const label* count);
+// void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
+// 	const label* count);
 
 /*******************************************标准输出*******************************************/
 /**
@@ -125,7 +125,7 @@ void extreme_scalars_in_procs_(const char* flag, scalar* data, scalar* result,
 * @param[in]  format 输出格式
 * @param[in]  ... 变量名，不定参数个数
 */
-void par_std_out_(const char* format, ...);
+// void par_std_out(const char* format, ...);
 
 /**
 * @brief 指定进程号输出到屏幕
@@ -133,25 +133,25 @@ void par_std_out_(const char* format, ...);
 * @param[in]  format 输出格式
 * @param[in]  ... 变量名，不定参数个数
 */
-void proc_std_out_(const label pid, const char* format, ...);
+// void proc_std_out_(const label pid, const char* format, ...);
 
 /**
 * @brief 主核输出到屏幕
 * @param[in]  format 输出格式
 * @param[in]  ... 变量名，不定参数个数
 */
-void master_std_out_(char* format, ...);
+// void master_std_out_(char* format, ...);
 
 // Fortran 字符串输出
-void fort_cout_(const char* str, const int* len);
-void fort_pout_(const char* str, const int* len);
-void fort_sout_(const int* pid, const char* str, const int* len);
+// void fort_cout_(const char* str, const int* len);
+// void fort_pout_(const char* str, const int* len);
+// void fort_sout_(const int* pid, const char* str, const int* len);
 
 /*******************************************数据输出*******************************************/
 /**
 * @brief 写出结果文件，用于重启计算
 */
-void write_restart_(); // 写出结果文件，用于重启计算
+// void write_restart_(); // 写出结果文件，用于重启计算
 
 /**
 * @brief 写出网格到CGNS文件中，结果文件名由输入字符串指定

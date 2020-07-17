@@ -6,7 +6,7 @@ src/mesh/mesh.o: src/mesh/mesh.cpp \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/../../../src/pcgnslib.h \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/../../../src/cgnslib.h \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/cgnstypes.h \
- ./src/utilities.hpp src/mesh/mesh.hpp src/mesh/section.hpp \
+ ./src/utilities.h src/mesh/mesh.hpp src/mesh/section.hpp \
  /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/cgnslib.h \
  ./src/topology/topology.hpp src/mesh/nodes.hpp
 
@@ -242,7 +242,7 @@ src/mesh/mesh.o: src/mesh/mesh.cpp \
 
 /home/export/online1/amd_dev1/software/CGNS/CGNS-3.4.0/src/SampleScripts/include/cgnstypes.h:
 
-./src/utilities.hpp:
+./src/utilities.h:
 
 /home/export/online1/amd_dev1/software/gcc-5.4.0/objdir/bin/../include/c++/5.4.0/vector:
 

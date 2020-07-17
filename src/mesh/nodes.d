@@ -1,5 +1,5 @@
 src/mesh/nodes.o: src/mesh/nodes.cpp src/mesh/nodes.hpp \
- ./src/topology/topology.hpp ./src/utilities.hpp \
+ ./src/topology/topology.hpp ./src/utilities.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpio.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
@@ -56,7 +56,7 @@ src/mesh/nodes.hpp:
 
 /usr/include/xlocale.h:
 
-./src/utilities.hpp:
+./src/utilities.h:
 
 /home/export/online1/amd_dev1/software/gcc-5.4.0/objdir/bin/../include/c++/5.4.0/iostream:
 

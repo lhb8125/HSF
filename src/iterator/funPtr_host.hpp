@@ -3,7 +3,7 @@
 
 
 #include "mpi.h"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "loadBalancer.hpp"
 #include "parameter.hpp"
 #include "cgnslib.h"

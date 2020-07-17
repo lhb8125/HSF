@@ -9,7 +9,7 @@
 
 #include "vectorInterfaces.h"
 #include "hsf_vector.hpp"
-#include "utilities.hpp"
+#include "utilities.h"
 
 using namespace HSF;
 

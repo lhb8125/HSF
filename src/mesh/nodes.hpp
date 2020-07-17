@@ -9,7 +9,7 @@
 #ifndef NODES_HPP
 #define NODES_HPP
 #include "hsfMacro.h"
-#include "utilities.hpp"
+#include "utilities.h"
 
 namespace HSF
 {

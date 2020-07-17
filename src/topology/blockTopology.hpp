@@ -10,7 +10,7 @@
 #ifndef BLOCKTOPOLOGY_HPP
 #define BLOCKTOPOLOGY_HPP
 #include <string.h>
-#include "utilities.hpp"
+#include "utilities.h"
 #include "section.hpp"
 #include "cgnslib.h"
 #include "topology.hpp"

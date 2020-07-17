@@ -102,7 +102,7 @@ Field<T>::Field(Word setType,
   }
   else
   {
-    par_std_out_("No such type patch in region patchTab%s\n", setType.c_str());
+    par_std_out("No such type patch in region patchTab %s\n", setType.c_str());
   }
   sizeAll += locSize_;
   data_ = new T[sizeAll * ndim_];

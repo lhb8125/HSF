@@ -2,10 +2,14 @@ import GLOVAR as gl
 
 cxxfile = ['mpiWrapper/mpiWrapper.cpp',
 			'mpiWrapper/communicationManager/communicationManager.cpp',
-			'mpiWrapper/communicator/communicator.cpp']
+			'mpiWrapper/communicator/communicator.cpp',
+            'exceptions/utilityExceptions.cpp',
+            'interfaces/utilityInterfaces.cpp']
 
-cfile = ['common/utilityBasicFunction.c',
-            'exceptions/utilityExceptions.c']
+cfile = ['common/utilityBasicFunction.c']
+
+fortranfile = ['interfaces/utilityInterfaces_module.f90']
 
 gl.add_files(cxxfile)
 gl.add_files(cfile)
+gl.add_files(fortranfile)

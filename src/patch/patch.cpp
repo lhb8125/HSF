@@ -32,7 +32,7 @@ THE SOFTWARE.
  */
 
 #include "patch.hpp"
-#include "utilities.hpp"
+#include "utilities.h"
 
 HSF::Patch::Patch(label size, label *IDs, label nbrProcID)
     : size_(size),

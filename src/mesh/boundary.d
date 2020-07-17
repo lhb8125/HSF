@@ -1,5 +1,5 @@
 src/mesh/boundary.o: src/mesh/boundary.cpp src/mesh/boundary.hpp \
- ./src/utilities.hpp /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
+ ./src/utilities.h /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpio.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpi.h \
  /home/export/online1/amd_dev1/software/MPICH/include/mpicxx.h src/mesh/mesh.hpp \
@@ -10,7 +10,7 @@ src/mesh/boundary.o: src/mesh/boundary.cpp src/mesh/boundary.hpp \
 
 src/mesh/boundary.hpp:
 
-./src/utilities.hpp:
+./src/utilities.h:
 
 /home/export/online1/amd_dev1/software/gcc-5.4.0/objdir/bin/../include/c++/5.4.0/iostream:
 

@@ -66,7 +66,7 @@ void Boundary::readBoundaryCondition(const Word filePtr)
                 }
                 if(BCSec.location==CellCenter)
                 {
-                    par_std_out_("The boundary condition is defined on CellCenter\n");
+                    par_std_out("The boundary condition is defined on CellCenter\n");
                 }
                 else if(BCSec.location==EdgeCenter)
                 {
@@ -75,16 +75,16 @@ void Boundary::readBoundaryCondition(const Word filePtr)
                 else if(BCSec.location==Vertex)
                 {
                     BCSec.location = CellCenter;
-                    par_std_out_("The boundary condition is defined on Vertex\n");
+                    par_std_out("The boundary condition is defined on Vertex\n");
                 }
                 else if(BCSec.location==FaceCenter)
                 {
                     BCSec.location = FaceCenter;
-                    par_std_out_("The boundary condition is defined on FaceCenter\n");
+                    par_std_out("The boundary condition is defined on FaceCenter\n");
                 }
                 else
                 {
-                    par_std_out_("!!!!Error!!!!vertex: %d, FaceCenter: %d, "
+                    par_std_out("!!!!Error!!!!vertex: %d, FaceCenter: %d, "
                         "EdgeCenter: %d, location: %d\n", Vertex, FaceCenter,
                         EdgeCenter, BCSec.location);
                 }
@@ -96,14 +96,14 @@ void Boundary::readBoundaryCondition(const Word filePtr)
             }
             if(BCSec.ptsetType[0]==PointRange)
             {
-                par_std_out_("PointRange: iBoco: %d, name: %s, type: %s, "
+                par_std_out("PointRange: iBoco: %d, name: %s, type: %s, "
                     "nEles: %d, start: %d, end: %d\n", iBoco, BCSec.name,
                     BCSection::typeToWord(BCSec.type), BCSec.nBCElems,
                     BCSec.BCElems[0], BCSec.BCElems[1]);
             }
             else if(BCSec.ptsetType[0]==PointList)
             {
-                par_std_out_("PointList: iBoco: %d, name: %s, type: %s, "
+                par_std_out("PointList: iBoco: %d, name: %s, type: %s, "
                     "nEles: %d\n", iBoco, BCSec.name,
                     BCSection::typeToWord(BCSec.type), BCSec.nBCElems);
             }
@@ -157,11 +157,11 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
         if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
             &type, &start, &end, &nBnd, &parentFlag))
             Terminate("readSectionInfo", cg_get_error());
-        // par_std_out_("%d\n", this->meshType_);
+        // par_std_out("%d\n", this->meshType_);
         if(Section::compareEleType(type, Inner)) nInnEles = MAX(nInnEles, end);
     }
     if(sizes[1]!=nInnEles)
-        WARNING("getInnerElementsCount", "the num doesn't match");
+        Warning("getInnerElementsCount", "the num doesn't match");
 
     // 获得每个进程在各个block中的全局起始编号
     int nBocos = this->BCSecs_.size();
@@ -228,11 +228,11 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
         disp[0] = 0;
         for (int i = 0; i < nprocs; ++i)
         {
-            par_std_out_("rank %d have %d elements\n", i, nBCElems_mpi[i]);
+            par_std_out("rank %d have %d elements\n", i, nBCElems_mpi[i]);
             totBCElems += nBCElems_mpi[i];
             disp[i+1] = disp[i] + nBCElems_mpi[i];
         }
-        par_std_out_("rank %d now have %d elements\n", rank, totBCElems);
+        par_std_out("rank %d now have %d elements\n", rank, totBCElems);
         BCElems = new label[totBCElems];
         MPI_Allgatherv(pointList, nBCElems, COMM_LABEL, BCElems, nBCElems_mpi,
             disp, COMM_LABEL, MPI_COMM_WORLD);
@@ -244,7 +244,7 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
         {
             this->BCSecs_[iBC].BCElems[i] = (cgsize_t)BCElems[i];
         }
-        par_std_out_("write Boundary condition with ElementRange type\n");
+        par_std_out("write Boundary condition with ElementRange type\n");
         Word str = BCSection::typeToWord(BCSecs_[iBC].type);
         // str.append("_bc");
         // printf("%s\n", str.c_str());
@@ -253,7 +253,7 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
             this->BCSecs_[iBC].type, PointList, 
             this->BCSecs_[iBC].nBCElems, this->BCSecs_[iBC].BCElems, &iBoco))
             Terminate("writeBC", cg_get_error());
-        par_std_out_("finish write the %dth BC\n", iBC);
+        par_std_out("finish write the %dth BC\n", iBC);
         if(cg_boco_gridlocation_write(iFile, iBase, iZone, iBoco,
             this->BCSecs_[iBC].location))
             Terminate("writeGridLocation",cg_get_error());
@@ -285,7 +285,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     ArrayArray<label> face2NodeBnd = getTopology().getCell2Node();
     // printf("%d\n", face2NodeBnd.size());
     Array<label> faceType = getTopology().getCellType();
-    // par_std_out_("%d,%d\n", getSections().size(),this->secs_.size());
+    // par_std_out("%d,%d\n", getSections().size(),this->secs_.size());
     Array<Array<label> > face2NodeBndArr;
     transformArray(face2NodeBnd, face2NodeBndArr);
 
@@ -359,7 +359,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     // }
 
 
-    // par_std_out_("rank: %d, owner face: %d, neighbor face: %d\n", rank, face2NodeOwn.size(), face2NodeNei.size());
+    // par_std_out("rank: %d, owner face: %d, neighbor face: %d\n", rank, face2NodeOwn.size(), face2NodeNei.size());
 
 
     Array<Array<label> > face2NodeBndOwn = innerTopo.getFace2NodeBnd();
@@ -398,7 +398,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     ArrayArray<label> face2NodeNeiTmp;
     transformArray(face2NodeNei, face2NodeNeiTmp);
     Array<label> face2CellBndOwnTmp;
-    // par_std_out_("rank: %d, boundary face: %d\n", rank, face2NodeBndOwn.size());
+    // par_std_out("rank: %d, boundary face: %d\n", rank, face2NodeBndOwn.size());
     for (int i = 0; i < face2CellBndOwn.size(); ++i)
     {
         face2CellBndOwnTmp.push_back(face2CellBndOwn[i][0]);
@@ -418,7 +418,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         dispIdx_r[i] = bndFacesSum+i;
         countIdx_r[i] = bndFaces_mpi[i]+1;
         bndFacesSum += bndFaces_mpi[i];
-        // if(rank==0) par_std_out_("rank: %d, bndFaces: %d\n", i, bndFaces_mpi[i]);
+        // if(rank==0) par_std_out("rank: %d, bndFaces: %d\n", i, bndFaces_mpi[i]);
     }
     label* startIdx_mpi = new label[bndFacesSum+nprocs];
 #if 1
@@ -430,7 +430,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         countData_r[i] = startIdx_mpi[dispIdx_r[i]+countIdx_r[i]-1];
         dispData_r[i] = bndNodesSum;
         bndNodesSum += countData_r[i];
-        // if(rank==0) par_std_out_("count: %d, displacement: %d\n", countData_r[i], dispData_r[i]);
+        // if(rank==0) par_std_out("count: %d, displacement: %d\n", countData_r[i], dispData_r[i]);
     }
     label* data_mpi = new label[bndNodesSum];
     MPI_Allgatherv(face2NodeNeiTmp.data, face2NodeNeiTmp.startIdx[bndFaces],
@@ -443,16 +443,16 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         for (int i = 0; i < nprocs; ++i)
         {
             if(rank==i) continue;
-            // par_std_out_("rank: %d, start from: %d, read %d\n", i, dispIdx_r[i], countIdx_r[i]);
+            // par_std_out("rank: %d, start from: %d, read %d\n", i, dispIdx_r[i], countIdx_r[i]);
             label* startIdx = &startIdx_mpi[dispIdx_r[i]];
             for (int j = 0; j < countIdx_r[i]-1; ++j)
             {
-                // par_std_out_("The %dth element: ", j);
+                // par_std_out("The %dth element: ", j);
                 Array<label> face2NodeTmp;
                 // 最后俩个元素为边界条件类型和边界单元类型，不进行比较
                 for (int k = startIdx[j]; k < startIdx[j+1]-2; ++k)
                 {
-                    // par_std_out_("%d, ", data_mpi[dispData_r[i]+k]);
+                    // par_std_out("%d, ", data_mpi[dispData_r[i]+k]);
                     face2NodeTmp.push_back(data_mpi[dispData_r[i]+k]);
 
                 }
@@ -460,7 +460,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
                 tmp.assign(face2NodeTmp.begin(),face2NodeTmp.end());
                 sort(tmp.begin(),tmp.end());
                 label idx = findSortedArray(face2NodeBndOwn, tmp, 0, face2NodeBndOwn.size()-1);
-                // if(rank==1 && idx!=-1) par_std_out_("%d, %d\n", idx, face2CellBndOwnTmp[idx]);
+                // if(rank==1 && idx!=-1) par_std_out("%d, %d\n", idx, face2CellBndOwnTmp[idx]);
                 // // label idx = findArray(bndFaceArr, face2NodeTmp);
                 // // label idx = -1;
                 // if(idx!=-1) neighborCellIdx_mpi[dispIdx_r[i]+j] = face2CellBndOwnTmp[idx];
@@ -475,10 +475,10 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
                     face2NodeOwn.push_back(face2NodeTmp);
                     face2CellOwn.push_back(face2CellBndOwnTmp[idx]);
                 }
-                // if(idx==-1) par_std_out_("not found\n");
-                // else par_std_out_("%d\n", idx);
+                // if(idx==-1) par_std_out("not found\n");
+                // else par_std_out("%d\n", idx);
             }
-            // par_std_out_("\n");
+            // par_std_out("\n");
         }
     }
 
@@ -535,7 +535,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         }
         if(!isExist) Terminate("sort the faces according to the type", "unrecognized type");
     }
-    par_std_out_("There are %d types of faces.\n", faceNodeNum.size());
+    par_std_out("There are %d types of faces.\n", faceNodeNum.size());
 
     // 从所有进程中找出最大block数目
     int blockNum = faceNodeNum.size();
@@ -553,7 +553,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     }
     MPI_Bcast(&maxBlockNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&irank, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    par_std_out_("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
+    par_std_out("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
 
     // 将最大进程的网格单元类型排布广播到所有进程
     label *buffer;
@@ -580,7 +580,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         for (int j = 0; j < blockNum; ++j)
         {
             flag = FaceTypeWithType[j]==buffer[i];
-            par_std_out_("%d, %d, %d, %d\n",i,j,FaceTypeWithType[j],buffer[i]);
+            par_std_out("%d, %d, %d, %d\n",i,j,FaceTypeWithType[j],buffer[i]);
             // 如果该block与最大进程排布相同，则压入该block信息
             if(flag)
             {
@@ -602,14 +602,14 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             faceBlockStartIdx.push_back(0);
         }
     }
-    par_std_out_("Now I have %d blocks\n", faceTypeBlk.size());
+    par_std_out("Now I have %d blocks\n", faceTypeBlk.size());
 
     // 生成block Topology拓扑
     BlockTopology& blkTopo = getBlockTopology();
     for (int i = 0; i < faceBlockStartIdx.size(); ++i)
     {
         faceBlockStartIdx[i+1] += faceBlockStartIdx[i];
-        par_std_out_("block: %d, start: %d\n", i, faceBlockStartIdx[i+1]);
+        par_std_out("block: %d, start: %d\n", i, faceBlockStartIdx[i+1]);
     }
     blkTopo.setFace2Node(face2NodeBlk);
     blkTopo.setFace2Cell(face2CellBlk);
@@ -624,11 +624,11 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     // printf("%d\n", face2NodeOwn.size());
     // label* cellNum_mpi = new label[nprocs];
     // label cellNum_local = face2NodeOwn.size();
-    // par_std_out_("rank: %d, cellNum: %d\n", rank, cellNum_local);
+    // par_std_out("rank: %d, cellNum: %d\n", rank, cellNum_local);
     // MPI_Allgather(&cellNum_local, 1, MPI_INT, cellNum_mpi, 1, COMM_LABEL, MPI_COMM_WORLD);
     // for (int i = 0; i < nprocs-1; ++i)
     // {
-    //     if(rank==0) par_std_out_("%d\n", cellNum_mpi[i]);
+    //     if(rank==0) par_std_out("%d\n", cellNum_mpi[i]);
     //     cellNum_mpi[i+1] += cellNum_mpi[i];
     // }
     // this->getTopology().setCellStartId(cellNum_mpi[rank]);
@@ -641,7 +641,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
 
 void Boundary::writeMesh(const Word filePtr)
 {
-    // par_std_out_("This is boundary!!!!!\n");
+    // par_std_out("This is boundary!!!!!\n");
     int rank, numProcs;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
@@ -653,13 +653,13 @@ void Boundary::writeMesh(const Word filePtr)
     if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     if(cgp_open(filePtr.c_str(), CG_MODE_MODIFY, &iFile))
-        Terminate("readBaseInfo", cg_get_error())
+        Terminate("readBaseInfo", cg_get_error());
 
     // 读取已有Section网格单元编号
     int nSecs;
     if(cg_nsections(iFile, iBase, iZone, &nSecs))
         Terminate("readNSections", cg_get_error());
-    // par_std_out_("nSecs: %d\n", nSecs);
+    // par_std_out("nSecs: %d\n", nSecs);
     int iSec;
     cgsize_t start, end;
     for (int iSec = 1; iSec <= nSecs; ++iSec)
@@ -684,21 +684,21 @@ void Boundary::writeMesh(const Word filePtr)
     for (int iBlk = 0; iBlk < blockNum; ++iBlk)
     {
         label num = faceBlockStartIdx[iBlk+1]-faceBlockStartIdx[iBlk];
-        par_std_out_("%d\n", iBlk);
+        par_std_out("%d\n", iBlk);
         ElementType_t eleType = (ElementType_t)faceType[iBlk];
         MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1,
             COMM_LABEL, MPI_COMM_WORLD);
-        par_std_out_("%d\n", num);
+        par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
         }
-        par_std_out_("write section from %d to %d\n", cellStartId[0]+1, cellStartId[numProcs]);
+        par_std_out("write section from %d to %d\n", cellStartId[0]+1, cellStartId[numProcs]);
         if(cgp_section_write(iFile, iBase, iZone,
             Section::typeToWord(eleType), eleType, cellStartId[0]+1,
             cellStartId[numProcs], 0, &iSec))
             Terminate("writeSecInfo", cg_get_error());
-        par_std_out_("rank %d write from %d to %d\n", rank, cellStartId[rank]+1, cellStartId[rank+1]);
+        par_std_out("rank %d write from %d to %d\n", rank, cellStartId[rank]+1, cellStartId[rank+1]);
         cgsize_t *data = (cgsize_t*)&conn.data[conn.startIdx[faceBlockStartIdx[iBlk]]];
         if(num==0) cellStartId[rank+1] = cellStartId[rank]+1;
         if(cgp_elements_write_data(iFile, iBase, iZone, iSec, cellStartId[rank]+1,

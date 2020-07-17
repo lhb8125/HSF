@@ -10,7 +10,7 @@
 #define GEOMETRY_HPP
 
 #include <cmath>
-#include "utilities.hpp"
+#include "utilities.h"
 
 namespace HSF
 {

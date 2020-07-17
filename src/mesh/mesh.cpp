@@ -14,7 +14,7 @@
 #include <assert.h>
 #include "mpi.h"
 #include "pcgnslib.h"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "mesh.hpp"
 #include "cgnslib.h"
 
@@ -27,7 +27,7 @@ void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 	int rank, numProcs;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
-	par_std_out_("This is rank %d in %d processes\n", rank, numProcs);
+	par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases=0, cellDim=0, physDim=0;
 	int iBase=1, iZone=1;
@@ -41,17 +41,17 @@ void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
         cg_base_read(iFile, iBase, basename, &cellDim, &physDim))
 		Terminate("readBaseInfo", cg_get_error());
         // cgp_error_exit();
-	par_std_out_("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
+	par_std_out("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
 	MPI_Barrier(MPI_COMM_WORLD);
 
     int precision;
     cg_precision(iFile, &precision);
-    par_std_out_("precision: %d\n", precision);
+    par_std_out("precision: %d\n", precision);
 
 	int nZones;
 	if(cg_nzones(iFile, iBase, &nZones))
 		Terminate("readZoneInfo", cg_get_error());
-	par_std_out_("nZones: %d\n", nZones);
+	par_std_out("nZones: %d\n", nZones);
 
     this->nodeNumGlobal_.push_back(0);
     this->eleNumGlobal_.push_back(0);
@@ -81,7 +81,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     int rank, numProcs;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
-    par_std_out_("This is rank %d in %d processes\n", rank, numProcs);
+    par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
     cgsize_t sizes[3];
     char *zoneName = new char[CHAR_DIM];
@@ -90,7 +90,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         cg_zone_type(iFile, iBase, iZone, &zoneType) ||
         zoneType != Unstructured)
         Terminate("readZoneInfo", cg_get_error());
-    par_std_out_("Zones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", iZone, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
+    par_std_out("Zones: %d, zoneName: %s, zoneType: %d, nodeNum, %d, eleNum: %d, bndEleNum: %d\n", iZone, zoneName, zoneType, sizes[0], sizes[1], sizes[2]);
     this->eleNum_  += sizes[1];
     this->zoneName_.push_back(zoneName);
 
@@ -106,7 +106,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     if (end > sizes[0]) end = sizes[0];
     nnodes = end - start + 1;
     Array<scalar*> coords;
-    par_std_out_("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
+    par_std_out("The vertices range of processor %d is (%d, %d). \n", rank, start, end);
     DataType_t dataType;
     char coordName[CHAR_DIM];
     vector<scalar> vecx(nnodes);
@@ -135,7 +135,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
         Terminate("readCoords", cg_get_error());
     MPI_Barrier(MPI_COMM_WORLD);
-    // par_std_out_("%d\n", sizeof(dataType));
+    // par_std_out("%d\n", sizeof(dataType));
 
     // Array<label64> local_2_global;
     // Array<label64> global_2_local;
@@ -201,9 +201,9 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     this->nodeNumLocal_.push_back(nnodes);
     this->nodeNumGlobal_.push_back(this->nodeNumGlobal_.back()+sizes[0]);
     label zoneEleNum = sizes[1];
-    par_std_out_("zone: %d, start: %d, nnodes: %d\n", iZone, this->nodeNumGlobal_.back(),this->nodes_.size());
+    par_std_out("zone: %d, start: %d, nnodes: %d\n", iZone, this->nodeNumGlobal_.back(),this->nodes_.size());
     // this->nodeNumPerZone_.push_back(sizes[0]);
-    // par_std_out_("Zone: %d, node start: %d, ")
+    // par_std_out("Zone: %d, node start: %d, ")
     // node.setStart(start);
     // node.setEnd(end);
     // this->nodes.push_back(node);
@@ -216,7 +216,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
     if(cg_nsections(iFile, iBase, iZone, &nSecs))
         Terminate("readNSections", cg_get_error());
     int iSec;
-    par_std_out_("nSecs: %d\n", nSecs);
+    par_std_out("nSecs: %d\n", nSecs);
     for (int iSec = 1; iSec <= nSecs; ++iSec)
     {
         char secName[CHAR_DIM];
@@ -226,10 +226,10 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         if(cg_section_read(iFile, iBase, iZone, iSec, secName, 
             &type, &start, &end, &nBnd, &parentFlag))
             Terminate("readSectionInfo", cg_get_error());
-        // par_std_out_("%d\n", this->meshType_);
+        // par_std_out("%d\n", this->meshType_);
         zoneEleNum += end-start+1;
         if(! Section::compareEleType(type, this->meshType_)) continue;
-        par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
+        par_std_out("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
 
         Section sec;
         sec.name = new char[CHAR_DIM];
@@ -243,14 +243,14 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         start  = nEles * rank + 1;
         end    = nEles * (rank + 1);
         if (end > eleNum) end = eleNum;
-        par_std_out_("processor %d will read elements from %d to %d.\n", rank, start+secStart, end+secStart);
+        par_std_out("processor %d will read elements from %d to %d.\n", rank, start+secStart, end+secStart);
 
         cgsize_t* elements = new cgsize_t[nEles*Section::nodesNumForEle(type)];
         if(cgp_elements_read_data(iFile, iBase, iZone, iSec, start+secStart, end+secStart, elements))
             Terminate("readElements", cg_get_error());
         MPI_Barrier(MPI_COMM_WORLD);
 
-        par_std_out_("%d\n", precision);
+        par_std_out("%d\n", precision);
         sec.iStart = start+secStart;
         sec.iEnd   = end+secStart;
         sec.num    = end-start+1;
@@ -258,7 +258,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         map<label64,label64>::iterator iter;
         if(precision==64)
         {
-            par_std_out_("This is 64 precision\n");
+            par_std_out("This is 64 precision\n");
             sec.conn   = (label*)elements;
             for (int i = 0; i < sec.num*Section::nodesNumForEle(type); ++i)
             {
@@ -310,7 +310,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
 	int rank, numProcs;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
-	// par_std_out_("This is rank %d in %d processes\n", rank, numProcs);
+	// par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
 	int iBase=1, iZone=1;
@@ -330,7 +330,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
 		Terminate("writeBaseInfo", cg_get_error());
     /* print info */
     if (rank == 0) {
-        par_std_out_("writing %d coordinates and %d hex elements to %s\n",
+        par_std_out("writing %d coordinates and %d hex elements to %s\n",
             nodeNum, eleNum, filePtr.c_str());
     }
     MPI_Barrier(MPI_COMM_WORLD);
@@ -357,7 +357,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
     	x[i] = this->nodes_.getX()[i];
     	y[i] = this->nodes_.getY()[i];
     	z[i] = this->nodes_.getZ()[i];
-    	// par_std_out_("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
+    	// par_std_out("vertex: %d, x, %f, y, %f, z, %f\n", i, x[i], y[i], z[i]);
     }
 
     // printf("%d, %d, %d\n", start, end, this->nodes_.ize());
@@ -377,7 +377,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
         scalar* tmpX = &x[coordIdx];
         scalar* tmpY = &y[coordIdx];
         scalar* tmpZ = &z[coordIdx];
-        par_std_out_("from %d to %d, num: %d\n", start, end, nnodes);
+        par_std_out("from %d to %d, num: %d\n", start, end, nnodes);
         // for (int j= 0; j < end-start+1; ++j)
         // {
         //     printf("%f, %f, %f\n", tmpX[j], tmpY[j], tmpZ[j]);
@@ -398,45 +398,45 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
     Array<label> cellBlockStartIdx = this->getBlockTopology().getCellBlockStartIdx();
     ArrayArray<label> conn = this->getBlockTopology().getCell2Node();
     Array<label> cellType = this->getBlockTopology().getCellType();
-    par_std_out_("write %d sections\n", cellBlockStartIdx.size()-1);
+    par_std_out("write %d sections\n", cellBlockStartIdx.size()-1);
 
     label *cellStartId = new label[numProcs+1];
     cellStartId[0] = 0;
     for (int iSec = 0; iSec < cellBlockStartIdx.size()-1; ++iSec)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
-        par_std_out_("%d\n", iSec);
+        par_std_out("%d\n", iSec);
         MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
-        par_std_out_("%d\n", num);
+        par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
             cellStartId[i+1] += cellStartId[i];
         }
         ElementType_t eleType = (ElementType_t)cellType[iSec];
-        // par_std_out_("writeSecInfo\n");
+        // par_std_out("writeSecInfo\n");
         int S;
         if(cgp_section_write(iFile, iBase, iZone, Section::typeToWord(eleType),
             eleType, cellStartId[0]+1, cellStartId[numProcs], 0, &S))
             Terminate("writeSecInfo", cg_get_error());
-        par_std_out_("writeSecInfo\n");
+        par_std_out("writeSecInfo\n");
 
         cgsize_t *data = (cgsize_t*)&conn.data[conn.startIdx[cellBlockStartIdx[iSec]]];
         // conn.display();
         // 如果该block内无网格单元，则跳过
         if(num==0)
         {
-            // par_std_out_("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank]+1);
+            // par_std_out("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank]+1);
             // if(cellStartId[rank]+1>=cellStartId[numProcs]) cellStartId[rank]=cellStartId[numProcs]-1;
             // if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1, cellStartId[rank]+1, NULL))
             //     Terminate("writeSecConn", cg_get_error());
         }else 
         {
-            par_std_out_("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank+1]);
+            par_std_out("rank: %d, start: %d, end: %d\n",rank, cellStartId[rank]+1,cellStartId[rank+1]);
             if(cgp_elements_write_data(iFile, iBase, iZone, S, cellStartId[rank]+1,
                 cellStartId[rank+1], data))
                 Terminate("writeSecConn", cg_get_error());
         }
-        par_std_out_("writeSecConn\n");
+        par_std_out("writeSecConn\n");
 
         cellStartId[0] = cellStartId[numProcs];
     }
@@ -463,7 +463,7 @@ void Mesh::initCGNSFilePar(const char* filePtr)
 	int rank, numProcs;
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
-	par_std_out_("This is rank %d in %d processes\n", rank, numProcs);
+	par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
 	int iBase=1, iZone=1;
@@ -482,7 +482,7 @@ void Mesh::initCGNSFilePar(const char* filePtr)
 		Terminate("writeBaseInfo", cg_get_error());
     /* print info */
     if (rank == 0) {
-        par_std_out_("writing %d coordinates and %d hex elements and %d quad elements to %s\n",
+        par_std_out("writing %d coordinates and %d hex elements and %d quad elements to %s\n",
             nodeNum, eleNum, faceNum, filePtr);
     }
     /* create data nodes for coordinates */
@@ -654,7 +654,7 @@ void Mesh::initCGNSFilePar(const char* filePtr)
     if (end > faceNum) end = faceNum;
     // if(rank==0)
     // {
-    par_std_out_("start: %d, end: %d\n", start, end);
+    par_std_out("start: %d, end: %d\n", start, end);
     	// if(cgp_section_write_data(iFile, iBase, iZone, "Wall", QUAD_4, eleNum+1, eleNum+faceNum, 0, faces, &iSec))
         	// Terminate("writeSecConn", cg_get_error());
     // }
@@ -685,7 +685,7 @@ void Mesh::readCGNSFile(const char* filePtr)
 
 	// label iFile,ier;
 
-	// // par_std_out_("reading CGNS files: %s ......\n", filePtr);
+	// // par_std_out("reading CGNS files: %s ......\n", filePtr);
 	// /// open cgns file
  //    if(cg_open(filePtr, CG_MODE_READ, &iFile) != CG_OK)
  //    	Terminate("readGridCGNS", cg_get_error());
@@ -702,7 +702,7 @@ void Mesh::readCGNSFile(const char* filePtr)
 	// label cellDim,physDim;
 	// if(cg_base_read(iFile, iBase, basename, &cellDim, &physDim) != CG_OK)
 	// 	Terminate("readBaseInfo", cg_get_error());
-	// par_std_out_("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
+	// par_std_out("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
 
 
 	// /// read zone information
@@ -726,7 +726,7 @@ void Mesh::readCGNSFile(const char* filePtr)
 	// label nodesNum = size[0];
 	// label cellsNum = size[1];
 	// label bocoNum  = size[2];
-	// par_std_out_("nZones: %d, zoneName: %s, nodesNum: %d,cellsNum, %d, bocoNum: %d\n",
+	// par_std_out("nZones: %d, zoneName: %s, nodesNum: %d,cellsNum, %d, bocoNum: %d\n",
 	// 	nZones, zoneName, size[0], size[1], size[2]);
 
 
@@ -760,7 +760,7 @@ void Mesh::readCGNSFile(const char* filePtr)
 
 	// // coordk = new scalar[nodesNum];
 	// label one = 1;
-	// // par_std_out_("%p,%p,%p,%p\n", coordX,coordY,coordZ,coordk);
+	// // par_std_out("%p,%p,%p,%p\n", coordX,coordY,coordZ,coordk);
  //    if(cg_coord_read(iFile, iBase, iZone, "CoordinateX", coordType, &one,
  //                    &nodesNum, coordX) != CG_OK)
  //    	Terminate("readCoordX", cg_get_error());
@@ -796,7 +796,7 @@ void Mesh::readCGNSFile(const char* filePtr)
  //        if(cg_elements_read(iFile, iBase, iZone, iSec, sec.conn, NULL) != CG_OK)
  //       		Terminate("readConnectivity", cg_get_error());
 	// 	this->secs_.push_back(sec);
-	// 	par_std_out_("Section: %d, name: %s, type: %d, start: %d, end: %d\n", iSec, secName, secType, iStart, iEnd);
+	// 	par_std_out("Section: %d, name: %s, type: %d, start: %d, end: %d\n", iSec, secName, secType, iStart, iEnd);
 	// }
  //    if(cg_close(iFile) != CG_OK)
  //    	Terminate("closeGridCGNS", cg_get_error());
@@ -1020,7 +1020,7 @@ void Mesh::readZoneConnectivity(const Word filePtr,
                 &type, &start, &end, &nBnd, &parentFlag))
                 Terminate("readSectionInfo", cg_get_error());
             if(! Section::compareEleType(type, Boco)) continue;
-            par_std_out_("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
+            par_std_out("iSec: %d, sectionName: %s, type: %d, start: %d, end: %d, nBnd: %d\n", iSec, secName, type, start, end, nBnd);
 
             int nEles = end-start+1;
             int nodesNum = Section::nodesNumForEle(type);

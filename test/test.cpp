@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "cstdlib"
 #include "mpi.h"
-#include "utilities.hpp"
+#include "utilities.h"
 #include "loadBalancer.hpp"
 #include "parameter.hpp"
 #include "cgnslib.h"
@@ -48,7 +48,6 @@ using namespace HSF;
 
 int main(int argc, char** argv)
 {
-
 	LoadBalancer *lb = new LoadBalancer();
 
 	Parameter para("./config.yaml");
@@ -68,7 +67,7 @@ int main(int argc, char** argv)
 	// MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
 	// printf("This is process %d, %d processes are launched\n", rank, numproces);
-	init_utility_();
+	init_utility();
 
 
 	int nPara = 4;

@@ -50,7 +50,7 @@ void init_(char* configFile)
 	mesh_files.push_back(meshFile);
 
 	char resultFile[CHAR_DIM];
-	para.getPara<char>(resultFile, nPara, "domain1", "region", "0", "resPath");
+	para.getPara<char>(resultFile, nPara, "domain", "region", "0", "resPath");
 
 	/// initialization before load balance
 	Region reg;
