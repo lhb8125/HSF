@@ -139,6 +139,15 @@ public:
 //--------------------------------------------------------------
 // redirecting & access
 //--------------------------------------------------------------
+  /**
+   * @brief redirect
+   * redirect the OStream to another OStream buffer, so the output
+   * will be redirected too
+   *
+   * @param[in] rbuf the OStream buffer
+   * @param[in] the index of the files binded MultiOStream
+   * @return
+   */
   virtual int redirect(StrBuf* rbuf, int pos = 0)
   {
     if(pos >= files_.size())
@@ -158,6 +167,13 @@ public:
     }
   }
 
+  /**
+   * @brief reset
+   * redirect the OStream to the original OStream buffer
+   *
+   * @param[in] the index of the files binded MultiOStream
+   * @return
+   */
   virtual int reset(int pos = 0)
   {
     if(pos >= files_.size())
@@ -175,15 +191,46 @@ public:
     }
   }
 
+  /**
+   * @brief getRawStream
+   * return the raw ostream inside OStream
+   *
+   * @param[in] the index of the files binded MultiOStream
+   * @return
+   */
   virtual const ostream* getRawStream(int pos = 0) { return files_[pos]; }
-  
+
+  /**
+   * @brief getStrBuf
+   * return the stream buffer of this OStream
+   *
+   * @param[in] the index of the files binded MultiOStream
+   * @return
+   */
   virtual StrBuf* getStrBuf(int pos = 0) { return files_[pos]->rdbuf(); }
-  
+
+  /**
+   * @brief redirected
+   * return the rediretion status
+   *
+   * @param[in] the index of the files binded MultiOStream
+   * @return
+   */
   virtual bool redirected(int pos = 0) { return redirected_[pos]; }
- 
+
+  /**
+   * @brief getFileNum
+   * return the binded number
+   */
   virtual size_t getFileNum() { return files_.size(); } 
 
-  // add new file
+  /**
+   * @brief addFile
+   * binded a extra new file
+   *
+   * @param[in] filename new file name
+   * @return
+   */
   virtual int addFile(const string& filename)
   {
     files_.push_back(NULL);
@@ -192,7 +239,13 @@ public:
     buffers_.push_back(NULL);
   }
 
-  // add new buffer
+  /**
+   * @brief addBuffer
+   * redirect a stream buffer
+   *
+   * @param[in] filename new stream buffer
+   * @return
+   */
   virtual int addBuffer(StrBuf* buf)
   {
     files_.push_back(NULL);
@@ -202,7 +255,10 @@ public:
     files_[files_.size() - 1 ]->ostream::rdbuf(buf);
   }
 
-  // erase last file
+  /**
+   * @brief closeLast
+   * close and save the last file in the file array
+   */
   virtual int closeLast()
   {
     if(files_.size() > 0 ) 

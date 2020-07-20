@@ -157,7 +157,7 @@ public:
       const int color, const int nPart, const int priority = 1 );
 
   /**
-   * @brief split 
+   * @brief extract 
    * extract a communicator to from the reference communicator.
    *
    * @param[in] refComm the reference communicator on which to do extraction

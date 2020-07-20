@@ -44,66 +44,66 @@ module utility
 
   interface
 
-    subroutine init_utility() bind(c)
+    subroutine initUtility() bind(c,name='initUtility')
       import
     end subroutine
 
-    subroutine get_pid(pid) bind(c)
+    subroutine getPid(pid) bind(c,name='getPid')
       import
       integer(c_int):: pid
     end subroutine
 
-    subroutine get_commsize(commSize) bind(c)
+    subroutine getCommsize(commSize) bind(c,name='getCommsize')
       import
       integer(c_int):: commSize
     end subroutine
 
-    subroutine all_reduce_labels(data, count, op) bind(c)
+    subroutine allReduceLabels(data, count, op) bind(c,name='allReduceLabels')
       import
       integer(dpI):: data(*)
       integer(dpI), VALUE:: count
       integer(c_int32_T), VALUE:: op
     end subroutine
 
-    subroutine all_reduce_scalars(data, count, op) bind(c)
+    subroutine allReduceScalars(data, count, op) bind(c,name='allReduceScalars')
       import
       real(dpR):: data(*)
       integer(dpI), VALUE:: count
       integer(c_int32_T), VALUE:: op
     end subroutine
 
-    subroutine bcast_labels(data, count) bind(c)
+    subroutine bcastLabels(data, count) bind(c,name='bcastLabels')
       import
       integer(dpI):: data(*)
       integer(dpI), VALUE:: count
     end subroutine
 
-    subroutine bcast_scalars(data, count) bind(c)
+    subroutine bcastScalars(data, count) bind(c,name='bcastScalars')
       import
       real(dpR):: data(*)
       integer(dpI), VALUE:: count
     end subroutine
 
-    subroutine gather_labels(sdata, rdata, count) bind(c)
+    subroutine gatherLabels(sdata, rdata, count) bind(c,name='gatherLabels')
       import
       integer(dpI):: sdata(*), rdata(*)
       integer(dpI), VALUE:: count
     end subroutine
 
-    subroutine gather_scalars(sdata, rdata, count) bind(c)
+    subroutine gatherScalars(sdata, rdata, count) bind(c,name='gatherScalars')
       import
       real(dpR):: sdata(*), rdata(*)
       integer(dpI), VALUE:: count
     end subroutine
 
-    subroutine extreme_labels_in_procs(flag, data, result, count) bind(c)
+    subroutine extremeLabelsInProcs(flag, data, result, count) bind(c,name='extremeLabelsInProcs')
       import
       character(len=1):: flag(*)
       integer(dpR):: data, result
       integer(dpI), VALUE:: count
     end subroutine
 
-    subroutine extreme_scalars_in_procs(flag, data, result, count) bind(c)
+    subroutine extremeScalarsInProcs(flag, data, result, count) bind(c,name='extremeScalarsInProcs')
       import
       character(len=1):: flag(*)
       real(dpR):: data, result

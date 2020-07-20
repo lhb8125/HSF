@@ -23,7 +23,7 @@ extern "C"
 /**
 * @brief 初始化utility
 */
-void init_utility(); 
+void initUtility(); 
 
 /*****************************************进程间数据交换****************************************/
 
@@ -31,13 +31,13 @@ void init_utility();
 * @brief 获取进程号
 * @param[out]  pid 进程ID
 */
-void get_pid( int * pid );
+void getPid( int * pid );
 
 /**
 * @brief 获取进程规模
 * @param[out]  commSize 进程总数
 */
-void get_commsize( int * commSize );
+void getCommsize( int * commSize );
 
 
 /**
@@ -46,7 +46,7 @@ void get_commsize( int * commSize );
 * @param[in]  count 变量个数
 * @param[in]  op 操作类型
 */
-void all_reduce_labels(label* data, const label count , unsigned int op);
+void allReduceLabels(label* data, const label count , unsigned int op);
 
 /**
 * @brief 规约浮点变量序列
@@ -54,21 +54,21 @@ void all_reduce_labels(label* data, const label count , unsigned int op);
 * @param[in]  count 变量个数
 * @param[in]  op 操作类型
 */
-void all_reduce_scalars(scalar* data, const label count, unsigned int op);
+void allReduceScalars(scalar* data, const label count, unsigned int op);
 
 /**
 * @brief 主进程广播整形序列
 * @param[in][out]  data 变量序列
 * @param[in]  count 变量个数
 */
-void bcast_labels(label* data, const label count);
+void bcastLabels(label* data, const label count);
 
 /**
 * @brief 主进程广播浮点型序列
 * @param[in][out]  data 变量序列
 * @param[in]  count 变量个数
 */
-void bcast_scalars(scalar* data, const label count);
+void bcastScalars(scalar* data, const label count);
 
 /**
 * @brief 主进程收集整形序列
@@ -76,7 +76,7 @@ void bcast_scalars(scalar* data, const label count);
 * @param[in][out]  rdata 接收序列
 * @param[in]  count 变量个数
 */
-void gather_labels(label* sdata, label* rdata, const label count );
+void gatherLabels(label* sdata, label* rdata, const label count );
 
 /**
 * @brief 主进程收集浮点序列
@@ -84,7 +84,7 @@ void gather_labels(label* sdata, label* rdata, const label count );
 * @param[in][out]  rdata 接收序列
 * @param[in]  count 变量个数
 */
-void gather_scalars(scalar* sdata, scalar* rdata, const label count);
+void gatherScalars(scalar* sdata, scalar* rdata, const label count);
 
 /**
 * @brief 主进程收集整数，计算最大值或最小值
@@ -93,7 +93,7 @@ void gather_scalars(scalar* sdata, scalar* rdata, const label count);
 * @param[in][out]  result 所有进程最大值或最小值
 * @param[in]  count 变量个数
 */
-void extreme_labels_in_procs(const char* flag, label* data, label* result,
+void extremeLabelsInProcs(const char* flag, label* data, label* result,
     const label count);
 
 /**
@@ -103,7 +103,7 @@ void extreme_labels_in_procs(const char* flag, label* data, label* result,
 * @param[in][out]  result 所有进程最大值或最小值
 * @param[in]  count 变量个数
 */
-void extreme_scalars_in_procs(const char* flag, scalar* data, scalar* result,
+void extremeScalarsInProcs(const char* flag, scalar* data, scalar* result,
     const label count);
 
 /*******************************************标准输出*******************************************/

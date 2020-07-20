@@ -33,7 +33,7 @@ namespace HSF
 // Task registration
 //--------------------------------------------------------------
   
-// insert requests
+
 MPI_Request* Communicator::insertRequest( TaskName task )
 {
   TaskRequestTable::iterator iter = taskRequests_.find(task);
@@ -57,14 +57,14 @@ MPI_Request* Communicator::insertRequest( TaskName task )
   return &(*(iter->second.end() - 1 ) );
 }
 
-// generate message tag
+
 Hash32 Communicator::generateTag( const TaskName& task, const int source, 
     const int dest)
 {
   return strToHash32( task + to_string(source) + to_string(dest) );
 }
 
-// unregister task
+
 int Communicator::unregisterTask( TaskName task)
 {
   TaskRequestTable::iterator iter = taskRequests_.find(task);
@@ -79,7 +79,7 @@ int Communicator::unregisterTask( TaskName task)
 // - communication is supported in MPI version higher than 3.0
 // - Triger MPI 3.0 use -DMPIv3
 //--------------------------------------------------------------
-  
+
 int Communicator::bcast(const TaskName task, 
     void* buffer, int count, int root )
 {
@@ -89,6 +89,7 @@ int Communicator::bcast(const TaskName task,
   MPI_Bcast(buffer, count, MPI_BYTE, root, this ->comm_);
 #endif
 }
+
 
 int Communicator::gather(const TaskName task,
     const void* sendbuf, int sendcount, void* recvbuf, int recvcount, 
@@ -102,6 +103,7 @@ int Communicator::gather(const TaskName task,
       root, this ->comm_);
 #endif
 }
+
 
 int Communicator::gatherV(const TaskName task,
     const void* sendbuf, int sendcount, void* recvbuf, const int* recvcounts,
@@ -121,6 +123,7 @@ int Communicator::gatherV(const TaskName task,
 #endif
 }
 
+
 int Communicator::allGather(const TaskName task,
     const void* sendbuf, int sendcount, void* recvbuf, int recvcount )
 {
@@ -132,6 +135,7 @@ int Communicator::allGather(const TaskName task,
       this ->comm_);
 #endif
 }
+
 
 int Communicator::allGatherV(const TaskName task,
     const void* sendbuf, int sendcount, void* recvbuf, const int* recvcounts)
@@ -149,6 +153,7 @@ int Communicator::allGatherV(const TaskName task,
       MPI_BYTE, this -> comm_ );
 }
 
+
 int Communicator::scatter(const TaskName task,
     const void* sendbuf, int sendcount, void* recvbuf, int recvcount,
     int root )
@@ -161,6 +166,7 @@ int Communicator::scatter(const TaskName task,
       root, this -> comm_ );
 #endif
 }
+
 
 int Communicator::scatterV(const TaskName task,
     const void* sendbuf, const int* sendcounts, void* recvbuf, int recvcount,
@@ -180,6 +186,7 @@ int Communicator::scatterV(const TaskName task,
 #endif
 }
 
+
 int Communicator::send(const TaskName task,
     const void* sendbuf, int sendcount, int senddest)
 {
@@ -187,6 +194,7 @@ int Communicator::send(const TaskName task,
       generateTag(task, getMyId(), senddest), this -> comm_, insertRequest(task)
       );
 }
+
 
 int Communicator::recv(const TaskName task,
     void* recvbuf, int recvcount, int recvdest )
@@ -196,7 +204,7 @@ int Communicator::recv(const TaskName task,
       );
 }
 
-// WARNING: make sure message between each process pair is unique
+
 int Communicator::groupSend(const TaskName task,
     const void* sendbuf, int sendnum, const int* sendcounts, 
     const int* senddests)
@@ -211,7 +219,7 @@ int Communicator::groupSend(const TaskName task,
   }
 }
 
-// WARNING: make sure message between each process pair is unique
+
 int Communicator::groupRecv(const TaskName task,
     void* recvbuf, int recvnum, const int* recvcounts, const int* recvdests
     )
@@ -226,8 +234,7 @@ int Communicator::groupRecv(const TaskName task,
   }
 }
 
-// WARNING: make sure message between each process pair is unique, and message
-// size to exchange is equal at both side of each process pair.
+
 int Communicator::exchange(const TaskName task,
     const void* sendbuf, void* recvbuf, int num, const int* counts, 
     const int* dests )
@@ -245,6 +252,7 @@ int Communicator::exchange(const TaskName task,
   }
 }
 
+
 int Communicator::reduce(const TaskName task,
     const void* sendbuf, void* recvbuf, int count, CommData datatype, 
     CommOp op, int root )
@@ -257,6 +265,7 @@ int Communicator::reduce(const TaskName task,
 #endif
 }
 
+
 int Communicator::allReduce(const TaskName task,
      const void* sendbuf, void* recvbuf, int count, CommData datatype,
      CommOp op)
@@ -268,6 +277,7 @@ int Communicator::allReduce(const TaskName task,
   MPI_Allreduce(sendbuf, recvbuf, count, datatype, op, this -> comm_ );
 #endif
 }
+
 
 int Communicator::finishTask(const TaskName task)
 {

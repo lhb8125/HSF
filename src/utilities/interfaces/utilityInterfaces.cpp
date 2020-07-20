@@ -16,7 +16,7 @@ using namespace HSF;
 
 
 /*****************************************utility初始化*****************************************/
-void init_utility()
+void initUtility()
 {
   COMM::init(NULL, NULL, "MPI");
   signal(SIGSEGV, handler);
@@ -24,12 +24,12 @@ void init_utility()
 
 /*****************************************进程间数据交换****************************************/
 // 获取进程号及全局通信规模
-void get_pid( int * pid )
+void getPid( int * pid )
 {
   *pid  = COMM::getGlobalId();
 }
 
-void get_commsize( int * commSize )
+void getCommsize( int * commSize )
 {
   *commSize = COMM::getGlobalSize();
 }
@@ -40,7 +40,7 @@ void get_commsize( int * commSize )
 // para1 [inout] label类型变量
 // para2 [in] 变量个数
 // para3 [in] 操作类型
-void all_reduce_labels(label* data, const label count, unsigned int op)
+void allReduceLabels(label* data, const label count, unsigned int op)
 {
   vector<label> sdata(data, data+count);
 
@@ -63,7 +63,7 @@ void all_reduce_labels(label* data, const label count, unsigned int op)
 // para1 [inout] scalar类型变量
 // para2 [in] 变量个数
 // para3 [in] 操作类型
-void all_reduce_scalars(scalar* data, const label count , unsigned int op)
+void allReduceScalars(scalar* data, const label count , unsigned int op)
 {
   vector<scalar> sdata(data, data+count);
 
@@ -85,7 +85,7 @@ void all_reduce_scalars(scalar* data, const label count , unsigned int op)
 // 主进程广播整形序列
 // para1 [inout] 变量序列
 // para2 [in] 变量个数
-void bcast_labels(label* data, const label count)
+void bcastLabels(label* data, const label count)
 {
   Communicator& gComm = COMM::getGlobalComm();
   gComm.bcast("bcast_labels_", data, sizeof(label)*(count) );
@@ -95,7 +95,7 @@ void bcast_labels(label* data, const label count)
 // 主进程广播浮点型序列
 // para1 [inout] 变量序列
 // para2 [in] 变量个数
-void bcast_scalars(scalar* data, const label count)
+void bcastScalars(scalar* data, const label count)
 {
   Communicator& gComm = COMM::getGlobalComm();
   gComm.bcast("bcast_scalars_", data, sizeof(scalar)*(count) );
@@ -106,7 +106,7 @@ void bcast_scalars(scalar* data, const label count)
 // para1 [in] 发送序列
 // para2 [inout] 接收序列
 // para3 [in] 变量个数
-void gather_labels(label* sdata, label* rdata, const label count )
+void gatherLabels(label* sdata, label* rdata, const label count )
 {
   Communicator& gComm = COMM::getGlobalComm();
   gComm.gather("gather_labels_", sdata, sizeof(label)*(count), rdata, 
@@ -118,7 +118,7 @@ void gather_labels(label* sdata, label* rdata, const label count )
 // para1 [in] 发送序列
 // para2 [inout] 接收序列
 // para3 [in] 变量个数
-void gather_scalars(scalar* sdata, scalar* rdata, const label count)
+void gatherScalars(scalar* sdata, scalar* rdata, const label count)
 {
   Communicator& gComm = COMM::getGlobalComm();
   gComm.gather("gather_scalars_", sdata, sizeof(scalar)*(count), rdata, 
@@ -126,7 +126,7 @@ void gather_scalars(scalar* sdata, scalar* rdata, const label count)
   gComm.finishTask("gather_scalars_");
 }
 
-void extreme_labels_in_procs(const char* flag, label* data, label* result,
+void extremeLabelsInProcs(const char* flag, label* data, label* result,
   const label count)
 {
   int pid  = COMM::getGlobalId();
@@ -159,7 +159,7 @@ void extreme_labels_in_procs(const char* flag, label* data, label* result,
   DELETE_POINTER(rdata);
 }
 
-void extreme_scalars_in_procs(const char* flag, scalar* data, scalar* result,
+void extremeScalarsInProcs(const char* flag, scalar* data, scalar* result,
   const label count)
 {
   int pid  = COMM::getGlobalId();

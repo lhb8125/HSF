@@ -79,8 +79,6 @@ class CommunicationManager;
 #define COMM_LONG_LONG   MPI_LONG_LONG
 #define COMM_FLOAT   MPI_FLOAT
 #define COMM_DOUBLE   MPI_DOUBLE
-#define COMM_SCALAR   MPI_DOUBLE
-#define COMM_LABEL   MPI_LONG
 #define COMM_LONG_DOUBLE   MPI_LONG_DOUBLE
 #define COMM_BYTE   MPI_BYTE
 #define COMM_WCHAR   MPI_WCHAR
@@ -134,6 +132,19 @@ class CommunicationManager;
 #define COMM_DOUBLE_INT   MPI_DOUBLE_INT
 #define COMM_LONG_INT   MPI_LONG_INT
 #define COMM_SHORT_INT   MPI_SHORT_INT
+// 默认使用4字节整型
+#if defined(LABEL_INT64)
+   #define COMM_LABEL MPI_LONG
+#else
+   #define COMM_LABEL MPI_INT
+#endif
+
+// 默认使用double精度
+#if defined(SCALAR_FLOAT32)
+   #define COMM_SCALAR MPI_FLOAT
+#else
+   #define COMM_SCALAR MPI_DOUBLE
+#endif
 #define COMM_LONG_DOUBLE_INT   MPI_LONG_DOUBLE_INT
 
 class Communicator
@@ -180,11 +191,33 @@ private:
   typedef map<TaskName, vector<MPI_Request> > TaskRequestTable;
   typedef pair<TaskName, vector<MPI_Request> > TaskRequestPair;
 
+  /**
+   * @brief insertRequest
+   * register communication task
+   *
+   * @param[in] task communication task name
+   * @return the MPI_Requst of the task
+   */
   MPI_Request* insertRequest( TaskName task); ///< insert requests
   
-  /// generate tag
+  /**
+  * @brief generateTag
+  * generate hash tag from task name, source id and dest id
+  *
+  * @param[in] task communication task name
+  * @param[in] source process act as message source in communication
+  * @param[in] dest process act as message destination in communication
+  * @return the hash value tag of the task
+  */
   Hash32 generateTag( const TaskName& task, const int source, const int dest);
-
+  
+  /**
+   * @brief unregisterTask
+   * generate hash tag from task name, source id and dest id
+   *
+   * @param[in] task communication task name
+   * @return
+   */
   int unregisterTask( TaskName task); ///< unregister task
 
   size_t messageNum_; ///< message number statistics
@@ -249,62 +282,236 @@ public:
 // - communication is supported in MPI version higher than 3.0
 // - Triger MPI 3.0 use -DMPIv3
 //--------------------------------------------------------------
-  
+  /**
+   * @brief bcast
+   * broadcast message in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] buffer the pointer holding the message broadcasted
+   * @param[in] count the message size in BYTE
+   * @param[in] root the source process to braodcast message
+   * @return
+   */
   virtual int bcast(const TaskName task, 
       void* buffer, int count, int root = 0 );
-
+  /**
+   * @brief gather
+   * gather message in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message sent
+   * @param[in] sendcount the sent message size in BYTE
+   * @param[out] recvbuf the pointer holding the message gathered
+   * @param[in] recvcount the gathered message size in BYTE, each
+   *            process send message with equal size
+   * @param[in] root the destination process gathering message.
+   * @return
+   */
   virtual int gather(const TaskName task,
       const void* sendbuf, int sendcount, void* recvbuff, int recvcount, 
       int root = 0 );
   
+  /**
+   * @brief gatherV
+   * gather message in the communicator.
+   * each process send message with variable size.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message sent
+   * @param[in] sendcount the sent message size in BYTE
+   * @param[out] recvbuf the pointer holding the message gathered
+   * @param[in] recvcounts the gathered message sizes in BYTE, each
+   *            process send message with variable size
+   * @param[in] root the destination process gathering message
+   * @return
+   */
   virtual int gatherV(const TaskName task,
       const void* sendbuf, int sendcount, void* recvbuff, const int* recvcounts,
       int root = 0 );
 
+  /**
+   * @brief allGather
+   * all the processes gather message in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message sent
+   * @param[in] sendcount the sent message size in BYTE
+   * @param[out] recvbuf the pointer holding the message gathered
+   * @param[in] recvcount the gathered message size in BYTE
+   * @return
+   */
   virtual int allGather(const TaskName task,
       const void* sendbuf, int sendcount, void* recvbuff, int recvcount );
-  
+
+  /**
+   * @brief allGatherV
+   * all the processes gather message in the communicator.
+   * each process send message with variable size.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message sent
+   * @param[in] sendcount the sent message size in BYTE
+   * @param[out] recvbuf the pointer holding the message gathered
+   * @param[in] recvcounts the gathered message sizes in BYTE, each
+   *            process send message with variable size
+   * @return
+   */
   virtual int allGatherV(const TaskName task,
       const void* sendbuf, int sendcount, void* recvbuff, const int* recvcounts 
       );
 
+  /**
+   * @brief scatter
+   * scattered message in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message scattered
+   * @param[in] sendcount the scattered message size in BYTE
+   * @param[out] recvbuf the pointer holding the message received
+   * @param[in] recvcount the received message sizes in BYTE
+   * @param[in] root the source process scattering message.
+   * @return
+   */
   virtual int scatter(const TaskName task,
       const void* sendbuf, int sendcount, void* recvbuff, int recvcount,
       int root = 0 );
 
+  /**
+   * @brief scatterV
+   * scattered message in the communicator.
+   * received message will be with size different from one process to
+   * another.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message scattered
+   * @param[in] sendcounts the scattered message size in BYTE
+   *             received message will be with size different from one
+   *             process to another.
+   * @param[out] recvbuf the pointer holding the message received
+   * @param[in] recvcount the received message sizes in BYTE
+   * @param[in] root the source process scattering message.
+   * @return
+   */
   virtual int scatterV(const TaskName task,
       const void* sendbuf, const int* sendcounts, void* recvbuff, int recvcount,
       int root = 0 );
-  
+
+  /**
+   * @brief send
+   * send message to another process in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message sent
+   * @param[in] sendcount the sent message size in BYTE
+   * @param[in] senddest the destination process sending message to.
+   * @return
+   */
   virtual int send(const TaskName task,
       const void* sendbuf, int sendcount, int senddest);
-  
+
+  /**
+   * @brief recv
+   * receive message to another process in the communicator.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[out] recvbuf the pointer holding the message received
+   * @param[in] recvcount the received message size in BYTE
+   * @param[in] recvdest the destination process receiving message from.
+   * @return
+   */
   virtual int recv(const TaskName task,
       void* recvbuf, int recvcount, int recvdest );
   
-  // warning: make sure message between each process pair is unique
+  /**
+   * @brief groupSend
+   * send mutiple messages to other processes in the communicator.
+   * warning: make sure message between each process pair is unique.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the messages sent
+   * @param[in] sendnum the sent message number (one for a process)
+   * @param[in] sendcounts the sent messages' sizes in BYTE
+   * @param[in] senddests the destination processes sending message to.
+   * @return
+   */
   virtual int groupSend(const TaskName task,
       const void* sendbuf, int sendnum, const int* sendcounts, 
       const int* senddests);
   
-  // warning: make sure message between each process pair is unique
+  /**
+   * @brief groupRecv
+   * receive multiple messages from other processes in the communicator.
+   * warning: make sure message between each process pair is unique.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[out] recvbuf the pointer holding the messages received
+   * @param[in] recvnum the received messages number (one from a process)
+   * @param[in] recvcounts the received messages' sizes in BYTE
+   * @param[in] recvdests the destination processes receiving messages from.
+   * @return
+   */
   virtual int groupRecv(const TaskName task,
       void* recvbuf, int recvnum, const int* recvcounts, const int* recvdests
       );
   
-  // warning: make sure message between each process pair is unique
+  /**
+   * @brief exchange
+   * exchange multiple messages with other processes in the communicator.
+   * warning: make sure message between each process pair is unique
+   * warning: make sure message size in each process pair is equal
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the messages sent
+   * @param[out] recvbuf the pointer holding the messages received
+   * @param[in] num the exchanged message number (one for a process)
+   * @param[in] counts the exchanged messages' sizes in BYTE
+   * @param[in] dests the paired processes
+   * @return
+   */
   virtual int exchange(const TaskName task,
       const void* sendbuf, void* recvbuf, int num, const int* counts, 
       const int* dests );
-  
+
+  /**
+   * @brief reduce
+   * reduce message.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message to be reduced
+   * @param[out] recvbuf the pointer holding the message reduced
+   * @param[in] count the reduced message size in DATA TYPE
+   * @param[in] datatype the message date type
+   * @param[in] op reduce operator
+   * @param[in] root the destination process to reduce result
+   * @return
+   */
   virtual int reduce(const TaskName task,
       const void* sendbuf, void* recvbuf, int count, CommData datatype, 
       CommOp op, int root = 0);
 
+  /**
+   * @brief allReduce
+   * reduce message to all processes.
+   *
+   * @param[in] task the task name to register the communication task
+   * @param[in] sendbuf the pointer holding the message to be reduced
+   * @param[out] recvbuf the pointer holding the message reduced
+   * @param[in] count the reduced message size in DATA TYPE
+   * @param[in] datatype the message date type
+   * @param[in] op reduce operator
+   * @return
+   */
   virtual int allReduce(const TaskName task,
        const void* sendbuf, void* recvbuf, int count, CommData datatype,
        CommOp op);
 
+  /**
+   * @brief reduce
+   * wait the communication task to finish.
+   *
+   * @param[in] task the task name registering the communication task
+   * @return
+   */
   virtual int finishTask(const TaskName task);
 
   virtual int barrier()

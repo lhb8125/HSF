@@ -131,6 +131,14 @@ public:
 //--------------------------------------------------------------
 // redirecting & accessing
 //--------------------------------------------------------------
+  /**
+   * @brief redirect
+   * redirect the OStream to another OStream buffer, so the output
+   * will be redirected too
+   *
+   * @param[in] rbuf the OStream buffer
+   * @return
+   */
   virtual int redirect(StrBuf* rbuf )
   {
     if(redirected_) file_->rdbuf(rbuf);
@@ -142,6 +150,10 @@ public:
     }
   }
 
+  /**
+   * @brief reset
+   * redirect the OStream to the original OStream buffer
+   */
   virtual int reset()
   {
     if(redirected_) 
@@ -150,11 +162,23 @@ public:
       redirected_ = false;
     }
   }
-  
+
+  /**
+   * @brief getRawStream
+   * return the raw ostream inside OStream
+   */
   virtual const ostream* getRawStream() { return file_; }
-  
+
+  /**
+   * @brief getStrBuf
+   * return the stream buffer of this OStream
+   */
   virtual StrBuf* getStrBuf() { return file_->rdbuf(); }
 
+  /**
+   * @brief redirected
+   * return the rediretion status
+   */
   virtual bool redirected() { return this->redirected_; }
 
 

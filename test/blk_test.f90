@@ -86,7 +86,7 @@ program main
     ! procedure(func),pointer:: f_ptr => null()
 
     ! 初始化
-    call init_utility()
+    call initUtility()
     call init(trim(config_file))
 
     ! 获取网格文件名
@@ -131,7 +131,7 @@ program main
     write(*,*), "nodes num in elements: ", ele_nodes
 
     ! 获取进程号
-    call get_pid(my_id)
+    call getPid(my_id)
     allocate(pid(n_ele), stat=err_mem)
     if(err_mem .ne. 0) stop 'Error, fails to allocate memory, pid'
     do iele=1,n_ele
@@ -305,12 +305,12 @@ program main
     min_val = 200
     count = 1
     ! 最大值
-    call extreme_labels_in_procs("MAX"//C_NULL_CHAR, local_val, max_val, count)
+    call extremeLabelsInProcs("MAX"//C_NULL_CHAR, local_val, max_val, count)
     ! write(*,*),my_id,max_val
     local_real = 1/real(my_id+1)
     min_real = 100.0
     ! 最小值
-    call extreme_scalars_in_procs("MIN"//C_NULL_CHAR, local_real, min_real, count)
+    call extremeScalarsInProcs("MIN"//C_NULL_CHAR, local_real, min_real, count)
     ! write(*,*),my_id,min_real
 
     ! 获取边界网格面边界类型
