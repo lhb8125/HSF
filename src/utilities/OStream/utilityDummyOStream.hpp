@@ -24,10 +24,12 @@
  */
 
 
-#ifndef HSF_DUMMYOSTREAM_HPP
-#define HSF_DUMMYOSTREAM_HPP
+#ifndef UTILITY_DUMMYOSTREAM_HPP
+#define UTILITY_DUMMYOSTREAM_HPP
 
-namespace HSF
+// using namespace UTILITY;
+
+namespace UTILITY
 {
 
 class DummyOStream

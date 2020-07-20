@@ -22,7 +22,7 @@
 // #include "mpiWrapper.hpp"
 #include "utilities.h"
 
-using namespace HSF;
+// using namespace HSF;
 
 // typedef label LABEL;
 // typedef scalar SCALAR;

@@ -16,7 +16,7 @@
  * 
  */
 /**
- * @file mpiWrapper.cpp
+ * @file utilityMpiWrapper.cpp
  * @brief
  * global interfaces for communication 
  * @author Hu Ren, rh890127a@163.com
@@ -24,12 +24,12 @@
  * @date 2019-08-15
  */
 
-#include "mpiWrapper.hpp"
+#include "utilityMpiWrapper.hpp"
 
 namespace
 {
 
-using namespace HSF;
+using namespace UTILITY;
 
 /**
  * @brief 
@@ -61,7 +61,7 @@ public:
 
 }
 
-namespace HSF
+namespace UTILITY
 {
 
 // static global communication manager

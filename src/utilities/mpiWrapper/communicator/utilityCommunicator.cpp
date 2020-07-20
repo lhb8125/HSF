@@ -24,9 +24,9 @@
  */
 
 // #include "basicFunction.hpp"
-#include "communicator.hpp"
+#include "utilityCommunicator.hpp"
 
-namespace HSF
+namespace UTILITY
 {
 
 //--------------------------------------------------------------
@@ -311,5 +311,5 @@ int Communicator::finishTask(const TaskName task)
 
 }
 
-} // namespace HSF
+} // namespace UTILITY
 

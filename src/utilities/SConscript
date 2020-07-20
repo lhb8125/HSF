@@ -1,8 +1,8 @@
 import GLOVAR as gl
 
-cxxfile = ['mpiWrapper/mpiWrapper.cpp',
-			'mpiWrapper/communicationManager/communicationManager.cpp',
-			'mpiWrapper/communicator/communicator.cpp',
+cxxfile = ['mpiWrapper/utilityMpiWrapper.cpp',
+			'mpiWrapper/communicationManager/utilityCommunicationManager.cpp',
+			'mpiWrapper/communicator/utilityCommunicator.cpp',
             'exceptions/utilityExceptions.cpp',
             'interfaces/utilityInterfaces.cpp']
 

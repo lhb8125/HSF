@@ -25,9 +25,9 @@
  */
 
 
-#include "communicationManager.hpp"
+#include "utilityCommunicationManager.hpp"
 
-namespace HSF
+namespace UTILITY
 {
 
 //--------------------------------------------------------------
@@ -90,9 +90,9 @@ public:
 
 } // anonymous namespace
 
-} // namespace HSF
+} // namespace UTILITY
 
-namespace HSF
+namespace UTILITY
 {
 //--------------------------------------------------------------
 // construction and deconstruction
@@ -307,4 +307,4 @@ float CommunicationManager::calculateBalance(const Communicator& refComm,
     abort();
 }
 
-} // namespace HSF
+} // namespace UTILITY

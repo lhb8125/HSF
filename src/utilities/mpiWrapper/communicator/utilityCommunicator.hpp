@@ -27,20 +27,20 @@
 #include "mpi.h"
 #include "utilityUsingCpp.hpp"
 #include "utilityBasicFunction.h"
-#include "OStream.hpp"
-#include "multiOStream.hpp"
-#include "dummyOStream.hpp"
+#include "utilityOStream.hpp"
+#include "utilityMultiOStream.hpp"
+#include "utilityDummyOStream.hpp"
 
-using namespace UTILITY;
+#ifndef UTILITY_COMMUNICATOR_HPP
+#define UTILITY_COMMUNICATOR_HPP
 
-#ifndef HSF_COMMUNICATOR_HPP
-#define HSF_COMMUNICATOR_HPP
+// using namespace UTILITY;
 
 // set the max message number in the register in case overflow caused by misuse
 // of the communicator
 #define COMM_MAX_MSG_NUM 999
 
-namespace HSF
+namespace UTILITY
 {
 
 typedef std::string TaskName;

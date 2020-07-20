@@ -4,15 +4,15 @@
 #include "utilityUsingCpp.hpp"
 #include "utilityBasicFunction.h"
 #include "utilityContainer.hpp"
-#include "OStream.hpp"
-#include "multiOStream.hpp"
-#include "dummyOStream.hpp"
-#include "communicator.hpp"
-#include "communicationManager.hpp"
-#include "mpiWrapper.hpp"
+#include "utilityOStream.hpp"
+#include "utilityMultiOStream.hpp"
+#include "utilityDummyOStream.hpp"
+#include "utilityCommunicator.hpp"
+#include "utilityCommunicationManager.hpp"
+#include "utilityMpiWrapper.hpp"
 
 using namespace UTILITY;
-using namespace HSF;
+// using namespace HSF;
 
 
 /*****************************************utility初始化*****************************************/

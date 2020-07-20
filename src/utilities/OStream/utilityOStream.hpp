@@ -26,13 +26,13 @@
 #include <stdint.h>
 #include "utilityUsingCpp.hpp"
 
-using namespace UTILITY;
+// using namespace UTILITY;
 
-#ifndef HSF_OSTREAM_HPP
-#define HSF_OSTREAM_HPP
+#ifndef UTILITY_OSTREAM_HPP
+#define UTILITY_OSTREAM_HPP
 
 
-namespace HSF
+namespace UTILITY
 {
 
 /**

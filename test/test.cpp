@@ -18,11 +18,14 @@
 #include "loadBalancer.hpp"
 #include "parameter.hpp"
 #include "cgnslib.h"
+#include "region.hpp"
 // #include "fieldInterfaces.hpp"
 #define OUT std::cout
 #define IN std::cin
 #define ENDL std::endl
 #define String std::string
+
+using namespace HSF;
 
 void spMV_data(Region& reg, label n_face, label n_cell);
 void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
@@ -30,7 +33,6 @@ void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
 void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
 	label n_face_b);
 
-using namespace HSF;
 
 // #define DEBUG_YAML
 

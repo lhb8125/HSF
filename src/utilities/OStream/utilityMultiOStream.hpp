@@ -25,13 +25,13 @@
  * @date 2019-08-13
  */
 
-#include "OStream.hpp"
+#include "utilityOStream.hpp"
 #include <stdlib.h>
 
-#ifndef HSF_MULTIOSTREAM_HPP
-#define HSF_MULTIOSTREAM_HPP
+#ifndef UTILITY_MULTIOSTREAM_HPP
+#define UTILITY_MULTIOSTREAM_HPP
 
-namespace HSF
+namespace UTILITY
 {
 
 class MultiOStream : 

@@ -24,34 +24,47 @@
  * @date 2019-08-04
  */
 
-#include "communicator.hpp"
-#include "communicationManager.hpp"
+#include "utilityCommunicator.hpp"
+#include "utilityCommunicationManager.hpp"
 
-#ifndef HSF_MPI_WRAPPER_HPP
-#define HSF_MPI_WRAPPER_HPP
+#ifndef UTILITY_MPI_WRAPPER_HPP
+#define UTILITY_MPI_WRAPPER_HPP
 
-namespace HSF
+// using namespace HSF;
+
+namespace UTILITY
 {
 /**
  * @brief COMM
- * Communication entrance, enable flexibility by generating different global
+ * @detail Communication entrance, enable flexibility by generating different global
  * communication manager object.
  *
  */
 class COMM
 {
 private:
-  // static global communication manager
+  /** @brief static global communication manager */
   static CommunicationManager* globalManager;
 
-  // private defult constructor preventing explicit instantiation
+  /** @brief private defult constructor preventing explicit instantiation */
   COMM() {}
 
 
 public:
 
+  /**
+   * @brief init
+   * initialize global communication environment
+   * @param[in] argc parameters from main
+   * @param[in] argv parameters from main
+   * @param[in] type the communication environment type, default is MPI
+   */
   static void init(int* argc, char*** argv, char* type= "MPI");
-  
+
+  /**
+   * @brief stop
+   * stop and clean global communication environment
+   */
   static void stop();
 
 //--------------------------------------------------------------

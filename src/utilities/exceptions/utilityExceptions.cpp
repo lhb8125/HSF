@@ -2,8 +2,8 @@
 #include <dlfcn.h> 
 #include <cxxabi.h>
 #include <sstream>
-#include "OStream.hpp"
-#include "mpiWrapper.hpp"
+#include "utilityOStream.hpp"
+#include "utilityMpiWrapper.hpp"
 
 
 void handler(int sig) {
@@ -18,11 +18,11 @@ void handler(int sig) {
   // print out all the frames to stderr
   // fprintf(stderr, "Error: signal %d:\n", sig);
   if(sig!=0)
-    HSF::PERR<<"Error: signal "<<sig<<":\n"<<FLUSH;
+    UTILITY::PERR<<"Error: signal "<<sig<<":\n"<<FLUSH;
   strings = backtrace_symbols (array, size);
 
   // printf ("Obtained %zd stack frames.\n", size);
-  HSF::PERR<<"Obtained "<<size<<"stack frames.\n"<<FLUSH;
+  UTILITY::PERR<<"Obtained "<<size<<"stack frames.\n"<<FLUSH;
 
   std::ostringstream trace_buf;
   for (i = 0; i < size; i++)
@@ -46,7 +46,7 @@ void handler(int sig) {
     }
     trace_buf << buf;
   }
-  HSF::PERR<<trace_buf.str()<<"\n"<<FLUSH;
+  UTILITY::PERR<<trace_buf.str()<<"\n"<<FLUSH;
      // printf ("\n\t%s\n", trace_buf.str().c_str());
 
   free (strings);
@@ -62,14 +62,14 @@ void Terminate(const char* location, const char* content)
 {
     // 各进程先将错误信息打印到屏幕
     std::cout
-        <<"Process ID: \033[31m"<<HSF::COMM::getGlobalId()
+        <<"Process ID: \033[31m"<<UTILITY::COMM::getGlobalId()
         <<"\033[0m, Location: \033[31m"<<location
         <<"\033[0m, error message: \033[31m"<<content
         <<"\033[0m, file: \033[31m"<<__FILE__
         <<"\033[0m, line: \033[31m"<<__LINE__
         <<"\033[0m\n"<<FLUSH;
     // 再将错误信息输出到文件
-    HSF::POUT
+    UTILITY::POUT
         <<"Location: "<<location
         <<", error message: "<<content
         <<", file: "<<__FILE__
@@ -83,14 +83,14 @@ void Warning(const char* location, const char* content)
 {
     // 各进程先将错误信息打印到屏幕
     std::cout
-        <<"Process ID: \033[31m"<<HSF::COMM::getGlobalId()
+        <<"Process ID: \033[31m"<<UTILITY::COMM::getGlobalId()
         <<"\033[0m, Location: \033[31m"<<location
         <<"\033[0m, error message: \033[31m"<<content
         <<"\033[0m, file: \033[31m"<<__FILE__
         <<"\033[0m, line: \033[31m"<<__LINE__
         <<"\033[0m\n"<<FLUSH;
     // 再将错误信息输出到文件
-    HSF::POUT
+    UTILITY::POUT
         <<"Location: "<<location
         <<", error message: "<<content
         <<", file: "<<__FILE__

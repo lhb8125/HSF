@@ -25,17 +25,17 @@
  * @date 2019-08-12
  */
 
-#include "communicator.hpp"
+#include "utilityCommunicator.hpp"
 #include "utilityUsingCpp.hpp"
 #include "utilityContainer.hpp"
 #include "utilityBasicFunction.h"
 
-using namespace UTILITY;
+// using namespace UTILITY;
 
-#ifndef HSF_COMMUNICATIONMAGAGER_HPP
-#define HSF_COMMUNICATIONMAGAGER_HPP
+#ifndef UTILITY_COMMUNICATIONMAGAGER_HPP
+#define UTILITY_COMMUNICATIONMAGAGER_HPP
 
-namespace HSF
+namespace UTILITY
 {
 
 class CommunicationManager
@@ -278,7 +278,7 @@ public:
 };
 
 
-} // namespace HSF
+} // namespace UTILITY
 
 
 #endif // HSF_COMMUNICATIONMAGAGER_HPP
