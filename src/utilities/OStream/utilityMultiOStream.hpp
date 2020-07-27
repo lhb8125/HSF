@@ -145,7 +145,7 @@ public:
    * will be redirected too
    *
    * @param[in] rbuf the OStream buffer
-   * @param[in] the index of the files binded MultiOStream
+   * @param[in] pos the index of the files binded MultiOStream
    * @return
    */
   virtual int redirect(StrBuf* rbuf, int pos = 0)
@@ -171,7 +171,7 @@ public:
    * @brief reset
    * redirect the OStream to the original OStream buffer
    *
-   * @param[in] the index of the files binded MultiOStream
+   * @param[in] pos the index of the files binded MultiOStream
    * @return
    */
   virtual int reset(int pos = 0)
@@ -195,7 +195,7 @@ public:
    * @brief getRawStream
    * return the raw ostream inside OStream
    *
-   * @param[in] the index of the files binded MultiOStream
+   * @param[in] pos the index of the files binded MultiOStream
    * @return
    */
   virtual const ostream* getRawStream(int pos = 0) { return files_[pos]; }
@@ -204,7 +204,7 @@ public:
    * @brief getStrBuf
    * return the stream buffer of this OStream
    *
-   * @param[in] the index of the files binded MultiOStream
+   * @param[in] pos the index of the files binded MultiOStream
    * @return
    */
   virtual StrBuf* getStrBuf(int pos = 0) { return files_[pos]->rdbuf(); }
@@ -213,7 +213,7 @@ public:
    * @brief redirected
    * return the rediretion status
    *
-   * @param[in] the index of the files binded MultiOStream
+   * @param[in] pos the index of the files binded MultiOStream
    * @return
    */
   virtual bool redirected(int pos = 0) { return redirected_[pos]; }
@@ -243,7 +243,7 @@ public:
    * @brief addBuffer
    * redirect a stream buffer
    *
-   * @param[in] filename new stream buffer
+   * @param[in] buf new stream buffer
    * @return
    */
   virtual int addBuffer(StrBuf* buf)
@@ -337,7 +337,7 @@ public:
 
   /**
    * @brief operator<<, interface accept OsOp type parameters 
-   * @param[in] opt, represent parameter like "ENDL" and "FLUSH".
+   * @param[in] opt represent parameter like "ENDL" and "FLUSH".
    * @return 
    */
   virtual MultiOStream & operator<<(OsOp opt)

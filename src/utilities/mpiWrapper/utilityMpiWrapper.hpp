@@ -36,7 +36,7 @@ namespace UTILITY
 {
 /**
  * @brief COMM
- * @detail Communication entrance, enable flexibility by generating different global
+ *        Communication entrance, enable flexibility by generating different global
  * communication manager object.
  *
  */
@@ -84,6 +84,7 @@ public:
   {
     return globalManager->duplicate(refComm, newComm);
   }
+
 
   /**
    * @brief split 
