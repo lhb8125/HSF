@@ -19,6 +19,7 @@
 #include "parameter.hpp"
 #include "cgnslib.h"
 #include "region.hpp"
+#include "funPtr_host.hpp"
 // #include "fieldInterfaces.hpp"
 #define OUT std::cout
 #define IN std::cin
@@ -28,8 +29,8 @@
 using namespace HSF;
 
 void spMV_data(Region& reg, label n_face, label n_cell);
-void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
-	label n_face_i, label n_face_b, label n_face, label n_cell);
+// void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
+// 	label n_face_i, label n_face_b, label n_face, label n_cell);
 void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
 	label n_face_b);
 
@@ -102,6 +103,7 @@ int main(int argc, char** argv)
 
 	regs[0].initAfterBalance();
 
+	/// test spmv
 	ArrayArray<label> face_2_cell = regs[0].getMesh().getTopology().getFace2Cell();
 	label n_face_i = regs[0].getMesh().getTopology().getInnFacesNum();
 	label n_face_b = regs[0].getBoundary().getTopology().getFacesNum();
@@ -109,13 +111,14 @@ int main(int argc, char** argv)
 	label n_cell   = regs[0].getMesh().getTopology().getCellsNum();
 
 	spMV_data(regs[0], n_face, n_cell);
-	spMV_test(regs[0], face_2_cell, n_face_i, n_face_b, n_face, n_cell);
+	integration(regs[0], "A","b");
+	// spMV_test(regs[0], face_2_cell, n_face_i, n_face_b, n_face, n_cell);
 
-	face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
-	spMV_bnd(regs[0], face_2_cell, n_face_b);
+	// face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
+	// spMV_bnd(regs[0], face_2_cell, n_face_b);
 
-	regs[0].writeMesh(resultFile);
-	regs[0].writeField<scalar>(resultFile.c_str(), "b", "cell");
+	// regs[0].writeMesh(resultFile);
+	// regs[0].writeField<scalar>(resultFile.c_str(), "b", "cell");
 
 	// MPI_Finalize();
 	

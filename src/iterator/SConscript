@@ -2,7 +2,10 @@ import GLOVAR as gl
 
 
 cxxfile = ['funPtr_host.cpp',
-		   'funPtr_pre_slave.cpp',
-           'resource.cpp']
+		   'kernel_pre.cpp']
+
+cfile = ['kernel_slave.c']
 
 gl.add_files(cxxfile)
+
+gl.add_files(cfile)

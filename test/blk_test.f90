@@ -27,7 +27,7 @@ module var_c_string
     implicit none
     ! integer, parameter:: str_num = 10
     character(len=30):: str_arr(1)
-    POINTER(str_ptr, str_arr)
+    ! POINTER(str_ptr, str_arr)
 end module
 
 program main

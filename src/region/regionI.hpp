@@ -311,3 +311,76 @@ void Region::writeField(const char* resFile,
 
     DELETE_POINTER(cellStartId);
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+////////////////////////interface//////////////////////////////////////////////
+template<typename T>
+Field<T>& Region::getField(const Word fieldName)
+{
+    void* fieldTabPtr = NULL;
+
+    if(typeid(T) == typeid(label))
+    {
+        fieldTabPtr = labelFieldTabPtr_;
+    }
+    else if(typeid(T) == typeid(scalar))
+    {
+        fieldTabPtr = scalarFieldTabPtr_;
+    }
+    else
+    {
+        cout << "No this type field yet!" << endl;
+        ERROR_EXIT;
+    }
+
+    Table<Word, Table<Word, Field<T>*>*>* ft = static_cast<Table<Word, Table<Word, Field<T>*>*>*>(fieldTabPtr);
+
+    typename Table<Word, Table<Word, Field<T>*>*>::iterator iter;
+    for(iter=(*ft).begin();iter!=(*ft).end();iter++)
+    {
+        Table<Word, Field<T>*>& fields = *(iter->second);
+
+        typename Table<Word, Field<T>*>::iterator it3 = fields.find(fieldName);
+
+        if(it3 != fields.end())
+        {
+            Field<T>& fieldI = *(fields[fieldName]);
+            return fieldI;
+        }
+    }
+    // cout << "There is no this field name in field table: " << fieldName << endl;
+    Terminate("There is no this field name in field table.", fieldName.c_str());
+}
+
+template<typename T>
+ArrayArray<T> Region::getTopology(Array<Word> setTypeList)
+{
+    return this->getMesh().getTopology().getFace2Cell();
+    // setTypeList.erase(unique(setTypeList.begin(), setTypeList.end()),
+    //     setTypeList.end());
+    // if(setTypeList.size()!=2)
+    // {
+    //     for (int i = 0; i < setTypeList.size(); ++i)
+    //     {
+    //         cout<<"The "<<i<<"th settype: "<<setTypeList[i]<<endl;
+    //     }
+    //     Terminate("getTopology", "to many settype in the field list");
+    // }
+}
+
+template<typename T>
+ArrayArray<T> Region::getTopology(label32 nPara, ...)
+{
+    return this->getMesh().getTopology().getFace2Cell();
+}
+
+// label Region::getSize(label32 nPara, ...)
+// {
+//
+// }
+
+// void Region::test()
+// {
+
+// }

@@ -8,6 +8,9 @@
 */
 
 #include "funPtr_host.hpp"
+
+extern void integration_pre(Region& reg, Word flux, Word U);
+
 void spMV(Region& reg, Word A, Word x, Word b,
     const label pi, const S s, const label32* arr)
 {
@@ -16,7 +19,7 @@ void spMV(Region& reg, Word A, Word x, Word b,
     Field<scalar> &fieldx = reg.getField<scalar>(x);
     Field<scalar> &fieldb = reg.getField<scalar>(b);
 #pragma message("getTopology")
-    ArrayArray<label> &topo = reg.getTopology<label>(3, &A, &x, &b);
+    ArrayArray<label> topo = reg.getTopology<label>(3, &A, &x, &b);
     label n = reg.getSize(3, &A, &x, &b);
 
 #pragma message("compute")
@@ -36,7 +39,7 @@ void integration(Region& reg, Word flux, Word U)
     Field<scalar> &fieldFlux = reg.getField<scalar>(flux);
     Field<scalar> &fieldU    = reg.getField<scalar>(U);
 #pragma message("getTopology")
-    ArrayArray<label> &tp = reg.getTopology<label>(3, &flux, &U);
+    ArrayArray<label> tp = reg.getTopology<label>(3, &flux, &U);
     label nn = reg.getSize(3, &flux, &U);
 
 #pragma message("compute")
@@ -47,4 +50,5 @@ void integration(Region& reg, Word flux, Word U)
         fieldU[row][1] += fieldFlux[i][1];
         fieldU[row][2] += fieldFlux[i][2];
     }
+    integration_pre(reg, flux, U);
 }

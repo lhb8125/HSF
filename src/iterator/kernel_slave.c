@@ -7,7 +7,8 @@ void spMV_kernel(scalar* fieldA, scalar* fieldx, scalar* fieldb, label n,
 	long pi, S s, const int * arr, 
 	label *owner, label *neighbor)
 {
-	for (int i = 0; i < n; ++i)
+    int i;
+	for (i = 0; i < n; ++i)
     {
         label row = owner[i];
         label col = neighbor[i];
@@ -21,7 +22,8 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 	
 	label *owner, label *neighbor)
 {
-	for (int i = 0; i < nn; ++i)
+    int i;
+	for (i = 0; i < nn; ++i)
     {
         label row = owner[i];
         fieldU[row*dim_fieldU+0] += fieldFlux[i*dim_fieldFlux+0];
@@ -34,19 +36,19 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 
 void spMV_skeleton(DataSet *dataSet_parm, DataSet *dataSet_edge, DataSet *dataSet_vertex, label *row, label *col)
 {
-	scalar *arr_fieldA = getArrayFromDataSet("A");
-	scalar *arr_fieldx = getArrayFromDataSet("x");
-	scalar *arr_fieldb = getArrayFromDataSet("b");
+	scalar *arr_fieldA = (scalar*)accessDataSet(dataSet_edge, 0);
+	scalar *arr_fieldx = (scalar*)accessDataSet(dataSet_vertex, 0);
+	scalar *arr_fieldb = (scalar*)accessDataSet(dataSet_vertex, 1);
 
-	label dim_fieldA = getDimFromDataSet("A");
-	label dim_fieldx = getDimFromDataSet("x");
-	label dim_fieldb = getDimFromDataSet("b");
+	label dim_fieldA = accessDataSetDim(dataSet_edge, 0);
+	label dim_fieldx = accessDataSetDim(dataSet_vertex, 0);
+	label dim_fieldb = accessDataSetDim(dataSet_vertex, 1);
 
-	long const_pi = *(long*)getConstFromDataSet(0);
-	S const_s = *(S*)getConstFromDataSet(1);
-	const int * const_arr = (const int *)getConstFromDataSet(2);
+	long const_pi = *(long*)accessParaSet(dataSet_parm, 0);
+	S const_s = *(S*)accessParaSet(dataSet_parm, 1);
+	const int * const_arr = (const int *)accessParaSet(dataSet_parm, 2);
 
-	label n = getSizeFromDataSet(dataSet_edge, dataSet_vertex);
+	label n = getDataSetSize(dataSet_edge);
 
 	spMV_kernel(arr_fieldA, arr_fieldx, arr_fieldb, n, 
 		dim_fieldA, dim_fieldx, dim_fieldb, 
@@ -56,14 +58,14 @@ void spMV_skeleton(DataSet *dataSet_parm, DataSet *dataSet_edge, DataSet *dataSe
 
 void integration_skeleton(DataSet *dataSet_parm, DataSet *dataSet_edge, DataSet *dataSet_vertex, label *row, label *col)
 {
-	scalar *arr_fieldFlux = getArrayFromDataSet("flux");
-	scalar *arr_fieldU = getArrayFromDataSet("U");
+	scalar *arr_fieldFlux = (scalar*)accessDataSet(dataSet_edge, 0);
+	scalar *arr_fieldU = (scalar*)accessDataSet(dataSet_vertex, 0);
 
-	label dim_fieldFlux = getDimFromDataSet("flux");
-	label dim_fieldU = getDimFromDataSet("U");
+	label dim_fieldFlux = accessDataSetDim(dataSet_edge, 0);
+	label dim_fieldU = accessDataSetDim(dataSet_vertex, 0);
 
 
-	label n = getSizeFromDataSet(dataSet_edge, dataSet_vertex);
+	label n = getDataSetSize(dataSet_edge);
 
 	integration_kernel(arr_fieldFlux, arr_fieldU, n, 
 		dim_fieldFlux, dim_fieldU, 
