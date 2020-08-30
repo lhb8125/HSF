@@ -1,10 +1,13 @@
 #include "region.hpp"
 #include "field.hpp"
 #include "utilities.h"
-#include "funPtr_host.hpp"
+// #include "funPtr_host.hpp"
 #include "resource.hpp"
 #include "unat/iterator.h"
-extern slaveFunPtr spMV_kernel;
+#include "kernel_slave.h"
+extern slaveFunPtr slave_spMV_kernel;
+
+using namespace HSF;
 
 void spMV_pre(Region& reg, Word A, Word x, Word b, long pi, S s, const int * arr)
 {
@@ -26,7 +29,6 @@ void spMV_pre(Region& reg, Word A, Word x, Word b, long pi, S s, const int * arr
 	// prepareField(reg, inoutList, spMV_kernel, fieldList);
 }
 
-extern slaveFunPtr integration_kernel;
 void integration_pre(Region& reg, Word flux, Word U)
 {
 	Field<scalar>& pre_fieldFlux = reg.getField<scalar>(flux);
@@ -42,7 +44,7 @@ void integration_pre(Region& reg, Word flux, Word U)
 	inoutList.push_back(3);
 
 	constructParaSet(&paraData, 0);
-	prepareField(reg, inoutList, integration_kernel, fieldList);
+	prepareField(reg, inoutList, slave_integration_skeleton, fieldList);
 	// prepareConst(0);
 	// prepareField(&inoutList[0], integration_kernel, 2, &pre_fieldFlux, &pre_fieldU);
 }

@@ -1,15 +1,13 @@
-import GLOVAR as gl
+from build import add_source_files, cxx_source_files, fortran_source_files
 
 cxxfile = ['mpiWrapper/utilityMpiWrapper.cpp',
-			'mpiWrapper/communicationManager/utilityCommunicationManager.cpp',
-			'mpiWrapper/communicator/utilityCommunicator.cpp',
+            'mpiWrapper/communicationManager/utilityCommunicationManager.cpp',
+            'mpiWrapper/communicator/utilityCommunicator.cpp',
             'exceptions/utilityExceptions.cpp',
             'interfaces/utilityInterfaces.cpp']
-
 cfile = ['common/utilityBasicFunction.c']
-
 fortranfile = ['interfaces/utilityInterfaces_module.f90']
 
-gl.add_files(cxxfile)
-gl.add_files(cfile)
-gl.add_files(fortranfile)
+add_source_files(cxxfile, cxx_source_files)
+add_source_files(cfile, cxx_source_files)
+add_source_files(fortranfile, fortran_source_files)

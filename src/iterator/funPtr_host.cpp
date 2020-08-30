@@ -39,16 +39,21 @@ void integration(Region& reg, Word flux, Word U)
     Field<scalar> &fieldFlux = reg.getField<scalar>(flux);
     Field<scalar> &fieldU    = reg.getField<scalar>(U);
 #pragma message("getTopology")
-    ArrayArray<label> tp = reg.getTopology<label>(3, &flux, &U);
-    label nn = reg.getSize(3, &flux, &U);
+    ArrayArray<label> tp = reg.getTopology<label>(2, &flux, &U);
+    label nn = reg.getSize(2, &flux, &U);
 
 #pragma message("compute")
+    printf("%f\n", fieldU[10][0]);
     for (int i = 0; i < nn; ++i)
     {
         label row = tp[i][0];
         fieldU[row][0] += fieldFlux[i][0];
-        fieldU[row][1] += fieldFlux[i][1];
-        fieldU[row][2] += fieldFlux[i][2];
     }
+    for (int i = 0; i < nn; ++i)
+    {
+        printf("%d, owner: %d, neighbor: %d\n", i, tp[i][0], tp[i][1]);
+    }
+    printf("%f\n", fieldU[10][0]);
     integration_pre(reg, flux, U);
+    printf("%f\n", fieldU[10][0]);
 }

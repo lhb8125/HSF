@@ -1,8 +1,8 @@
-import GLOVAR as gl
+from build import add_source_files, cxx_source_files
 
 cxxfile = ['boundary.cpp',
 			'mesh.cpp',
 			'nodes.cpp',
 			'section.cpp',]
 
-gl.add_files(cxxfile)
+add_source_files(cxxfile, cxx_source_files)

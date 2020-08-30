@@ -1,33 +1,92 @@
+# -*- mode: python -*-
+
 import os
-import GLOVAR as gl
+import utils
+from build import build_lninclude, build_lib, cxx_source_files, chost_source_files, cslave_source_files, cxxhost_source_files, build_object
 
 Import('env')
 
-# copy parent environment so our alterations don't affect it
-env_local = env.Clone()
+target = 'hsf'
 
-# make all header files linked in the same dir: 'build/Include'
-gl.build_Include(env_local)
+subdirs = Split("""
+    field
+    interfaces
+    iterator
+    loadBalancer
+    mesh
+    meshInfo
+    parameter
+    patch
+    region
+    topology
+    utilities
+    vector
+""")
 
-env_local.SConscript('mesh/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('meshInfo/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('topology/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('loadBalancer/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('region/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('parameter/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('utilities/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('interfaces/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('patch/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('vector/SConscript', duplicate = 0, exports = 'env')
-env_local.SConscript('iterator/SConscript', duplicate = 0, exports = 'env')
+# subdirs = Split("""
+#     common
+# """)
 
-#if gl.platform == 'sw':
-#	# build a static library
-#	env.StaticLibrary(gl.build_path + '/lib/libhsf', source = gl.get_files() )
-#else:
-#	# build a shared library
-#	env.SharedLibrary(gl.build_path + '/lib/libhsf', source = gl.get_files() )
+src_include = list(build_lninclude(env))
 
+for d in subdirs:
+    SConscript(os.path.join(d, 'SConscript'), exports=['env', 'src_include'])
 
-env.StaticLibrary(gl.build_path + '/lib/libhsf', source = gl.get_files() )
+software_home = '/home/export/online3/amd_dev1/software'
+
+if env['PLATFORM'] == 'linux':
+    yaml_home = software_home + '/yaml-cpp/yaml-cpp-0.6.2'
+    cgns_home = software_home + '/CGNS/CGNS-3.4.0/gcc_install'
+    hdf5_home = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
+    parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
+
+if env['PLATFORM'] == 'sw':
+    yaml_home = software_home + '/yaml-cpp/yaml-cpp-0.5.3'
+    cgns_home = software_home + '/CGNS/CGNS-3.4.0/sw_install'
+    hdf5_home = software_home + '/HDF5/hdf5-1.8.8'
+    boost_home = software_home + '/boost/boost1.69'
+    unat_home = '/home/export/online3/amd_dev1/liuhb/unat/install'
+    parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/SWInstall_64_64'
+
+program_inc = [yaml_home + '/include',
+               cgns_home + '/include',
+               hdf5_home + '/include',
+               parmetis_home + '/include',
+               boost_home + '/include',
+               unat_home + '/include']
+program_libs = []
+objs_all = []
+
+source_files = cxx_source_files
+
+if env['PLATFORM'] == 'sw':
+    if env['ATHREAD']:
+        # program_inc += []
+        objs_all = objs_all + build_object(env,
+                                           sources=chost_source_files,
+                                           program_inc=program_inc,
+                                           program_libs=program_libs,
+                                           sources_type='host')
+
+        objs_all = objs_all + build_object(env,
+                                           sources=cslave_source_files,
+                                           program_inc=program_inc,
+                                           program_libs=program_libs,
+                                           sources_type='slave')
+
+        objs_all = objs_all + build_object(env,
+                                           sources=cxxhost_source_files,
+                                           program_inc=program_inc,
+                                           program_libs=program_libs)
+
+objs_all = objs_all + build_object(env,
+                                   sources=cxx_source_files,
+                                   program_inc=program_inc,
+                                   program_libs=program_libs)
+
+build_lib(env,
+          target=target,
+          sources=objs_all,
+          program_inc=program_inc,
+          program_libs=program_libs)
 

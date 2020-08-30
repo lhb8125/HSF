@@ -54,15 +54,16 @@ ParaSet paraData;
     /* 创建UNAT拓扑 */ \
     UNAT::Topology* UNATTopo = UNAT::Topology::constructTopology(topo, LDU); \
     /* 封装耦合算子 */ \
-    coupledOperator_new opt; \
-    opt.dataSet_edge = &dataSet_edge; \
-    opt.dataSet_vertex = &dataSet_vertex; \
-    opt.fun_slave = funcPtr; \
+    coupledOperator_new *opt \
+        = (coupledOperator_new*)malloc(sizeof(coupledOperator_new)); \
+    opt->dataSet_edge = &dataSet_edge; \
+    opt->dataSet_vertex = &dataSet_vertex; \
+    opt->fun_slave = funcPtr; \
     /* 生成UNAT迭代器 */ \
-    static UNAT::RowSubsectionIterator *rssIter = new UNAT::RowSubsectionIterator(&opt, \
+    static UNAT::RowSubsectionIterator *rssIter = new UNAT::RowSubsectionIterator(opt, \
      *UNATTopo, E2V); \
     /* 调用UNAT迭代器计算，UNAT函数指针需要进行改造 */ \
-    rssIter->edge2VertexIteration(&paraData, &opt, 1); \
+    rssIter->edge2VertexIteration(&paraData, opt, 1); \
 }
 
 #endif

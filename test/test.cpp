@@ -20,6 +20,7 @@
 #include "cgnslib.h"
 #include "region.hpp"
 #include "funPtr_host.hpp"
+#include "unat/athread_switch.h"
 // #include "fieldInterfaces.hpp"
 #define OUT std::cout
 #define IN std::cin
@@ -51,6 +52,7 @@ void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
 
 int main(int argc, char** argv)
 {
+	CG_init();
 	LoadBalancer *lb = new LoadBalancer();
 
 	Parameter para("./config.yaml");

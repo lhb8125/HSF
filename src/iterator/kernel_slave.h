@@ -10,5 +10,15 @@ typedef struct
     long c;
 }S;
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
+void slave_integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
+    ParaSet* dataSet_parm, label *row, label *col);
+
+#ifdef __cplusplus
+}
+#endif
 #endif

@@ -1,0 +1,41 @@
+#!/bin/sh
+set -x
+CXX=mpiswg++
+CLINKER=mpiCC
+FLINKER=mpiswgfortran
+CXXFLAGS="-g -rdynamic -DLABEL_INT64"
+LINKFLAGS="-fPIC -g -rdynamic -DLABEL_INT64"
+
+software_home="/home/export/online3/amd_dev1/software"
+yaml_home="${software_home}/yaml-cpp/yaml-cpp-0.5.3"
+cgns_home="${software_home}/CGNS/CGNS-3.4.0/sw_install"
+hdf5_home="${software_home}/HDF5/hdf5-1.8.8"
+unat_home="/home/export/online3/amd_dev1/liuhb/unat/install"
+boost_home="${software_home}/boost/boost1.69"
+parmetis_home="${software_home}/ParMETIS/parmetis-4.0.3/SWInstall_64_64"
+
+program_incpath="-I../install/sw64swg++DPOpt/include \
+                 -I${yaml_home}/include \
+                 -I${cgns_home}/include \
+                 -I${hdf5_home}/include \
+                 -I${parmetis_home}/include \
+                 -I${unat_home}/include \
+                 -I${boost_home}/include "
+
+program_libpath="-L../install/sw64swg++DPOpt/lib \
+                 -L${yaml_home}/lib \
+                 -L${cgns_home}/lib \
+                 -L${hdf5_home}/lib \
+                 -L${parmetis_home}/lib \
+                 -L${unat_home}/lib"
+program_libs="-lhsf -lUNAT -lcgns -lhdf5 -lparmetis -lmetis -lyaml-cpp -lm -lz -ldl"
+
+source_files="test.cpp"
+object_files="test.o"
+target="test"
+
+# compile
+${CXX} ${CXXFLAGS} ${program_incpath} -c ${source_files} -o ${object_files}
+
+# link
+${CLINKER} ${LINKFLAGS} ${object_files} -o ${target}  ${program_libpath} ${program_libs}

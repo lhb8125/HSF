@@ -1,5 +1,5 @@
-#ifndef FUNPTR_HOST_CPP
-#define FUNPTR_HOST_CPP
+#ifndef HSF_FUNPTR_HOST_CPP
+#define HSF_FUNPTR_HOST_CPP
 
 #include "region.hpp"
 #include "mpi.h"

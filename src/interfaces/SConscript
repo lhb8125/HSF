@@ -1,4 +1,4 @@
-import GLOVAR as gl
+from build import add_source_files, cxx_source_files
 
 
 cxxfile = ['topoInterfaces.cpp',
@@ -10,5 +10,5 @@ cxxfile = ['topoInterfaces.cpp',
 fortranfile = ['utilInterfaces_fort.f90']
 
 
-gl.add_files(cxxfile)
+add_source_files(cxxfile, cxx_source_files)
 # gl.add_files(fortranfile)

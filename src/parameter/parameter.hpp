@@ -43,6 +43,7 @@ public:
 	*/
 	ControlPara(const Word paraFile) {
 		strcpy(paraFile_, paraFile.c_str());
+		printf("%s\n", paraFile.c_str());
 		config_ = YAML::LoadFile(paraFile);
 	};
 	ControlPara(YAML::Node &config)

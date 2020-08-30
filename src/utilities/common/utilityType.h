@@ -61,10 +61,10 @@ typedef double scalar64;
 /**
 * define integer type according to compiling macro
 */
-#if defined(LABEL_INT32)
-    typedef int label;
-#else
+#if defined(LABEL_INT64)
     typedef long int label;
+#else
+    typedef int label;
 #endif
 
 // 默认使用double精度

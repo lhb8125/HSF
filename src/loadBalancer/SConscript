@@ -1,5 +1,5 @@
-import GLOVAR as gl
+from build import add_source_files, cxx_source_files
 
 cxxfile = ['loadBalancer.cpp',]
 
-gl.add_files(cxxfile)
+add_source_files(cxxfile, cxx_source_files)

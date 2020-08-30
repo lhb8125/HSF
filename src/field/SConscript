@@ -1,4 +1,4 @@
-import GLOVAR as gl
+# import GLOVAR as gl
 
 
 #cxxfile = ['field.cpp']

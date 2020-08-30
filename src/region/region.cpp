@@ -95,10 +95,10 @@ void Region::initAfterBalance()
 void Region::writeMesh(Word meshFile)
 {
     par_std_out("start write inner mesh ...\n");
-	this->getMesh().writeMesh(meshFile);
+    this->getMesh().writeMesh(meshFile);
     par_std_out("finish write inner mesh ...\n");
     par_std_out("start write boundary mesh ...\n");
-	this->getBoundary().writeMesh(meshFile);
+    this->getBoundary().writeMesh(meshFile);
     par_std_out("finish write boundary mesh ...\n");
     par_std_out("start write boundary condition ...\n");
     this->getBoundary().writeBC(meshFile);
