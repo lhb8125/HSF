@@ -185,51 +185,55 @@ void Topology::constructTopology()
 	}
 
 	// 根据节点个数确定网格面类型，并将网格面分开
-	Array<label> faceNodeNum;
-	for (int i = 0; i < face2NodeInn.size(); ++i)
-	{
-		bool isExist = false;
-		// 最后一个元素为网格单元编号，删去
-		face2NodeInn[i].pop_back();
-		for (int j = 0; j < faceNodeNum.size(); ++j)
-		{
-			if(face2NodeInn[i].size()==faceNodeNum[j])
-			{
-				isExist=true;
-				break;
-			}
-		}
-		if(!isExist)
-		{ 
-			faceNodeNum.push_back(face2NodeInn[i].size());
-		}
-	}
-	// 根据网格面类型对网格面拓扑进行重排，使相同类型网格面连续存储
-	Array<Array<Array<label> > > face2NodeWithType(faceNodeNum.size());
-	Array<Array<Array<label> > > face2CellWithType(faceNodeNum.size());
-	for (int i = 0; i < face2NodeInn.size(); ++i)
-	{
-		bool isExist = false;
-		for (int j = 0; j < faceNodeNum.size(); ++j)
-		{
-			if(face2NodeInn[i].size()==faceNodeNum[j])
-			{
-				isExist=true;
-				face2NodeWithType[j].push_back(face2NodeInn[i]);
-				face2CellWithType[j].push_back(face2CellInn[i]);
-			}
-		}
-		if(!isExist) Terminate("sort the faces according to the type", "unrecognized type");
-	}
+	// Array<label> faceNodeNum;
+	// for (int i = 0; i < face2NodeInn.size(); ++i)
+	// {
+	// 	bool isExist = false;
+	// 	// 最后一个元素为网格单元编号，删去
+	// 	face2NodeInn[i].pop_back();
+	// 	for (int j = 0; j < faceNodeNum.size(); ++j)
+	// 	{
+	// 		if(face2NodeInn[i].size()==faceNodeNum[j])
+	// 		{
+	// 			isExist=true;
+	// 			break;
+	// 		}
+	// 	}
+	// 	if(!isExist)
+	// 	{ 
+	// 		faceNodeNum.push_back(face2NodeInn[i].size());
+	// 	}
+	// }
+	// // 根据网格面类型对网格面拓扑进行重排，使相同类型网格面连续存储
+	// Array<Array<Array<label> > > face2NodeWithType(faceNodeNum.size());
+	// Array<Array<Array<label> > > face2CellWithType(faceNodeNum.size());
+	// for (int i = 0; i < face2NodeInn.size(); ++i)
+	// {
+	// 	bool isExist = false;
+	// 	for (int j = 0; j < faceNodeNum.size(); ++j)
+	// 	{
+	// 		if(face2NodeInn[i].size()==faceNodeNum[j])
+	// 		{
+	// 			isExist=true;
+	// 			face2NodeWithType[j].push_back(face2NodeInn[i]);
+	// 			face2CellWithType[j].push_back(face2CellInn[i]);
+	// 		}
+	// 	}
+	// 	if(!isExist) Terminate("sort the faces according to the type", "unrecognized type");
+	// }
 	// printf("There are %d types of faces, and we have %d faces\n", faceNodeNum.size(), face2NodeInn.size());
-	face2NodeInn.clear();
-	face2CellInn.clear();
-	for (int i = 0; i < faceNodeNum.size(); ++i)
-	{
-		face2NodeInn.insert(face2NodeInn.end(), face2NodeWithType[i].begin(), face2NodeWithType[i].end());
-		face2CellInn.insert(face2CellInn.end(), face2CellWithType[i].begin(), face2CellWithType[i].end());
-	}
+	// face2NodeInn.clear();
+	// face2CellInn.clear();
+	// for (int i = 0; i < faceNodeNum.size(); ++i)
+	// {
+	// 	face2NodeInn.insert(face2NodeInn.end(), face2NodeWithType[i].begin(), face2NodeWithType[i].end());
+	// 	face2CellInn.insert(face2CellInn.end(), face2CellWithType[i].begin(), face2CellWithType[i].end());
+	// }
 
+	/// 根据单元编号重排face2cell数组，face2node数组
+	transformArray(face2CellInn, this->face2Cell_);
+	transformArray(face2NodeInn, this->face2Node_);
+	this->renumberFaceTopo();
 	this->faceNum_ = face2NodeInn.size();
 	// this->faceNum_   = this->faceNum_i_+this->faceNum_b_;
 
@@ -252,8 +256,6 @@ void Topology::constructTopology()
 				face2NodeInn[i].swap(tmp);
 		}
 	}
-	transformArray(face2CellInn, this->face2Cell_);
-	transformArray(face2NodeInn, this->face2Node_);
 	// if(rank==0)
 	// {
 	// 	for (int i = 0; i < face2NodeInn.size(); ++i)
@@ -739,6 +741,41 @@ label Topology::getSize(const Word setType)
     ERROR_EXIT;
     return 0;
   }
+}
+
+void Topology::renumberFaceTopo()
+{
+	label ncell = this->cell2Node_.size();
+    vector<vector<label> > ownerArr(ncell);
+    // vector<vector<int> > neighborArr(ncell);
+    vector<map<label,label> > neighborArr(ncell);
+    label nface = this->face2Cell_.size();
+    for (label i = 0; i < nface; ++i)
+    {
+        // neighborArr[owner[i]].push_back(neighbor[i]);
+        neighborArr[this->face2Cell_[i][0]].insert
+        	(pair<label,label>(this->face2Cell_[i][1],i));
+    }
+    label iface=0;
+    Array<Array<label> > face2Node(nface);
+    for (label i = 0; i < ncell; ++i)
+    {
+        map<label, label>::iterator iter = neighborArr[i].begin();
+        // sort(neighborArr[i].begin(),neighborArr[i].end());
+        for(iter = neighborArr[i].begin();iter!=neighborArr[i].end();iter++)
+        // for (int j = 0; j < neighborArr[i].size(); ++j)
+        {
+            this->face2Cell_[iface][0] = i;
+            this->face2Cell_[iface][1] = iter->first;
+            for (label32 j = 0; j < this->face2Node_[iface].size(); ++j)
+            {
+            	face2Node[iface].push_back(this->face2Node_[iface][j]);
+            }
+            iface++;
+        }
+    }
+    this->setFace2Node(face2Node);
+    assert(iface==nface);
 }
 
 } // end namespace HSF

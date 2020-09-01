@@ -29,7 +29,7 @@ def build_object(baseenv,
     elif sources_type == 'slave':
         libenv.Replace(
             CCCOM=
-            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -I/home/export/online3/amd_dev1/liuhb/unat/install/include -c -o $TARGET $SOURCES')
+            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -DLABEL_INT64 -I/home/export/online3/amd_dev1/liuhb/unat/install/include -c -o $TARGET $SOURCES')
 
     objs = libenv.Object(source=sources)
     return objs

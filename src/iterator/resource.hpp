@@ -63,7 +63,16 @@ ParaSet paraData;
     static UNAT::RowSubsectionIterator *rssIter = new UNAT::RowSubsectionIterator(opt, \
      *UNATTopo, E2V); \
     /* 调用UNAT迭代器计算，UNAT函数指针需要进行改造 */ \
-    rssIter->edge2VertexIteration(&paraData, opt, 1); \
+     rssIter->edge2VertexIteration(&paraData, opt, 1);  \
+    /*
+    label* owner = new label[topo.size()]; \
+    label* neighbor = new label[topo.size()]; \
+    for (int i = 0; i < topo.size(); ++i) \
+    { \
+        owner[i] = topo[i][0]; \
+        neighbor[i] = topo[i][1]; \
+    } \
+    integration_skeleton(&dataSet_edge, &dataSet_vertex, &paraData, owner, neighbor); */ \
 }
 
 #endif

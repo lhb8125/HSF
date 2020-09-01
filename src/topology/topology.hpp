@@ -87,6 +87,11 @@ private:
 	* @brief generate the edge-based topology
 	*/
 	void genEdgeTopo();
+	/**
+	* @brief renumber the face topology
+	*/
+	void renumberFaceTopo();
+
 public:
 	/**
 	* @brief default constructor

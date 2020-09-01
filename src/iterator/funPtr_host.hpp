@@ -20,6 +20,7 @@ typedef struct
 void spMV(Region& reg, Word A, Word x, Word b,
     const label pi, const S s, const label32* arr);
 
+void integration_data(Region& reg, label n_face, label n_cell);
 void integration(Region& reg, Word flux, Word U);
 
 #endif

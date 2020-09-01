@@ -40,8 +40,8 @@ void integration_pre(Region& reg, Word flux, Word U)
 	fieldList.push_back(&pre_fieldU);
 
 	Array<label32> inoutList;
+	inoutList.push_back(0);
 	inoutList.push_back(1);
-	inoutList.push_back(3);
 
 	constructParaSet(&paraData, 0);
 	prepareField(reg, inoutList, slave_integration_skeleton, fieldList);

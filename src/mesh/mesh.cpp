@@ -63,13 +63,16 @@ void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 	if(cgp_close(iFile))
 		Terminate("closeCGNSFile",cg_get_error());
 
+    if(nZones==1) return;
     // if(this->meshType_==Boco) return;
     Array<Array<Array<label64> > > zc_pnts(nZones),zc_donor_pnts(nZones);
     Array<Array<char*> > zc_name(nZones);
     Array<Array<Array<Array<label64> > > > nodes(nZones);
+    par_std_out("readZoneConnectivity\n");
     readZoneConnectivity(filePtr,zc_pnts,zc_donor_pnts,zc_name, nodes);
     // if(this->meshType_==Inner) 
-        mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
+    par_std_out("mergeInterfaceNodes\n");
+    mergeInterfaceNodes(zc_pnts, zc_donor_pnts, zc_name, nodes);
     if(this->meshType_==Boco)
         removeInterfaceNodes(zc_pnts);
     // DELETE_POINTER(node);
@@ -273,6 +276,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
             }
         } else if(precision==32)
         {
+            par_std_out("This is 32 precision\n");
             int *eles32 = (int*)&elements[0];
             label* eles64 = new label[nEles*Section::nodesNumForEle(type)];
             for (int i = 0; i < nEles*Section::nodesNumForEle(type); ++i)
@@ -978,6 +982,7 @@ void Mesh::readZoneConnectivity(const Word filePtr,
                 &connect_type,&ptset_type,&npnts,donorname,&donor_zonetype,
                 &donor_ptset_type,&donor_datatype,&ndata_donor))
                 Terminate("readConnInfo",cg_get_error());
+            par_std_out("zone: %d, iconn: %d, connectname： %s, donorname: %s, donor_zonetype: %d\n", iZone, iconn, connectname, donorname, donor_zonetype);
             // if(rank==0) printf("connectname: %s, location: %s, connect_type: %s\n",
                 // connectname,  Section::GridLocationToWord(location),
                 // Section::ConnTypeToWord(connect_type));
@@ -1035,6 +1040,7 @@ void Mesh::readZoneConnectivity(const Word filePtr,
                 {
                     for (int ipnts = 0; ipnts < zc_pnts[iZone-1][iconn].size(); ++ipnts)
                     {
+                        par_std_out("%d, %d, %d\n",iele, iconn, ipnts);
                         if(visits[iconn][ipnts]) continue;
                         // 如果他们相等
                         if(zc_pnts[iZone-1][iconn][ipnts]==iele+start)

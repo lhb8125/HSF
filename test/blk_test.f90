@@ -73,7 +73,7 @@ program main
     integer(dpI):: ndim_new, n_ele_new, n_dim
 
     integer:: nPara, write_interval, str_len
-    character(20):: mesh_file, result_file
+    character(100):: mesh_file, result_file
     real:: delta_t
 
     integer(dpI):: n_blk, iblk, ele_nodes, nodes_num_for_ele

@@ -430,7 +430,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 		{
 			if(face2CellTmp[i]!=-1) bndFaces++;
 		}
-par_std_out("boundary faces num: %d\n", bndFaces);
+		// par_std_out("boundary faces num: %d\n", bndFaces);
 
 		ArrayArray<label> bndFaceList;
 		bndFaceList.num = bndFaces;

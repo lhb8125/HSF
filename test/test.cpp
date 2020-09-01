@@ -112,14 +112,15 @@ int main(int argc, char** argv)
 	label n_face   = regs[0].getMesh().getTopology().getFacesNum();
 	label n_cell   = regs[0].getMesh().getTopology().getCellsNum();
 
-	spMV_data(regs[0], n_face, n_cell);
-	integration(regs[0], "A","b");
+	// spMV_data(regs[0], n_face, n_cell);
+	integration_data(regs[0], n_face, n_cell);
+	integration(regs[0], "flux","U");
 	// spMV_test(regs[0], face_2_cell, n_face_i, n_face_b, n_face, n_cell);
 
 	// face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
 	// spMV_bnd(regs[0], face_2_cell, n_face_b);
 
-	// regs[0].writeMesh(resultFile);
+	regs[0].writeMesh(resultFile);
 	// regs[0].writeField<scalar>(resultFile.c_str(), "b", "cell");
 
 	// MPI_Finalize();

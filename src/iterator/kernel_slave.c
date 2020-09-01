@@ -26,7 +26,7 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 	for (i = 0; i < nn; ++i)
     {
         label row = owner[i];
-        fieldU[row*dim_fieldU+0] += 1;
+        fieldU[row*dim_fieldU+0] -= fieldFlux[i*dim_fieldFlux+0];
         // fieldU[row*dim_fieldU+1] += fieldFlux[i*dim_fieldFlux+1];
         // fieldU[row*dim_fieldU+2] += fieldFlux[i*dim_fieldFlux+2];
     }
@@ -34,7 +34,8 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 
 
 
-void spMV_skeleton(DataSet *dataSet_parm, DataSet *dataSet_edge, DataSet *dataSet_vertex, label *row, label *col)
+void spMV_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
+    ParaSet *dataSet_parm, label *row, label *col)
 {
 	scalar *arr_fieldA = (scalar*)accessDataSet(dataSet_edge, 0);
 	scalar *arr_fieldx = (scalar*)accessDataSet(dataSet_vertex, 0);
@@ -66,7 +67,7 @@ void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
 	label dim_fieldU = accessDataSetDim(dataSet_vertex, 0);
 
 
-	label n = getDataSetSize(dataSet_edge);
+	label n = dataSet_edge->arraySize;
 
 	integration_kernel(arr_fieldFlux, arr_fieldU, n, 
 		dim_fieldFlux, dim_fieldU, 

@@ -1,10 +1,12 @@
 #!/bin/sh
-set -x
+# set -x
 CXX=mpiswg++
+FC=mpiswgfort453
 CLINKER=mpiCC
 FLINKER=mpiswgfortran
 CXXFLAGS="-g -rdynamic -DLABEL_INT64"
-LINKFLAGS="-fPIC -g -rdynamic -DLABEL_INT64"
+FFLAGS="-g -fcray-pointer -DLABEL_INT64"
+LINKFLAGS="-fPIC -g -DLABEL_INT64"
 
 software_home="/home/export/online3/amd_dev1/software"
 yaml_home="${software_home}/yaml-cpp/yaml-cpp-0.5.3"
@@ -14,7 +16,7 @@ unat_home="/home/export/online3/amd_dev1/liuhb/unat/install"
 boost_home="${software_home}/boost/boost1.69"
 parmetis_home="${software_home}/ParMETIS/parmetis-4.0.3/SWInstall_64_64"
 
-program_incpath="-I../install/sw64swg++DPOpt/include \
+program_incpath="-I./install/sw64swg++DPOpt/include \
                  -I${yaml_home}/include \
                  -I${cgns_home}/include \
                  -I${hdf5_home}/include \
@@ -22,20 +24,30 @@ program_incpath="-I../install/sw64swg++DPOpt/include \
                  -I${unat_home}/include \
                  -I${boost_home}/include "
 
-program_libpath="-L../install/sw64swg++DPOpt/lib \
+program_libpath="-L./install/sw64swg++DPOpt/lib \
                  -L${yaml_home}/lib \
                  -L${cgns_home}/lib \
                  -L${hdf5_home}/lib \
                  -L${parmetis_home}/lib \
                  -L${unat_home}/lib"
-program_libs="-lhsf -lUNAT -lcgns -lhdf5 -lparmetis -lmetis -lyaml-cpp -lm -lz -ldl"
+program_libs="-lhsf -lUNAT -lcgns -lhdf5 -lparmetis -lmetis -lyaml-cpp -lm -lz -ldl -lstdc++"
 
-source_files="test.cpp"
-object_files="test.o"
-target="test"
+source_files="test/test.cpp"
+object_files="test/test.o"
+target="test/test"
 
 # compile
 ${CXX} ${CXXFLAGS} ${program_incpath} -c ${source_files} -o ${object_files}
 
 # link
 ${CLINKER} ${LINKFLAGS} ${object_files} -o ${target}  ${program_libpath} ${program_libs}
+
+source_files="test/blk_test.f90"
+object_files="test/blk_test.o"
+target="test/blk_test"
+${FC} ${FFLAGS} ${program_incpath} -c ${source_files} -o ${object_files}
+
+module load sw/compiler/gcc530
+${FLINKER} ${LINKFLAGS} ${object_files} -o ${target}  ${program_libpath} ${program_libs}
+module unload sw/compiler/gcc530
+
