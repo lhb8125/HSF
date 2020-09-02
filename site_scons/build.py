@@ -22,14 +22,13 @@ def build_object(baseenv,
     libenv = baseenv.Clone()
     libenv.Prepend(CPPPATH=program_inc)
 
-    test = program_inc
     if sources_type == 'host':
         libenv.Replace(
             CCCOM='$CC_HOST -host -OPT:IEEE_arith=2 -c -o $TARGET $SOURCES')
     elif sources_type == 'slave':
         libenv.Replace(
             CCCOM=
-            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -DLABEL_INT64 -I/home/export/online3/amd_dev1/liuhb/unat/install/include -c -o $TARGET $SOURCES')
+            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -DLABEL_INT64 -I/home/export/online3/amd_dev1/liuhb/unat/install/include -Iinstall/sw64swg++DPOpt/include -c -o $TARGET $SOURCES')
 
     objs = libenv.Object(source=sources)
     return objs

@@ -1,7 +1,8 @@
 from build import add_source_files, cxx_source_files, cslave_source_files
 
 cxxfile = ['funPtr_host.cpp',
-           'kernel_pre.cpp']
+           'kernel_spe.cpp',
+           'funPtr_data.cpp']
 
 cslavefile = ['kernel_slave.c']
 

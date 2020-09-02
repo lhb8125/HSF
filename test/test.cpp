@@ -20,6 +20,7 @@
 #include "cgnslib.h"
 #include "region.hpp"
 #include "funPtr_host.hpp"
+#include "kernel_spe.hpp"
 #include "unat/athread_switch.h"
 // #include "fieldInterfaces.hpp"
 #define OUT std::cout
@@ -29,26 +30,8 @@
 
 using namespace HSF;
 
-void spMV_data(Region& reg, label n_face, label n_cell);
-// void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
-// 	label n_face_i, label n_face_b, label n_face, label n_cell);
-void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
-	label n_face_b);
 
-
-// #define DEBUG_YAML
-
-// void loadRegionTopologyFromYAML(String filePtr, Array<Scalar> &s,
-// 	ArrayArray<Label> &nei, Label procNum);
-// void operator >> (const YAML::Node& node, Array<Scalar>& s);
-// void operator >> (const YAML::Node& node, Array<Array<Label> >& nei);
-// void operator >> (const YAML::Node& node, Array<Label>& regionIdx);
-// void hdf5ToAdf(char* filePtr, char* desFilePtr);
-
-// int main(int argc, char **argv) {
-//   signal(SIGSEGV, handler);   // install our handler
-//   foo(); // this will call foo, bar, and baz.  baz segfaults.
-// }
+void checkResult(Region& reg, Word x, Word x_spe);
 
 int main(int argc, char** argv)
 {
@@ -112,10 +95,28 @@ int main(int argc, char** argv)
 	label n_face   = regs[0].getMesh().getTopology().getFacesNum();
 	label n_cell   = regs[0].getMesh().getTopology().getCellsNum();
 
-	// spMV_data(regs[0], n_face, n_cell);
-	integration_data(regs[0], n_face, n_cell);
-	integration(regs[0], "flux","U");
-	// spMV_test(regs[0], face_2_cell, n_face_i, n_face_b, n_face, n_cell);
+	// integration
+	// integration_data(regs[0], n_face, n_cell);
+	// integration(regs[0], "flux","U");
+ //    integration_spe(regs[0], "flux","U_spe");
+ //    checkResult(regs[0], "U", "U_spe");
+
+    // spMV
+    label pi;
+    StructS s;
+    label32* arr = new label32[10];
+	spMV_data(regs[0], n_face, n_cell, pi, s, arr);
+	spMV(regs[0], "A", "x", "b", pi, s, arr);
+	spMV_spe(regs[0], "A", "x", "b_spe", pi, s, arr);
+    checkResult(regs[0], "b", "b_spe");
+
+    calcLudsFcc_data(regs[0], n_face, n_cell);
+    calcLudsFcc(regs[0], "massFlux", "cellx", "fcc", "facex", "rface0", "rface1", "S");
+    calcLudsFcc_spe(regs[0], "massFlux", "cellx", "fcc_s", "facex", "rface0_s", "rface1_s", "S_s");
+    checkResult(regs[0], "fcc", "fcc_s");
+    checkResult(regs[0], "rface0", "rface0_s");
+    checkResult(regs[0], "rface1", "rface1_s");
+    checkResult(regs[0], "S", "S_s");
 
 	// face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
 	// spMV_bnd(regs[0], face_2_cell, n_face_b);
@@ -128,57 +129,36 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void spMV_test(Region& reg, ArrayArray<label>& face_2_cell,
-	label n_face_i, label n_face_b, label n_face, label n_cell)
+void checkResult(Region& reg, Word x, Word x_spe)
 {
-	Field<scalar> &A = reg.getField<scalar>("face", "A");
-	Field<scalar> &x = reg.getField<scalar>("cell", "x");
-	Field<scalar> &b = reg.getField<scalar>("cell", "b");
-    // printf("n_face: %d, n_face_i: %d, n_face_b: %d, n_cell: %d\n",
-    	// n_face, n_face_i, n_face_b, n_cell);
-    for (int i = 0; i < n_face_i; ++i)
+	printf("checking result for %s ...\n", x.c_str());
+	Field<scalar> &fieldX     = reg.getField<scalar>(x);
+    Field<scalar> &fieldX_spe = reg.getField<scalar>(x_spe);
+
+    label size = fieldX.getSize();
+    label dim  = fieldX.getDim();
+    scalar* x_arr    = fieldX.getLocalData();
+    scalar* xspe_arr = fieldX_spe.getLocalData();
+    for (int i = 0; i < size*dim; ++i)
     {
-    	label row = face_2_cell[i][0];
-    	label col = face_2_cell[i][1];
-        b[col][0] += A[i][0]*x[row][0];
-        b[row][0] += A[i][0]*x[col][0];
+		if(std::fabs(x_arr[i]-xspe_arr[i])>1e-10)
+		{ 
+			if(x_arr[i]==0) 
+			{ 
+				if(std::fabs(xspe_arr[i])>1e-10) 
+				{ 
+					printf("Error on index[%d], %.8f, %.8f\n", 
+								i, x_arr[i], xspe_arr[i]); 
+					std::exit(-1); 
+				} 
+			} 
+			else if(std::fabs((x_arr[i]-xspe_arr[i])/x_arr[i])>1e-10) 
+			{ 
+				printf("Error on index[%d], %.8f, %.8f\n", 
+							i, x_arr[i], xspe_arr[i]); 
+				std::exit(-1); 
+			} 
+		} 
     }
-}
-
-void spMV_bnd(Region& reg, ArrayArray<label>& face_2_cell,
-	label n_face_b)
-{
-	Field<scalar> &A = reg.getField<scalar>("face", "A");
-	Field<scalar> &b = reg.getField<scalar>("cell", "b");
-    // 边界计算部分
-    for (int i = 0; i < n_face_b; ++i)
-    {
-    	label row = face_2_cell[i][0];
-        b[row][0] += A[i][0];
-    }
-}
-
-void spMV_data(Region& reg, label n_face, label n_cell)
-{
-	scalar *A_arr = new scalar[n_face];
-	scalar *x_arr = new scalar[n_cell];
-	scalar *b_arr = new scalar[n_cell];
-
-	for (int i = 0; i < n_face; ++i)
-	{
-		A_arr[i] = 1.0;
-	}
-	for (int i = 0; i < n_cell; ++i)
-	{
-		x_arr[i] = 1.0;
-		b_arr[i] = 0.0;
-	}
-
-	Table<Word, Table<Word, Patch *> *> &patchTab = reg.getPatchTab();
-	Field<scalar> *fA = new Field<scalar>("face", 1, n_face, A_arr, patchTab);
-	Field<scalar> *fx = new Field<scalar>("cell", 1, n_cell, x_arr, patchTab);
-	Field<scalar> *fb = new Field<scalar>("cell", 1, n_cell, b_arr, patchTab);
-	reg.addField<scalar>("A", fA);
-	reg.addField<scalar>("x", fx);
-	reg.addField<scalar>("b", fb);
+	std::cout<<"The result is correct!"<<std::endl; \
 }

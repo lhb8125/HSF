@@ -2,13 +2,7 @@
 #define KERNEL_SLAVE_H
 
 #include "unat/iterator.h"
-
-typedef struct
-{
-    int a;
-    double b;
-    long c;
-}S;
+#include "hsfMacro.h"
 
 
 
@@ -20,7 +14,10 @@ extern "C"
 void slave_integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
     ParaSet* dataSet_parm, label *row, label *col);
 
-void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
+void slave_spMV_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
+    ParaSet* dataSet_parm, label *row, label *col);
+
+void slave_calcLudsFcc_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
     ParaSet* dataSet_parm, label *row, label *col);
 
 #ifdef __cplusplus
