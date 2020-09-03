@@ -50,7 +50,7 @@ ParaSet paraData;
     } \
     /* 根据数据集类型选择拓扑 */ \
     UTILITY::ArrayArray<label> topo = reg.getTopology<label>(setTypeList); \
-    label n = topo.size(); \
+    topo.num = reg.getMesh().getTopology().getInnFacesNum(); \
     /* 创建UNAT拓扑 */ \
     UNAT::Topology* UNATTopo = UNAT::Topology::constructTopology(topo, LDU); \
     /* 封装耦合算子 */ \
@@ -63,16 +63,7 @@ ParaSet paraData;
     static UNAT::RowSubsectionIterator *rssIter = new UNAT::RowSubsectionIterator(opt, \
      *UNATTopo, E2V); \
     /* 调用UNAT迭代器计算，UNAT函数指针需要进行改造 */ \
-     rssIter->edge2VertexIteration(&paraData, opt, 1);  \
-    /*
-    label* owner = new label[topo.size()]; \
-    label* neighbor = new label[topo.size()]; \
-    for (int i = 0; i < topo.size(); ++i) \
-    { \
-        owner[i] = topo[i][0]; \
-        neighbor[i] = topo[i][1]; \
-    } \
-    integration_skeleton(&dataSet_edge, &dataSet_vertex, &paraData, owner, neighbor); */ \
+    rssIter->edge2VertexIteration(&paraData, opt, 1);  \
 }
 
 #endif

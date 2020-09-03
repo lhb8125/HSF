@@ -66,7 +66,7 @@ void Region::initAfterBalance()
   //   }
   //   printf("\n");
   // }
-    createInterFaces(faceCells, cellNum);
+  createInterFaces(faceCells, cellNum);
 
 	par_std_out("finish creating interfaces ...\n");
 
@@ -449,7 +449,10 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
     faceSizeStart += faceSize;
     DELETE_POINTER(face2cellpart);
   }
-
+  for (int i = 0; i < face2Cell_1.size(); ++i)
+  {
+    par_std_out("%d, %d, %d, %d\n", i, face2Cell_1.size(), face2Cell_1[i][0], face2Cell_1[i][1]);
+  }
   DELETE_POINTER(partitionInfo);
   DELETE_POINTER(locCellNumProcs);
   DELETE_POINTER(nbrCellNumProcs);

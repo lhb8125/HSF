@@ -365,6 +365,7 @@ void transformArray(const Array<Array<T> >& arr, ArrayArray<T>& res)
   int cellNum = arr.size();
   res.num = cellNum;
   res.startIdx = new label[cellNum+1];
+  res.basicEle = new BasicElement<T>[cellNum];
   res.startIdx[0] = 0;
   for (int i = 0; i < cellNum; ++i)
   {
@@ -380,6 +381,8 @@ void transformArray(const Array<Array<T> >& arr, ArrayArray<T>& res)
       res.data[j] = arr[i][k];
       k++;
     }
+    res.basicEle[i].num = res.startIdx[i+1]-res.startIdx[i];
+    res.basicEle[i].data = &res.data[res.startIdx[i]];
   }
 };
 
