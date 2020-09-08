@@ -1,5 +1,5 @@
 #include "kernel_spe.hpp"
-#include "resource.hpp"
+#include "resource.h"
 #include "unat/iterator.h"
 #include "kernel_slave.h"
 

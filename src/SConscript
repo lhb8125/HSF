@@ -2,7 +2,7 @@
 
 import os
 import utils
-from build import build_lninclude, build_lib, cxx_source_files, chost_source_files, cslave_source_files, cxxhost_source_files, build_object
+from build import build_lninclude, build_lib, cxx_source_files, chost_source_files, cslave_source_files, cxxhost_source_files, build_object, fortran_source_files
 
 Import('env')
 
@@ -83,6 +83,11 @@ objs_all = objs_all + build_object(env,
                                    sources=cxx_source_files,
                                    program_inc=program_inc,
                                    program_libs=program_libs)
+
+# objs_all = objs_all + build_object(env,
+#                                    sources=fortran_source_files,
+#                                    program_inc=program_inc,
+#                                    program_libs=program_libs)
 
 build_lib(env,
           target=target,

@@ -12,7 +12,7 @@ generalflags = dict(
     warnings="",
     debug="-O0 -ggdb3 -DDEBUG",
     prof="-O2 -pg",
-    opt="-g -dynamic -mieee")
+    opt="-g -mieee")
 
 gcc_flags = dict(**generalflags)
 
@@ -167,3 +167,4 @@ def update_compiler_settings(env):
 
     # make gfortran support preprocessor
     env.Append(F90FLAGS='-cpp')
+    env.Append(CCFLAGS='-rdynamic')

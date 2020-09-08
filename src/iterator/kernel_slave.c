@@ -99,7 +99,7 @@ void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
 		row, col);
 }
 
-void slave_calcLudsFcc_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
+void calcLudsFcc_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
     ParaSet* dataSet_parm, label *row, label *col)
 {
     scalar *massFlux = (scalar*)accessDataSet(dataSet_edge, 0);

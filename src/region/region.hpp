@@ -9,7 +9,7 @@
 #ifndef REGION_HPP
 #define REGION_HPP
 
-#include <typeinfo>
+// #include <typeinfo>
 #include "pcgnslib.h"
 #include "cgnslib.h"
 #include "mpi.h"

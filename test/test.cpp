@@ -102,13 +102,13 @@ int main(int argc, char** argv)
  //    checkResult(regs[0], "U", "U_spe");
 
     // spMV
- //    label pi;
- //    StructS s;
- //    label32* arr = new label32[10];
-	// spMV_data(regs[0], n_face, n_cell, pi, s, arr);
-	// spMV(regs[0], "A", "x", "b", pi, s, arr);
-	// spMV_spe(regs[0], "A", "x", "b_spe", pi, s, arr);
- //    checkResult(regs[0], "b", "b_spe");
+    label pi;
+    StructS s;
+    label32* arr = new label32[10];
+	spMV_data(regs[0], n_face, n_cell, pi, s, arr);
+	spMV(regs[0], "A", "x", "b", pi, s, arr);
+	spMV_spe(regs[0], "A", "x", "b_spe", pi, s, arr);
+    checkResult(regs[0], "b", "b_spe");
 
     calcLudsFcc_data(regs[0], n_face, n_cell);
     calcLudsFcc(regs[0], "massFlux", "cellx", "fcc", "facex", "rface0", "rface1", "S");

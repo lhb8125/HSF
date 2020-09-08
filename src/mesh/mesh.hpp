@@ -232,7 +232,7 @@ public:
 	*/
 	void generateBlockTopo() {blockTopo_.constructBlockTopology(topo_);};
 
-	Array<label64>& getEleNumGlobal(){return this->eleNumGlobal_;};
+	Array<label>& getEleNumGlobal(){return this->eleNumGlobal_;};
 
 
 };

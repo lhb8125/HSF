@@ -23,7 +23,8 @@ void spMV(Region& reg, Word A, Word x, Word b,
 
 #pragma message("compute")
 #pragma message("arr[10]")
-    for (int i = 0; i < n; ++i)
+    int i;
+    for (i = 0; i < n; ++i)
     {
         label row = topo[i][0];
         label col = topo[i][1];
@@ -42,7 +43,8 @@ void integration(Region& reg, Word flux, Word U)
     label nn = reg.getSize(2, &flux, &U);
 
 #pragma message("compute")
-    for (int i = 0; i < nn; ++i)
+    int i;
+    for (i = 0; i < nn; ++i)
     {
         label row = tp[i][0];
         fieldU[row][0] += fieldFlux[i][0];
@@ -64,9 +66,11 @@ void calcLudsFcc(Region& reg, Word massFlux, Word cellx, Word fcc, Word facex,
     ArrayArray<label> tp = reg.getTopology<label>(7, &massFlux, &cellx, &fcc, &facex, &rface0, &rface1, &S);
     label nn = reg.getSize(7, &massFlux, &cellx, &fcc, &facex, &rface0, &rface1, &S);
 
+
 #pragma message("compute")
     scalar facp, facn;
-    for (int i = 0; i < nn; ++i)
+    int i;
+    for (i = 0; i < nn; ++i)
     {
         label row = tp[i][0];
         label col = tp[i][1];
