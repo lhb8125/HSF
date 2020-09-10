@@ -19,7 +19,6 @@ subdirs = Split("""
     patch
     region
     topology
-    utilities
     vector
 """)
 
@@ -46,6 +45,7 @@ if env['PLATFORM'] == 'sw':
     hdf5_home = software_home + '/HDF5/hdf5-1.8.8'
     boost_home = software_home + '/boost/boost1.69'
     unat_home = '/home/export/online3/amd_dev1/liuhb/unat/install'
+    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/sw64swg++DPOpt'
     parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/SWInstall_64_64'
 
 program_inc = [yaml_home + '/include',
@@ -53,7 +53,8 @@ program_inc = [yaml_home + '/include',
                hdf5_home + '/include',
                parmetis_home + '/include',
                boost_home + '/include',
-               unat_home + '/include']
+               unat_home + '/include',
+               utility_home + '/include']
 program_libs = []
 objs_all = []
 

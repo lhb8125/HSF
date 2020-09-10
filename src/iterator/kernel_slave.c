@@ -2,16 +2,13 @@
 
 label** topo;
 label** tp;
-// void spMV_kernel(scalar* fieldA, scalar* fieldx, scalar* fieldb, label n, 
-// 	label dim_fieldA, label dim_fieldx, label dim_fieldb, 
-// 	long pi, S s, const int * arr, 
-// 	label *owner, label *neighbor)
 void spMV_kernel(scalar* fieldA, scalar* fieldx, scalar* fieldb, label n, 
-    label dim_fieldA, label dim_fieldx, label dim_fieldb, 
-    label pi, label32* arr, StructS s,
-    label *owner, label *neighbor)
+	label dim_fieldA, label dim_fieldx, label dim_fieldb, 
+	long pi, StructS s, const int * arr, 
+	label *owner, label *neighbor)
 {
-    int i;
+	int i;
+	
 	for (i = 0; i < n; ++i)
     {
         label row = owner[i];
@@ -26,40 +23,42 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 	
 	label *owner, label *neighbor)
 {
-    int i;
+	int i;
+	
 	for (i = 0; i < nn; ++i)
     {
         label row = owner[i];
         fieldU[row*dim_fieldU+0] += fieldFlux[i*dim_fieldFlux+0];
-        // fieldU[row*dim_fieldU+1] += fieldFlux[i*dim_fieldFlux+1];
-        // fieldU[row*dim_fieldU+2] += fieldFlux[i*dim_fieldFlux+2];
     }
 }
 
-void calcLudsFcc_kernel(scalar* massFlux, scalar* cellx, scalar* fcc, scalar* facex, scalar* rface0, scalar* rface1, scalar* S, label nn, 
-    label dim_massFlux, label dim_cellx, label dim_fcc, label dim_facex, label dim_rface0, label dim_rface1, label dim_S,
-    label *owner, label *neighbor)
+void calcLudsFcc_kernel(scalar* fMassFlux, scalar* fCellx, scalar* fFcc, scalar* fFacex, scalar* fRface0, scalar* fRface1, scalar* fS, label nn, 
+	label dim_fMassFlux, label dim_fCellx, label dim_fFcc, label dim_fFacex, label dim_fRface0, label dim_fRface1, label dim_fS, 
+	
+	label *owner, label *neighbor)
 {
-    int i;
-    scalar facp, facn;
-    for (i = 0; i < nn; ++i)
+	double facp;
+	double facn;
+	int i;
+	
+	for (i = 0; i < nn; ++i)
     {
         label row = owner[i];
         label col = neighbor[i];
-        facp = massFlux[i*dim_massFlux+0] >= 0.0 ? massFlux[i*dim_massFlux+0] : 0.0;
-        facn = massFlux[i*dim_massFlux+0] <  0.0 ? massFlux[i*dim_massFlux+00] : 0.0;
-        fcc[i*dim_fcc+0] = facn*(facex[i*dim_facex+0]-cellx[col*dim_cellx+0])
-                         + facp*(facex[i*dim_facex+0]-cellx[row*dim_cellx+0]);
-        rface0[i*dim_rface0+0] -= facp;
-        rface1[i*dim_rface1+0] += facn;
-        S[row*dim_S+0]         += facp;
-        S[col*dim_S+0]         -= facn;
+        facp = fMassFlux[i*dim_fMassFlux+0] >= 0.0 ? fMassFlux[i*dim_fMassFlux+0] : 0.0;
+        facn = fMassFlux[i*dim_fMassFlux+0] <  0.0 ? fMassFlux[i*dim_fMassFlux+0] : 0.0;
+        fFcc[i*dim_fFcc+0] = facn*(fFacex[i*dim_fFacex+0]-fCellx[col*dim_fCellx+0])
+                   + facp*(fFacex[i*dim_fFacex+0]-fCellx[row*dim_fCellx+0]);
+        fRface0[i*dim_fRface0+0] -= facp;
+        fRface1[i*dim_fRface1+0] += facn;
+        fS[row*dim_fS+0] += facp;
+        fS[col*dim_fS+0] -= facn;
     }
 }
 
 
-void spMV_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
-    ParaSet *dataSet_parm, label *row, label *col)
+
+void spMV_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex, ParaSet *dataSet_parm, label *row, label *col)
 {
 	scalar *arr_fieldA = (scalar*)accessDataSet(dataSet_edge, 0);
 	scalar *arr_fieldx = (scalar*)accessDataSet(dataSet_vertex, 0);
@@ -69,20 +68,19 @@ void spMV_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
 	label dim_fieldx = accessDataSetDim(dataSet_vertex, 0);
 	label dim_fieldb = accessDataSetDim(dataSet_vertex, 1);
 
-	label const_pi = *(label*)accessParaSet(dataSet_parm, 0);
-	label32 * const_arr = (label32*)accessParaSet(dataSet_parm, 1);
-    StructS const_s = *(StructS*)accessParaSet(dataSet_parm, 2);
+	long const_pi = *(long*)accessParaSet(dataSet_parm, 0);
+	StructS const_s = *(StructS*)accessParaSet(dataSet_parm, 1);
+	const int * const_arr = (const int *)accessParaSet(dataSet_parm, 2);
 
 	label n = getDataSetSize(dataSet_edge);
 
 	spMV_kernel(arr_fieldA, arr_fieldx, arr_fieldb, n, 
 		dim_fieldA, dim_fieldx, dim_fieldb, 
-        const_pi, const_arr, const_s,
+		const_pi, const_s, const_arr, 
 		row, col);
 }
 
-void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
-    ParaSet* dataSet_parm, label *row, label *col)
+void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex, ParaSet *dataSet_parm, label *row, label *col)
 {
 	scalar *arr_fieldFlux = (scalar*)accessDataSet(dataSet_edge, 0);
 	scalar *arr_fieldU = (scalar*)accessDataSet(dataSet_vertex, 0);
@@ -91,7 +89,7 @@ void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
 	label dim_fieldU = accessDataSetDim(dataSet_vertex, 0);
 
 
-	label n = dataSet_edge->arraySize;
+	label n = getDataSetSize(dataSet_edge);
 
 	integration_kernel(arr_fieldFlux, arr_fieldU, n, 
 		dim_fieldFlux, dim_fieldU, 
@@ -99,30 +97,31 @@ void integration_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
 		row, col);
 }
 
-void calcLudsFcc_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex,
-    ParaSet* dataSet_parm, label *row, label *col)
+void calcLudsFcc_skeleton(DataSet *dataSet_edge, DataSet *dataSet_vertex, ParaSet *dataSet_parm, label *row, label *col)
 {
-    scalar *massFlux = (scalar*)accessDataSet(dataSet_edge, 0);
-    scalar *cellx    = (scalar*)accessDataSet(dataSet_vertex, 0);
-    scalar *fcc      = (scalar*)accessDataSet(dataSet_edge, 1);
-    scalar *facex    = (scalar*)accessDataSet(dataSet_edge, 2);
-    scalar *rface0   = (scalar*)accessDataSet(dataSet_edge, 3);
-    scalar *rface1   = (scalar*)accessDataSet(dataSet_edge, 4);
-    scalar *S        = (scalar*)accessDataSet(dataSet_vertex, 1);
+	scalar *arr_fMassFlux = (scalar*)accessDataSet(dataSet_edge, 0);
+	scalar *arr_fCellx = (scalar*)accessDataSet(dataSet_vertex, 0);
+	scalar *arr_fFcc = (scalar*)accessDataSet(dataSet_edge, 1);
+	scalar *arr_fFacex = (scalar*)accessDataSet(dataSet_edge, 2);
+	scalar *arr_fRface0 = (scalar*)accessDataSet(dataSet_edge, 3);
+	scalar *arr_fRface1 = (scalar*)accessDataSet(dataSet_edge, 4);
+	scalar *arr_fS = (scalar*)accessDataSet(dataSet_vertex, 1);
 
-    label dim_massFlux = accessDataSetDim(dataSet_edge, 0);
-    label dim_cellx    = accessDataSetDim(dataSet_vertex, 0);
-    label dim_fcc      = accessDataSetDim(dataSet_edge, 1);
-    label dim_facex    = accessDataSetDim(dataSet_edge, 2);
-    label dim_rface0   = accessDataSetDim(dataSet_edge, 3);
-    label dim_rface1   = accessDataSetDim(dataSet_edge, 4);
-    label dim_S        = accessDataSetDim(dataSet_vertex, 1);
+	label dim_fMassFlux = accessDataSetDim(dataSet_edge, 0);
+	label dim_fCellx = accessDataSetDim(dataSet_vertex, 0);
+	label dim_fFcc = accessDataSetDim(dataSet_edge, 1);
+	label dim_fFacex = accessDataSetDim(dataSet_edge, 2);
+	label dim_fRface0 = accessDataSetDim(dataSet_edge, 3);
+	label dim_fRface1 = accessDataSetDim(dataSet_edge, 4);
+	label dim_fS = accessDataSetDim(dataSet_vertex, 1);
 
-    label n = getDataSetSize(dataSet_edge);
 
-    calcLudsFcc_kernel(massFlux, cellx, fcc, facex, rface0, rface1, S, n, 
-        dim_massFlux, dim_cellx, dim_fcc, dim_facex, dim_rface0, dim_rface1, dim_S,
-        row, col);
+	label n = getDataSetSize(dataSet_edge);
+
+	calcLudsFcc_kernel(arr_fMassFlux, arr_fCellx, arr_fFcc, arr_fFacex, arr_fRface0, arr_fRface1, arr_fS, n, 
+		dim_fMassFlux, dim_fCellx, dim_fFcc, dim_fFacex, dim_fRface0, dim_fRface1, dim_fS, 
+		
+		row, col);
 }
 
 
