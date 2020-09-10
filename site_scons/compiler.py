@@ -167,4 +167,5 @@ def update_compiler_settings(env):
 
     # make gfortran support preprocessor
     env.Append(F90FLAGS='-cpp')
+    env.Append(FORTRANMODDIR=env['PROJECT_INC_DIR'])
     env.Append(CCFLAGS='-rdynamic')

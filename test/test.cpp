@@ -106,6 +106,8 @@ int main(int argc, char** argv)
     StructS s;
     label32* arr = new label32[10];
 	spMV_data(regs[0], n_face, n_cell, pi, s, arr);
+
+    checkResult(regs[0], "b", "b_spe");
 	spMV(regs[0], "A", "x", "b", pi, s, arr);
 	spMV_spe(regs[0], "A", "x", "b_spe", pi, s, arr);
     checkResult(regs[0], "b", "b_spe");
