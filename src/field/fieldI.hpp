@@ -251,3 +251,36 @@ Field<T>::~Field()
   DELETE_POINTER(data_);
   freeSendRecvBuffer();
 }
+
+
+template<typename SetType, typename Element>
+Field_new<SetType, Element>::Field_new()
+    : locSize_(0),
+      nbrSize_(0),
+      data_(NULL),
+      sendBufferPtr_(NULL),
+      sendRecvRequests_(NULL),
+      patchTabPtr_(NULL)
+{
+}
+
+template<typename SetType, typename Element>
+Field_new<SetType, Element>::Field_new(label n, T *dataPtr)
+    : locSize_(n),
+      nbrSize_(0),
+      data_(NULL),
+      sendBufferPtr_(NULL),
+      sendRecvRequests_(NULL),
+      patchTabPtr_(NULL)
+{
+  // data_ = new Element[n];
+  // memcpy(data_, dataPtr, n * ndim * sizeof(T));
+  // // 初始化结构体指针，不包含ghost
+  // basicEle_ = new BasicElement<T>[n];
+  // for (int i = 0; i < n; ++i)
+  // {
+  //   basicEle_[i].num = ndim;
+  //   basicEle_[i].data = &data_[i*ndim];
+  // }
+}
+

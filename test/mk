@@ -1,5 +1,5 @@
 #!/bin/sh
-#set -x
+# set -x
 CXX=mpicxx
 LINKER=mpicxx
 CXXFLAGS="-g -rdynamic -std=c++11"
@@ -10,19 +10,22 @@ yaml_home="${software_home}/yaml-cpp/yaml-cpp-0.6.2"
 cgns_home="${software_home}/CGNS/CGNS-3.4.0/gcc_install"
 hdf5_home="${software_home}/HDF5/hdf5-1.10.5/gcc_build"
 parmetis_home="${software_home}/ParMETIS/parmetis-4.0.3/gccInstall_64_64"
+utility_home="/home/export/online3/amd_dev1/liuhb/utilities/install/linux64g++DPOpt"
 
 program_incpath="-I../install/linux64mpicxxDPOpt/include \
 			     -I${yaml_home}/include \
                  -I${cgns_home}/include \
                  -I${hdf5_home}/include \
-                 -I${parmetis_home}/include"
+                 -I${parmetis_home}/include \
+                 -I${utility_home}/include"
 
 program_libpath="-L../install/linux64mpicxxDPOpt/lib \
                  -L${yaml_home}/lib \
                  -L${cgns_home}/lib \
                  -L${hdf5_home}/lib \
-                 -L${parmetis_home}/lib"
-program_libs="-lhsf -lcgns -lhdf5 -lparmetis -lmetis -lyaml-cpp -lm -lz -ldl"
+                 -L${parmetis_home}/lib \
+                 -L${utility_home}/lib"
+program_libs="-lhsf -lutilities -lcgns -lhdf5 -lparmetis -lmetis -lyaml-cpp -lm -lz -ldl"
 
 source_files="test.cpp"
 object_files="test.o"

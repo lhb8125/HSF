@@ -1,4 +1,5 @@
 from build import add_source_files, cxx_source_files, cslave_source_files
+Import('env')
 
 cxxfile = ['funPtr_host.cpp',
            'kernel_spe.cpp',
@@ -6,5 +7,6 @@ cxxfile = ['funPtr_host.cpp',
 
 cslavefile = ['kernel_slave.c']
 
-add_source_files(cxxfile, cxx_source_files)
-add_source_files(cslavefile, cslave_source_files)
+if env['PLATFORM'] == 'sw':
+    add_source_files(cxxfile, cxx_source_files)
+    add_source_files(cslavefile, cslave_source_files)

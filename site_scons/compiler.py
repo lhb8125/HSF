@@ -7,12 +7,12 @@ Compiler settings
 import os
 
 generalflags = dict(
-    general="-fPIC",
+    general="-fPIC -g",
     # warnings = "-Wall -Wextra",
     warnings="",
     debug="-O0 -ggdb3 -DDEBUG",
     prof="-O2 -pg",
-    opt="-g -mieee")
+    opt="")
 
 gcc_flags = dict(**generalflags)
 
@@ -66,6 +66,7 @@ def windows_flags(env):
 
 def linux_flags(env):
     """Linux specific compiler flags"""
+    env.Append(CXXFLAGS='-std=c++11')
     env.Append(LIBPATH_COMMON=[env['MPI_LIB_PATH']],
                CPPPATH=[env['MPI_INC_PATH']],
                F90PATH=[env['MPI_INC_PATH']])
@@ -168,3 +169,7 @@ def update_compiler_settings(env):
     # make gfortran support preprocessor
     env.Append(F90FLAGS='-cpp')
     env.Append(CCFLAGS='-rdynamic')
+
+    if env['PLATFORM'] == 'sw':
+        env.Append(CCFLAGS='-mieee')
+

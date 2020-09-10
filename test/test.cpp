@@ -12,6 +12,7 @@
 #include <yaml-cpp/yaml.h>
 #include <assert.h>
 #include <unistd.h>
+#include <math.h>
 #include "cstdlib"
 #include "mpi.h"
 #include "utilities.h"
@@ -20,8 +21,11 @@
 #include "cgnslib.h"
 #include "region.hpp"
 #include "funPtr_host.hpp"
+
+#ifdef sw
 #include "kernel_spe.hpp"
 #include "unat/athread_switch.h"
+#endif
 // #include "fieldInterfaces.hpp"
 #define OUT std::cout
 #define IN std::cin
@@ -35,7 +39,9 @@ void checkResult(Region& reg, Word x, Word x_spe);
 
 int main(int argc, char** argv)
 {
+#ifdef sw
 	CG_init();
+#endif
 	LoadBalancer *lb = new LoadBalancer();
 
 	Parameter para("./config.yaml");
@@ -95,6 +101,7 @@ int main(int argc, char** argv)
 	label n_face   = regs[0].getMesh().getTopology().getFacesNum();
 	label n_cell   = regs[0].getMesh().getTopology().getCellsNum();
 
+#ifdef sw
 	// integration
 	// integration_data(regs[0], n_face, n_cell);
 	// integration(regs[0], "flux","U");
@@ -117,6 +124,7 @@ int main(int argc, char** argv)
     checkResult(regs[0], "rface0", "rface0_s");
     checkResult(regs[0], "rface1", "rface1_s");
     checkResult(regs[0], "S", "S_s");
+#endif
 
 	// face_2_cell = regs[0].getBoundary().getTopology().getFace2Cell();
 	// spMV_bnd(regs[0], face_2_cell, n_face_b);
@@ -141,22 +149,22 @@ void checkResult(Region& reg, Word x, Word x_spe)
     scalar* xspe_arr = fieldX_spe.getLocalData();
     for (int i = 0; i < size*dim; ++i)
     {
-		if(std::fabs(x_arr[i]-xspe_arr[i])>1e-10)
+		if(fabs(x_arr[i]-xspe_arr[i])>1e-10)
 		{ 
 			if(x_arr[i]==0) 
 			{ 
-				if(std::fabs(xspe_arr[i])>1e-10) 
+				if(fabs(xspe_arr[i])>1e-10) 
 				{ 
 					printf("Error on index[%d], %.8f, %.8f\n", 
 								i, x_arr[i], xspe_arr[i]); 
-					std::exit(-1); 
+					exit(-1); 
 				} 
 			} 
-			else if(std::fabs((x_arr[i]-xspe_arr[i])/x_arr[i])>1e-10) 
+			else if(fabs((x_arr[i]-xspe_arr[i])/x_arr[i])>1e-10) 
 			{ 
 				printf("Error on index[%d], %.8f, %.8f\n", 
 							i, x_arr[i], xspe_arr[i]); 
-				std::exit(-1); 
+				exit(-1); 
 			} 
 		} 
     }

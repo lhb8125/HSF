@@ -41,6 +41,51 @@ THE SOFTWARE.
 
 namespace HSF
 {
+template<typename SetType, typename Element>
+class Field_new
+{
+private:
+  label locSize_;
+  label nbrSize_;
+  Element *data_;
+  Table<Word, Element *> *sendBufferPtr_;    ///< 进程间通信发送buffer
+  MPI_Request *sendRecvRequests_;      ///< mpi非阻塞通信句柄
+  Table<Word, Patch *> *patchTabPtr_;  ///< 通信拓扑
+
+public:
+  /**
+   * @brief 构造函数
+   */
+  Field_new();
+
+  /**
+   * @brief 构造函数，已知类型、维度、大小、数组指针
+   * @param[in] setType 数据类型，可能是cell、face、node等
+   * @param[in] ndim 数据维度，一维、二维、三维
+   * @param[in] n 数据段（结构体）个数，所以真实数据个数是 n*ndim
+   * @param[in] dataPtr 数组的起始地址
+   */
+  Field_new(label n, Element *dataPtr);
+
+  /**
+   * @brief 构造函数，已知类型、维度、大小、数组指针、进程分块信息
+   * @param[in] setType 数据类型，可能是cell、face、node等
+   *@param[in] ndim 数据维度，一维、二维、三维
+   *@param[in] n 数据段（结构体）个数，所以真实数据个数是 n*ndim
+   *@param[in] dataPtr 数组的起始地址
+   *@param[in] patchTab，region下存的patch信息
+   */
+  Field_new(label n,
+        Element *dataPtr,
+        Table<Word, Table<Word, Patch *> *> &patchTab);
+
+  /**
+   * @brief 析构函数
+   */
+  ~Field_new();
+
+};
+
 /**
  * @brief      场
  * @tparam     T     label scalar

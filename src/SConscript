@@ -19,7 +19,6 @@ subdirs = Split("""
     patch
     region
     topology
-    utilities
     vector
 """)
 
@@ -39,6 +38,9 @@ if env['PLATFORM'] == 'linux':
     cgns_home = software_home + '/CGNS/CGNS-3.4.0/gcc_install'
     hdf5_home = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
     parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
+    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/linux64g++DPOpt'
+    unat_home = '.'
+    boost_home = '.'
 
 if env['PLATFORM'] == 'sw':
     yaml_home = software_home + '/yaml-cpp/yaml-cpp-0.5.3'
@@ -46,6 +48,7 @@ if env['PLATFORM'] == 'sw':
     hdf5_home = software_home + '/HDF5/hdf5-1.8.8'
     boost_home = software_home + '/boost/boost1.69'
     unat_home = '/home/export/online3/amd_dev1/liuhb/unat/install'
+    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/sw64swg++DPOpt'
     parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/SWInstall_64_64'
 
 program_inc = [yaml_home + '/include',
@@ -53,7 +56,8 @@ program_inc = [yaml_home + '/include',
                hdf5_home + '/include',
                parmetis_home + '/include',
                boost_home + '/include',
-               unat_home + '/include']
+               unat_home + '/include',
+               utility_home + '/include']
 program_libs = []
 objs_all = []
 
@@ -84,10 +88,10 @@ objs_all = objs_all + build_object(env,
                                    program_inc=program_inc,
                                    program_libs=program_libs)
 
-# objs_all = objs_all + build_object(env,
-#                                    sources=fortran_source_files,
-#                                    program_inc=program_inc,
-#                                    program_libs=program_libs)
+objs_all = objs_all + build_object(env,
+                                   sources=fortran_source_files,
+                                   program_inc=program_inc,
+                                   program_libs=program_libs)
 
 build_lib(env,
           target=target,
