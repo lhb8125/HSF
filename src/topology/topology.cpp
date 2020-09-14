@@ -19,7 +19,12 @@ namespace HSF
 /**
 * @brief constructor
 */
-Topology::Topology()
+Topology::Topology():commcator_(NULL)
+{
+}
+
+// constructor
+Topology::Topology(Communicator & other_comm):commcator_(&other_comm)
 {
 }
 
@@ -41,8 +46,8 @@ Topology::~Topology()
 void Topology::constructTopology()
 {
 	int rank,nprocs;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+	rank = this->commcator_->getMyId();
+	nprocs = this->commcator_->getMySize();
 
 	ArrayArray<label> cell2Node = this->cell2Node_;
 	// printf("cell2Node_: %d, cellType_: %d\n", cell2Node_.size(), cellType_.size());
@@ -61,7 +66,9 @@ void Topology::constructTopology()
 	label cellNum = cell2Node.size();
 	this->cellNum_ = cell2Node.size();
 	label *cellStartIdTmp = new label[nprocs+1];
-	MPI_Allgather(&cellNum, 1, COMM_LABEL, &cellStartIdTmp[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+	this->commcator_->allGather("allgather",&cellNum,sizeof(label),&cellStartIdTmp[1],sizeof(label));
+	this->commcator_->finishTask("allgather");
+	
 	cellStartIdTmp[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
 	{
@@ -221,7 +228,7 @@ void Topology::constructTopology()
 	// 	}
 	// 	if(!isExist) Terminate("sort the faces according to the type", "unrecognized type");
 	// }
-	// printf("There are %d types of faces, and we have %d faces\n", faceNodeNum.size(), face2NodeInn.size());
+	// // printf("There are %d types of faces, and we have %d faces\n", faceNodeNum.size(), face2NodeInn.size());
 	// face2NodeInn.clear();
 	// face2CellInn.clear();
 	// for (int i = 0; i < faceNodeNum.size(); ++i)
@@ -234,6 +241,7 @@ void Topology::constructTopology()
 	transformArray(face2CellInn, this->face2Cell_);
 	transformArray(face2NodeInn, this->face2Node_);
 	this->renumberFaceTopo();
+
 	this->faceNum_ = face2NodeInn.size();
 	// this->faceNum_   = this->faceNum_i_+this->faceNum_b_;
 
@@ -256,6 +264,7 @@ void Topology::constructTopology()
 				face2NodeInn[i].swap(tmp);
 		}
 	}
+	
 	// if(rank==0)
 	// {
 	// 	for (int i = 0; i < face2NodeInn.size(); ++i)
@@ -314,7 +323,7 @@ void Topology::setPatchInfo(Array<Array<label> >& face2NodeInn,
 	Array<Array<label> >& face2CellBnd)
 {
 	int rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	rank = this->commcator_->getMyId();
 
 	Array<Array<label> > face2CellArr, face2NodeArr;
 	face2CellArr.clear();
@@ -343,7 +352,7 @@ void Topology::setPatchInfo(Array<Array<label> >& face2NodeInn,
 	// }
 	Array<label> face2CellNew;
 	face2CellNew = LoadBalancer::collectNeighborCell(face2NodeBndTmp,
-		face2NodeBnd, face2CellTmp);
+		face2NodeBnd, face2CellTmp,this->getCommunicator());
 
 	Array<label> cellType_ = this->getCellType();
 	for (int i = 0; i < face2CellNew.size(); ++i)
@@ -371,7 +380,7 @@ void Topology::constructTopology(Array<Section>& secs)
 {
 	label secNum = secs.size();
 	int rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	rank = this->commcator_->getMyId();
 
 	/// record the type of cells
 	cellNum_ = 0;
@@ -573,7 +582,7 @@ void Topology::constructTopology(Array<Section>& secs)
 void Topology::genEdgeTopo()
 {
 	int rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	rank = this->commcator_->getMyId();
 
 	ArrayArray<label> cell2Node = this->cell2Node_;
 
@@ -742,6 +751,7 @@ label Topology::getSize(const Word setType)
     return 0;
   }
 }
+
 
 void Topology::renumberFaceTopo()
 {

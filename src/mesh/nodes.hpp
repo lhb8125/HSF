@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-12-18 09:49:00
 */
-#ifndef NODES_HPP
-#define NODES_HPP
+#ifndef HSF_NODES_HPP
+#define HSF_NODES_HPP
 #include "hsfMacro.h"
 #include "utilities.h"
 

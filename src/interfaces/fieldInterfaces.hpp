@@ -31,8 +31,8 @@ THE SOFTWARE.
  * @Last Modified time: 2019-11-30 15:19:46
  */
 
-#ifndef FIELDINTERFACES_HPP
-#define FIELDINTERFACES_HPP
+#ifndef HSF_FIELDINTERFACES_HPP
+#define HSF_FIELDINTERFACES_HPP
 
 #include "utilities.h"
 

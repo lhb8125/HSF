@@ -7,8 +7,8 @@
 * @last Modified time: 2020-02-22 14:48:06
 */
 
-#ifndef VECTORINTERFACES_H
-#define VECTORINTERFACES_H
+#ifndef HSF_VECTORINTERFACES_H
+#define HSF_VECTORINTERFACES_H
 
 #include "mpi.h"
 // #include "voidtor.hpp"

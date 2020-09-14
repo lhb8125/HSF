@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-28 10:57:11
 */
-#ifndef COMPUTE_HPP
-#define COMPUTE_HPP
+#ifndef HSF_COMPUTE_HPP
+#define HSF_COMPUTE_HPP
 
 #include <cmath>
 #include "utilities.h"

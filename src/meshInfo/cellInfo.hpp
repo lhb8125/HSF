@@ -6,6 +6,9 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-09-09 14:51:29
 */
+#ifndef HSF_MESHINFO_HPP
+#define HSF_MESHINFO_HPP
+
 #include "meshInfo.hpp"
 /**
 	Geometry information of cell element, organized as SoAoS layout
@@ -32,3 +35,5 @@ public:
 	*/
 	~CellInfo();
 };
+
+#endif

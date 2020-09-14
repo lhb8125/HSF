@@ -62,11 +62,11 @@ void MeshInfo::addFaceInfo(Mesh& mesh)
 		calculateFaceCenter(tmpX, tmpY, tmpZ, nnodes, &center[i*3]);
 		// printf("%f\n", area);
 	}
-	Field<scalar>* fnew = new Field<scalar>("face", 1, faceNum, area);
+	Field<scalar>* fnew = new Field<scalar>("face", 1, faceNum, area,mesh.getCommunicator());
 	this->addField<scalar>("area", fnew);
-	fnew = new Field<scalar>("face", 3, faceNum, normVec);
+	fnew = new Field<scalar>("face", 3, faceNum, normVec,mesh.getCommunicator());
 	this->addField<scalar>("normal vector", fnew);
-	fnew = new Field<scalar>("face", 3, faceNum, center);
+	fnew = new Field<scalar>("face", 3, faceNum, center,mesh.getCommunicator());
 	this->addField<scalar>("center", fnew);
 
 	// for (int i = 0; i < faceNum; ++i)
@@ -105,9 +105,9 @@ void MeshInfo::addCellInfo(Mesh& mesh)
 		vol[i]  = calculateCellVol(tmpX, tmpY, tmpZ, nnodes);
 		calculateCellCenter(tmpX, tmpY, tmpZ, nnodes, &center[i*3]);
 	}
-	Field<scalar>* fnew = new Field<scalar>("cell", 1, cellNum, vol);
+	Field<scalar>* fnew = new Field<scalar>("cell", 1, cellNum, vol,mesh.getCommunicator());
 	this->addField<scalar>("volume", fnew);
-	fnew = new Field<scalar>("cell", 3, cellNum, center);
+	fnew = new Field<scalar>("cell", 3, cellNum, center,mesh.getCommunicator());
 	this->addField<scalar>("center", fnew);
 }
 
@@ -130,4 +130,4 @@ T* MeshInfo::getMeshInfo(Word setType, Word name)
 	return fieldI.getLocalData();
 }
 
-}
+} //namespace HSF 

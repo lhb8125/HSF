@@ -16,6 +16,8 @@ void integration_data(Region& reg, label n_face, label n_cell)
     scalar *U_arr_spe = new scalar[n_cell];
     scalar *flux_arr  = new scalar[n_face];
 
+    Communicator &commcator = reg.getCommunicator();
+
     for (int i = 0; i < n_face; ++i)
     {
         flux_arr[i] = (scalar)(rand()%100)/100;
@@ -27,9 +29,9 @@ void integration_data(Region& reg, label n_face, label n_cell)
     }
 
     Table<Word, Table<Word, Patch *> *> &patchTab = reg.getPatchTab();
-    Field<scalar> *fU     = new Field<scalar>("cell", 1, n_cell, U_arr, patchTab);
-    Field<scalar> *fU_spe = new Field<scalar>("cell", 1, n_cell, U_arr_spe, patchTab);
-    Field<scalar> *ff     = new Field<scalar>("face", 1, n_face, flux_arr, patchTab);
+    Field<scalar> *fU     = new Field<scalar>("cell", 1, n_cell, U_arr, patchTab,commcator);
+    Field<scalar> *fU_spe = new Field<scalar>("cell", 1, n_cell, U_arr_spe, patchTab,commcator);
+    Field<scalar> *ff     = new Field<scalar>("face", 1, n_face, flux_arr, patchTab,commcator);
     reg.addField<scalar>("U", fU);
     reg.addField<scalar>("U_spe", fU_spe);
     reg.addField<scalar>("flux", ff);
@@ -44,6 +46,8 @@ void spMV_data(Region& reg, label n_face, label n_cell,
     scalar *b_arr_spe = new scalar[n_cell];
     scalar *b_arr     = new scalar[n_cell];
 
+    Communicator &commcator = reg.getCommunicator();
+
     for (int i = 0; i < n_face; ++i)
     {
         A_arr[i] = (scalar)(rand()%100)/100;
@@ -56,10 +60,10 @@ void spMV_data(Region& reg, label n_face, label n_cell,
     }
 
     Table<Word, Table<Word, Patch *> *> &patchTab = reg.getPatchTab();
-    Field<scalar> *fA     = new Field<scalar>("face", 1, n_face, A_arr,     patchTab);
-    Field<scalar> *fx     = new Field<scalar>("cell", 1, n_cell, x_arr,     patchTab);
-    Field<scalar> *fb     = new Field<scalar>("cell", 1, n_cell, b_arr,     patchTab);
-    Field<scalar> *fb_spe = new Field<scalar>("cell", 1, n_cell, b_arr_spe, patchTab);
+    Field<scalar> *fA     = new Field<scalar>("face", 1, n_face, A_arr,     patchTab,commcator);
+    Field<scalar> *fx     = new Field<scalar>("cell", 1, n_cell, x_arr,     patchTab,commcator);
+    Field<scalar> *fb     = new Field<scalar>("cell", 1, n_cell, b_arr,     patchTab,commcator);
+    Field<scalar> *fb_spe = new Field<scalar>("cell", 1, n_cell, b_arr_spe, patchTab,commcator);
     reg.addField<scalar>("A",     fA);
     reg.addField<scalar>("x",     fx);
     reg.addField<scalar>("b",     fb);
@@ -90,6 +94,8 @@ void calcLudsFcc_data(Region& reg, label n_face, label n_cell)
     scalar *rface1_arr_spe = new scalar[n_face];
     scalar *S_arr_spe      = new scalar[n_cell];
 
+    Communicator &commcator = reg.getCommunicator();
+
     for (int i = 0; i < n_face; ++i)
     {
         mass_arr[i] = (scalar)(rand()%100-50)/100;
@@ -109,17 +115,17 @@ void calcLudsFcc_data(Region& reg, label n_face, label n_cell)
     }
 
     Table<Word, Table<Word, Patch *> *> &patchTab = reg.getPatchTab();
-    Field<scalar> *fmass     = new Field<scalar>("face", 1, n_face, mass_arr,     patchTab);
-    Field<scalar> *ffacex    = new Field<scalar>("face", 1, n_face, facex_arr,     patchTab);
-    Field<scalar> *ffcc      = new Field<scalar>("face", 1, n_face, fcc_arr,     patchTab);
-    Field<scalar> *frface0   = new Field<scalar>("face", 1, n_face, rface0_arr,     patchTab);
-    Field<scalar> *frface1   = new Field<scalar>("face", 1, n_face, rface1_arr,     patchTab);
-    Field<scalar> *ffcc_s    = new Field<scalar>("face", 1, n_face, fcc_arr_spe,     patchTab);
-    Field<scalar> *frface0_s = new Field<scalar>("face", 1, n_face, rface0_arr_spe,     patchTab);
-    Field<scalar> *frface1_s = new Field<scalar>("face", 1, n_face, rface1_arr_spe,     patchTab);
-    Field<scalar> *fcellx    = new Field<scalar>("cell", 1, n_cell, cellx_arr,     patchTab);
-    Field<scalar> *fS        = new Field<scalar>("cell", 1, n_cell, S_arr,     patchTab);
-    Field<scalar> *fS_s      = new Field<scalar>("cell", 1, n_cell, S_arr_spe,     patchTab);
+    Field<scalar> *fmass     = new Field<scalar>("face", 1, n_face, mass_arr,     patchTab,commcator);
+    Field<scalar> *ffacex    = new Field<scalar>("face", 1, n_face, facex_arr,     patchTab,commcator);
+    Field<scalar> *ffcc      = new Field<scalar>("face", 1, n_face, fcc_arr,     patchTab,commcator);
+    Field<scalar> *frface0   = new Field<scalar>("face", 1, n_face, rface0_arr,     patchTab,commcator);
+    Field<scalar> *frface1   = new Field<scalar>("face", 1, n_face, rface1_arr,     patchTab,commcator);
+    Field<scalar> *ffcc_s    = new Field<scalar>("face", 1, n_face, fcc_arr_spe,     patchTab,commcator);
+    Field<scalar> *frface0_s = new Field<scalar>("face", 1, n_face, rface0_arr_spe,     patchTab,commcator);
+    Field<scalar> *frface1_s = new Field<scalar>("face", 1, n_face, rface1_arr_spe,     patchTab,commcator);
+    Field<scalar> *fcellx    = new Field<scalar>("cell", 1, n_cell, cellx_arr,     patchTab,commcator);
+    Field<scalar> *fS        = new Field<scalar>("cell", 1, n_cell, S_arr,     patchTab,commcator);
+    Field<scalar> *fS_s      = new Field<scalar>("cell", 1, n_cell, S_arr_spe,     patchTab,commcator);
 
     reg.addField<scalar>("massFlux", fmass);
     reg.addField<scalar>("facex",    ffacex);

@@ -203,20 +203,22 @@ void Region::writeField(const char* resFile,
     const char* fieldName, const char* fieldType)
 {
     int rank, numProcs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    MPI_Comm &myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
+
     // printf("This is rank %d in %d processes\n", rank, numProcs);
 
     int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
     int iBase=1, iZone=1;
     char basename[CHAR_DIM];
 
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+    if(cgp_mpi_comm(myMpicomm) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     if(cgp_open(resFile, CG_MODE_MODIFY, &iFile))
         Terminate("writeBaseInfo", cg_get_error());
-    MPI_Barrier(MPI_COMM_WORLD);
+    this->commcator_->barrier();
 
     Field<T>& fieldI = getField<T>(fieldType, fieldName);
     T* dataPtr = fieldI.getLocalData();
@@ -283,7 +285,8 @@ void Region::writeField(const char* resFile,
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
         // par_std_out("%d\n", iSec);
-        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+        this->commcator_->allGather("allGather",&num,sizeof(label),&cellStartId[1],sizeof(label));
+        this->commcator_->finishTask("allGather");
         // par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
@@ -311,6 +314,8 @@ void Region::writeField(const char* resFile,
 
     DELETE_POINTER(cellStartId);
 }
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -78,7 +78,7 @@ void HSF::add_label_field_(const char *setType,
 {
   label size = REGION.getMesh().getTopology().getSize(setType);
   Table<Word, Table<Word, Patch *> *> &patchTab = REGION.getPatchTab();
-  Field<label> *fnew = new Field<label>(setType, *ndim, size, fPtr, patchTab);
+  Field<label> *fnew = new Field<label>(setType, *ndim, size, fPtr, patchTab,REGION.getCommunicator());
   REGION.addField<label>(fieldName, fnew);
 }
 
@@ -89,7 +89,7 @@ void HSF::add_scalar_field_(const char *setType,
 {
   label size = REGION.getMesh().getTopology().getSize(setType);
   Table<Word, Table<Word, Patch *> *> &patchTab = REGION.getPatchTab();
-  Field<scalar> *fnew = new Field<scalar>(setType, *ndim, size, fPtr, patchTab);
+  Field<scalar> *fnew = new Field<scalar>(setType, *ndim, size, fPtr, patchTab,REGION.getCommunicator());
   REGION.addField<scalar>(fieldName, fnew);
 }
 

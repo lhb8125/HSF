@@ -25,15 +25,18 @@ namespace HSF
 void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 {
 	int rank, numProcs;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
+	
 	par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases=0, cellDim=0, physDim=0;
 	int iBase=1, iZone=1;
 	char basename[CHAR_DIM];
 
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+	if(cgp_mpi_comm(myMpicomm) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
 	if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile) ||
@@ -42,7 +45,7 @@ void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 		Terminate("readBaseInfo", cg_get_error());
         // cgp_error_exit();
 	par_std_out("nBases: %d, basename: %s, cellDim: %d, physDim: %d\n", nBases, basename, cellDim, physDim);
-	MPI_Barrier(MPI_COMM_WORLD);
+	this->commcator_->barrier();
 
     int precision;
     cg_precision(iFile, &precision);
@@ -82,8 +85,9 @@ void Mesh::readCGNSFilePar(const Word filePtr, int fileIdx)
 void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
 {
     int rank, numProcs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
     par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
     cgsize_t sizes[3];
@@ -137,7 +141,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         // sizeof(dataType)!=sizeof(scalar) ||
         cgp_coord_read_data(iFile, iBase, iZone, 3, &start, &end, z))
         Terminate("readCoords", cg_get_error());
-    MPI_Barrier(MPI_COMM_WORLD);
+    this->commcator_->barrier();
     // par_std_out("%d\n", sizeof(dataType));
 
     // Array<label64> local_2_global;
@@ -251,7 +255,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         cgsize_t* elements = new cgsize_t[nEles*Section::nodesNumForEle(type)];
         if(cgp_elements_read_data(iFile, iBase, iZone, iSec, start+secStart, end+secStart, elements))
             Terminate("readElements", cg_get_error());
-        MPI_Barrier(MPI_COMM_WORLD);
+        this->commcator_->barrier();
 
         par_std_out("%d\n", precision);
         sec.iStart = start+secStart;
@@ -291,7 +295,7 @@ void Mesh::readOneZone(const int iFile, const int iBase, const int iZone)
         }
         this->secs_.push_back(sec);
     }
-    MPI_Barrier(MPI_COMM_WORLD);
+    this->commcator_->barrier();
     this->eleNumGlobal_.push_back(this->eleNumGlobal_.back()+zoneEleNum);
 
     // DELETE_POINTER(z);
@@ -312,8 +316,10 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
 	int eleNum  = this->eleNum_;
 
 	int rank, numProcs;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
 	// par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
@@ -325,7 +331,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
 	sizes[1] = eleNum;
 	sizes[2] = 0;
 
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+	if(cgp_mpi_comm(myMpicomm) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
 	if(cgp_open(filePtr.c_str(), CG_MODE_WRITE, &iFile) ||
@@ -337,7 +343,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
         par_std_out("writing %d coordinates and %d hex elements to %s\n",
             nodeNum, eleNum, filePtr.c_str());
     }
-    MPI_Barrier(MPI_COMM_WORLD);
+    this->commcator_->barrier();
     DataType_t dataType;
     if(sizeof(scalar)==4) dataType = RealSingle;
     else dataType = RealDouble;
@@ -346,7 +352,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
         cgp_coord_write(iFile, iBase, iZone, dataType, "CoordinateY", &Cy) ||
         cgp_coord_write(iFile, iBase, iZone, dataType, "CoordinateZ", &Cz))
         Terminate("writeCoordInfo", cg_get_error());
-    MPI_Barrier(MPI_COMM_WORLD);
+    this->commcator_->barrier();
 
     /* number of nodes and range this process will write */
     int nnodes = this->nodes_.size();
@@ -391,7 +397,7 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
             cgp_coord_write_data(iFile, iBase, iZone, Cz, &start, &end, tmpZ))
             Terminate("writeCoords", cg_get_error());
         coordIdx += end-start+1;
-        MPI_Barrier(MPI_COMM_WORLD);
+        this->commcator_->barrier();
     }
  //    if (cgp_coord_write_data(iFile, iBase, iZone, Cx, &start, &end, x) ||
  //        cgp_coord_write_data(iFile, iBase, iZone, Cy, &start, &end, y) ||
@@ -410,7 +416,8 @@ void Mesh::writeCGNSFilePar(const Word filePtr)
     {
         label num = cellBlockStartIdx[iSec+1]-cellBlockStartIdx[iSec];
         par_std_out("%d\n", iSec);
-        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+        this->getCommunicator().allGather("allgather",&num,sizeof(label),&cellStartId[1],sizeof(label));
+        this->getCommunicator().finishTask("allgather");
         par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
@@ -465,8 +472,9 @@ void Mesh::initCGNSFilePar(const char* filePtr)
     // int faceNum = 0;
 
 	int rank, numProcs;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
 	par_std_out("This is rank %d in %d processes\n", rank, numProcs);
 
 	int iFile, nBases, cellDim, physDim, Cx, Cy, Cz;
@@ -478,7 +486,7 @@ void Mesh::initCGNSFilePar(const char* filePtr)
 	sizes[1] = eleNum;
 	sizes[2] = 0;
 
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+	if(cgp_mpi_comm(myMpicomm) != CG_OK)
 		Terminate("initCGNSMPI", cg_get_error());
 	if(cgp_open(filePtr, CG_MODE_WRITE, &iFile) ||
 		cg_base_write(iFile, "Base", 3, 3, &iBase) ||
@@ -806,18 +814,46 @@ void Mesh::readCGNSFile(const char* filePtr)
  //    	Terminate("closeGridCGNS", cg_get_error());
 }
 
+/**
+ *  @brief set nodeGolbalIndex to nodeLocalIndex
+ */ 
+void Mesh::setNodeGlobal2LocalIndex(){
+
+    // 设置cell2Node
+    label *tempData = this->getTopology().getCell2Node().data;
+    label *tempStartIdx = this->getTopology().getCell2Node().startIdx;
+    label cellNumTemp = this->getTopology().getCell2Node().num;
+    Table<label, label>& coordMapTemp = this->getCoordMap();
+    
+    for(label i = 0;i<cellNumTemp;++i){
+        for(label j = tempStartIdx[i];j<tempStartIdx[i+1];++j){
+            tempData[j] = coordMapTemp[tempData[j] - 1] + 1;
+        }
+    }
+
+    // 设置face2Node
+    tempData = this->getTopology().getFace2Node().data;
+    tempStartIdx = this->getTopology().getFace2Node().startIdx;
+    label faceNumTemp = this->getTopology().getFace2Node().num;
+    for(label i = 0;i<faceNumTemp;++i){
+        for(label j = tempStartIdx[i];j<tempStartIdx[i+1];++j){
+            tempData[j] = coordMapTemp[tempData[j] - 1] + 1;
+        }
+    }
+}
 
 
 void Mesh::fetchNodes(Word filename)
 {
     int rank, nprocs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    nprocs = this->commcator_->getMySize();
 
     int nZones = this->nodeNumGlobal_.size()-1;
     int iFile;
     int iBase=1;
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+    if(cgp_mpi_comm(myMpicomm) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     if(cgp_open(filename.c_str(), CG_MODE_MODIFY, &iFile))
         Terminate("openFile", cg_get_error());
@@ -832,7 +868,8 @@ void Mesh::fetchNodes(Word filename)
     for (int iZone = 0; iZone < nZones; ++iZone)
     {
         label nodeNum = this->nodeNumLocal_[iZone];
-        MPI_Allgather(&nodeNum, 1, COMM_LABEL, &nodeStartId[tmpIdx], 1, COMM_LABEL, MPI_COMM_WORLD);
+        this->commcator_->allGather("allgather",&nodeNum,sizeof(label),&nodeStartId[tmpIdx],sizeof(label));
+        this->commcator_->finishTask("allgather");
         tmpIdx += nprocs;
     }
     // 递增方式对node数量进行编号
@@ -910,7 +947,7 @@ void Mesh::fetchNodes(Word filename)
             }
             // printf("%d, %d\n", fileIdx, id);
             // idxStart[idx] = id;
-            MPI_Barrier(MPI_COMM_WORLD);
+            this->commcator_->barrier();
         }
     }
 
@@ -943,10 +980,11 @@ void Mesh::readZoneConnectivity(const Word filePtr,
     Array<Array<Array<Array<label64> > > >& nodes)
 {
     int rank, numProcs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
 
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+    if(cgp_mpi_comm(myMpicomm) != CG_OK ||
         cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     int iFile, iBase=1, iZone;
@@ -1109,8 +1147,10 @@ void Mesh::mergeInterfaceNodes(Array<Array<Array<label64> > >& zc_pnts,
     Array<Array<Array<Array<label64> > > >& nodes)
 {
     int rank, numProcs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    
+    MPI_Comm&  myMpicomm = this->commcator_->getMpiComm();
+    rank = this->commcator_->getMyId();
+    numProcs = this->commcator_->getMySize();
     for (int iZone = 0; iZone < zc_pnts.size(); ++iZone)
     {
         for (int idonor = 0; idonor < iZone; ++idonor)

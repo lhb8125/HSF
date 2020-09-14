@@ -1,14 +1,11 @@
-from build import add_source_files, cxx_source_files
+from build import add_source_files, cxx_source_files, fortran_source_files
 
-
-cxxfile = ['topoInterfaces.cpp',
-			'fieldInterfaces.cpp',
-			'utilInterfaces.cpp',
-			'interface.cpp',
-			'blkInterfaces.cpp',
-			'vectorInterfaces.cpp']
+cxxfile = [
+    'topoInterfaces.cpp', 'fieldInterfaces.cpp', 'utilInterfaces.cpp',
+    'interface.cpp', 'blkInterfaces.cpp', 'vectorInterfaces.cpp',
+    'commInterfaces.cpp'
+]
 fortranfile = ['utilInterfaces_fort.f90']
 
-
 add_source_files(cxxfile, cxx_source_files)
-# gl.add_files(fortranfile)
+add_source_files(fortranfile, fortran_source_files)

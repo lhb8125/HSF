@@ -1,7 +1,9 @@
-#ifndef KERNEL_SLAVE_H
-#define KERNEL_SLAVE_H
+
+#ifndef HSF_KERNEL_SLAVE_H
+#define HSF_KERNEL_SLAVE_H
 #include "unat/iterator.h"
 #include "hsfMacro.h"
+
 
 #ifdef __cplusplus
 extern "C"{

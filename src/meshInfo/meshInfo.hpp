@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-28 16:33:50
 */
-#ifndef MESHINFO_HPP
-#define MESHINFO_HPP
+#ifndef HSF_MESHINFO_HPP
+#define HSF_MESHINFO_HPP
 
 #include <typeinfo>
 #include "utilities.h"

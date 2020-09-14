@@ -1,7 +1,7 @@
 #include "kernel_spe.hpp"
 #include "unat/iterator.hpp"
 #include "kernel_slave.h"
-#include "resource.hpp"
+#include "resource.h"
 void spMV_spe(Region& reg, Word A, Word x, Word b, long pi, StructS s, const int * arr)
 {
 	Field<scalar>& pre_fieldA = reg.getField<scalar>(A);

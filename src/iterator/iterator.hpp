@@ -9,6 +9,9 @@
 /**
 * @brief Iterator
 */
+#ifndef HSF_ITERATOR_HPP
+#define HSF_ITERATOR_HPP
+
 class Iterator
 {
 private:
@@ -90,3 +93,5 @@ public:
 	};
 	
 };
+
+#endif

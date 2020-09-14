@@ -31,8 +31,8 @@ THE SOFTWARE.
  * @Last Modified time: 2019-11-08 11:26:39
  */
 
-#ifndef PATCH_HPP
-#define PATCH_HPP
+#ifndef HSF_PATCH_HPP
+#define HSF_PATCH_HPP
 
 // #include "base.hpp"
 // #include "container.hpp"

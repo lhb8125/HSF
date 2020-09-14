@@ -6,6 +6,9 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-09-09 14:53:18
 */
+#ifndef HSF_EDGEINFO_HPP
+#define HSF_EDGEINFO_HPP
+
 #include "meshInfo.hpp"
 /**
 	Geometry information of face element, organized as SoAoS layout
@@ -34,3 +37,4 @@ public:
 	*/
 	~EdgeInfo();
 };
+#endif

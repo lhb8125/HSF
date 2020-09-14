@@ -3,6 +3,7 @@
 import os
 import utils
 from build import build_lninclude, build_lib, cxx_source_files, chost_source_files, cslave_source_files, cxxhost_source_files, build_object, fortran_source_files
+from build_config import THIRDPARTY_INCS, THIRDPARTY_LIBS
 
 Import('env')
 
@@ -22,43 +23,12 @@ subdirs = Split("""
     vector
 """)
 
-# subdirs = Split("""
-#     common
-# """)
-
 src_include = list(build_lninclude(env))
 
 for d in subdirs:
     SConscript(os.path.join(d, 'SConscript'), exports=['env', 'src_include'])
 
-software_home = '/home/export/online3/amd_dev1/software'
 
-if env['PLATFORM'] == 'linux':
-    yaml_home = software_home + '/yaml-cpp/yaml-cpp-0.6.2'
-    cgns_home = software_home + '/CGNS/CGNS-3.4.0/gcc_install'
-    hdf5_home = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
-    parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
-    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/linux64g++DPOpt'
-    unat_home = '.'
-    boost_home = '.'
-
-if env['PLATFORM'] == 'sw':
-    yaml_home = software_home + '/yaml-cpp/yaml-cpp-0.5.3'
-    cgns_home = software_home + '/CGNS/CGNS-3.4.0/sw_install'
-    hdf5_home = software_home + '/HDF5/hdf5-1.8.8'
-    boost_home = software_home + '/boost/boost1.69'
-    unat_home = '/home/export/online3/amd_dev1/liuhb/unat/install'
-    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/sw64swg++DPOpt'
-    parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/SWInstall_64_64'
-
-program_inc = [yaml_home + '/include',
-               cgns_home + '/include',
-               hdf5_home + '/include',
-               parmetis_home + '/include',
-               boost_home + '/include',
-               unat_home + '/include',
-               utility_home + '/include']
-program_libs = []
 objs_all = []
 
 source_files = cxx_source_files
@@ -68,34 +38,33 @@ if env['PLATFORM'] == 'sw':
         # program_inc += []
         objs_all = objs_all + build_object(env,
                                            sources=chost_source_files,
-                                           program_inc=program_inc,
-                                           program_libs=program_libs,
+                                           program_inc=THIRDPARTY_INCS,
+                                           program_libs=THIRDPARTY_LIBS,
                                            sources_type='host')
 
         objs_all = objs_all + build_object(env,
                                            sources=cslave_source_files,
-                                           program_inc=program_inc,
-                                           program_libs=program_libs,
+                                           program_inc=THIRDPARTY_INCS,
+                                           program_libs=THIRDPARTY_LIBS,
                                            sources_type='slave')
 
         objs_all = objs_all + build_object(env,
                                            sources=cxxhost_source_files,
-                                           program_inc=program_inc,
-                                           program_libs=program_libs)
+                                           program_inc=THIRDPARTY_INCS,
+                                           program_libs=THIRDPARTY_LIBS)
 
 objs_all = objs_all + build_object(env,
                                    sources=cxx_source_files,
-                                   program_inc=program_inc,
-                                   program_libs=program_libs)
+                                   program_inc=THIRDPARTY_INCS,
+                                   program_libs=THIRDPARTY_LIBS)
 
 objs_all = objs_all + build_object(env,
                                    sources=fortran_source_files,
-                                   program_inc=program_inc,
-                                   program_libs=program_libs)
+                                   program_inc=THIRDPARTY_INCS,
+                                   program_libs=THIRDPARTY_LIBS)
 
 build_lib(env,
           target=target,
           sources=objs_all,
-          program_inc=program_inc,
-          program_libs=program_libs)
-
+          program_inc=THIRDPARTY_INCS,
+          program_libs=THIRDPARTY_LIBS)

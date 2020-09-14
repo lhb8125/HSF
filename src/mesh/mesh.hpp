@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-09 11:20:48
 */
-#ifndef MESH_HPP
-#define MESH_HPP
+#ifndef HSF_MESH_HPP
+#define HSF_MESH_HPP
 
 #include "utilities.h"
 #include "section.hpp"
@@ -66,6 +66,12 @@ private:
 	// label nodeNum_; ///< count of nodes
 	
 	label eleNum_; ///< count of elements
+
+
+	// communicator 
+	Communicator *commcator_;
+
+
 	/**
 	* @brief read mesh file with CGNS format
 	*/
@@ -123,7 +129,22 @@ public:
 	{
 		this->meshType_ = Inner;
 		this->eleNum_ = 0;
+		this->commcator_ =NULL;
 	};
+
+	// constructor
+	Mesh(Communicator & other_comm):commcator_(&other_comm),
+	topo_(other_comm),
+	blockTopo_(other_comm)
+	{
+		this->meshType_ = Inner;
+		this->eleNum_ = 0;
+	}
+	
+
+	// return communicator
+    Communicator &getCommunicator() { return *commcator_; };
+
 	/**
 	* @brief deconstructor
 	*/
@@ -163,6 +184,11 @@ public:
 	* @brief get class Topology
 	*/
 	Topology& getTopology() {return this->topo_;};
+
+	/**
+	 *  @brief set nodeGolbalIndex to nodeLocalIndex
+	 */ 
+	void setNodeGlobal2LocalIndex();
 
 	/**
 	* @brief get block topology
@@ -238,6 +264,5 @@ public:
 };
 
 } // end namespace HSF
-
 
 #endif

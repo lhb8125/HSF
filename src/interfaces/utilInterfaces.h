@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-26 14:18:23
 */
-#ifndef UTILINTERFACES_H
-#define UTILINTERFACES_H
+#ifndef HSF_UTILINTERFACES_H
+#define HSF_UTILINTERFACES_H
 
 // #include "base.hpp"
 // #include "basicFunction.h"
@@ -21,8 +21,6 @@
 // #include "communicationManager.hpp"
 // #include "mpiWrapper.hpp"
 #include "utilities.h"
-
-// using namespace HSF;
 
 // typedef label LABEL;
 // typedef scalar SCALAR;

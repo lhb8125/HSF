@@ -5,8 +5,8 @@
 * @Last Modified by:   lenovo
 * @Last Modified time: 2019-10-14 14:14:36
 */
-#ifndef SECTION_H
-#define SECTION_H
+#ifndef HSF_SECTION_H
+#define HSF_SECTION_H
 #include "cgnslib.h"
 #include "hsfMacro.h"
 #include "utilities.h"
@@ -135,5 +135,4 @@ public:
 };
 
 } // end namespace HSF
-
 #endif

@@ -6,8 +6,8 @@
 * @last Modified by:   lhb8125
 * @last Modified time: 2020-05-26 21:41:48
 */
-#ifndef TOPOLOGY_HPP
-#define TOPOLOGY_HPP
+#ifndef HSF_TOPOLOGY_HPP
+#define HSF_TOPOLOGY_HPP
 #include <string.h>
 #include "utilities.h"
 #include "section.hpp"
@@ -70,6 +70,9 @@ private:
 	Array<label> cellType_; ///< type of cells
 	
 	Array<label> faceType_; ///< type of faces
+
+	Communicator *commcator_;
+
 	// /// reorder the face2Node topology to seperate the boundary faces and internal faces
 	// label reorderFace2Node(Array<Array<label> >& face2NodeTmp,
 	// 	Array<Array<label> >& face2NodeBndTmp);
@@ -87,6 +90,7 @@ private:
 	* @brief generate the edge-based topology
 	*/
 	void genEdgeTopo();
+
 	/**
 	* @brief renumber the face topology
 	*/
@@ -97,6 +101,10 @@ public:
 	* @brief default constructor
 	*/
 	Topology();
+
+	// constructor
+	Topology(Communicator & other_comm);
+
 	/**
 	* @brief Construct from section information of CGNS file
 	* @param secs sections storing connectivity between cells and nodes
@@ -110,6 +118,9 @@ public:
 	* @brief deconstructor
 	*/
 	~Topology();
+
+	// return communicator
+    Communicator &getCommunicator() { return *commcator_; };
 
 	label getSize(const Word setType);
 	/**

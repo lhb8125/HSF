@@ -1,61 +1,68 @@
 /**
-* @file: region.cpp
-* @author: Liu Hongbin
-* @brief:
-* @date:   2019-10-14 09:17:17
-* @last Modified by:   lhb8125
-* @last Modified time: 2020-05-26 21:11:48
-*/
-#include <algorithm>
+ * @file: region.cpp
+ * @author: Liu Hongbin
+ * @brief:
+ * @date:   2019-10-14 09:17:17
+ * @last Modified by:   lhb8125
+ * @last Modified time: 2020-05-26 21:11:48
+ */
 #include "region.hpp"
+
+#include <algorithm>
 
 using namespace std;
 
 namespace HSF
 {
-
-bool compare(pair<label, pair<label, label> > a, pair<label, pair<label, label> > b)
+bool compare(pair<label, pair<label, label> > a,
+             pair<label, pair<label, label> > b)
 {
-    if(a.first == b.first)
+  if (a.first == b.first)
+  {
+    if (a.second.first == b.second.first)
     {
-        if(a.second.first ==  b.second.first)
-        {
-            return a.second.second <  b.second.second;
-        }
-
-        return a.second.first < b.second.first;
+      return a.second.second < b.second.second;
     }
 
-    return a.first < b.first;
-}
+    return a.second.first < b.second.first;
+  }
 
+  return a.first < b.first;
+}
 
 void Region::initBeforeBalance(Array<Word> meshFile)
 {
-	// strncpy(meshFile_, meshFile, sizeof(meshFile_));
-	// this->meshFile_[sizeof(meshFile)-1]='/0';
+  // strncpy(meshFile_, meshFile, sizeof(meshFile_));
+  // this->meshFile_[sizeof(meshFile)-1]='/0';
   meshFile_.assign(meshFile.begin(), meshFile.end());
-	par_std_out("start reading mesh ...\n");
-	this->getMesh().readMesh(meshFile);
-	par_std_out("finish reading mesh ...\n");
-	MPI_Barrier(MPI_COMM_WORLD);
+  printf("start reading mesh ...\n");
+  par_std_out("start reading mesh ...\n");
+  printf("start reading mesh ...\n");
+  this->getMesh().readMesh(meshFile);
+  par_std_out("finish reading mesh ...\n");
+  printf("finish reading mesh ...\n");
+
+  this->commcator_->barrier();
 }
 
 void Region::initAfterBalance()
 {
-	par_std_out("start constructing topology ...\n");
-	this->getMesh().fetchNodes(this->meshFile_[0]);
-    // this->getMesh().fetchNodes(this->meshFile_);
-    // this->getMesh().fetchNodes(this->meshFile_[1]);
-	this->getMesh().getTopology().constructTopology();
-	par_std_out("finish constructing topology ...\n");
-	MPI_Barrier(MPI_COMM_WORLD);
+  par_std_out("start constructing topology ...\n");
+  printf("start constructing topology ...\n");
+  this->getMesh().fetchNodes(this->meshFile_[0]);
+  // this->getMesh().fetchNodes(this->meshFile_);
+  // this->getMesh().fetchNodes(this->meshFile_[1]);
+  this->getMesh().getTopology().constructTopology();
+  par_std_out("finish constructing topology ...\n");
+  printf("finish constructing topology ...\n");
+  this->commcator_->barrier();
 
-    /// 创建通信对
-	par_std_out("start creating interfaces ...\n");
-    label cellNum = this->getMesh().getTopology().getCellsNum();
-    Array<Array<label> > faceCells
-        = this->getMesh().getTopology().getFace2CellPatch();
+  /// 创建通信对
+  par_std_out("start creating interfaces ...\n");
+  printf("start creating interfaces ...\n");
+  label cellNum = this->getMesh().getTopology().getCellsNum();
+  Array<Array<label> > faceCells =
+      this->getMesh().getTopology().getFace2CellPatch();
   // const ArrayArray<label> &face2Cell_0 = mesh_.getTopology().getFace2Cell();
   // for (int i = 0; i < face2Cell_0.size(); ++i)
   // {
@@ -67,42 +74,50 @@ void Region::initAfterBalance()
   //   printf("\n");
   // }
   createInterFaces(faceCells, cellNum);
+  par_std_out("finish creating interfaces ...\n");
+  printf("finish creating interfaces ...\n");
 
-	par_std_out("finish creating interfaces ...\n");
-
-	par_std_out("start reading boundary mesh ...\n");
-	this->getBoundary().readMesh(this->meshFile_);
-    this->getBoundary().readBC(this->meshFile_);
-	par_std_out("finish reading boundary mesh ...\n");
-
-  par_std_out("start initialize mesh information ...\n");
-  this->meshInfo_.init(mesh_);
-  par_std_out("finish initialize mesh information ...\n");
+  par_std_out("start reading boundary mesh ...\n");
+  printf("start reading boundary mesh ...\n");
+  this->getBoundary().readMesh(this->meshFile_);
+  this->getBoundary().readBC(this->meshFile_);
+  this->commcator_->barrier();
+  // par_std_out("finish reading boundary mesh ...\n");
 
   par_std_out("start generate block topology ...\n");
+  printf("start generate block topology ...\n");
   this->getMesh().generateBlockTopo();
+  this->commcator_->barrier();
   // this->getBoundary().generateBlockTopo();
   par_std_out("finish generate block topology ...\n");
 
   par_std_out("start constructing boundary topology ...\n");
   Topology innerTopo = this->getMesh().getTopology();
   this->getBoundary().exchangeBoundaryElements(innerTopo);
+  this->commcator_->barrier();
   par_std_out("finish constructing boundary topology ...\n");
 
+  par_std_out("start set global node index to local node index. \n");
+  this->getMesh().setNodeGlobal2LocalIndex();
+  par_std_out("finish set global node index to local node index ...\n");
 
+  par_std_out("start initialize mesh information ...\n");
+  this->meshInfo_.init(mesh_);
+  this->commcator_->barrier();
+  par_std_out("finish initialize mesh information ...\n");
 }
 
 void Region::writeMesh(Word meshFile)
 {
-    par_std_out("start write inner mesh ...\n");
-    this->getMesh().writeMesh(meshFile);
-    par_std_out("finish write inner mesh ...\n");
-    par_std_out("start write boundary mesh ...\n");
-    this->getBoundary().writeMesh(meshFile);
-    par_std_out("finish write boundary mesh ...\n");
-    par_std_out("start write boundary condition ...\n");
-    this->getBoundary().writeBC(meshFile);
-    par_std_out("finish write boundary condition ...\n");
+  par_std_out("start write inner mesh ...\n");
+  this->getMesh().writeMesh(meshFile);
+  par_std_out("finish write inner mesh ...\n");
+  par_std_out("start write boundary mesh ...\n");
+  this->getBoundary().writeMesh(meshFile);
+  par_std_out("finish write boundary mesh ...\n");
+  par_std_out("start write boundary condition ...\n");
+  this->getBoundary().writeBC(meshFile);
+  par_std_out("finish write boundary condition ...\n");
 }
 
 //- TODO: for face only by now
@@ -110,14 +125,17 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
 {
   int nProcs, myProcNo;
 
-  MPI_Comm_size(MPI_COMM_WORLD, &nProcs);
-  MPI_Comm_rank(MPI_COMM_WORLD, &myProcNo);
+  MPI_Comm &myMpicomm = this->commcator_->getMpiComm();
+  myProcNo = this->commcator_->getMyId();
+  nProcs = this->commcator_->getMySize();
 
   label *partitionInfo = new label[nProcs + 1];
 
   partitionInfo[0] = 0;
-  MPI_Allgather(
-      &cellNum, 1, COMM_LABEL, &partitionInfo[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+
+  this->commcator_->allGather(
+      "allgather", &cellNum, sizeof(label), &partitionInfo[1], sizeof(label));
+  this->commcator_->finishTask("allgather");
 
   for (int i = 0; i < nProcs; ++i)
   {
@@ -296,7 +314,6 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
     }
   }
 
-
   //- send index, reference to send buffer
   label sendSizeAll = locCellNumProcs[nbrProcSize];
   label *sendLocID = new label[sendSizeAll];
@@ -325,12 +342,12 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
   const ArrayArray<label> &face2Cell_0 = mesh_.getTopology().getFace2Cell();
   const ArrayArray<label> &cell2Node_0 = mesh_.getTopology().getCell2Node();
   const ArrayArray<label> &face2Node_0 = mesh_.getTopology().getFace2Node();
-  const Array<Array<label> > &face2NodePatch_1 = mesh_.getTopology().getFace2NodePatch();
+  const Array<Array<label> > &face2NodePatch_1 =
+      mesh_.getTopology().getFace2NodePatch();
   const Array<label> &cellType = mesh_.getTopology().getCellType();
   transformArray(face2Cell_0, face2Cell_1);
   transformArray(cell2Node_0, cell2Node_1);
   transformArray(face2Node_0, face2Node_1);
-
 
   label innerFaceSize = face2Cell_0.size();
   label umcompressedCount = cellNum;
@@ -369,31 +386,34 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
       //   Terminate("createInterFaces","the cell index is not correct");
 
       // par_std_out("%d,%d,%d\n",cell1,cell2,cell2Node_0.size());
-      if(cell1>cell2Node_1.size())
-        Terminate("createInterFaces","the cell in the interfaces exceed the cell num");
+      if (cell1 > cell2Node_1.size())
+        Terminate("createInterFaces",
+                  "the cell in the interfaces exceed the cell num");
       int found = 0;
       Array<label> c2n = cell2Node_1[cell1];
       label faceNumTmp = Section::facesNumForEle(cellType[cell1]);
       for (int jj = 0; jj < faceNumTmp; ++jj)
       {
         Array<label> face2NodeTmp = Section::faceNodesForEle(
-          &cell2Node_0.data[cell2Node_0.startIdx[cell1]],
-          cellType[cell1], jj);
+            &cell2Node_0.data[cell2Node_0.startIdx[cell1]],
+            cellType[cell1],
+            jj);
         Array<label> tmp;
         tmp.assign(face2NodeTmp.begin(), face2NodeTmp.end());
         sort(face2NodeTmp.begin(), face2NodeTmp.end());
-        for(int iface=0;iface<face2NodePatch_1.size();iface++)
+        for (int iface = 0; iface < face2NodePatch_1.size(); iface++)
         {
-          if(compareArray(face2NodeTmp, face2NodePatch_1[iface])
-            && face2CellIDsGlobal[j].second==faceCells[iface][1])
+          if (compareArray(face2NodeTmp, face2NodePatch_1[iface]) &&
+              face2CellIDsGlobal[j].second == faceCells[iface][1])
           {
             found++;
-            // par_std_out("%d,%d\n", face2CellIDsGlobal[j].second,faceCells[iface][1]);
+            // par_std_out("%d,%d\n",
+            // face2CellIDsGlobal[j].second,faceCells[iface][1]);
             face2Node_1.push_back(tmp);
           }
         }
       }
-      if(found!=1)
+      if (found != 1)
       {
         for (int inode = 0; inode < cell2Node_1[cell1].size(); ++inode)
         {
@@ -409,7 +429,8 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
           }
           par_std_out("\n");
         }
-        Terminate("createInterFaces","can not find the corresponding face2node");
+        Terminate("createInterFaces",
+                  "can not find the corresponding face2node");
       }
     }
   }
@@ -427,15 +448,14 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
     label faceSize = (it->second).size();
     label startIndex = face2Cell_2.startIdx[faceSizeStart];
 
-    label* face2cellpart = new label[faceSize];
-    for(int kk = 0; kk < faceSize; ++kk)
+    label *face2cellpart = new label[faceSize];
+    for (int kk = 0; kk < faceSize; ++kk)
     {
       face2cellpart[kk] = face2Cell_2.data[startIndex + kk * 2];
     }
 
     //- construct the patch
-    patches[to_string(nbrID)] =
-        new Patch(faceSize, &(face2cellpart[0]), nbrID);
+    patches[to_string(nbrID)] = new Patch(faceSize, &(face2cellpart[0]), nbrID);
 
     if (ifUsingCompressedComm)
     {
@@ -451,8 +471,13 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
   }
   for (int i = 0; i < face2Cell_1.size(); ++i)
   {
-    par_std_out("%d, %d, %d, %d\n", i, face2Cell_1.size(), face2Cell_1[i][0], face2Cell_1[i][1]);
+    par_std_out("%d, %d, %d, %d\n",
+                i,
+                face2Cell_1.size(),
+                face2Cell_1[i][0],
+                face2Cell_1[i][1]);
   }
+
   DELETE_POINTER(partitionInfo);
   DELETE_POINTER(locCellNumProcs);
   DELETE_POINTER(nbrCellNumProcs);
@@ -460,33 +485,31 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
   DELETE_POINTER(nbrCellID);
 }
 
-
 Region::~Region()
 {
-    //- free interfaces created
+  //- free interfaces created
 
-    //- delete Table<Word, Table<Word, Patch*>*>*
-    if(patchTabPtr_)
+  //- delete Table<Word, Table<Word, Patch*>*>*
+  if (patchTabPtr_)
+  {
+    Table<Word, Table<Word, Patch *> *> &allPatchTab = *patchTabPtr_;
+    Table<Word, Table<Word, Patch *> *>::iterator it1;
+
+    //- delete Table<Word, Patch*>*
+    for (it1 = allPatchTab.begin(); it1 != allPatchTab.end(); it1++)
     {
-        Table<Word, Table<Word, Patch*>*>& allPatchTab = *patchTabPtr_;
-        Table<Word, Table<Word, Patch*>*>::iterator it1;
-
-        //- delete Table<Word, Patch*>*
-        for(it1= allPatchTab.begin(); it1!=allPatchTab.end(); it1++)
-        {
-            Table<Word, Patch*>* patchesPtr = it1->second;
-            Table<Word, Patch*>& patches = *patchesPtr;
-            Table<Word, Patch*>::iterator it2;
-            //- delete Patch*
-            for(it2=patches.begin(); it2!=patches.end(); it2++)
-            {
-                Patch* patchIPtr = it2->second;
-                DELETE_OBJECT_POINTER(patchIPtr);
-            }
-            DELETE_OBJECT_POINTER(patchesPtr)
-        }
-        DELETE_OBJECT_POINTER(patchTabPtr_);
+      Table<Word, Patch *> *patchesPtr = it1->second;
+      Table<Word, Patch *> &patches = *patchesPtr;
+      Table<Word, Patch *>::iterator it2;
+      //- delete Patch*
+      for (it2 = patches.begin(); it2 != patches.end(); it2++)
+      {
+        Patch *patchIPtr = it2->second;
+        DELETE_OBJECT_POINTER(patchIPtr);
+      }
+      DELETE_OBJECT_POINTER(patchesPtr)
     }
+    DELETE_OBJECT_POINTER(patchTabPtr_);
+  }
 }
-
-} // end namespace HSF
+}  // end namespace HSF

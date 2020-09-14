@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-11-27 15:32:31
 */
-#ifndef LOADBALANCER_HPP
-#define LOADBALANCER_HPP
+#ifndef HSF_LOADBALANCER_HPP
+#define HSF_LOADBALANCER_HPP
 
 #include <math.h>
 #include <assert.h>
@@ -64,11 +64,18 @@ private:
 	* @return the new elements information
 	*/
 	Array<label> distributeCellInfoToProcs(Array<label>& cellInfo, label* parts);
+
+	Communicator *commcator_;
 public:
 	/**
 	* @brief default constructor
 	*/
 	LoadBalancer();
+
+	/**
+	* @brief constructor
+	*/
+	LoadBalancer(Communicator & other_comm):commcator_(&other_comm){};
 	/**
 	* @brief deconstructor
 	*/
@@ -98,7 +105,7 @@ public:
 	         the internal faces are marked as -1.
 	*/
 	static Array<label> collectNeighborCell(ArrayArray<label>& bndFaceList,
-		Array<Array<label> >& face2NodeArr, Array<label>& face2CellArr);
+		Array<Array<label> >& face2NodeArr, Array<label>& face2CellArr,Communicator &comm);
 
 	/**
 	* @brief expired function

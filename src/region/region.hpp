@@ -6,8 +6,8 @@
 * @last Modified by:   lhb8125
 * @last Modified time: 2020-05-21 14:48:47
 */
-#ifndef REGION_HPP
-#define REGION_HPP
+#ifndef HSF_REGION_HPP
+#define HSF_REGION_HPP
 
 // #include <typeinfo>
 #include "pcgnslib.h"
@@ -18,6 +18,7 @@
 #include "boundary.hpp"
 #include "patch.hpp"
 #include "field.hpp"
+#include "utilities.h"
 
 namespace HSF
 {
@@ -47,16 +48,32 @@ private:
     Table<Word, label> fieldToFs_;
 
 	Word setType_; ///< data set type
+
+    Communicator *commcator_;
 public:
     /**
     * @brief constructor
     */
-	Region()
+   Region()
     :
     patchTabPtr_(NULL),
     scalarFieldTabPtr_(NULL),
-    labelFieldTabPtr_(NULL)
+    labelFieldTabPtr_(NULL),
+    commcator_(NULL)
     {}
+
+	Region(Communicator &other_comm)
+    :
+    patchTabPtr_(NULL),
+    scalarFieldTabPtr_(NULL),
+    labelFieldTabPtr_(NULL),
+    commcator_(&other_comm),
+    mesh_(other_comm),
+    boundary_(other_comm)
+    {}
+
+    // return communicator
+    Communicator &getCommunicator() { return *commcator_; };
 
     /**
     * @brief deconstructor
@@ -67,6 +84,7 @@ public:
     * @brief get the internal mesh
     */
 	Mesh& getMesh(){return this->mesh_;};
+
     /**
      TODO
      * @brief Gets the size of basic elements.
@@ -77,6 +95,7 @@ public:
     {
         return this->getMesh().getTopology().getInnFacesNum();
     };
+
 
     /**
     * @brief get the boundary mesh and condition
@@ -199,6 +218,7 @@ public:
      */
     template<typename T>
     ArrayArray<T> getTopology(Array<Word> setTypeList);
+
 };
 
 #include "regionI.hpp"

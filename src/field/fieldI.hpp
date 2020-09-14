@@ -43,22 +43,78 @@ Field<T>::Field()
       nbrSize_(0),
       data_(NULL),
       sendBufferPtr_(NULL),
-      sendRecvRequests_(NULL),
+      sendTaskName_(NULL),
+      recvTaskName_(NULL),
       patchTabPtr_(NULL),
       basicEle_(NULL)
 {
 }
 
+// 复制构造函数 (采用深度拷贝的方式)
+// 对于commcator来说 都是共用一个对象 使用指针的方式指向该对象 指针对象不涉及内存释放
 template <typename T>
-Field<T>::Field(Word setType, label ndim, label n, T *dataPtr)
+Field<T>::Field(const Field<T> &other_Field)
+{
+      ndim_ = other_Field.ndim_;
+      locSize_ = other_Field.locSize_;
+      nbrSize_ = other_Field.nbrSize_;
+      setType_ = other_Field.setType_;
+
+      label dataSize = locSize_ + nbrSize_;
+      dataSize *= ndim_;
+
+      if(other_Field.commcator_) this->commcator_ = other_Field.commcator_;
+
+      data_ = new T[dataSize];
+
+      memcpy(data_, other_Field.data_, dataSize * sizeof(T));
+      if (!other_Field.sendBufferPtr_)
+        sendBufferPtr_ = NULL;
+      else
+      {
+        sendBufferPtr_ = new Table<Word, T *>;
+        *sendBufferPtr_ = *other_Field.sendBufferPtr_;
+      }
+      if (!other_Field.patchTabPtr_)
+        patchTabPtr_ = NULL;
+      else
+      {
+        patchTabPtr_ = new Table<Word, Patch *>;
+        *patchTabPtr_ = *other_Field.patchTabPtr_;
+      }
+
+      if ( (!sendTaskName_) && (!recvTaskName_) )
+      {
+        sendTaskName_ = NULL;
+        recvTaskName_ = NULL;
+      }
+      else
+      {
+        int nPatches = (*patchTabPtr_).size();
+        sendTaskName_ = new std::string[nPatches];
+        recvTaskName_ = new std::string[nPatches];
+      }
+
+      basicEle_ = new BasicElement<T>[dataSize / ndim_];
+      for (int i = 0; i < dataSize / ndim_; ++i)
+      {
+        basicEle_[i].num = ndim_;
+        basicEle_[i].data = &data_[i * ndim_];
+      }
+}
+
+template <typename T>
+Field<T>::Field(Word setType, label ndim, label n, T *dataPtr,Communicator &other_comm)
     : setType_(setType),
       ndim_(ndim),
       locSize_(n),
       nbrSize_(0),
       data_(NULL),
       sendBufferPtr_(NULL),
-      sendRecvRequests_(NULL),
-      patchTabPtr_(NULL)
+      sendTaskName_(NULL),
+      recvTaskName_(NULL),
+      patchTabPtr_(NULL),
+      commcator_(&other_comm)
 {
   data_ = new T[n * ndim];
   memcpy(data_, dataPtr, n * ndim * sizeof(T));
@@ -76,15 +132,17 @@ Field<T>::Field(Word setType,
                 label ndim,
                 label n,
                 T *dataPtr,
-                Table<Word, Table<Word, Patch *> *> &patchTab)
+                Table<Word, Table<Word, Patch *> *> &patchTab,Communicator &other_comm)
     : setType_(setType),
       ndim_(ndim),
       locSize_(n),
       nbrSize_(0),
       data_(NULL),
       sendBufferPtr_(NULL),
-      sendRecvRequests_(NULL),
-      patchTabPtr_(NULL)
+      sendTaskName_(NULL),
+      recvTaskName_(NULL),
+      patchTabPtr_(NULL),
+      commcator_(&other_comm)
 {
   label sizeAll = 0;
   Table<Word, Table<Word, Patch *> *>::iterator it = patchTab.find(setType);
@@ -140,9 +198,10 @@ void Field<T>::initSend()
     label nPatches = patches.size();
 
     //- create memory for MPI_Request
-    if (!sendRecvRequests_)
+    if (!sendTaskName_ && !recvTaskName_)
     {
-      sendRecvRequests_ = new MPI_Request[2 * nPatches];
+      sendTaskName_ = new std::string[nPatches];
+      recvTaskName_ = new std::string[nPatches];
     }
 
     Table<Word, Patch *>::iterator it = patches.begin();
@@ -193,21 +252,24 @@ void Field<T>::initSend()
         }
       }
 
-      MPI_Isend(patchI_sendBuffer,
-                sendSize * ndim_ * sizeof(T),
-                MPI_BYTE,
-                patchI.getNbrProcID(),
-                1,
-                MPI_COMM_WORLD,
-                &sendRecvRequests_[i]);
+      char ch[128];
 
-      MPI_Irecv(patchI_recvBuffer,
-                recvSize * ndim_ * sizeof(T),
-                MPI_BYTE,
-                patchI.getNbrProcID(),
-                1,
-                MPI_COMM_WORLD,
-                &sendRecvRequests_[i + nPatches]);
+      sprintf(
+          ch, "Send_%05d_Recv_%05d", this->commcator_->getMyId(), patchI.getNbrProcID());
+      sendTaskName_[i] = ch;
+      sprintf(
+          ch, "Send_%05d_Recv_%05d", patchI.getNbrProcID(), this->commcator_->getMyId());
+      recvTaskName_[i] = ch;
+
+      this->commcator_->send(sendTaskName_[i],
+                             patchI_sendBuffer,
+                             sendSize * ndim_  * sizeof(T),
+                             patchI.getNbrProcID());
+
+      this->commcator_->recv(recvTaskName_[i],
+                            patchI_recvBuffer,
+                            recvSize * ndim_ * sizeof(T),
+                            patchI.getNbrProcID());
 
       recvArrayPtr += recvSize * ndim_;
     }
@@ -217,12 +279,16 @@ void Field<T>::initSend()
 template <typename T>
 label Field<T>::checkSendStatus()
 {
-  if (sendRecvRequests_)
+  if (sendTaskName_ && recvTaskName_)
   {
     Table<Word, Patch *> &patches = *patchTabPtr_;
     label nPatches = patches.size();
-    MPI_Waitall(2 * nPatches, &sendRecvRequests_[0], MPI_STATUSES_IGNORE);
-    DELETE_POINTER(sendRecvRequests_);
+    for(int i = 0;i < nPatches;++i){
+      this->commcator_->finishTask(recvTaskName_[i]);
+      this->commcator_->finishTask(sendTaskName_[i]);
+    }
+    DELETE_POINTER(sendTaskName_);
+    DELETE_POINTER(recvTaskName_);
   }
   return 1;
 }
@@ -248,8 +314,11 @@ void Field<T>::freeSendRecvBuffer()
 template <typename T>
 Field<T>::~Field()
 {
-  DELETE_POINTER(data_);
+  if(data_)DELETE_POINTER(data_);
   freeSendRecvBuffer();
+  if(sendTaskName_) DELETE_POINTER(sendTaskName_);
+  if(recvTaskName_) DELETE_POINTER(recvTaskName_);
+  if(basicEle_) DELETE_POINTER(basicEle_);
 }
 
 
@@ -265,7 +334,7 @@ Field_new<SetType, Element>::Field_new()
 }
 
 template<typename SetType, typename Element>
-Field_new<SetType, Element>::Field_new(label n, T *dataPtr)
+Field_new<SetType, Element>::Field_new(label n, Element *dataPtr)
     : locSize_(n),
       nbrSize_(0),
       data_(NULL),
@@ -273,6 +342,7 @@ Field_new<SetType, Element>::Field_new(label n, T *dataPtr)
       sendRecvRequests_(NULL),
       patchTabPtr_(NULL)
 {
+  label32 dim = *dataPtr.size();
   // data_ = new Element[n];
   // memcpy(data_, dataPtr, n * ndim * sizeof(T));
   // // 初始化结构体指针，不包含ghost

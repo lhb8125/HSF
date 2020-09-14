@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2020-01-07 10:39:03
 */
-#ifndef PARAMETER_HPP 
-#define PARAMETER_HPP
+#ifndef HSF_PARAMETER_HPP 
+#define HSF_PARAMETER_HPP
 
 #include <iostream>
 #include <fstream>

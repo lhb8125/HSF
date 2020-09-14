@@ -6,8 +6,8 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-12-18 08:31:53
 */
-#ifndef TOPOINTERFACES_HPP
-#define TOPOINTERFACES_HPP
+#ifndef HSF_TOPOINTERFACES_HPP
+#define HSF_TOPOINTERFACES_HPP
 
 #include "interface.hpp"
 #include "utilities.h"

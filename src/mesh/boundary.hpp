@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-08-31 16:30:20
+ * @LastEditTime: 2020-09-10 14:23:01
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /work_code/unstructured_frame/src/mesh/boundary.hpp
+ */
 /**
 * @file: boundary.cpp
 * @author: Liu Hongbin
@@ -6,8 +14,8 @@
 * @last Modified by:   lhb8125
 * @last Modified time: 2020-05-26 21:02:15
 */
-#ifndef BOUNDARY_HPP
-#define BOUNDARY_HPP
+#ifndef HSF_BOUNDARY_HPP
+#define HSF_BOUNDARY_HPP
 
 #include "utilInterfaces.h"
 #include "utilities.h"
@@ -44,6 +52,12 @@ public:
 	{
 		this->setMeshType(Boco);
 	};
+
+	Boundary(Communicator &other_comm):Mesh(other_comm)
+	{
+		this->setMeshType(Boco);
+	};
+
 	/**
 	* @brief deconstructor
 	*/

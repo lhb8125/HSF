@@ -6,6 +6,9 @@
 * @last Modified by:   lenovo
 * @last Modified time: 2019-09-10 14:41:18
 */
+#ifndef HSF_MLBITERATOR_HPP
+#define HSF_MLBITERATOR_HPP
+
 #include "iterator.hpp"
 /**
 * @brief Multi-Level Blocks Iterator
@@ -54,3 +57,5 @@ public:
 	};
 	
 };
+
+#endif

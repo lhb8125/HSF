@@ -29,8 +29,10 @@ using namespace HSF;
 
 void init_(char* configFile)
 {
-	LoadBalancer *lb = new LoadBalancer();
-	// std::cout<<"start initializing ......"<<std::endl;
+
+	Communicator  &global_comm = COMM::getGlobalComm();
+	LoadBalancer *lb = new LoadBalancer(global_comm);
+	std::cout<<"start initializing ......"<<std::endl;
 
 	para.setParaFile(configFile);
 
@@ -43,17 +45,20 @@ void init_(char* configFile)
 
 	int nPara = 4;
 	// char meshFile[100];
-	ControlPara newPara("./config.yaml");
+	ControlPara newPara("./test/system/config.yaml");
 	Array<Word> mesh_files;
 	Word meshFile;
 	newPara["domain"]["region"]["0"]["path"].read(meshFile);
 	mesh_files.push_back(meshFile);
 
+    printf("mesh file: %s\n", meshFile.c_str());
+
 	char resultFile[CHAR_DIM];
 	para.getPara<char>(resultFile, nPara, "domain", "region", "0", "resPath");
+    printf("result file: %s\n", resultFile);
 
 	/// initialization before load balance
-	Region reg;
+	Region reg(global_comm);
 	// regs.resize(1);
 	regs.push_back(reg);
 	REGION.initBeforeBalance(mesh_files);
@@ -320,5 +325,3 @@ void get_coords_(scalar* coords)
 }
 
 /*****************************************************************************/
-
-// }

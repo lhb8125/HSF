@@ -19,7 +19,10 @@ void Boundary::readBoundaryCondition(const Word filePtr)
 {
 	int iFile;
 
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+
+    MPI_Comm&  myMpicomm = this->getCommunicator().getMpiComm();
+
+    if(cgp_mpi_comm(myMpicomm) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
 	// open cgns file
     if(cgp_open(filePtr.c_str(), CG_MODE_READ, &iFile))
@@ -121,11 +124,13 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
 {
     int iFile;
     int rank,nprocs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+
+    MPI_Comm&  myMpicomm = this->getCommunicator().getMpiComm();
+    rank =  this->getCommunicator().getMyId();
+    nprocs = this->getCommunicator().getMySize();
 
     // open cgns file
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+    if(cgp_mpi_comm(myMpicomm) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     // open cgns file
     if(cgp_open(filePtr.c_str(), CG_MODE_MODIFY, &iFile))
@@ -180,9 +185,10 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
             allFaceBlockStartIdx[i*nprocs+1] = eleNumInBlk;
         } else
         {
-            MPI_Allgather(&eleNumInBlk, 1, COMM_LABEL,
-                &allFaceBlockStartIdx[i*nprocs+1], 1, COMM_LABEL,
-                MPI_COMM_WORLD);
+            this->getCommunicator().allGather("allgather",&eleNumInBlk,sizeof(label),
+                                        &allFaceBlockStartIdx[i*nprocs+1],sizeof(label));
+            this->getCommunicator().finishTask("allgather");
+           
         }
     }
     for (int i = 0; i < blockNum*nprocs; ++i)
@@ -221,7 +227,8 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
         // 获取各个进程在该边界条件下的边界单元数量
         int *nBCElems_mpi = new int[nprocs];
         int *disp = new int[nprocs+1];
-        MPI_Allgather(&nBCElems, 1, MPI_INT, nBCElems_mpi, 1, MPI_INT, MPI_COMM_WORLD);
+        this->getCommunicator().allGather("allGather",&nBCElems,sizeof(int),nBCElems_mpi,sizeof(int));
+        this->getCommunicator().finishTask("allGather");
         int totBCElems;
         label *BCElems;
         totBCElems = 0;
@@ -231,12 +238,12 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
             par_std_out("rank %d have %d elements\n", i, nBCElems_mpi[i]);
             totBCElems += nBCElems_mpi[i];
             disp[i+1] = disp[i] + nBCElems_mpi[i];
+            nBCElems_mpi[i] *= sizeof(label);
         }
         par_std_out("rank %d now have %d elements\n", rank, totBCElems);
         BCElems = new label[totBCElems];
-        MPI_Allgatherv(pointList, nBCElems, COMM_LABEL, BCElems, nBCElems_mpi,
-            disp, COMM_LABEL, MPI_COMM_WORLD);
-
+        this->getCommunicator().allGatherV("allGatherv",pointList,nBCElems*sizeof(label),BCElems,nBCElems_mpi);
+        this->getCommunicator().finishTask("allGatherv");
         // if(pointListArr.size()==0) {continue;}
         this->BCSecs_[iBC].nBCElems = (cgsize_t)totBCElems;
         this->BCSecs_[iBC].BCElems  = new cgsize_t[totBCElems];
@@ -258,7 +265,7 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
             this->BCSecs_[iBC].location))
             Terminate("writeGridLocation",cg_get_error());
         pointListArr.clear();
-        MPI_Barrier(MPI_COMM_WORLD);
+        this->getCommunicator().barrier();
     }
     if(cg_close(iFile))
         Terminate("closeCGNSFile", cg_get_error());
@@ -267,12 +274,17 @@ void Boundary::writeBoundaryCondition(const Word filePtr)
 void Boundary::exchangeBoundaryElements(Topology& innerTopo)
 {
     int rank,nprocs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+
+    MPI_Comm&  myMpicomm = this->getCommunicator().getMpiComm();
+    rank =  this->getCommunicator().getMyId();
+    nprocs = this->getCommunicator().getMySize();
+
 
     label BCSecStart;
     if(rank==0) BCSecStart = this->getSections()[0].iStart;
-    MPI_Bcast(&BCSecStart, 1, COMM_LABEL, 0, MPI_COMM_WORLD);
+
+    this->getCommunicator().bcast("bcast",&BCSecStart,sizeof(label),0);
+    this->getCommunicator().finishTask("bcast");
 
 
     ArrayArray<label> cell2Node = innerTopo.getCell2Node();
@@ -408,7 +420,8 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     int bndFaces = face2NodeNeiTmp.num;
 
     int* bndFaces_mpi = new int[nprocs];
-    MPI_Allgather(&bndFaces, 1, MPI_INT, bndFaces_mpi, 1, MPI_INT, MPI_COMM_WORLD);
+    this->getCommunicator().allGather("allGather",&bndFaces,sizeof(int),bndFaces_mpi,sizeof(int));
+    this->getCommunicator().finishTask("allGather");
     int bndFacesSum = 0;
     int ownerLoc = 0;
     int countIdx_r[nprocs], dispIdx_r[nprocs];
@@ -418,23 +431,26 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
         dispIdx_r[i] = bndFacesSum+i;
         countIdx_r[i] = bndFaces_mpi[i]+1;
         bndFacesSum += bndFaces_mpi[i];
+        countIdx_r[i] *= sizeof(label);
         // if(rank==0) par_std_out("rank: %d, bndFaces: %d\n", i, bndFaces_mpi[i]);
     }
     label* startIdx_mpi = new label[bndFacesSum+nprocs];
 #if 1
-    MPI_Allgatherv(face2NodeNeiTmp.startIdx, bndFaces+1, COMM_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, MPI_COMM_WORLD);
+    this->getCommunicator().allGatherV("allGatherV",face2NodeNeiTmp.startIdx,(bndFaces+1)*sizeof(label),startIdx_mpi,countIdx_r);
+    this->getCommunicator().finishTask("allGather");
     int bndNodesSum = 0;
     int countData_r[nprocs], dispData_r[nprocs];
     for (int i = 0; i < nprocs; ++i)
     {
-        countData_r[i] = startIdx_mpi[dispIdx_r[i]+countIdx_r[i]-1];
+        countData_r[i] = startIdx_mpi[dispIdx_r[i]+(countIdx_r[i]/sizeof(label))-1];
         dispData_r[i] = bndNodesSum;
         bndNodesSum += countData_r[i];
+        countData_r[i] *=sizeof(label);
         // if(rank==0) par_std_out("count: %d, displacement: %d\n", countData_r[i], dispData_r[i]);
     }
     label* data_mpi = new label[bndNodesSum];
-    MPI_Allgatherv(face2NodeNeiTmp.data, face2NodeNeiTmp.startIdx[bndFaces],
-        COMM_LABEL, data_mpi, countData_r, dispData_r, COMM_LABEL, MPI_COMM_WORLD);
+    this->getCommunicator().allGatherV("allGatherV",face2NodeNeiTmp.data,(face2NodeNeiTmp.startIdx[bndFaces])*sizeof(label),data_mpi,countData_r);
+    this->getCommunicator().finishTask("allGather");
     label* neighborCellIdx_mpi = new label[bndFacesSum+nprocs];
 #endif
     for (int i = 0; i < bndFacesSum+nprocs; ++i) { neighborCellIdx_mpi[i] = -1; }
@@ -445,7 +461,7 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             if(rank==i) continue;
             // par_std_out("rank: %d, start from: %d, read %d\n", i, dispIdx_r[i], countIdx_r[i]);
             label* startIdx = &startIdx_mpi[dispIdx_r[i]];
-            for (int j = 0; j < countIdx_r[i]-1; ++j)
+            for (int j = 0; j < countIdx_r[i]/sizeof(label)-1; ++j)
             {
                 // par_std_out("The %dth element: ", j);
                 Array<label> face2NodeTmp;
@@ -540,7 +556,8 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
     // 从所有进程中找出最大block数目
     int blockNum = faceNodeNum.size();
     int* blockNum_mpi = new int[nprocs];
-    MPI_Gather(&blockNum, 1, MPI_INT, blockNum_mpi, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    this->getCommunicator().allGather("allgather",&blockNum,sizeof(int),blockNum_mpi,sizeof(int));
+    this->getCommunicator().finishTask("allgather");
     int maxBlockNum = blockNum;
     int irank = 0;
     for (int i = 0; i < nprocs; ++i)
@@ -551,8 +568,10 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             irank = i;
         }
     }
-    MPI_Bcast(&maxBlockNum, 1, MPI_INT, 0, MPI_COMM_WORLD);
-    MPI_Bcast(&irank, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    this->getCommunicator().bcast("bcast1",&maxBlockNum,sizeof(int),0);
+    this->getCommunicator().finishTask("bcast1");
+    this->getCommunicator().bcast("bcast2",&irank,sizeof(int),0);
+    this->getCommunicator().finishTask("bcast2");
     par_std_out("The maximum block num is %d at rank %d\n", maxBlockNum, irank);
 
     // 将最大进程的网格单元类型排布广播到所有进程
@@ -565,7 +584,8 @@ void Boundary::exchangeBoundaryElements(Topology& innerTopo)
             buffer[i] = FaceTypeWithType[i];
         }
     }
-    MPI_Bcast(buffer, maxBlockNum, COMM_LABEL, irank, MPI_COMM_WORLD);
+    this->getCommunicator().bcast("bcast3",buffer,maxBlockNum*sizeof(label),irank);
+    this->getCommunicator().finishTask("bcast3");
 
     // 按照最大进程网格单元排布重排本进程block
     Array<Array<label> > face2NodeBlk;
@@ -643,14 +663,15 @@ void Boundary::writeMesh(const Word filePtr)
 {
     // par_std_out("This is boundary!!!!!\n");
     int rank, numProcs;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &numProcs);
+    MPI_Comm&  myMpicomm = this->getCommunicator().getMpiComm();
+    rank =  this->getCommunicator().getMyId();
+    numProcs = this->getCommunicator().getMySize();
 
     int iFile, nBases;
     int iBase=1, iZone=1;
     char basename[CHAR_DIM];
 
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+    if(cgp_mpi_comm(myMpicomm) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     if(cgp_open(filePtr.c_str(), CG_MODE_MODIFY, &iFile))
         Terminate("readBaseInfo", cg_get_error());
@@ -686,8 +707,8 @@ void Boundary::writeMesh(const Word filePtr)
         label num = faceBlockStartIdx[iBlk+1]-faceBlockStartIdx[iBlk];
         par_std_out("%d\n", iBlk);
         ElementType_t eleType = (ElementType_t)faceType[iBlk];
-        MPI_Allgather(&num, 1, COMM_LABEL, &cellStartId[1], 1,
-            COMM_LABEL, MPI_COMM_WORLD);
+        this->getCommunicator().allGather("allgather",&num,sizeof(label),&cellStartId[1],sizeof(label));
+        this->getCommunicator().finishTask("allgather");
         par_std_out("%d\n", num);
         for (int i = 0; i < numProcs; ++i)
         {
@@ -769,7 +790,8 @@ void Boundary::initBoundaryConditionType()
 
 void Boundary::readFamilyBC(const Word filePtr)
 {
-    if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK)
+    MPI_Comm&  myMpicomm = this->getCommunicator().getMpiComm();
+    if(cgp_mpi_comm(myMpicomm) != CG_OK)
         Terminate("initCGNSMPI", cg_get_error());
     label32 iFile;
     // open cgns file

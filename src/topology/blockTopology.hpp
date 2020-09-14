@@ -7,8 +7,8 @@
 * @last Modified time: 2020-01-10 17:02:23
 */
 
-#ifndef BLOCKTOPOLOGY_HPP
-#define BLOCKTOPOLOGY_HPP
+#ifndef HSF_BLOCKTOPOLOGY_HPP
+#define HSF_BLOCKTOPOLOGY_HPP
 #include <string.h>
 #include "utilities.h"
 #include "section.hpp"
@@ -60,11 +60,16 @@ private:
 	void reorderOtherTopo(const Array<label>& map,
 		const ArrayArray<label>& oldTopo, ArrayArray<label>& newTopo);
 
+	Communicator *commcator_;
+
 public:
 	/**
 	* @brief default constructor
 	*/
 	BlockTopology();
+
+	// constructor
+	BlockTopology(Communicator & other_comm);
 
 	void constructBlockTopology(Topology& topo);
 
@@ -72,6 +77,9 @@ public:
 	* @brief default deconstructor
 	*/
 	~BlockTopology();
+
+	// return communicator
+    Communicator &getCommunicator() { return *commcator_; };
 
 	/**
 	* @brief get the count of cell types over the region

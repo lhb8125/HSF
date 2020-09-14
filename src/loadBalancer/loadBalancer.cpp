@@ -238,15 +238,15 @@ void LoadBalancer::LoadBalancer_2(const Array<scalar> s, const ArrayArray<label>
 void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 {
 
-	int nprocs,rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
-
 	int regNum = regs.size();
 	assert(regNum==1);
 
 	for (int iReg = 0; iReg < regNum; ++iReg)
 	{
+		int nprocs,rank;
+		this->commcator_ = &(regs[iReg].getCommunicator());
+		rank = this->commcator_->getMyId();
+		nprocs = this->commcator_->getMySize();
 		Array<Section> secs = regs[iReg].getMesh().getSections();
 		Nodes& nodes = regs[iReg].getMesh().getNodes();
 		label secNum = secs.size();
@@ -267,7 +267,8 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 
 		cellStartId_ = new label[nprocs+1];
 		// printf("rank: %d, %d\n", rank, cellNum);
-		MPI_Allgather(&cellNum, 1, COMM_LABEL, &cellStartId_[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+		this->commcator_->allGather("allGather",&cellNum,sizeof(label),&cellStartId_[1],sizeof(label));
+		this->commcator_->finishTask("allGather");
 		cellStartId_[0] = 0;
 		for (int i = 1; i <= nprocs; ++i)
 		{
@@ -462,7 +463,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 		// MPI通信获取边界面对应其他进程的cell编号
 		Array<label> face2CellNew;
 		face2CellNew = collectNeighborCell(bndFaceList, faces2NodesArr,
-			face2CellTmp);
+			face2CellTmp,*(this->commcator_));
 		// printf("finish collect\n");
 
 		for (int i = 0; i < face2CellNew.size(); ++i)
@@ -493,9 +494,9 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 			printf("\n");
 		}
 		}
-		MPI_Barrier(MPI_COMM_WORLD);
+		this->commcator_->barrier();
 		}
-		MPI_Barrier(MPI_COMM_WORLD);
+		this->commcator_->barrier();
 #endif
 		ArrayArray<label> cell2CellArr;
 		transformArray(cell2Cell, cell2CellArr);
@@ -524,7 +525,7 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 				}
 				printf("\n");
 			}
-			MPI_Barrier(MPI_COMM_WORLD);
+			this->commcator_->barrier();
 		}
 #endif
 
@@ -557,11 +558,11 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 		label  options[3] = {0, 0, 0};
 		label  edgecut;
 		label* parts = new label[cellNum];
-		MPI_Comm comm = MPI_COMM_WORLD;
+		MPI_Comm& comm = this->commcator_->getMpiComm();
 		ParMETIS_V3_PartKway(vtxlist, xadj, adjncy, vwgt, adjwgt, &wgtflag,
 			&numflag, &ncon, &nparts, tpwgts, &ubvec, options, &edgecut,
 			parts, &comm);
-		MPI_Barrier(MPI_COMM_WORLD);
+		this->commcator_->barrier();
 #ifdef DEBUG_METIS
 		for (int i = 0; i < nprocs; ++i)
 		{
@@ -574,28 +575,16 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 				}
 				printf("\n");
 			}
-			MPI_Barrier(MPI_COMM_WORLD);
+			this->commcator_->barrier();
 		}
 #endif
 
 		ArrayArray<label> cell2NodeNew = distributeCellsToProcs(cell2Node, parts);
-		// printf("distributeCellsToProcs finish!!!\n");
-		// MPI_Barrier(MPI_COMM_WORLD);
-
 		Array<label> cellTypeNew = distributeCellInfoToProcs(cellType, parts);
-		// printf("distributeCellInfoToProcs finish!!!\n");
-		// MPI_Barrier(MPI_COMM_WORLD);
 
-		// printf("%d, %d, %d\n", rank, cell2NodeNew.size(), cellTypeNew.size());
 		// 输入网格负载均衡后的拓扑
 		regs[iReg].getMesh().setLoadBalancerResult(cell2NodeNew, cellTypeNew);
 		// 输出原始网格拓扑
-		// regs[i].getMesh().setLoadBalancerResult(cell2Node,  cellType);
-		// printf("%d\n", cell2NodeNew.size());
-		// for (int i = 0; i < cellNum; ++i)
-		// {
-		// 	if(parts[i]>nprocs) printf("rank: %d, cellIdx: %d, value: %d\n", rank, i, parts[i]);
-		// }
 
 		DELETE_POINTER(isInner);
 		DELETE_POINTER(vtxlist);
@@ -609,16 +598,17 @@ void LoadBalancer::LoadBalancer_3(Array<Region>& regs)
 * @brief collect the neighbor cell index through mpi
 */
 Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
-	Array<Array<label> >& face2NodeArr, Array<label>& face2CellArr)
+	Array<Array<label> >& face2NodeArr, Array<label>& face2CellArr,Communicator &comm)
 {
 	// Array<label> face2CellNew;
 	int bndFaces = bndFaceList.num;
 
 	int nprocs,rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+	rank = comm.getMyId();
+	nprocs = comm.getMySize();
 	int* bndFaces_mpi = new int[nprocs];
-	MPI_Allgather(&bndFaces, 1, MPI_INT, bndFaces_mpi, 1, MPI_INT, MPI_COMM_WORLD);
+	comm.allGather("allGather",&bndFaces,sizeof(int),bndFaces_mpi,sizeof(int));
+	comm.finishTask("allGather");
 	int bndFacesSum = 0;
 	int ownerLoc = 0;
 	int countIdx_r[nprocs], dispIdx_r[nprocs];
@@ -628,24 +618,28 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 		dispIdx_r[i] = bndFacesSum+i;
 		countIdx_r[i] = bndFaces_mpi[i]+1;
 		bndFacesSum += bndFaces_mpi[i];
+		countIdx_r[i] *= sizeof(label);
 		// printf("rank: %d, bndFaces: %d\n", i, bndFaces_mpi[i]);
 	}
 	label* startIdx_mpi = new label[bndFacesSum+nprocs];
 #if 1
-	MPI_Allgatherv(bndFaceList.startIdx, bndFaces+1, COMM_LABEL, startIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, MPI_COMM_WORLD);
+	comm.allGatherV("allGatherV",bndFaceList.startIdx,(bndFaces+1)*sizeof(label),startIdx_mpi,countIdx_r);
+	comm.finishTask("allGatherV");
 	int bndNodesSum = 0;
 	int countData_r[nprocs], dispData_r[nprocs];
 	for (int i = 0; i < nprocs; ++i)
 	{
-		countData_r[i] = startIdx_mpi[dispIdx_r[i]+countIdx_r[i]-1];
+		countData_r[i] = startIdx_mpi[dispIdx_r[i]+(countIdx_r[i]/sizeof(label))-1];
 		dispData_r[i] = bndNodesSum;
 		bndNodesSum += countData_r[i];
+		countData_r[i] *= sizeof(label);
 		// if(rank==0) printf("count: %d, displacement: %d\n", countData_r[i], dispData_r[i]);
 	}
 	label* data_mpi = new label[bndNodesSum];
-	MPI_Allgatherv(bndFaceList.data, bndFaceList.startIdx[bndFaces],
-		COMM_LABEL, data_mpi, countData_r, dispData_r, COMM_LABEL, MPI_COMM_WORLD);
+	comm.allGatherV("allGatherVNode",bndFaceList.data,bndFaceList.startIdx[bndFaces]*sizeof(label),data_mpi,countData_r);
+	comm.finishTask("allGatherVNode");
 	label* neighborCellIdx_mpi = new label[bndFacesSum+nprocs];
+	
 #endif
 	for (int i = 0; i < bndFacesSum+nprocs; ++i) { neighborCellIdx_mpi[i] = -1; }
 	// if(rank==2)
@@ -653,9 +647,8 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 		for (int i = 0; i < nprocs; ++i)
 		{
 			if(rank==i) continue;
-			// printf("rank: %d, start from: %d, read %d\n", i, dispIdx_r[i], countIdx_r[i]);
 			label* startIdx = &startIdx_mpi[dispIdx_r[i]];
-			for (int j = 0; j < countIdx_r[i]-1; ++j)
+			for (int j = 0; j < (countIdx_r[i]/sizeof(label))-1; ++j)
 			{
 				// printf("The %dth element: ", j);
 				Array<label> face2NodeTmp;
@@ -676,6 +669,7 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 			// printf("\n");
 		}
 	}
+	
 #if 1
 
 	label* neighborCellIdx_local = new label[(bndFaces+1)*nprocs];
@@ -684,10 +678,10 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 	{
 		countCellIdx_r[i] = bndFaces+1;
 		dispCellIdx_r[i] = i*(bndFaces+1);
+		countCellIdx_r[i] *= sizeof(label);
 	}
-	MPI_Alltoallv(neighborCellIdx_mpi, countIdx_r, dispIdx_r, COMM_LABEL, 
-		neighborCellIdx_local, countCellIdx_r, dispCellIdx_r, COMM_LABEL,
-		MPI_COMM_WORLD);
+	comm.allToallv("alltoallv",neighborCellIdx_mpi,countIdx_r,neighborCellIdx_local,countCellIdx_r);
+	comm.finishTask("alltoallv");
 	Array<label> face2CellNew;
 	// if(rank==1)
 	{
@@ -700,16 +694,19 @@ Array<label> LoadBalancer::collectNeighborCell(ArrayArray<label>& bndFaceList,
 					neighborCellIdx_local[j] = neighborCellIdx_local[i*(bndFaces+1)+j];
 			}
 		}
+
+		face2CellNew.reserve(face2CellArr.size());
 		for (int i = 0; i < face2CellArr.size(); ++i)
 		{
 			face2CellNew.push_back(face2CellArr[i]);
 			// printf("%d, ", face2CellArr[i]);
 		}
+
 		// for (int i = 0; i < nprocs; ++i)
 		// {
 			int k=0;
 		// 	printf("rank: %d, received from %d: ", rank, i);
-			for (int j = 0; j < bndFaces+1; ++j)
+			for (int j = 0; j < bndFaces; ++j)
 			{
 				// printf("%d, ", neighborCellIdx_local[j]);
 				if(neighborCellIdx_local[j]==-1)
@@ -748,8 +745,8 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	const label* parts)
 {
 	int nprocs,rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+	rank = this->commcator_->getMyId();
+	nprocs = this->commcator_->getMySize();
 
 	Array<ArrayArray<label> > sendBuff;
 	label* sendCount = new label[nprocs];
@@ -802,7 +799,8 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	}
 
 	label* recvCount = new label[nprocs+1];
-	MPI_Alltoall(sendCount, 1, COMM_LABEL, &recvCount[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+	this->commcator_->allToall("alltoall",sendCount,sizeof(label),&recvCount[1],sizeof(label));
+	this->commcator_->finishTask("alltoall");
 	label recvSum = 0;
 	recvCount[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
@@ -811,14 +809,21 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 		recvSum += recvCount[i];
 		recvCount[i] += recvCount[i-1];
 	}
-	MPI_Request request[nprocs*2];
-	int iRequest=0;
-	MPI_Status status[nprocs*2];
+	
+	Array<std::string> sendTaskName(nprocs);
+    Array<std::string> recvTaskName(nprocs);
+	
 	for (int i = 0; i < nprocs; ++i)
 	{
 		if(rank==i) continue;
-		MPI_Isend(sendBuff[i].startIdx, sendCount[i]+1,
-			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+		char ch[128];
+
+        sprintf(ch, "CellInfo_Send_%d_Recv_%d", rank, i);
+        sendTaskName[i] = ch;
+        sprintf(ch, "CellInfo_Send_%d_Recv_%d", i, rank);
+		recvTaskName[i] = ch;
+		this->commcator_->send(sendTaskName[i], sendBuff[i].startIdx, (sendCount[i] + 1) * sizeof(label), i);
+		
 	}
 
 	// Array<ArrayArray<label> > recvBuff(nprocs);
@@ -834,11 +839,16 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 				(sendCount[i]+1)*sizeof(label));
 			continue;
 		}
-		MPI_Irecv(&recvBuff.startIdx[recvCount[i]+i],
-			recvCount[i+1]-recvCount[i]+1,
-			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+		this->commcator_->recv(recvTaskName[i], &recvBuff.startIdx[recvCount[i] + i], (recvCount[i + 1] - recvCount[i] + 1) * sizeof(label), i);
+       
 	}
-	MPI_Waitall(iRequest, request, status);
+	for (int i = 0; i < nprocs; ++i)
+    {
+        if (rank == i)
+            continue;
+        this->commcator_->finishTask(sendTaskName[i]);
+        this->commcator_->finishTask(recvTaskName[i]);
+    }
 	label* recvDataCount = new label[nprocs];
 	label* recvDataDisp  = new label[nprocs+1];
 	recvDataDisp[0] = 0;
@@ -868,12 +878,16 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 	}
 	cell2NodeNew.data = new label[cell2NodeNew.startIdx[recvSum]];
 
-	iRequest = 0;
 	for (int i = 0; i < nprocs; ++i)
 	{
 		if (rank==i) continue;
-		MPI_Isend(sendBuff[i].data, sendBuff[i].startIdx[sendBuff[i].size()],
-			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+		char ch[128];
+        sprintf(ch, "DataSend_%05d_Recv_%05d", rank, i);
+        sendTaskName[i] = ch;
+        sprintf(ch, "DataSend_%05d_Recv_%05d", i, rank);
+        recvTaskName[i] = ch;
+		this->commcator_->send(sendTaskName[i], sendBuff[i].data, sendBuff[i].startIdx[sendBuff[i].size()]*sizeof(label), i);
+        
 	}
 	for (int i = 0; i < nprocs; ++i)
 	{
@@ -883,10 +897,16 @@ ArrayArray<label> LoadBalancer::distributeCellsToProcs(const ArrayArray<label>& 
 				sendBuff[i].data, recvDataCount[i]*sizeof(label));
 			continue;
 		}
-		MPI_Irecv(&cell2NodeNew.data[recvDataDisp[i]], recvDataCount[i],
-			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+		this->commcator_->recv(recvTaskName[i], &cell2NodeNew.data[recvDataDisp[i]], recvDataCount[i]*sizeof(label), i);
+        
 	}
-	MPI_Waitall(iRequest, request, status);
+	for (label i = 0; i < nprocs; ++i)
+    {
+        if (rank == i)
+            continue;
+        commcator_->finishTask(sendTaskName[i]);
+        commcator_->finishTask(recvTaskName[i]);
+    }
 
 	// if(rank==1)
 	// {
@@ -916,8 +936,8 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 	Array<label> cellInfoNew;
 
 	int nprocs,rank;
-	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+	rank = this->commcator_->getMyId();
+	nprocs = this->commcator_->getMySize();
 
 	Array<Array<label> > sendBuff(nprocs);
 	label* sendCount = new label[nprocs];
@@ -940,7 +960,8 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 	}
 
 	label* recvCount = new label[nprocs+1];
-	MPI_Alltoall(sendCount, 1, COMM_LABEL, &recvCount[1], 1, COMM_LABEL, MPI_COMM_WORLD);
+	this->commcator_->allToall("alltoallCellInfo",sendCount,sizeof(label),&recvCount[1],sizeof(label));
+	this->commcator_->finishTask("alltoallCellInfo");
 	label recvSum = 0;
 	recvCount[0] = 0;
 	for (int i = 1; i <= nprocs; ++i)
@@ -950,14 +971,20 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 		recvCount[i] += recvCount[i-1];
 	}
 
-	MPI_Request request[nprocs*2];
-	int iRequest=0;
-	MPI_Status status[nprocs*2];
+	Array<std::string> sendTaskName(nprocs);
+    Array<std::string> recvTaskName(nprocs);
 	for (int i = 0; i < nprocs; ++i)
 	{
 		if(rank==i) continue;
-		MPI_Isend(sendBuffTmp[i], sendCount[i],
-			COMM_LABEL, i, rank, MPI_COMM_WORLD, &request[iRequest++]);
+
+		char ch[128];
+
+        sprintf(ch, "CellInfo_Send_%d_Recv_%d", rank, i);
+        sendTaskName[i] = ch;
+        sprintf(ch, "CellInfo_Send_%d_Recv_%d", i, rank);
+        recvTaskName[i] = ch;
+		this->commcator_->send(sendTaskName[i],sendBuffTmp[i],sendCount[i]*sizeof(label),i);
+		
 	}
 
 	// Array<ArrayArray<label> > recvBuff(nprocs);
@@ -971,11 +998,15 @@ Array<label> LoadBalancer::distributeCellInfoToProcs(
 				sendCount[i]*sizeof(label));
 			continue;
 		}
-		MPI_Irecv(&recvBuff[recvCount[i]],
-			recvCount[i+1]-recvCount[i],
-			COMM_LABEL, i, i, MPI_COMM_WORLD, &request[iRequest++]);
+		this->commcator_->recv(recvTaskName[i],&recvBuff[recvCount[i]],(recvCount[i+1]-recvCount[i])*sizeof(label),i);
 	}
-	MPI_Waitall(iRequest, request, status);
+	for (label i = 0; i < nprocs; ++i)
+    {
+        if (rank == i)
+            continue;
+        this->commcator_->finishTask(sendTaskName[i]);
+        this->commcator_->finishTask(recvTaskName[i]);
+    }
 
 	for (int i = 0; i < recvSum; ++i)
 	{

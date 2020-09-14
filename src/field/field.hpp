@@ -31,8 +31,8 @@ THE SOFTWARE.
  * @Last Modified time: 2019-11-14 09:16:47
  */
 
-#ifndef Field_hpp
-#define Field_hpp
+#ifndef HSF_Field_hpp
+#define HSF_Field_hpp
 
 #include "patch.hpp"
 #include "utilities.h"
@@ -99,17 +99,24 @@ private:
   label nbrSize_;                      ///< 与本地单元相邻的场维度
   T *data_;                            ///< 场数据
   Table<Word, T *> *sendBufferPtr_;    ///< 进程间通信发送buffer
-  MPI_Request *sendRecvRequests_;      ///< mpi非阻塞通信句柄
+  std::string *sendTaskName_;
+  std::string *recvTaskName_;
   Word setType_;                       ///< 场所在数据集类型
   Table<Word, Patch *> *patchTabPtr_;  ///< 通信拓扑
 
   BasicElement<T> *basicEle_; ///< 结构体数组中的结构体
+
+  Communicator *commcator_;
 
 public:
   /**
    * @brief 构造函数
    */
   Field();
+  /**
+   * @brief 复制构造函数
+   */ 
+  Field(const Field &other_Field);
 
   /**
    * @brief 构造函数，已知类型、维度、大小、数组指针
@@ -118,7 +125,7 @@ public:
    * @param[in] n 数据段（结构体）个数，所以真实数据个数是 n*ndim
    * @param[in] dataPtr 数组的起始地址
    */
-  Field(Word setType, label ndim, label n, T *dataPtr);
+  Field(Word setType, label ndim, label n, T *dataPtr,Communicator &other_comm);
 
   /**
    * @brief 构造函数，已知类型、维度、大小、数组指针、进程分块信息
@@ -132,12 +139,14 @@ public:
         label ndim,
         label n,
         T *dataPtr,
-        Table<Word, Table<Word, Patch *> *> &patchTab);
+        Table<Word, Table<Word, Patch *> *> &patchTab,Communicator &other_comm);
 
   /**
    * @brief 析构函数
    */
   ~Field();
+
+  Communicator & getCommunicator(){ return *commcator_;};
 
   /**
    * @brief 获取本地单元场维度
