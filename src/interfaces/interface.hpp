@@ -19,5 +19,7 @@ extern Array<Region> regs;
 
 extern Parameter para;
 
+extern ControlPara newPara;
+
 #endif
 

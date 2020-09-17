@@ -1,4 +1,5 @@
-echo "serial"
-scons -j 8 && ./build/mpicxxOptInt64/bin/test
-#echo "parallel"
-#bsub -I -q q_x86_share -n 4 ./build/mpicxxOptInt64/bin/blk_test
+scons -j 8
+
+./test/swmk
+bsub -b -I -q q_sw_share -n 1 -cgsp 64 -host_stack 1024 -share_size 4096 ./install/sw64swg++DPOpt/bin/test
+#bsub -b -I -q q_sw_share -n 3 -cgsp 64 -host_stack 1024 -share_size 4096 ./install/sw64swg++DPOpt/bin/blk_test

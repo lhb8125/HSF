@@ -16,6 +16,7 @@
 #include "parameter.hpp"
 #include "topoInterfaces.hpp"
 #include "loadBalancer.hpp"
+#include "pcgnslib.h"
 
 using namespace HSF;
 
@@ -29,12 +30,19 @@ using namespace HSF;
 
 void init_(char* configFile)
 {
-
+	int iFile;
+	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
+		Terminate("initCGNSMPI", cg_get_error());
+	char *test = "./data/tetra_4_pyra_5.cgns";
+	printf("%s\n", test);
+	if(cgp_open(test, CG_MODE_READ, &iFile))
+		Terminate("cgp_open", cg_get_error());
 	Communicator  &global_comm = COMM::getGlobalComm();
 	LoadBalancer *lb = new LoadBalancer(global_comm);
 	std::cout<<"start initializing ......"<<std::endl;
 
-	para.setParaFile(configFile);
+	// para.setParaFile(configFile);
 
 	// printf("%s\n", configFile);
 
@@ -45,7 +53,8 @@ void init_(char* configFile)
 
 	int nPara = 4;
 	// char meshFile[100];
-	ControlPara newPara("./test/system/config.yaml");
+	// ControlPara newPara("./test/system/config.yaml");
+	newPara.setYAMLFile(configFile);
 	Array<Word> mesh_files;
 	Word meshFile;
 	newPara["domain"]["region"]["0"]["path"].read(meshFile);
@@ -53,9 +62,10 @@ void init_(char* configFile)
 
     printf("mesh file: %s\n", meshFile.c_str());
 
-	char resultFile[CHAR_DIM];
-	para.getPara<char>(resultFile, nPara, "domain", "region", "0", "resPath");
-    printf("result file: %s\n", resultFile);
+	Word resultFile;
+	newPara["domain"]["region"]["0"]["resPath"].read(resultFile);
+	// para.getPara<char>(resultFile, nPara, "domain", "region", "0", "resPath");
+    printf("result file: %s\n", resultFile.c_str());
 
 	/// initialization before load balance
 	Region reg(global_comm);
@@ -69,6 +79,18 @@ void init_(char* configFile)
 	/// initialization after load balance
 	REGION.initAfterBalance();
 
+}
+
+void init_test_(char* configFile)
+{
+	int iFile;
+	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
+        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
+		Terminate("initCGNSMPI", cg_get_error());
+	char *test = "./data/tetra_4_pyra_5.cgns";
+	printf("%s\n", test);
+	if(cgp_open(test, CG_MODE_READ, &iFile))
+		Terminate("cgp_open", cg_get_error());
 }
 
 void init_config_(char* configFile)

@@ -334,23 +334,193 @@ Field_new<SetType, Element>::Field_new()
 }
 
 template<typename SetType, typename Element>
-Field_new<SetType, Element>::Field_new(label n, Element *dataPtr)
+Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
+    Communicator &other_comm)
     : locSize_(n),
       nbrSize_(0),
       data_(NULL),
       sendBufferPtr_(NULL),
       sendRecvRequests_(NULL),
-      patchTabPtr_(NULL)
+      patchTabPtr_(NULL),
+      commcator_(&other_comm)
 {
-  label32 dim = *dataPtr.size();
-  // data_ = new Element[n];
-  // memcpy(data_, dataPtr, n * ndim * sizeof(T));
-  // // 初始化结构体指针，不包含ghost
-  // basicEle_ = new BasicElement<T>[n];
-  // for (int i = 0; i < n; ++i)
-  // {
-  //   basicEle_[i].num = ndim;
-  //   basicEle_[i].data = &data_[i*ndim];
-  // }
+  label32 size = dataPtr->length();
+  data_ = new char[n*size];
+  ele_ = new Element[n];
+  for (int i = 0; i < n; ++i)
+  {
+    memcpy(&data_[i*size], dataPtr[i].getData(), size);
+    ele_[i].setData(&data_[i*size]);
+    ele_[i].setNum(dataPtr[i].getNum());
+  }
 }
 
+
+template<typename SetType, typename Element>
+Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
+    Table<Word, Table<Word, Patch *> *> &patchTab, Communicator &other_comm)
+    : locSize_(n),
+      nbrSize_(0),
+      data_(NULL),
+      sendBufferPtr_(NULL),
+      sendRecvRequests_(NULL),
+      patchTabPtr_(NULL),
+      commcator_(&other_comm)
+{
+  label sizeAll = 0;
+
+  patchTabPtr_ = patchTab["face"];
+  Table<Word, Patch *> &patches = *patchTabPtr_;
+  Table<Word, Patch *>::iterator it2;
+  for (it2 = patches.begin(); it2 != patches.end(); ++it2)
+  {
+    Patch &patchI = *(it2->second);
+    sizeAll += patchI.getRecvSize();
+  }
+  nbrSize_ = sizeAll;
+  
+  label32 size = dataPtr->length();
+  sizeAll += locSize_;
+  data_ = new char[sizeAll * size];
+
+  ele_ = new Element[sizeAll];
+  for (int i = 0; i < n; ++i)
+  {
+    memcpy(&data_[i*size], dataPtr[i].getData(), size);
+    ele_[i].setData(&data_[i*size]);
+    ele_[i].setNum(dataPtr[i].getNum());
+  }
+  for (int i = n; i < sizeAll; ++i)
+  {
+    ele_[i].setData(&data_[i*size]);
+    ele_[i].setNum(dataPtr[i].getNum());
+    ele_[i].setVal(0);
+  }
+}
+
+template<typename SetType, typename Element>
+void Field_new<SetType, Element>::initSend()
+{
+  //- create
+  if (patchTabPtr_)
+  {
+    //- create
+    if (!sendBufferPtr_)
+    {
+      sendBufferPtr_ = new Table<Word, char *>;
+    }
+
+    Table<Word, Patch *> &patches = *patchTabPtr_;
+    Table<Word, char *> &sendBuffer = *sendBufferPtr_;
+    label nPatches = patches.size();
+
+    //- create memory for MPI_Request
+    if (!sendTaskName_ && !recvTaskName_)
+    {
+      sendTaskName_ = new std::string[nPatches];
+      recvTaskName_ = new std::string[nPatches];
+    }
+
+    Table<Word, Patch *>::iterator it = patches.begin();
+
+    //- if nbrdata not created
+    label32 eleLen = ele_->length();
+    if (nbrSize_ <= 0 && COMM::getGlobalSize() > 1)
+    {
+      nbrSize_ = 0;
+      for (it = patches.begin(); it != patches.end(); ++it)
+      {
+        Patch &patchI = *(it->second);
+        nbrSize_ += patchI.getRecvSize();
+      }
+
+      char *dataOld = data_;
+      data_ = new char[(locSize_ + nbrSize_) * eleLen];
+      memcpy(data_, dataOld, locSize_ * eleLen);
+      DELETE_POINTER(dataOld);
+    }
+
+    char *recvArrayPtr = &(data_[locSize_ * eleLen]);
+    it = patches.begin();
+    for (label i = 0; i < nPatches, it != patches.end(); ++i, ++it)
+    {
+      Patch &patchI = *(it->second);
+      label sendSize = patchI.getSendSize();
+      label recvSize = patchI.getRecvSize();
+      Word patchName = it->first;
+      //- here memory created
+      if (!sendBuffer[patchName])
+      {
+        sendBuffer[patchName] = new char[sendSize * eleLen];
+      }
+
+      char *patchI_sendBuffer = sendBuffer[patchName];
+      char *patchI_recvBuffer = recvArrayPtr;
+
+      label *patchI_addressing = patchI.getAddressing();
+
+      for (label j = 0; j < sendSize; ++j)
+      {
+        memcpy(&patchI_sendBuffer[j*eleLen],
+          data_[patchI_addressing[j]*eleLen],
+          eleLen);
+      }
+
+      char ch[128];
+
+      sprintf(
+          ch, "Send_%05d_Recv_%05d", this->commcator_->getMyId(), patchI.getNbrProcID());
+      sendTaskName_[i] = ch;
+      sprintf(
+          ch, "Send_%05d_Recv_%05d", patchI.getNbrProcID(), this->commcator_->getMyId());
+      recvTaskName_[i] = ch;
+
+      this->commcator_->send(sendTaskName_[i],
+                             patchI_sendBuffer,
+                             sendSize * eleLen,
+                             patchI.getNbrProcID());
+
+      this->commcator_->recv(recvTaskName_[i],
+                            patchI_recvBuffer,
+                            recvSize * eleLen,
+                            patchI.getNbrProcID());
+
+      recvArrayPtr += recvSize * eleLen;
+    }
+  }
+}
+
+template<typename SetType, typename Element>
+label Field_new<SetType, Element>::checkSendStatus()
+{
+  if (sendTaskName_ && recvTaskName_)
+  {
+    Table<Word, Patch *> &patches = *patchTabPtr_;
+    label nPatches = patches.size();
+    for(int i = 0;i < nPatches;++i){
+      this->commcator_->finishTask(recvTaskName_[i]);
+      this->commcator_->finishTask(sendTaskName_[i]);
+    }
+    DELETE_POINTER(sendTaskName_);
+    DELETE_POINTER(recvTaskName_);
+  }
+  return 1;
+}
+
+template<typename SetType, typename Element>
+void Field_new<SetType, Element>::freeSendRecvBuffer()
+{
+  //- free sendBufferPtr_
+  if (sendBufferPtr_)
+  {
+    Table<Word, Element *> &sendBuffer = *sendBufferPtr_;
+
+    typename Table<Word, char *>::iterator it = sendBuffer.begin();
+
+    for (it = sendBuffer.begin(); it != sendBuffer.end(); ++it)
+    {
+      DELETE_POINTER(it->second);
+    }
+    DELETE_OBJECT_POINTER(sendBufferPtr_);
+  }
+}

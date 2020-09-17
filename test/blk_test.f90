@@ -54,7 +54,7 @@ program main
       end function
     end interface
 
-    character(len=strlen):: config_file = './config.yaml'
+    character(len=strlen):: config_file = './test/system/config.yaml'
     integer(dpI):: iele, iface, inode
     integer(dpI):: n_ele, n_face_i, n_face, n_face_b, n_node, face_start, face_end, n_nbr_ele
     integer(dpI),allocatable:: e2n(:),e2n_pos(:),ele_type(:)

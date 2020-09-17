@@ -50,10 +50,23 @@ public:
 	{
 		config_ = config;
 	};
+	ControlPara()
+	{
+	};
+
 	/**
 	* @brief deconstructor
 	*/
 	~ControlPara() {};
+
+	/**
+	* @brief set the parameter file
+	*/
+	void setYAMLFile(const Word paraFile) {
+		printf("%s\n", paraFile.c_str());
+		strcpy(paraFile_, paraFile.c_str());
+		config_ = YAML::LoadFile(paraFile);
+	}
 
 	/**
 	* @brief overide [] operator

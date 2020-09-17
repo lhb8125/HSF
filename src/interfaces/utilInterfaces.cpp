@@ -315,38 +315,46 @@ void get_label_para_(int* retVal, int* nPara, ...)
 {
   char* strList[*nPara];
 
+
   va_list args;
   va_start(args, nPara);
 
   char* str;
+  Word s;
   for (int i = 0; i < *nPara; ++i)
   {
     str = va_arg(args, char*);
-    strList[i] = str;
+    s = str;
+    newPara = newPara[s];
+
   }
 
   va_end(args);
 
-  para.getPara<int>(retVal, strList, *nPara);
+  newPara.read(retVal[0]);
+
 }
 
 void get_scalar_para_(scalar* retVal, int* nPara, ...)
 {
   char* strList[*nPara];
 
+
   va_list args;
   va_start(args, nPara);
 
   char* str;
+  Word s;
   for (int i = 0; i < *nPara; ++i)
   {
     str = va_arg(args, char*);
-    strList[i] = str;
+    s = str;
+    newPara = newPara[s];
   }
 
   va_end(args);
 
-  para.getPara<float>(retVal, strList, *nPara);
+  newPara.read(retVal[0]);
 }
 
 void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
@@ -358,16 +366,18 @@ void get_string_para_(char* retVal, int* str_len, int* nPara, ...)
   va_start(args, nPara);
 
   char* str;
+  Word s;
   for (int i = 0; i < *nPara; ++i)
   {
     str = va_arg(args, char*);
-// printf("%s\n",str);
-    strList[i] = str;
+    s = str;
+    newPara = newPara[s];
   }
 
   va_end(args);
 
-  *str_len = 0;
-  para.getPara<char>(retVal, strList, *nPara);
-  while(*retVal++!='\0') str_len[0]++;
+  newPara.read(s);
+  memcpy(retVal, s.c_str(), s.size());
+  str_len[0] = s.size();
+
 }

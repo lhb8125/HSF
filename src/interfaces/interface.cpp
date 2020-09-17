@@ -9,3 +9,5 @@
 Array<Region> regs;
 
 Parameter para;
+
+ControlPara newPara;

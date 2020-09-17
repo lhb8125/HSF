@@ -9,7 +9,7 @@ module var_kind_def
     integer(kind=4),parameter:: dpR =  8
 end module var_kind_def
 
-module var_global
+module var_global_ftest
     use var_kind_def
     implicit none
     integer, parameter:: strlen = 100
@@ -32,9 +32,9 @@ module var_global
     !     write(*,*), "hello world!"
     !     test_f = 1
     ! end function test_f
-end module var_global
+end module var_global_ftest
 
-module var_c_string
+module var_c_string_ftest
     use var_kind_def
     use iso_c_binding
     implicit none
@@ -45,11 +45,11 @@ end module
 
 program main
     use var_kind_def
-    use var_global
+    use var_global_ftest
     use utility
-    use var_c_string
+    use var_c_string_ftest
     implicit none
-    character(len=strlen):: config_file = './config.yaml'
+    character(len=strlen):: config_file = './test/system/config.yaml'
     integer(dpI):: iele, iface, inode
     integer(dpI):: n_ele, n_face_i, n_face_b, n_node
     integer(dpI),allocatable:: e2n(:),e2n_pos(:),ele_type(:)
@@ -219,7 +219,7 @@ end program main
 
 subroutine calc_eles_vol(n_ele, e2n, e2n_pos, coord, ele_type, vol)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     integer(dpI), intent(IN) :: n_ele
     integer(dpI), intent(IN) :: e2n(*), e2n_pos(*), ele_type(*)
@@ -257,7 +257,7 @@ end subroutine calc_eles_vol
 
 subroutine calc_faces_area(n_face, f2n, f2n_pos, coord, area)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     integer(dpI), intent(IN):: n_face
     integer(dpI), intent(IN):: f2n(*), f2n_pos(*)
@@ -291,7 +291,7 @@ end subroutine calc_faces_area
 
 subroutine calc_HEXA_vol(coord, vol)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     real(dpR), intent(IN):: coord(*)
     real(dpR), intent(OUT):: vol
@@ -323,7 +323,7 @@ end subroutine calc_HEXA_vol
 
 subroutine calc_TETRA_vol(coord, vol)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     real(dpR), intent(IN):: coord(*)
     real(dpR), intent(OUT):: vol
@@ -354,7 +354,7 @@ end subroutine calc_TETRA_vol
 
 subroutine calc_QUAD_area(coord, area)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     real(dpR), intent(IN):: coord(*)
     real(dpR), intent(OUT):: area
@@ -383,7 +383,7 @@ end subroutine calc_QUAD_area
 
 subroutine calc_TRI_area(coord, area)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     real(dpR), intent(IN):: coord(*)
     real(dpR), intent(OUT):: area
@@ -410,7 +410,7 @@ end subroutine calc_TRI_area
 
 subroutine calc_spmv(n_face, f2c, A, x, b)
     use var_kind_def
-    use var_global
+    use var_global_ftest
     implicit none
     integer(dpI), intent(IN):: f2c(*)
     real(dpR), intent(IN):: A(*), x(*)

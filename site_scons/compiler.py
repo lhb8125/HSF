@@ -167,7 +167,8 @@ def update_compiler_settings(env):
     env['F90FLAGS'] = env['CCFLAGS']
 
     # make gfortran support preprocessor
-    env.Append(F90FLAGS='-cpp')
+    env.Append(F90FLAGS='-cpp -fcray-pointer')
+    env.Append(FORTRANMODDIR=env['PROJECT_INC_DIR'])
     env.Append(CCFLAGS='-rdynamic')
 
     if env['PLATFORM'] == 'sw':

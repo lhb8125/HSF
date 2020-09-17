@@ -24,6 +24,7 @@ extern "C"
 * @param[in]  configFile 参数文件
 */
 void init_(char* configFile);
+void init_test_(char* configFile);
 
 /**
 * @brief 初始化配置文件

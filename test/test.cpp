@@ -18,9 +18,12 @@
 #include "utilities.h"
 #include "loadBalancer.hpp"
 #include "parameter.hpp"
-#include "cgnslib.h"
+#include "pcgnslib.h"
 #include "region.hpp"
 #include "funPtr_host.hpp"
+#include "topoInterfaces.hpp"
+#include "element.hpp"
+#include "setType.hpp"
 
 #ifdef sw
 #include "kernel_spe.hpp"
@@ -42,10 +45,11 @@ int main(int argc, char** argv)
 #ifdef sw
 	CG_init();
 #endif
-	LoadBalancer *lb = new LoadBalancer();
+	initUtility();
+	srand((int)time(0));
 
-	Parameter para("./config.yaml");
-	ControlPara newPara("./config.yaml");
+	Parameter para("./test/system/config.yaml");
+	ControlPara newPara("./test/system/config.yaml");
 	// Word path = newPara["domain"]["region"]["0"]["path"].to<Word>();
 	// // printf("%s\n", path.c_str());
 	// scalar deltaT;
@@ -61,8 +65,12 @@ int main(int argc, char** argv)
 	// MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 	// MPI_Comm_size(MPI_COMM_WORLD, &numproces);
 	// printf("This is process %d, %d processes are launched\n", rank, numproces);
-	initUtility();
+    Communicator &global_comm = COMM::getGlobalComm();
+    LoadBalancer *lb = new LoadBalancer(global_comm);
 
+	Element<label> *ele = new Element<label>(5);
+	Field_new<SetType, Element<label>> *f = new Field_new<SetType, Element<label>>(1, ele, global_comm);
+	(*f)[0].show();
 
 	int nPara = 4;
 	// char meshFile[100];
@@ -83,7 +91,7 @@ int main(int argc, char** argv)
 	printf("writing CGNS file: %s\n", resultFile.c_str());
 	/// read CGNS file
 	Array<Region> regs;
-	Region reg;
+	Region reg(global_comm);
 	regs.push_back(reg);
 
 	regs[0].initBeforeBalance(mesh_files);
@@ -170,3 +178,4 @@ void checkResult(Region& reg, Word x, Word x_spe)
     }
 	std::cout<<"The result is correct!"<<std::endl; \
 }
+

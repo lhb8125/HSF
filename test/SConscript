@@ -1,0 +1,38 @@
+from build import build_app
+from build_config import THIRDPARTY_INCS, THIRDPARTY_LIBS, THIRDPARTY_LIB_PATH
+Import('env')
+
+cxxfile = ['test.cpp']
+
+fortranfile = ['blk_test.f90', 'ftest.f90']
+
+env.Append(LIBPATH=THIRDPARTY_LIB_PATH)
+
+if env['PLATFORM'] == 'windows':
+    program_libs.append(['mpi', 'fmpich2g'])
+
+build_app(env,
+          target='test',
+          sources=cxxfile,
+          program_inc=THIRDPARTY_INCS,
+          program_libs=THIRDPARTY_LIBS,
+          linker=env['CXX_LINKER'])
+
+# if env['PLATFORM'] == 'windows':
+#     program_libs.append('fmpich2g')
+# program_libs.append('msmpifec')
+# program_libs.append('msmpifmc')
+build_app(env,
+          target='blk_test',
+          sources=fortranfile[0],
+          program_inc=THIRDPARTY_INCS,
+          program_libs=THIRDPARTY_LIBS,
+          linker=env['F_LINKER'])
+
+
+# build_app(env,
+#           target='ftest',
+#           sources=fortranfile[1],
+#           program_inc=THIRDPARTY_INCS,
+#           program_libs=THIRDPARTY_LIBS,
+#           linker=env['F_LINKER'])
