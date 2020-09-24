@@ -11,11 +11,9 @@ target = 'hsf'
 
 subdirs = Split("""
     field
-    interfaces
     iterator
     loadBalancer
     mesh
-    meshInfo
     parameter
     patch
     region

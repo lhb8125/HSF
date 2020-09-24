@@ -22,7 +22,7 @@ PROJECT_DIR = os.path.dirname(SCONS_SITE_DIR)
 PROJECT_BASE = os.path.dirname(PROJECT_DIR)
 PROJECT_EXT_DIR = os.path.join(PROJECT_DIR, 'external')
 
-program_vars = Variables('build_config.py', ARGUMENTS)
+program_vars = Variables('site_scons/build_config.py', ARGUMENTS)
 program_vars.AddVariables(
     # Project specific variables
     PathVariable('PROJECT_DIR', 'Path to the project directory', PROJECT_DIR,
@@ -52,6 +52,7 @@ program_vars.AddVariables(
                  'library building type',
                  'static',
                  allowed_values=('shared', 'static', 'object')),
+    BoolVariable('PRINT_VERBOSE', 'Print verbosely when compiling', True),
 )
 
 ostype = Environment(variables=program_vars)['PLATFORM']
@@ -75,16 +76,20 @@ if ostype == "windows":
 elif ostype == "linux":
     print('ok linux')
     program_vars.AddVariables(
-        ('CC', 'C compiler', 'icc'),
-        ('CXX', 'C++ compiler', 'icpc'),
-        ('F90', 'fortran90 compiler', 'ifort'),
-        ('CXX_LINKER', 'C++ linker', 'mpiicpc'),
-        ('F_LINKER', 'fortran linker', 'mpiifort'),
+        ('CC', 'C compiler', 'mpicc'),
+        ('CXX', 'C++ compiler', 'mpicxx'),
+        ('F90', 'fortran90 compiler', 'mpif90'),
+        ('CXX_LINKER', 'C++ linker', 'mpicxx'),
+        ('F_LINKER', 'fortran linker', 'mpif90'),
         ('MPI_LIB_NAME', 'MPI library name', 'mpi'),
-        PathVariable('MPI_INC_PATH', 'Path to MPI headers',
-                     '/usr/sw-cluster/mpi2/include', PathVariable.PathIsDir),
-        PathVariable('MPI_LIB_PATH', 'Path to MPI libraries',
-                     '/usr/sw-cluster/mpi2/lib', PathVariable.PathIsDir),
+        PathVariable(
+            'MPI_INC_PATH', 'Path to MPI headers',
+            '/home/export/online3/amd_dev1/software/MPICH/gcc_build/include',
+            PathVariable.PathIsDir),
+        PathVariable(
+            'MPI_LIB_PATH', 'Path to MPI libraries',
+            '/home/export/online3/amd_dev1/software/MPICH/gcc_build/lib',
+            PathVariable.PathIsDir),
     )
 elif ostype == "sw":
     print('ok sw')
@@ -92,10 +97,10 @@ elif ostype == "sw":
         ('CC_HOST', 'c compiler on host', 'sw5cc'),
         ('CC_SLAVE', 'c compiler on slave', 'sw5cc'),
         ('CC', 'C compiler', 'swgcc'),
-        ('CXX', 'C++ compiler', 'swg++453'),
-        ('F90', 'fortran90 compiler', 'mpif90'),
-        ('CXX_LINKER', 'C++ linker', 'swld453'),
-        ('F_LINKER', 'fortran linker', 'swld453-fort'),
+        ('CXX', 'C++ compiler', 'swg++'),
+        ('F90', 'fortran90 compiler', 'swgfortran453'),
+        ('CXX_LINKER', 'C++ linker', 'mpiCC'),
+        ('F_LINKER', 'fortran linker', 'mpiswgfortran'),
         ('MPI_LIB_NAME', 'MPI library name', 'mpi'),
         PathVariable('MPI_INC_PATH', 'Path to MPI headers',
                      '/usr/sw-mpp/mpi2/include', PathVariable.PathIsDir),
@@ -114,8 +119,8 @@ def init_dependent_vars(env):
     ostype = env['PLATFORM']
     prj_dir = env['PROJECT_DIR']
 
-    BUILD_OPTION = (ostype + env['BUILD_ARCH'] + env['CXX'] +
-                    env['PRECISION'] + env['BUILD_TYPE'])
+    BUILD_OPTION = (ostype + env['CXX'] + 'Int' + env['INT_TYPE'] + 'Float' +
+                    env['FLOAT_TYPE'] + env['BUILD_TYPE'])
     PLATFORM_INSTALL = os.path.join(prj_dir, 'install', BUILD_OPTION)
     BIN_PLATFORM_INSTALL = os.path.join(PLATFORM_INSTALL, 'bin')
     LIB_PLATFORM_INSTALL = os.path.join(PLATFORM_INSTALL, 'lib')

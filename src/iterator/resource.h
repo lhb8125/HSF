@@ -10,46 +10,34 @@
 
 ParaSet paraData;
 
-#define prepareField(reg, inoutList, funcPtr, fieldList) \
+#define prepareField(reg, funcPtr, \
+        faceInoutList, cellInoutList, \
+        faceFieldList, cellFieldList) \
 { \
     DataSet dataSet_vertex, dataSet_edge; \
     \
-    Array<Word> setTypeList; \
-    Array<scalar*> varList; \
-    Array<label32> dimList; \
-    label edgeNum, cellNum; \
-    for (int i = 0; i < fieldList.size(); ++i) \
+    initDataSet(&dataSet_edge, faceFieldList[0]->getSize()); \
+    initDataSet(&dataSet_vertex, cellFieldList[0]->getSize()); \
+    for (int i = 0; i < faceFieldList.size(); ++i) \
     { \
-        scalar* var          = fieldList[i]->getLocalData(); \
-        Word setType         = fieldList[i]->getType(); \
-        label32 dim          = fieldList[i]->getDim(); \
-        label64 size         = fieldList[i]->getSize(); \
-        setTypeList.push_back(setType); \
-        varList.push_back(var); \
-        dimList.push_back(dim); \
-        if(setType=="cell") \
-            cellNum = size; \
-        else if(setType=="face") \
-            edgeNum = size; \
-        else \
-          std::cout<<"error!!!"<<endl; \
+        pushArrayToDataSet(&dataSet_edge, \
+            faceFieldList[i]->getDim(), \
+            faceFieldList[i]->getLocalElement()->length(), \
+            faceInoutList[i], \
+            faceFieldList[i]->getLocalData()); \
     } \
-    initDataSet(&dataSet_edge, edgeNum); \
-    initDataSet(&dataSet_vertex, cellNum); \
-    for (int i = 0; i < fieldList.size(); ++i) \
-    { \
-        if(setTypeList[i]=="cell") \
-        { \
-            pushArrayToDataSet(&dataSet_vertex, dimList[i], sizeof(scalar), \
-                inoutList[i], varList[i]); \
-        } else \
-        { \
-            pushArrayToDataSet(&dataSet_edge, dimList[i], sizeof(scalar), \
-                inoutList[i], varList[i]); \
-        } \
+    \
+    for (int i = 0; i < cellFieldList.size(); ++i) \
+    {\
+        pushArrayToDataSet(&dataSet_vertex, \
+            cellFieldList[i]->getDim(), \
+            cellFieldList[i]->getLocalElement()->length(), \
+            cellInoutList[i], \
+            cellFieldList[i]->getLocalData()); \
     } \
+    \
     /* 根据数据集类型选择拓扑 */ \
-    UTILITY::ArrayArray<label> topo = reg.getTopology<label>(setTypeList); \
+    UTILITY::ArrayArray<label> topo = reg.getMesh().getBlockTopology().getFace2Cell(); \
     topo.num = reg.getMesh().getTopology().getInnFacesNum(); \
     /* 创建UNAT拓扑 */ \
     UNAT::Topology* UNATTopo = UNAT::Topology::constructTopology(topo, LDU); \

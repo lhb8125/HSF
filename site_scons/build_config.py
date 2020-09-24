@@ -4,32 +4,27 @@ FLOAT_TYPE = '64'
 LIB_TYPE = 'static'
 
 ATHREAD = 'True'
+PRINT_VERBOSE = 'False'
 
 # sw
-CXX = 'swg++'
-CC = 'swgcc'
-F90 = 'swgfortran453'
-CXX_LINKER = 'mpiCC'
-F_LINKER = 'mpiswgfortran'
-# MPI_INC_PATH = '/usr/sw-mpp/mpi2/include'
-# MPI_LIB_PATH = '/usr/sw-mpp/mpi2/lib'
+# CXX = 'swg++'
+# CC = 'swgcc'
+# F90 = 'swgfortran453'
+# CXX_LINKER = 'mpiCC'
+# F_LINKER = 'mpiswgfortran'
 
-# gcc
+# x86 gcc
 # CXX = 'mpicxx'
 # CC = 'mpicc'
 # F90 = 'mpif90'
 # CXX_LINKER = 'mpicxx'
 # F_LINKER = 'mpif90'
-# MPI_INC_PATH = '/home/export/online3/amd_dev1/software/MPICH/gcc_build/include'
-# MPI_LIB_PATH = '/home/export/online3/amd_dev1/software/MPICH/gcc_build/lib'
-
 
 # MPI_INC_PATH = 'C:\Program Files\MPICH2\include'
 # MPI_LIB_PATH = 'C:\Program Files\MPICH2\lib'
 
 # MPI_INC_PATH = 'C:\Program Files (x86)\Microsoft SDKs\MPI\Include'
 # MPI_LIB_PATH = 'C:\Program Files (x86)\Microsoft SDKs\MPI\Lib\\x64'
-
 
 THIRDPARTY_INCS = []
 THIRDPARTY_LIBS = []
@@ -42,8 +37,7 @@ if PLATFORM == 'sw':
     # hdf5_home = '/home/export/online3/amd_dev1/liuhb/software/hdf5-1.8.8'
     boost_home = software_home + '/boost/boost1.69'
     unat_home = '/home/export/online3/amd_dev1/liuhb/unat/install'
-    #utility_home = '/home/export/online3/amd_dev1/guhf/utilities/install/sw64swg++DPOpt'
-    utility_home = '/home/export/online3/amd_dev1/miaozh/work_code/utilities/install/sw64swg++DPOpt'
+    utility_home = '/home/export/online3/amd_dev1/guhf/utilities/install/swswg++Int64Float64Opt'
     parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/SWInstall_64_64'
 
     THIRDPARTY_INCS = [
@@ -67,13 +61,11 @@ if PLATFORM == 'linux':
     cgns_home = software_home + '/CGNS/CGNS-3.4.0/gcc_install'
     hdf5_home = software_home + '/HDF5/hdf5-1.10.5/gcc_build'
     parmetis_home = software_home + '/ParMETIS/parmetis-4.0.3/gccInstall_64_64'
-    utility_home = '/home/export/online3/amd_dev1/liuhb/utilities/install/linux64mpicxxDPOpt'
-    # utility_home = '/home/export/online3/amd_dev1/miaozh/work_code/utilities/install/linux64mpicxxDPOpt'
+    utility_home = '/home/export/online3/amd_dev1/guhf/utilities/install/linuxmpicxxInt64Float64Opt'
 
     THIRDPARTY_INCS = [
         yaml_home + '/include', cgns_home + '/include', hdf5_home + '/include',
-        parmetis_home + '/include',
-        utility_home + '/include'
+        parmetis_home + '/include', utility_home + '/include'
     ]
 
     THIRDPARTY_LIB_PATH = [

@@ -30,14 +30,6 @@ using namespace HSF;
 
 void init_(char* configFile)
 {
-	int iFile;
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
-        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
-		Terminate("initCGNSMPI", cg_get_error());
-	char *test = "./data/tetra_4_pyra_5.cgns";
-	printf("%s\n", test);
-	if(cgp_open(test, CG_MODE_READ, &iFile))
-		Terminate("cgp_open", cg_get_error());
 	Communicator  &global_comm = COMM::getGlobalComm();
 	LoadBalancer *lb = new LoadBalancer(global_comm);
 	std::cout<<"start initializing ......"<<std::endl;
@@ -79,18 +71,6 @@ void init_(char* configFile)
 	/// initialization after load balance
 	REGION.initAfterBalance();
 
-}
-
-void init_test_(char* configFile)
-{
-	int iFile;
-	if(cgp_mpi_comm(MPI_COMM_WORLD) != CG_OK ||
-        cgp_pio_mode(CGP_INDEPENDENT) != CG_OK)
-		Terminate("initCGNSMPI", cg_get_error());
-	char *test = "./data/tetra_4_pyra_5.cgns";
-	printf("%s\n", test);
-	if(cgp_open(test, CG_MODE_READ, &iFile))
-		Terminate("cgp_open", cg_get_error());
 }
 
 void init_config_(char* configFile)

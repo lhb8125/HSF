@@ -28,7 +28,9 @@ void integration_kernel(scalar* fieldFlux, scalar* fieldU, label nn,
 	for (i = 0; i < nn; ++i)
     {
         label row = owner[i];
+        label col = neighbor[i];
         fieldU[row*dim_fieldU+0] += fieldFlux[i*dim_fieldFlux+0];
+        fieldU[col*dim_fieldU+0] += fieldFlux[i*dim_fieldFlux+0];
     }
 }
 

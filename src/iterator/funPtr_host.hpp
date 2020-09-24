@@ -17,6 +17,8 @@
 // #include "parameter.hpp"
 // #include "cgnslib.h"
 #include "hsfMacro.h"
+#include "scalar.hpp"
+#include "setType.hpp"
 
 using namespace HSF;
 

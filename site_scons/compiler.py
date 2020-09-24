@@ -91,8 +91,7 @@ def darwin_flags(env):
 def sunway_flags(env):
     """Sunway specific compiler flags"""
     print('sunway has nothing special')
-    env.Append(LIBPATH_COMMON=[env['MPI_LIB_PATH']],
-               CPPPATH=[env['MPI_INC_PATH']],
+    env.Append(CPPPATH=[env['MPI_INC_PATH']],
                F90PATH=[env['MPI_INC_PATH']])
 
     # env.Prepend(LINKFLAGS = '-Xlinker --add-needed')

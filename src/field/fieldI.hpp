@@ -35,295 +35,8 @@ THE SOFTWARE.
  * @brief: Implementation of template functions in Field class
  */
 
-template <typename T>
-Field<T>::Field()
-    : setType_(NULL),
-      ndim_(0),
-      locSize_(0),
-      nbrSize_(0),
-      data_(NULL),
-      sendBufferPtr_(NULL),
-      sendTaskName_(NULL),
-      recvTaskName_(NULL),
-      patchTabPtr_(NULL),
-      basicEle_(NULL)
-{
-}
-
-// 复制构造函数 (采用深度拷贝的方式)
-// 对于commcator来说 都是共用一个对象 使用指针的方式指向该对象 指针对象不涉及内存释放
-template <typename T>
-Field<T>::Field(const Field<T> &other_Field)
-{
-      ndim_ = other_Field.ndim_;
-      locSize_ = other_Field.locSize_;
-      nbrSize_ = other_Field.nbrSize_;
-      setType_ = other_Field.setType_;
-
-      label dataSize = locSize_ + nbrSize_;
-      dataSize *= ndim_;
-
-      if(other_Field.commcator_) this->commcator_ = other_Field.commcator_;
-
-      data_ = new T[dataSize];
-
-      memcpy(data_, other_Field.data_, dataSize * sizeof(T));
-      if (!other_Field.sendBufferPtr_)
-        sendBufferPtr_ = NULL;
-      else
-      {
-        sendBufferPtr_ = new Table<Word, T *>;
-        *sendBufferPtr_ = *other_Field.sendBufferPtr_;
-      }
-      if (!other_Field.patchTabPtr_)
-        patchTabPtr_ = NULL;
-      else
-      {
-        patchTabPtr_ = new Table<Word, Patch *>;
-        *patchTabPtr_ = *other_Field.patchTabPtr_;
-      }
-
-      if ( (!sendTaskName_) && (!recvTaskName_) )
-      {
-        sendTaskName_ = NULL;
-        recvTaskName_ = NULL;
-      }
-      else
-      {
-        int nPatches = (*patchTabPtr_).size();
-        sendTaskName_ = new std::string[nPatches];
-        recvTaskName_ = new std::string[nPatches];
-      }
-
-      basicEle_ = new BasicElement<T>[dataSize / ndim_];
-      for (int i = 0; i < dataSize / ndim_; ++i)
-      {
-        basicEle_[i].num = ndim_;
-        basicEle_[i].data = &data_[i * ndim_];
-      }
-}
-
-template <typename T>
-Field<T>::Field(Word setType, label ndim, label n, T *dataPtr,Communicator &other_comm)
-    : setType_(setType),
-      ndim_(ndim),
-      locSize_(n),
-      nbrSize_(0),
-      data_(NULL),
-      sendBufferPtr_(NULL),
-      sendTaskName_(NULL),
-      recvTaskName_(NULL),
-      patchTabPtr_(NULL),
-      commcator_(&other_comm)
-{
-  data_ = new T[n * ndim];
-  memcpy(data_, dataPtr, n * ndim * sizeof(T));
-  // 初始化结构体指针，不包含ghost
-  basicEle_ = new BasicElement<T>[n];
-  for (int i = 0; i < n; ++i)
-  {
-    basicEle_[i].num = ndim;
-    basicEle_[i].data = &data_[i*ndim];
-  }
-}
-
-template <typename T>
-Field<T>::Field(Word setType,
-                label ndim,
-                label n,
-                T *dataPtr,
-                Table<Word, Table<Word, Patch *> *> &patchTab,Communicator &other_comm)
-    : setType_(setType),
-      ndim_(ndim),
-      locSize_(n),
-      nbrSize_(0),
-      data_(NULL),
-      sendBufferPtr_(NULL),
-      sendTaskName_(NULL),
-      recvTaskName_(NULL),
-      patchTabPtr_(NULL),
-      commcator_(&other_comm)
-{
-  label sizeAll = 0;
-  Table<Word, Table<Word, Patch *> *>::iterator it = patchTab.find(setType);
-  if (it != patchTab.end())
-  {
-    patchTabPtr_ = patchTab[setType];
-    Table<Word, Patch *> &patches = *patchTabPtr_;
-    Table<Word, Patch *>::iterator it2;
-    for (it2 = patches.begin(); it2 != patches.end(); ++it2)
-    {
-      Patch &patchI = *(it2->second);
-      sizeAll += patchI.getRecvSize();
-    }
-    nbrSize_ = sizeAll;
-  }
-  else
-  {
-    par_std_out("No such type patch in region patchTab %s\n", setType.c_str());
-  }
-  sizeAll += locSize_;
-  data_ = new T[sizeAll * ndim_];
-  memcpy(data_, dataPtr, n * ndim * sizeof(T));
-  forAll(i, nbrSize_)
-  {
-    forAll(j, ndim)
-    {
-      data_[(n + i) * ndim + j] = 0;
-    }
-  }
-  // 初始化结构体指针，包含ghost
-  basicEle_ = new BasicElement<T>[sizeAll];
-  for (int i = 0; i < sizeAll; ++i)
-  {
-    basicEle_[i].num = ndim;
-    basicEle_[i].data = &data_[i*ndim];
-  }
-}
-
-template <typename T>
-void Field<T>::initSend()
-{
-  //- create
-  if (patchTabPtr_)
-  {
-    //- create
-    if (!sendBufferPtr_)
-    {
-      sendBufferPtr_ = new Table<Word, T *>;
-    }
-
-    Table<Word, Patch *> &patches = *patchTabPtr_;
-    Table<Word, T *> &sendBuffer = *sendBufferPtr_;
-    label nPatches = patches.size();
-
-    //- create memory for MPI_Request
-    if (!sendTaskName_ && !recvTaskName_)
-    {
-      sendTaskName_ = new std::string[nPatches];
-      recvTaskName_ = new std::string[nPatches];
-    }
-
-    Table<Word, Patch *>::iterator it = patches.begin();
-
-    //- if nbrdata not created
-    // printf("%d\n", COMM::getGlobalSize());
-    // if (nbrSize_ <= 0)
-    if (nbrSize_ <= 0 && COMM::getGlobalSize() > 1)
-    {
-      nbrSize_ = 0;
-      for (it = patches.begin(); it != patches.end(); ++it)
-      {
-        Patch &patchI = *(it->second);
-        nbrSize_ += patchI.getRecvSize();
-      }
-
-      T *dataOld = data_;
-      data_ = new T[(locSize_ + nbrSize_) * ndim_];
-      memcpy(data_, dataOld, locSize_ * ndim_ * sizeof(T));
-      DELETE_POINTER(dataOld);
-    }
-
-    T *recvArrayPtr = &(data_[locSize_ * ndim_]);
-    it = patches.begin();
-    for (label i = 0; i < nPatches, it != patches.end(); ++i, ++it)
-    {
-      Patch &patchI = *(it->second);
-      label sendSize = patchI.getSendSize();
-      label recvSize = patchI.getRecvSize();
-      Word patchName = it->first;
-      //- here memory created
-      if (!sendBuffer[patchName])
-      {
-        sendBuffer[patchName] = new T[sendSize * ndim_];
-      }
-
-      T *patchI_sendBuffer = sendBuffer[patchName];
-      T *patchI_recvBuffer = recvArrayPtr;
-
-      label *patchI_addressing = patchI.getAddressing();
-
-      for (label j = 0; j < sendSize; ++j)
-      {
-        for (label k = 0; k < ndim_; ++k)
-        {
-          patchI_sendBuffer[j * ndim_ + k] =
-              data_[patchI_addressing[j] * ndim_ + k];
-        }
-      }
-
-      char ch[128];
-
-      sprintf(
-          ch, "Send_%05d_Recv_%05d", this->commcator_->getMyId(), patchI.getNbrProcID());
-      sendTaskName_[i] = ch;
-      sprintf(
-          ch, "Send_%05d_Recv_%05d", patchI.getNbrProcID(), this->commcator_->getMyId());
-      recvTaskName_[i] = ch;
-
-      this->commcator_->send(sendTaskName_[i],
-                             patchI_sendBuffer,
-                             sendSize * ndim_  * sizeof(T),
-                             patchI.getNbrProcID());
-
-      this->commcator_->recv(recvTaskName_[i],
-                            patchI_recvBuffer,
-                            recvSize * ndim_ * sizeof(T),
-                            patchI.getNbrProcID());
-
-      recvArrayPtr += recvSize * ndim_;
-    }
-  }
-}
-
-template <typename T>
-label Field<T>::checkSendStatus()
-{
-  if (sendTaskName_ && recvTaskName_)
-  {
-    Table<Word, Patch *> &patches = *patchTabPtr_;
-    label nPatches = patches.size();
-    for(int i = 0;i < nPatches;++i){
-      this->commcator_->finishTask(recvTaskName_[i]);
-      this->commcator_->finishTask(sendTaskName_[i]);
-    }
-    DELETE_POINTER(sendTaskName_);
-    DELETE_POINTER(recvTaskName_);
-  }
-  return 1;
-}
-
-template <typename T>
-void Field<T>::freeSendRecvBuffer()
-{
-  //- free sendBufferPtr_
-  if (sendBufferPtr_)
-  {
-    Table<Word, T *> &sendBuffer = *sendBufferPtr_;
-
-    typename Table<Word, T *>::iterator it = sendBuffer.begin();
-
-    for (it = sendBuffer.begin(); it != sendBuffer.end(); ++it)
-    {
-      DELETE_POINTER(it->second);
-    }
-    DELETE_OBJECT_POINTER(sendBufferPtr_);
-  }
-}
-
-template <typename T>
-Field<T>::~Field()
-{
-  if(data_)DELETE_POINTER(data_);
-  freeSendRecvBuffer();
-  if(sendTaskName_) DELETE_POINTER(sendTaskName_);
-  if(recvTaskName_) DELETE_POINTER(recvTaskName_);
-  if(basicEle_) DELETE_POINTER(basicEle_);
-}
-
-
 template<typename SetType, typename Element>
-Field_new<SetType, Element>::Field_new()
+Field<SetType, Element>::Field()
     : locSize_(0),
       nbrSize_(0),
       data_(NULL),
@@ -334,7 +47,7 @@ Field_new<SetType, Element>::Field_new()
 }
 
 template<typename SetType, typename Element>
-Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
+Field<SetType, Element>::Field(label n, Element *dataPtr,
     Communicator &other_comm)
     : locSize_(n),
       nbrSize_(0),
@@ -344,7 +57,7 @@ Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
       patchTabPtr_(NULL),
       commcator_(&other_comm)
 {
-  label32 size = dataPtr->length();
+  label32 size = dataPtr->length()*dataPtr->getNum();
   data_ = new char[n*size];
   ele_ = new Element[n];
   for (int i = 0; i < n; ++i)
@@ -357,7 +70,7 @@ Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
 
 
 template<typename SetType, typename Element>
-Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
+Field<SetType, Element>::Field(label n, Element *dataPtr,
     Table<Word, Table<Word, Patch *> *> &patchTab, Communicator &other_comm)
     : locSize_(n),
       nbrSize_(0),
@@ -368,18 +81,33 @@ Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
       commcator_(&other_comm)
 {
   label sizeAll = 0;
-
-  patchTabPtr_ = patchTab["face"];
-  Table<Word, Patch *> &patches = *patchTabPtr_;
-  Table<Word, Patch *>::iterator it2;
-  for (it2 = patches.begin(); it2 != patches.end(); ++it2)
+  Word setType = "cell";
+  if(typeid(SetType)==typeid(Cell))
+    setType = "cell";
+  else if(typeid(SetType)==typeid(Face))
+    setType = "face";
+  else
+    Terminate("Field", "the settype is not supported");
+  // par_std_out("%s\n",setType);
+  Table<Word, Table<Word, Patch *> *>::iterator it = patchTab.find(setType);
+  par_std_out("%s\n",setType.c_str());
+  if (it != patchTab.end())
   {
-    Patch &patchI = *(it2->second);
-    sizeAll += patchI.getRecvSize();
-  }
+    patchTabPtr_ = patchTab[setType];
+    Table<Word, Patch *> &patches = *patchTabPtr_;
+    Table<Word, Patch *>::iterator it2;
+    for (it2 = patches.begin(); it2 != patches.end(); ++it2)
+    {
+      Patch &patchI = *(it2->second);
+      sizeAll += patchI.getRecvSize();
+    }
+  } else
+    par_std_out("No such type patch in region patchTab %s\n", setType.c_str());
+  par_std_out("finish get patchtab\n");
   nbrSize_ = sizeAll;
-  
-  label32 size = dataPtr->length();
+
+
+  label32 size = dataPtr->length()*dataPtr->getNum();
   sizeAll += locSize_;
   data_ = new char[sizeAll * size];
 
@@ -388,18 +116,18 @@ Field_new<SetType, Element>::Field_new(label n, Element *dataPtr,
   {
     memcpy(&data_[i*size], dataPtr[i].getData(), size);
     ele_[i].setData(&data_[i*size]);
-    ele_[i].setNum(dataPtr[i].getNum());
+    ele_[i].setNum(dataPtr->getNum());
   }
   for (int i = n; i < sizeAll; ++i)
   {
     ele_[i].setData(&data_[i*size]);
-    ele_[i].setNum(dataPtr[i].getNum());
+    ele_[i].setNum(dataPtr->getNum());
     ele_[i].setVal(0);
   }
 }
 
 template<typename SetType, typename Element>
-void Field_new<SetType, Element>::initSend()
+void Field<SetType, Element>::initSend()
 {
   //- create
   if (patchTabPtr_)
@@ -415,18 +143,19 @@ void Field_new<SetType, Element>::initSend()
     label nPatches = patches.size();
 
     //- create memory for MPI_Request
-    if (!sendTaskName_ && !recvTaskName_)
-    {
-      sendTaskName_ = new std::string[nPatches];
-      recvTaskName_ = new std::string[nPatches];
-    }
+    // if (!sendTaskName_ && !recvTaskName_)
+    // {
+    //   sendTaskName_ = new std::string[nPatches];
+    //   recvTaskName_ = new std::string[nPatches];
+    // }
 
     Table<Word, Patch *>::iterator it = patches.begin();
 
     //- if nbrdata not created
-    label32 eleLen = ele_->length();
+    label32 eleLen = ele_->length()*ele_->getNum();
     if (nbrSize_ <= 0 && COMM::getGlobalSize() > 1)
     {
+      Terminate("initSend", "reconstruct data");
       nbrSize_ = 0;
       for (it = patches.begin(); it != patches.end(); ++it)
       {
@@ -462,7 +191,7 @@ void Field_new<SetType, Element>::initSend()
       for (label j = 0; j < sendSize; ++j)
       {
         memcpy(&patchI_sendBuffer[j*eleLen],
-          data_[patchI_addressing[j]*eleLen],
+          &data_[patchI_addressing[j]*eleLen],
           eleLen);
       }
 
@@ -470,10 +199,10 @@ void Field_new<SetType, Element>::initSend()
 
       sprintf(
           ch, "Send_%05d_Recv_%05d", this->commcator_->getMyId(), patchI.getNbrProcID());
-      sendTaskName_[i] = ch;
+      sendTaskName_.push_back(ch);
       sprintf(
           ch, "Send_%05d_Recv_%05d", patchI.getNbrProcID(), this->commcator_->getMyId());
-      recvTaskName_[i] = ch;
+      recvTaskName_.push_back(ch);
 
       this->commcator_->send(sendTaskName_[i],
                              patchI_sendBuffer,
@@ -491,9 +220,9 @@ void Field_new<SetType, Element>::initSend()
 }
 
 template<typename SetType, typename Element>
-label Field_new<SetType, Element>::checkSendStatus()
+label Field<SetType, Element>::checkSendStatus()
 {
-  if (sendTaskName_ && recvTaskName_)
+  if (sendTaskName_.size()>0 && recvTaskName_.size()>0)
   {
     Table<Word, Patch *> &patches = *patchTabPtr_;
     label nPatches = patches.size();
@@ -501,19 +230,19 @@ label Field_new<SetType, Element>::checkSendStatus()
       this->commcator_->finishTask(recvTaskName_[i]);
       this->commcator_->finishTask(sendTaskName_[i]);
     }
-    DELETE_POINTER(sendTaskName_);
-    DELETE_POINTER(recvTaskName_);
+    sendTaskName_.clear();
+    recvTaskName_.clear();
   }
   return 1;
 }
 
 template<typename SetType, typename Element>
-void Field_new<SetType, Element>::freeSendRecvBuffer()
+void Field<SetType, Element>::freeSendRecvBuffer()
 {
   //- free sendBufferPtr_
   if (sendBufferPtr_)
   {
-    Table<Word, Element *> &sendBuffer = *sendBufferPtr_;
+    Table<Word, char *> &sendBuffer = *sendBufferPtr_;
 
     typename Table<Word, char *>::iterator it = sendBuffer.begin();
 
@@ -523,4 +252,17 @@ void Field_new<SetType, Element>::freeSendRecvBuffer()
     }
     DELETE_OBJECT_POINTER(sendBufferPtr_);
   }
+}
+
+template<typename SetType, typename Element>
+Field<SetType, Element>::~Field()
+{
+  patchTabPtr_ = NULL;
+  commcator_   = NULL;
+  // par_std_out("deconstruct Field\n");
+  // if(data_)DELETE_POINTER(data_);
+  // freeSendRecvBuffer();
+  // if(sendTaskName_) DELETE_POINTER(sendTaskName_);
+  // if(recvTaskName_) DELETE_POINTER(recvTaskName_);
+  // if(ele_) DELETE_POINTER(ele_);
 }

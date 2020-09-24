@@ -102,7 +102,7 @@ void Region::initAfterBalance()
   par_std_out("finish set global node index to local node index ...\n");
 
   par_std_out("start initialize mesh information ...\n");
-  this->meshInfo_.init(mesh_);
+  // this->meshInfo_.init(mesh_);
   this->commcator_->barrier();
   par_std_out("finish initialize mesh information ...\n");
 }
@@ -439,6 +439,7 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
   const ArrayArray<label> &face2Cell_2 = mesh_.getTopology().getFace2Cell();
 
   Table<Word, Patch *> &patches = *allPatchTab[patchType];
+  par_std_out("patches: %s,%p\n",patchType.c_str(),allPatchTab[patchType]);
 
   label jj = 0;
   label faceSizeStart = innerFaceSize;
@@ -488,16 +489,20 @@ void Region::createInterFaces(Array<Array<label> > &faceCells, label cellNum)
 Region::~Region()
 {
   //- free interfaces created
-
+  par_std_out("deconstruct Region\n");
   //- delete Table<Word, Table<Word, Patch*>*>*
   if (patchTabPtr_)
   {
+    par_std_out("%p\n", patchTabPtr_);
     Table<Word, Table<Word, Patch *> *> &allPatchTab = *patchTabPtr_;
     Table<Word, Table<Word, Patch *> *>::iterator it1;
 
     //- delete Table<Word, Patch*>*
     for (it1 = allPatchTab.begin(); it1 != allPatchTab.end(); it1++)
     {
+      par_std_out("%s\n",it1->first.c_str());
+      // if(!it1->second) continue;
+      par_std_out("%p\n", it1->second);
       Table<Word, Patch *> *patchesPtr = it1->second;
       Table<Word, Patch *> &patches = *patchesPtr;
       Table<Word, Patch *>::iterator it2;
@@ -511,5 +516,6 @@ Region::~Region()
     }
     DELETE_OBJECT_POINTER(patchTabPtr_);
   }
+  par_std_out("finish deconstruct Region\n");
 }
 }  // end namespace HSF

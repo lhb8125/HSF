@@ -502,10 +502,15 @@ label Section::getFaceType(int nodeNum)
 	{
 		case 3 : return TRI_3;
 		case 4 : return QUAD_4;
+		case 5 : return PYRA_5;
 		case 6 : return TRI_6;
 		case 8 : return QUAD_8;
 		case 9 : return TRI_9;
-		default: Terminate("get the face type", "unknown type");
+		default: 
+		{
+			printf("%d\n", nodeNum);
+			Terminate("get the face type", "unknown type");
+		}
 	}
 }
 

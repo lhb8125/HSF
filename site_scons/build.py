@@ -12,6 +12,7 @@ chost_source_files = []
 cslave_source_files = []
 cxxhost_source_files = []
 
+
 def build_object(baseenv,
                  sources,
                  program_inc,
@@ -24,17 +25,19 @@ def build_object(baseenv,
 
     if sources_type == 'host':
         libenv.Replace(
-            CCCOM='$CC_HOST -host -OPT:IEEE_arith=2 -c -o $TARGET $SOURCES')
+            CCCOM='$CC_HOST -host -OPT:IEEE_arith=2 -DLABEL_INT$INT_TYPE \
+                  -DSCALAR_FLOAT$FLOAT_TYPE -g -O2 $_CPPINCFLAGS \
+                  -c -o $TARGET $SOURCES')
     elif sources_type == 'slave':
         libenv.Replace(
             CCCOM=
-            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -DLABEL_INT64 -I/home/export/online3/amd_dev1/liuhb/unat/install/include  \
-            -Iinstall/sw64swg++DPOpt/include \
-            -I/home/export/online3/amd_dev1/liuhb/utilities/install/sw64swg++DPOpt/include \
+            '$CC_SLAVE -slave -OPT:IEEE_arith=2 -msimd -DLABEL_INT$INT_TYPE \
+            -DSCALAR_FLOAT$FLOAT_TYPE -g -O2 $_CPPINCFLAGS \
             -c -o $TARGET $SOURCES')
 
     objs = libenv.Object(source=sources)
     return objs
+
 
 def build_lib(baseenv,
               target,

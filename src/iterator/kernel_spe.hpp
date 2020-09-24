@@ -1,9 +1,10 @@
-#ifndef KERNEL_SPE_H
-#define KERNEL_SPE_H
+#ifndef HSF_KERNEL_SPE_H
+#define HSF_KERNEL_SPE_H
 #include "region.hpp"
 #include "field.hpp"
 #include "utilities.h"
-
+#include "scalar.hpp"
+#include "setType.hpp"
 using namespace HSF;
 
 

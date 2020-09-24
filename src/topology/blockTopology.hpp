@@ -128,7 +128,7 @@ public:
 	/**
 	* @brief get the face2Cell topology
 	*/
-	ArrayArray<label> getFace2Cell(){return this->face2Cell_;};
+	ArrayArray<label>& getFace2Cell(){return this->face2Cell_;};
 	/**
 	* @brief set the face2Cell topology
 	*/

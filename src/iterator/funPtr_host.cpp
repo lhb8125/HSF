@@ -14,9 +14,9 @@ void spMV(Region& reg, Word A, Word x, Word b,
     const label pi, const StructS s, const label32* arr)
 {
 #pragma message("getField")
-    Field<scalar> &fieldA = reg.getField<scalar>(A);
-    Field<scalar> &fieldx = reg.getField<scalar>(x);
-    Field<scalar> &fieldb = reg.getField<scalar>(b);
+    Field<Cell, ScalarEle<scalar> > &fieldx = reg.getField<Cell, ScalarEle<scalar> >(x);
+    Field<Cell, ScalarEle<scalar> > &fieldb = reg.getField<Cell, ScalarEle<scalar> >(b);
+    Field<Face, ScalarEle<scalar> > &fieldA = reg.getField<Face, ScalarEle<scalar> >(A);
 #pragma message("getTopology")
     ArrayArray<label> topo = reg.getTopology<label>(3, &A, &x, &b);
     label n = reg.getSize(3, &A, &x, &b);
@@ -36,18 +36,21 @@ void spMV(Region& reg, Word A, Word x, Word b,
 void integration(Region& reg, Word flux, Word U)
 {
 #pragma message("getField")
-    Field<scalar> &fieldFlux = reg.getField<scalar>(flux);
-    Field<scalar> &fieldU    = reg.getField<scalar>(U);
+    Field<Cell, ScalarEle<scalar> > &fnU = reg.getField<Cell, ScalarEle<scalar> >(U);
+    Field<Face, ScalarEle<scalar> > &fnFlux = reg.getField<Face, ScalarEle<scalar> >(flux);
 #pragma message("getTopology")
     ArrayArray<label> tp = reg.getTopology<label>(2, &flux, &U);
     label nn = reg.getSize(2, &flux, &U);
+    // label nn = reg.getMesh().getTopology().getFacesNum();
 
 #pragma message("compute")
     int i;
     for (i = 0; i < nn; ++i)
     {
         label row = tp[i][0];
-        fieldU[row][0] += fieldFlux[i][0];
+        label col = tp[i][1];
+        fnU[row][0] += fnFlux[i][0];
+        fnU[col][0] += fnFlux[i][0];
     }
 }
 
@@ -55,13 +58,13 @@ void calcLudsFcc(Region& reg, Word massFlux, Word cellx, Word fcc, Word facex,
     Word rface0, Word rface1, Word S)
 {
 #pragma message("getField")
-    Field<scalar> &fMassFlux = reg.getField<scalar>(massFlux);
-    Field<scalar> &fCellx    = reg.getField<scalar>(cellx);
-    Field<scalar> &fFcc      = reg.getField<scalar>(fcc);
-    Field<scalar> &fFacex    = reg.getField<scalar>(facex);
-    Field<scalar> &fRface0   = reg.getField<scalar>(rface0);
-    Field<scalar> &fRface1   = reg.getField<scalar>(rface1);
-    Field<scalar> &fS   = reg.getField<scalar>(S);
+    Field<Face, ScalarEle<scalar> > &fMassFlux = reg.getField<Face, ScalarEle<scalar> >(massFlux);
+    Field<Cell, ScalarEle<scalar> > &fCellx    = reg.getField<Cell, ScalarEle<scalar> >(cellx);
+    Field<Face, ScalarEle<scalar> > &fFcc      = reg.getField<Face, ScalarEle<scalar> >(fcc);
+    Field<Face, ScalarEle<scalar> > &fFacex    = reg.getField<Face, ScalarEle<scalar> >(facex);
+    Field<Face, ScalarEle<scalar> > &fRface0   = reg.getField<Face, ScalarEle<scalar> >(rface0);
+    Field<Face, ScalarEle<scalar> > &fRface1   = reg.getField<Face, ScalarEle<scalar> >(rface1);
+    Field<Cell, ScalarEle<scalar> > &fS        = reg.getField<Cell, ScalarEle<scalar> >(S);
 #pragma message("getTopology")
     ArrayArray<label> tp = reg.getTopology<label>(7, &massFlux, &cellx, &fcc, &facex, &rface0, &rface1, &S);
     label nn = reg.getSize(7, &massFlux, &cellx, &fcc, &facex, &rface0, &rface1, &S);

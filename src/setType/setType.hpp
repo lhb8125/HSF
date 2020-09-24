@@ -11,4 +11,20 @@ public:
     
 };
 
+class Cell : public SetType
+{
+public:
+    Cell();
+    ~Cell();
+    
+};
+
+class Face : public SetType
+{
+public:
+    Face();
+    ~Face();
+    
+};
+
 #endif

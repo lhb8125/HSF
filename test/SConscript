@@ -22,12 +22,12 @@ build_app(env,
 #     program_libs.append('fmpich2g')
 # program_libs.append('msmpifec')
 # program_libs.append('msmpifmc')
-build_app(env,
-          target='blk_test',
-          sources=fortranfile[0],
-          program_inc=THIRDPARTY_INCS,
-          program_libs=THIRDPARTY_LIBS,
-          linker=env['F_LINKER'])
+# build_app(env,
+#           target='blk_test',
+#           sources=fortranfile[0],
+#           program_inc=THIRDPARTY_INCS,
+#           program_libs=THIRDPARTY_LIBS,
+#           linker=env['F_LINKER'])
 
 
 # build_app(env,

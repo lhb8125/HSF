@@ -14,7 +14,7 @@
 #include "cgnslib.h"
 #include "mpi.h"
 #include "mesh.hpp"
-#include "meshInfo.hpp"
+// #include "meshInfo.hpp"
 #include "boundary.hpp"
 #include "patch.hpp"
 #include "field.hpp"
@@ -33,16 +33,18 @@ private:
 
 	Mesh mesh_; ///< internal mesh
 
-    MeshInfo meshInfo_; ///< mesh information
+    // MeshInfo meshInfo_; ///< mesh information
 
 	Boundary boundary_; ///< boundary mesh and condition
 
 	/// guhf
 	Table<Word, Table<Word, Patch*>*>* patchTabPtr_; ///< communication topology
 
-    Table<Word, Table<Word, scalarField*>*>* scalarFieldTabPtr_; ///< scalar field
+    // Table<Word, Table<Word, scalarField*>*>* scalarFieldTabPtr_; ///< scalar field
 
-    Table<Word, Table<Word, labelField*>*>* labelFieldTabPtr_; ///< label field
+    // Table<Word, Table<Word, labelField*>*>* labelFieldTabPtr_; ///< label field
+
+    Table<Word, void* >* fieldTabPtr_; 
 
     // liuhb
     Table<Word, label> fieldToFs_;
@@ -57,16 +59,14 @@ public:
    Region()
     :
     patchTabPtr_(NULL),
-    scalarFieldTabPtr_(NULL),
-    labelFieldTabPtr_(NULL),
+    fieldTabPtr_(NULL),
     commcator_(NULL)
     {}
 
 	Region(Communicator &other_comm)
     :
     patchTabPtr_(NULL),
-    scalarFieldTabPtr_(NULL),
-    labelFieldTabPtr_(NULL),
+    fieldTabPtr_(NULL),
     commcator_(&other_comm),
     mesh_(other_comm),
     boundary_(other_comm)
@@ -74,6 +74,11 @@ public:
 
     // return communicator
     Communicator &getCommunicator() { return *commcator_; };
+
+    void setCommunicator(Communicator* communicator) 
+    {
+        this->commcator_ = communicator;
+    };
 
     /**
     * @brief deconstructor
@@ -125,9 +130,11 @@ public:
     * @param[in]  fieldType field type
     * @tparam T label, scalar
     */
-    template<typename T>
-    void writeField(const char* resFile, const char* fieldName,
-        const char* fieldType);
+    // template<typename T>
+    // void writeField(const char* resFile, const char* fieldName,
+    //     const char* fieldType);
+    template<class SetType, class Element>
+    void writeField(const char* resFile, const char* fieldName);
 
 	// guhf
     /**
@@ -148,16 +155,16 @@ public:
      *
      * @param[in]   fieldName The field name
      */
-    template<typename T>
-    void initField(const Word, const Word);
+    // template<typename T>
+    // void initField(const Word, const Word);
 
     /**
      * @brief      update the fields
      *
      * @param[in]  fieldName  The field name
      */
-    template<typename T>
-    void updateField(const Word, const Word);
+    // template<typename T>
+    // void updateField(const Word, const Word);
 
     /**
      * @brief Gets the field from field table.
@@ -166,8 +173,19 @@ public:
      * @tparam T label, scalar
      * @return The field.
      */
-    template<typename T>
-    Field<T>& getField(const Word fieldType, const Word fieldName);
+    // template<typename T>
+    // Field<T>& getField(const Word fieldType, const Word fieldName);
+
+    template<class SetType, class Element>
+    Field<SetType, Element>& getField(const Word fieldName);
+    /**
+     * @brief      Adds a field to region.
+     * @param[in]  name  field name
+     * @param      f  field pointer
+     * @tparam     T          label, scalar
+     */
+    // template<typename T>
+    // void addField(Word name, Field<T>* f);
 
     /**
      * @brief      Adds a field to region.
@@ -175,16 +193,16 @@ public:
      * @param      f  field pointer
      * @tparam     T          label, scalar
      */
-    template<typename T>
-    void addField(Word name, Field<T>* f);
+    template<class SetType, class Element>
+    void addField(Word name, Field<SetType, Element>* f);
 
     /**
      * @brief       delete a named field
      * @param[in]  Word  field setType: face, node, ...
      * @param[in]  Word  field name
      */
-    template<typename T>
-    void deleteField(Word, Word);
+    // template<typename T>
+    // void deleteField(Word, Word);
 
     /**************************************************************
     ***********************interface*******************************
@@ -196,8 +214,8 @@ public:
      * @tparam T label, scalar
      * @return The field.
      */
-    template<typename T>
-    Field<T>& getField(const Word fieldName);
+    // template<typename T>
+    // Field<T>& getField(const Word fieldName);
 
     /**
      TODO
@@ -207,7 +225,7 @@ public:
      * @return The topology
      */
     template<typename T>
-    ArrayArray<T> getTopology(label32 nPara, ...);
+    ArrayArray<T>& getTopology(label32 nPara, ...);
 
     /**
      TODO
@@ -217,7 +235,7 @@ public:
      * @return The topology
      */
     template<typename T>
-    ArrayArray<T> getTopology(Array<Word> setTypeList);
+    ArrayArray<T>& getTopology(Array<Word> setTypeList);
 
 };
 
